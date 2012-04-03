@@ -1,51 +1,14 @@
 /*********************************************************************************************//**
- *
  * @file
- *
- * ------------------------------------------------------------------------------------------------
- *
- * @page        page3 Literatura i korisna dokumentacija
- *
  *************************************************************************************************
 
+@page        page3 Literatura i korisna dokumentacija
 @section     	lit_papers Literatura
 	
-	- IBM predlog koncepta za event processing arhitekturu: @n
-	http://www.ibm.com/developerworks/webservices/library/ws-eventprocessing/index.html
-
-	- Event-Driven Architecture Overview @n
-	Brenda M. Michelson
-
-	- Tehnicko drustvo za event processing: @n
-    http://www.ep-ts.com/
-
-    - UML Tutorial: Finite State Machines @n
-    Robert C. Martin @n
-    Engineering Notebook Column
-
-    - Practical UML Statecharts in C/C++ @n
-    Miro Samek@n
-    http://www.state-machine.com/psicc2/index.php
-
-    - Statecharts: A visual formalism for complex systems @n
-    David Harel
-
-    - Nesos - Finite State Machine Operating System Reference Guide @n
-    Jan Erik Nilsen @n
-    http://www.nilsenelektronikk.no
-
-    - Object-oriented programming with ANSI-C @n
-    Axel-Tobias Schreiner
-
     - Trace Recording for Embedded Systems: Lessons Learned from Five Industrial Projects @n
     Johan Kraft , Anders Wall and Holger Kienle
 
 @section     	lit_links Preporuceni linkovi
-
-    - Quantum Leaps @n
-    Quantum Leaps, pruza state-machine framework i graficke alate za modeliranje 
-    za real time embedded sisteme. @n
-    http://www.state-machine.com
 
     - BeRTOS is a real time open source operating system @n BeRTOS je odlican 
     real time OS koji poseduje mnostvo kvalitetnih ideja i koncepta 
@@ -75,4 +38,4 @@
     - Stil kodiranja u eSolid-u: @n
     http://blueskynet.dyndns-server.com/doc/D0020-Stilovi%20kodiranja%20(Software).pdf
 
- *************************************************************************************************/
+**//**********************************************************************************************/

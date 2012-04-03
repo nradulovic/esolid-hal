@@ -1,24 +1,17 @@
 /*********************************************************************************************//**
- *
  * @file
- *
- * ------------------------------------------------------------------------------------------------
- *
- * @addtogroup  eSolid_intf
- *
  ****************************************************************************************//** @{ */
 /**
- * @defgroup    hal_intf Hardware Abstraction Layer (HAL)
- *
+ * @defgroup    hal_intf Hardware Abstraction Layer (HAL) interface
  * @brief       Ova sekcija opisuje tehnicke detalje podrzanih HAL portova.
- *
+ * @todo		Treba uskladiti dokumentaciju sa implementacijom
  *************************************************************************************************
-  
+
 @section        hal_doc Hardware Abstraction Layer (preliminary)
 
     U ovom odeljku je predstavljena specifikacija Hardware Abstraction Layer
-    (HAL) modula. HAL vrši apstrakciju procesorske arhitekture i/ili platforme
-    na nivo dovoljan za eSolid jezgro da bude prebačeno (port) na tu platformu.
+    (HAL) modula. HAL vrsi apstrakciju procesorske arhitekture i/ili platforme
+    na nivo dovoljan za eSolid jezgro da bude prebaceno (port) na tu platformu.
 
 @subsection     doc_ports Portovanje sistema
 
@@ -37,7 +30,7 @@
     HAL je organizovan u tri nivoa:
     - HAL arhitektura vrsi apstrakciju osnovne procesorske arhitekture i 
     obuhvata objekte kao sto su opsluzivanje prekida, prebacivanje konteksta,
-    start-up sekvencu i slično.
+    start-up sekvencu i slicno.
     - HAL varijanta pokriva specificne osobine procesora kao sto su kes memorija,
     MMU i FPU. HAL varijanta je, takodje, zaduzen za memorijske i prekidne 
     kontrolere na samom cipu. Obicno se za arhitekturne varijacije 
