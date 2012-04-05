@@ -45,15 +45,14 @@
  * Module dependencies
  *-----------------------------------------------------------------------------------------------*/
 
-#include "port/port.h"
 
 
 /*-----------------------------------------------------------------------------------------------*
  * Module configuration and adapter
  *-----------------------------------------------------------------------------------------------*/
 
-#include PORT_ARCH_HEADER(hal/compiler)
-#include PORT_CMN_HEADER(hal/compiler)
+#include PORT_ARCH_HEADER(compiler)
+#include PORT_CMN_HEADER(compiler)
 
 
 /*-----------------------------------------------------------------------------------------------*
@@ -390,6 +389,16 @@
 /*-----------------------------------------------------------------------------------------------*/
 #if !defined(C_ROM_VAR) || defined(__DOXYGEN__)
 # define C_ROM_VAR
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Deklaracija prekidne rutine
+ * @details     Ovaj makro je uveden jer neki kompajleri zahtevaju dodatne
+ *              atribute za funkcije kada se deklarise funkcija za prekid.
+ *//*--------------------------------------------------------------------------------------------*/
+#if !defined(C_INTERRUPT_HANDLER) || defined(__DOXYGEN__)
+# define C_INTERRUPT_HANDLER(name)                                              \
+    void name (void)
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/

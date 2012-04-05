@@ -1,0 +1,7 @@
+Verzija 1.0a02
+
+hal/hal_compiler.h
+- dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
+
+hal/hal_uart.h
+- kreira se potpuno nov interfejs od dosadasnjeg

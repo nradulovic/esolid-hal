@@ -45,12 +45,12 @@
 /*-----------------------------------------------------------------------------------------------*
  * Module dependencies
  *-----------------------------------------------------------------------------------------------*/
-
+#include "cfg/hal_cfg.h"
 #include "hal_compiler.h"
 #include "hal_cpu.h"
 #include "hal_interrupt.h"
 #include "hal_gpio.h"
-#include "hal_usart.h"
+#include "hal_uart.h"
 #include "hal_crc.h"
 #include "hal_support.h"
 
