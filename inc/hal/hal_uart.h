@@ -43,6 +43,26 @@
 
 /*============================================================================  INCLUDE FILES  ==*/
 /*==================================================================================  DEFINES  ==*/
+
+enum esUartMode {
+    ES_UART_MODE_TX_AND_RX,
+    ES_UART_MODE_TX_ONLY,
+    ES_UART_MODE_RX_ONLY,
+};
+
+typedef enum esUartError {
+    ES_UART_ERR_OVERRUN,
+    ES_UART_ERR_FRAMING,
+    ES_UART_ERR_NOISE,
+    ES_UART_ERR_PARITY,
+} esUartError_T;
+
+enum esUartParity {
+    ES_UART_PARITY_NONE,
+    ES_UART_PARITY_EVEN,
+    ES_UART_PARITY_ODD
+};
+
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
@@ -51,43 +71,92 @@ extern "C" {
 
 /*===============================================================================  DATA TYPES  ==*/
 
-typedef struct uartDrvState uartDrvState_T;
-typedef struct uartDrvDef uartDrvDef_T;
+typedef struct uartDrv esUartDrv_T;
+typedef struct esUartDrvDef esUartDrvDef_T;
 
-typedef void (* uartCallback_T) (uartDrvDef_T *);
+typedef enum esUartStatus {
+    ES_UART_INACTIVE,
+    ES_UART_ACTIVE,
+    ES_UART_READY,
+    ES_UART_BUSY,
+    ES_UART_ERROR
+} esUartStatus_T;
 
-typedef enum esUARTMode {
-    UART_TX_ENABLE,
-    UART_RX_ENABLE
-} esUARTMode_T;
+typedef void (* esUartHandler_T) (esUartDrv_T *);
+typedef void (* esUartErrHandler_T) (esUartError_T);
 
-struct esUARTDrvDef {
+struct esUartDrvDef {
     uint32_t        baudrate;
-    esUARTMode_T    mode;
+    uint8_t         dataBits;
+    uint8_t         stopBits;
+/**
+ * @brief       Rezim rada UART-a.
+ * @details     Postoje tri rezima rada:
+ *              - ES_UART_TX_AND_RX - koristi se ceo UART modul,
+ *              - ES_UART_TX_ONLY - koristi se samo predajna sekcija UART-a
+ *              - ES_UART_RX_ONLY - koristi se samo prijemna sekcija UART-a
+ */
+    enum esUartMode uartMode;
+
 /**
  * @brief       Funkcija za predaju
+ * @details     U zavisnosti od konfiguracije drajvera, ova funkcija se poziva:
+ *              - kada je predat jedan karakter,
+ *              - kada je bafer za slanje prazan.
+ */
+    esUartHandler_T  pTxHandler;
+
+/**
+ * @brief       Funkcija za prijem
  * @details     U zavisnosti od konfiguracije drajvera, ova funkcija se poziva:
  *              - kada je primljen jedan karakter,
  *              - kada je bafer za prijem pun.
  */
-    uartCallback_T  pTransmist;
-    uartCallback_T  pReceive;
-    uartCallback_T  pError;
-    uint8_t         * buff;
-    size_t          buffSize;
+    esUartHandler_T  pRxHandler;
+    esUartErrHandler_T  pErrorHandler;
 };
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       UART driver inicijalizacija
- * @details     Vrsi inicijalizaciju UART hardvera i postavlja ga u neaktivno
- *              stanje.
- *//*--------------------------------------------------------------------------------------------*/
-void uartModuleInit(
-    void);
+void esUartStart(
+    esUartDrv_T     * aUart,
+    const esUartDrvDef_T  * aDefinition);
 
+void esUartStop(
+    esUartDrv_T     * aUart);
+
+esUartStatus_T esUartStatus(
+    esUartDrv_T     * aUart);
+
+esUartStatus_T esUartTxStatus(
+    esUartDrv_T     * aUart);
+
+void esUartTxChar(
+    esUartDrv_T     * aUart,
+    uint8_t         aData);
+
+void esUartTxBegin(
+    esUartDrv_T     * aUart,
+    uint8_t         * aBuffer,
+    size_t          aSize);
+
+size_t esUartTxEnd(
+    esUartDrv_T     * aUart);
+
+esUartStatus_T esUartRxStatus(
+    esUartDrv_T     * aUart);
+
+uint8_t esUartRxChar(
+    esUartDrv_T     * aUart);
+
+void esUartRxBegin(
+    esUartDrv_T     * aUart,
+    uint8_t         * aBuffer,
+    size_t          aSize);
+
+size_t esUartRxEnd(
+    esUartDrv_T     * aUart);
 
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus

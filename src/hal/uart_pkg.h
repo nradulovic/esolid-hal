@@ -60,6 +60,7 @@ enum drvMarkers {
     RX_MARKER,
 };
 
+
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Macro group
@@ -74,14 +75,10 @@ extern "C" {
 
 /*===============================================================================  DATA TYPES  ==*/
 
-#if defined(OPT_OPTIMIZE_SPEED) || defined(__DOXYGEN__)
-typedef uint_fast8_t                    drvState_T;
-#else
-typedef uint8_t                         drvState_T;
-#endif
-
-struct uartDrvState {
-    drvState_T  drvState_T;
+struct uartDrv {
+    esUartDrvDef_T * drvDef;
+    esUartStatus_T txStatus;
+    esUartStatus_T rxStatus;
 };
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
@@ -93,9 +90,35 @@ struct uartDrvState {
 
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Function group
- * @brief       brief description
+ * @name        Privatne API funkcije
+ * @brief       Ovde se nalaze funkcije koje se interno pozivaju iskljucivo od
+ *              strane HAL-a.
  * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       UART modul inicijalizacija
+ * @details     Vrsi inicijalizaciju UART modula i postavlja ga u neaktivno
+ *              stanje.
+ *//*--------------------------------------------------------------------------------------------*/
+void uartModuleInit(
+    void);
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Portabilne API funkcije
+ * @brief       Implementacija ovih funkcija se menja u zavisnosti od koriscenog
+ *              porta.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       UART driver inicijalizacija
+ * @details     Vrsi inicijalizaciju/reset UART hardvera i postavlja ga u
+ *              neaktivno stanje.
+ *//*--------------------------------------------------------------------------------------------*/
+void lldUartDrvInit(
+    void);
+
+void lldUartDrvStart(
+    esUartDrv_T     * aUart);
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------  C++ extern end  --*/

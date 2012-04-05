@@ -204,7 +204,7 @@
 /**
  * @brief       Izvrsava deinicijalizaciju uarta.
  *
- * @param       uart                    Uart koji se deinicijalizuje.
+ * @param       regs                    Uart koji se deinicijalizuje.
  */
 /*-----------------------------------------------------------------------------------------------*/
 #if !defined(HAL_USART_DEINIT) || defined(__DOXYGEN__)

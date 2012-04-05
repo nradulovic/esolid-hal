@@ -1,7 +1,10 @@
 Verzija 1.0a02
 
-hal/hal_compiler.h
+inc/hal/hal_compiler.h
 - dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
 
-hal/hal_uart.h
-- kreira se potpuno nov interfejs od dosadasnjeg
+inc/hal/hal_uart.h
+- kreiran je potpuno nov interfejs (UART hardveru se pristupa kao char ili block device)
+
+src/hal/uart_pkg.h
+- ovde se nalazi privatan interfejs uart.c modula i javan interfejs uart.c (PORT) modula

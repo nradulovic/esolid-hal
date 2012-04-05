@@ -25,7 +25,7 @@
  *
  * @author      nesa
  *
- * @brief       Interfejs za USART modul STM32L1xx Medium Density serija, port
+ * @brief       Interfejs za UART modul STM32L1xx Medium Density serija, port
  *              klasa: varijanta.
  *
  * ------------------------------------------------------------------------------------------------
@@ -35,13 +35,17 @@
  ****************************************************************************************//** @{ */
 
 
-#ifndef VARNT_USART_H_
-#define VARNT_USART_H_
+#ifndef VARNT_UART_H_
+#define VARNT_UART_H_
 
 
 /*************************************************************************************************
  * INCLUDE FILES
  *************************************************************************************************/
+
+#include "stm32l1xx_rcc.h"
+#include "stm32l1xx_gpio.h"
+#include "stm32l1xx_usart.h"
 
 /*-----------------------------------------------------------------------------------------------*
  * Module dependencies
@@ -58,10 +62,10 @@
  *-----------------------------------------------------------------------------------*//** @cond */
 
 
-#ifdef VARNT_USART_H_VAR
-#define VARNT_USART_H_EXT
+#ifdef VARNT_UART_H_VAR
+#define VARNT_UART_H_EXT
 #else
-#define VARNT_USART_H_EXT extern
+#define VARNT_UART_H_EXT extern
 #endif
 
 
@@ -73,6 +77,39 @@
 /*************************************************************************************************
  * MACRO's
  *************************************************************************************************/
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+#define esUART1                                                                 \
+    ((esUartDrv_T *)&uart1drv)
+
+#define DBG_VALID_UART1_DRV(val)                                                \
+    (esUART1 == (val))
+#else
+#define DBG_VALID_UART1_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+#define esUART2                                                                 \
+    ((esUartDrv_T *)&uart2drv)
+
+#define DBG_VALID_UART2_DRV(val)                                                \
+    (esUART2 == (val))
+#else
+#define DBG_VALID_UART2_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+#define esUART3                                                                 \
+    ((esUartDrv_T *)&uart3drv)
+
+#define DBG_VALID_UART3_DRV(val)                                                \
+    (esUART3 == (val))
+#else
+#define DBG_VALID_UART3_DRV(val)                                                \
+    (0U)
+#endif
 
 
 /*-----------------------------------------------------------------------------------------------*
@@ -87,10 +124,23 @@ extern "C" {
  * DATA TYPES
  *************************************************************************************************/
 
+typedef struct uartDrvExt uartDrvExt_T;
 
 /*************************************************************************************************
  * GLOBAL VARIABLES
  *************************************************************************************************/
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+VARNT_UART_H_EXT uartDrvExt_T uart1drv;
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+VARNT_UART_H_EXT uartDrvExt_T esUart2drv;
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+VARNT_UART_H_EXT uartDrvExt_T esUart3drv;
+#endif
 
 
 /*************************************************************************************************
@@ -114,4 +164,4 @@ extern "C" {
 /** @endcond *//** @} *//*************************************************************************
  * END of usart.h
  *************************************************************************************************/
-#endif /* VARNT_USART_H_ */
+#endif /* VARNT_UART_H_ */

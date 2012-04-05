@@ -36,6 +36,7 @@
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
+#define VARNT_UART_H_EXT
 #include "../src/hal/uart_pkg.h"
 
 /*============================================================================  LOCAL DEFINES  ==*/
@@ -46,39 +47,118 @@ HAL_DBG_DEFINE_MODULE(UART Low Level Driver);
 
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
+
+struct uartDrvExt {
+    esUartDrv_T     super;
+    USART_TypeDef   * regs;
+};
+
 /*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
+
+void uartDrvHandler(
+    esUartDrv_T     * aDriver);
+
 /*==========================================================================  LOCAL VARIABLES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
-
+/*-----------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
 /**
  * @brief       Prekidna rutina za UART1
  */
 C_INTERRUPT_HANDLER(USART1_IRQHandler) {
 
+    uartDrvHandler(
+        esUART1);
 }
 #endif
 
+/*-----------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
 /**
  * @brief       Prekidna rutina za UART2
  */
 C_INTERRUPT_HANDLER(USART2_IRQHandler) {
 
+    uartDrvHandler(
+        esUART2);
 }
 #endif
 
+/*-----------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
 /**
  * @brief       Prekidna rutina za UART3
  */
 C_INTERRUPT_HANDLER(USART3_IRQHandler) {
 
+    uartDrvHandler(
+        esUART3);
 }
 #endif
 
-/*==============================================================  GLOBAL FUNCTION DEFINITIONS  ==*/
+/*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
+/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+#if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
+/*-----------------------------------------------------------------------------------------------*/
+void lldUartDrvInit(
+    void) {
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+    uart1drv.regs = USART1;
+    RCC->APB2RSTR |= RCC_APB2RSTR_USART1RST;                                    /* Reset hardvera - aktivno.                                */
+    RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST;                                   /* Reset hardvera - neaktivno.                              */
+    RCC->APB2ENR  &= ~RCC_APB2ENR_USART1EN;                                     /* Iskljuci takt.                                           */
+    RCC->APB2LPENR &= ~RCC_APB2LPENR_USART1LPEN;                                /* Iskljuci low-power takt.                                 */
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+    uart2drv.regs = USART2;
+    RCC->APB1RSTR |= RCC_APB1RSTR_USART2RST;
+    RCC->APB1RSTR &= ~RCC_APB1RSTR_USART2RST;
+    RCC->APB1ENR  &= ~RCC_APB1ENR_USART2EN;
+    RCC->APB1LPENR &= ~RCC_APB2LPENR_USART2LPEN;
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+    uart3drv.regs = USART3;
+    RCC->APB1RSTR |= RCC_APB1RSTR_USART3RST;
+    RCC->APB1RSTR &= ~RCC_APB1RSTR_USART3RST;
+    RCC->APB1ENR  &= ~RCC_APB1ENR_USART3EN;
+    RCC->APB1LPENR &= ~RCC_APB2LPENR_USART3LPEN;
+#endif
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+void lldUartDrvStart(
+    esUartDrv_T     * aUart) {
+
+    USART_InitTypeDef USART_InitStructure;
+    NVIC_InitTypeDef NVIC_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStructure;
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+    if (esUART1 == aUart) {
+        RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+    }
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+    if (esUART2 == aUart) {
+        RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
+    }
+#endif
+
+#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+    if (esUART2 == aUart) {
+        RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+    }
+#endif
+
+
+}
+
+#endif /* OPT_HAL_UART */
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
