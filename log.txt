@@ -1,10 +1,20 @@
 Verzija 1.0a02
 
+inc/hal/hal.h
+- dodat je enumerator za status drajvera
+
 inc/hal/hal_compiler.h
 - dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
+
+inc/hal/hal_gpio.h
+- kreiran je potpuno nov interfejs
 
 inc/hal/hal_uart.h
 - kreiran je potpuno nov interfejs (UART hardveru se pristupa kao char ili block device)
 
+inc/hal/cfg/hal_cfg.h
+- vrsi se minimalna provera konfiguracionih opcija
+
 src/hal/uart_pkg.h
 - ovde se nalazi privatan interfejs uart.c modula i javan interfejs uart.c (PORT) modula
+

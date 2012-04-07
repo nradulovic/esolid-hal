@@ -1,6 +1,8 @@
 /*************************************************************************************************
  * This file is part of eSolid
  *
+ * Template version: 1.1.13 (24.03.2012)
+ *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
  * eSolid is free software; you can redistribute it and/or modify
@@ -26,26 +28,25 @@
 /*********************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Interfejs UART Low Level Driver modula.
+ * @brief       Interfejs GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_uart
+ * @addtogroup  stm32l1xx_md_gpio
  ****************************************************************************************//** @{ */
 
 
-#ifndef UART_LLD_H_
-#define UART_LLD_H_
+#ifndef GPIO_LLD_H_
+#define GPIO_LLD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
 #include "stm32l1xx_rcc.h"
 #include "stm32l1xx_gpio.h"
-#include "stm32l1xx_usart.h"
 
 /*----------------------------------------------------------------------------------  EXTERNS  --*/
 /** @cond */
-#ifdef UART_LLD_H_VAR
-# define UART_LLD_H_EXT
+#ifdef GPIO_LLD_H_VAR
+# define GPIO_LLD_H_EXT
 #else
-# define UART_LLD_H_EXT extern
+# define GPIO_LLD_H_EXT extern
 #endif
 /** @endcond*/
 
@@ -54,57 +55,99 @@
  * @name        Definition group
  * @brief       brief description
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART)
-# if defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#  define esUART1                       ((esUartDrv_T *)&uart1drv)
+#if defined(OPT_HAL_GPIO)
+# if defined(OPT_HAL_GPIO_USE_A)
+#  define esGPIOA                       ((esGpioDrv_T *)&gpioADrv)
 # endif
 
-# if defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#  define esUART2                       ((esUartDrv_T *)&uart2drv)
+# if defined(OPT_HAL_GPIO_USE_B)
+#  define esGPIOB                       ((esGpioDrv_T *)&gpioBDrv)
 # endif
 
-# if defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#  define esUART3                       ((esUartDrv_T *)&uart3drv)
+# if defined(OPT_HAL_GPIO_USE_C)
+#  define esGPIOC                       ((esGpioDrv_T *)&gpioCDrv)
 # endif
-#endif /* OPT_HAL_UART */
+
+# if defined(OPT_HAL_GPIO_USE_D)
+#  define esGPIOD                       ((esGpioDrv_T *)&gpioDDrv)
+# endif
+
+# if defined(OPT_HAL_GPIO_USE_E)
+#  define esGPIOE                       ((esGpioDrv_T *)&gpioEDrv)
+# endif
+
+    /*Ne postoje portovi F i G */
+
+# if defined(OPT_HAL_GPIO_USE_H)
+#  define esGPIOH                       ((esGpioDrv_T *)&gpioHDrv)
+# endif
+#endif /* OPT_HAL_GPIO */
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==================================================================================  MACRO's  ==*/
-
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Macro group
  * @brief       brief description
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (esUART1 == (val))
+
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOA_DRV(val)                                                \
+    (esGPIOA == (val))
 #else
-#define DBG_VALID_UART1_DRV(val)                                                \
+#define DBG_VALID_GPIOA_DRV(val)                                                \
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (esUART2 == (val))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOB_DRV(val)                                                \
+    (esGPIOB == (val))
 #else
-#define DBG_VALID_UART2_DRV(val)                                                \
+#define DBG_VALID_GPIOB_DRV(val)                                                \
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (esUART3 == (val))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOC_DRV(val)                                                \
+    (esGPIOC == (val))
 #else
-#define DBG_VALID_UART3_DRV(val)                                                \
+#define DBG_VALID_GPIOC_DRV(val)                                                \
     (0U)
 #endif
 
-#define UART_DRV_LIST(uart)                                                     \
-    (DBG_VALID_UART1_DRV(uart) ||                                               \
-     DBG_VALID_UART2_DRV(uart) ||                                               \
-     DBG_VALID_UART3_DRV(uart))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOD_DRV(val)                                                \
+    (esGPIOD == (val))
+#else
+#define DBG_VALID_GPIOD_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOE_DRV(val)                                                \
+    (esGPIOE == (val))
+#else
+#define DBG_VALID_GPIOE_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOH_DRV(val)                                                \
+    (esGPIOH == (val))
+#else
+#define DBG_VALID_GPIOH_DRV(val)                                                \
+    (0U)
+#endif
+
+#define GPIO_DRV_LIST(uart)                                                     \
+    (DBG_VALID_GPIOA_DRV(uart) ||                                               \
+     DBG_VALID_GPIOB_DRV(uart) ||                                               \
+     DBG_VALID_GPIOC_DRV(uart) ||                                               \
+     DBG_VALID_GPIOD_DRV(uart) ||                                               \
+     DBG_VALID_GPIOE_DRV(uart) ||                                               \
+     DBG_VALID_GPIOH_DRV(uart))
 
 /** @} *//*--------------------------------------------------------------------------------------*/
+
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
@@ -115,18 +158,43 @@ extern "C" {
  * @name        Data types group
  * @brief       brief description
  * @{ *//*---------------------------------------------------------------------------------------*/
-typedef struct uartDrvIntr {
-    USART_TypeDef   * regs;
-} uartDrvIntr_T;
-
-typedef struct esUartId {
-    USART_TypeDef   * regs;
-    uint8_t         number;
-} esUartHwId_T;
+typedef struct gpioDrvExt gpioDrvExt_T;
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Variables group
+ * @brief       brief description
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#if defined(OPT_HAL_GPIO)
+# if defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioADrv;
+# endif
+
+# if defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioBDrv;
+# endif
+
+#if defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioCDrv;
+# endif
+
+#if defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioDDrv;
+# endif
+
+#if defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioEDrv;
+# endif
+
+#if defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
+GPIO_LLD_H_EXT gpioDrvExt_T gpioHDrv;
+# endif
+#endif /* OPT_HAL_GPIO */
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Function group
@@ -141,33 +209,7 @@ typedef struct esUartId {
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if !defined(OPT_HAL_GPIO) && defined(OPT_HAL_UART)
-# error "HAL=>UART: You must enable OPT_HAL_GPIO option to manage the UART pins."
-#else
-# if defined(OPT_HAL_UART)
-#  if defined(OPT_HAL_UART_USE_1)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_A option to manage UART1 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_2)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_A option to manage UART2 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_3)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_B option to manage UART3 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_4)
-#   error "HAL=>UART: This port does not support OPT_HAL_UART_USE_4"
-#  endif
-# endif
-#endif
-
-
 /** @endcond *//** @} *//*************************************************************************
- * END of uart_lld.h
+ * END of gpio_lld.h
  *************************************************************************************************/
-#endif /* UART_LLD_H_ */
+#endif /* GPIO_LLD_H_ */

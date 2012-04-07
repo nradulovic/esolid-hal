@@ -95,12 +95,12 @@
 #endif
 
 /*--------------------------------------------------------------------------------------------*//**
- * @brief   	Brzina rada UART-a
+ * @brief       Omogucivanje pojedinih UART modula
+ * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
  *//*--------------------------------------------------------------------------------------------*/
-#if !defined(OPT_HAL_UART_SPEED) || defined(__DOXYGEN__)
-# define OPT_HAL_UART_SPEED             9600
+#if defined(__DOXYGEN__)
+# define OPT_HAL_UART_USE_4
 #endif
-/** @} *//*--------------------------------------------------------------------------------------*/
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -137,8 +137,9 @@
 #if defined(OPT_HAL_UART)
 #if !defined(OPT_HAL_UART_USE_1) && \
     !defined(OPT_HAL_UART_USE_2) && \
-    !defined(OPT_HAL_UART_USE_3)
-# error "HAL_UART module: You must enable at least one UART module!"
+    !defined(OPT_HAL_UART_USE_3) && \
+    !defined(OPT_HAL_UART_USE_4)
+# error "HAL: You must enable at least one UART module! Use option OPT_HAL_UART_USE_<x> where x is: 1-4."
 #endif
 
 /** @endcond *//** @} *//*************************************************************************

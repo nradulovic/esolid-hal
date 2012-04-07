@@ -32,12 +32,12 @@
  ****************************************************************************************//** @{ */
 /**
  * @defgroup    stm32l1xx_md_uart_impl
- * @brief
+ * @brief       UART Low Level Driver modul.
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
-#define VARNT_UART_H_EXT
-#include "../src/hal/uart_pkg.h"
+#define UART_LLD_H_VAR
+#include "../src/hal/hal_private.h"
 
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -56,12 +56,6 @@ HAL_DBG_DEFINE_MODULE(UART Low Level Driver);
 
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
-
-struct uartDrvExt {
-    esUartDrv_T     super;
-    USART_TypeDef   * regs;
-};
-
 /*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
 
 void uartDrvHandler(
@@ -113,51 +107,42 @@ C_INTERRUPT_HANDLER(USART3_IRQHandler) {
 void lldUartDrvInit(
     void) {
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+#if defined(OPT_HAL_UART)
+# if defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
     uart1drv.regs = USART1;
-    RCC->AHBRSTR |= RCC_AHBRSTR_GPIOARST;                                       /* Reset GPIO hardvera - aktivno.                           */
-    RCC->AHBRSTR &= ~RCC_AHBRSTR_GPIOARST;                                      /* Reset GPIO hardvera - neaktivno.                         */
-    RCC->AHBENR  &= ~RCC_AHBENR_GPIOAEN;                                        /* Iskljuci GPIO takt.                                      */
-    RCC->AHBLPENR &= ~RCC_AHBLPENR_GPIOALPEN;                                   /* Iskljuci GPIO lowpower takt                              */
     RCC->APB2RSTR |= RCC_APB2RSTR_USART1RST;                                    /* Reset UART hardvera - aktivno.                           */
     RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST;                                   /* Reset UART hardvera - neaktivno.                         */
     RCC->APB2ENR  &= ~RCC_APB2ENR_USART1EN;                                     /* Iskljuci UART takt.                                      */
     RCC->APB2LPENR &= ~RCC_APB2LPENR_USART1LPEN;                                /* Iskljuci UART low-power takt.                            */
-#endif
+# endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
     uart2drv.regs = USART2;
-    RCC->AHBRSTR |= RCC_AHBRSTR_GPIOARST;
-    RCC->AHBRSTR &= ~RCC_AHBRSTR_GPIOARST;
-    RCC->AHBENR  &= ~RCC_AHBENR_GPIOAEN;
-    RCC->AHBLPENR &= ~RCC_AHBLPENR_GPIOALPEN;
     RCC->APB1RSTR |= RCC_APB1RSTR_USART2RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART2RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART2EN;
     RCC->APB1LPENR &= ~RCC_APB2LPENR_USART2LPEN;
-#endif
+# endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
     uart3drv.regs = USART3;
-    RCC->AHBRSTR |= RCC_AHBRSTR_GPIOBRST;
-    RCC->AHBRSTR &= ~RCC_AHBRSTR_GPIOBRST;
-    RCC->AHBENR  &= ~RCC_AHBENR_GPIOBEN;
-    RCC->AHBLPENR &= ~RCC_AHBLPENR_GPIOBLPEN;
     RCC->APB1RSTR |= RCC_APB1RSTR_USART3RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART3RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART3EN;
     RCC->APB1LPENR &= ~RCC_APB2LPENR_USART3LPEN;
-#endif
+# endif
+#endif /* OPT_HAL_UART */
 }
 
 /*-----------------------------------------------------------------------------------------------*/
 void lldUartDrvStart(
     esUartDrv_T     * aUart) {
 
+#if defined(OPT_HAL_UART)
     USART_InitTypeDef USART_InitStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+# if defined(OPT_HAL_UART_USE_1)
     if (esUART1 == aUart) {
         RCC->AHBENR |= RCC_AHBENR_GPIOAEN;                                      /* Ukljuci GPIO takt.                                       */
         RCC->APB2ENR |= RCC_APB2ENR_USART1EN;                                   /* Ukljuci UART takt.                                       */
@@ -198,23 +183,24 @@ void lldUartDrvStart(
             }
         }
     }
-#endif
+# endif /* OPT_HAL_UART_USE_1 */
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+# if defined(OPT_HAL_UART_USE_2)
     if (esUART2 == aUart) {
         RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
         RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
     }
-#endif
+# endif /* OPT_HAL_UART_USE_2 */
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+# if defined(OPT_HAL_UART_USE_3)
     if (esUART2 == aUart) {
         RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
         RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
     }
-#endif
-
-
+# endif /* OPT_HAL_UART_USE_3 */
+#else /* OPT_HAL_UART */
+    (void)aUart;
+#endif /* !OPT_HAL_UART */
 }
 
 void lldUartDrvStop(

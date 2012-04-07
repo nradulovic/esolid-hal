@@ -26,14 +26,9 @@
 /*********************************************************************************************//**
  * @file
  * @author      Nenad Radulovic
- * @author      Dejan Ristic
  * @brief       Interfejs za UART modul.
  * ------------------------------------------------------------------------------------------------
  * @addtogroup  hal_intf
- ****************************************************************************************//** @{ */
-/**
- * @defgroup    hal_uart UART modul
- * @brief       Rad sa UART modulom
  ****************************************************************************************//** @{ */
 
 
@@ -42,25 +37,45 @@
 
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*==================================================================================  DEFINES  ==*/
+#include PORT_VARIANT_HEADER(uart_lld)
 
+/*==================================================================================  DEFINES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Rezimi rada UART drajvera
+ *//*--------------------------------------------------------------------------------------------*/
 enum esUartMode {
     ES_UART_MODE_TX_AND_RX,
     ES_UART_MODE_TX_ONLY,
     ES_UART_MODE_RX_ONLY,
 };
 
-typedef enum esUartError {
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Moguce greske koje UART drajver detektuje
+ *//*--------------------------------------------------------------------------------------------*/
+enum esUartError {
     ES_UART_ERR_OVERRUN,
     ES_UART_ERR_FRAMING,
     ES_UART_ERR_NOISE,
     ES_UART_ERR_PARITY,
-} esUartError_T;
+};
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Moguci izbor parnosti.
+ *//*--------------------------------------------------------------------------------------------*/
 enum esUartParity {
     ES_UART_PARITY_NONE,
     ES_UART_PARITY_EVEN,
     ES_UART_PARITY_ODD
+};
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Moguci izbor stop bitova.
+ *//*--------------------------------------------------------------------------------------------*/
+enum esUartStopBit {
+    ES_UART_STOP_HALF_BIT,
+    ES_UART_STOP_ONE_BIT,
+    ES_UART_STOP_ONE_AND_HALF_BIT,
+    ES_UART_STOP_TWO_BITS
 };
 
 /*==================================================================================  MACRO's  ==*/
@@ -70,25 +85,29 @@ extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
-
-typedef struct uartDrv esUartDrv_T;
-typedef struct esUartDrvDef esUartDrvDef_T;
-
-typedef enum esUartStatus {
-    ES_UART_INACTIVE,
-    ES_UART_ACTIVE,
-    ES_UART_READY,
-    ES_UART_BUSY,
-    ES_UART_ERROR
-} esUartStatus_T;
-
-typedef void (* esUartHandler_T) (esUartDrv_T *);
+typedef enum esUartError esUartError_T;
+typedef void (* esUartHandler_T) (uint8_t *, size_t);
 typedef void (* esUartErrHandler_T) (esUartError_T);
 
-struct esUartDrvDef {
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Definiciona struktura koja konfigurise UART drajver.
+ *//*--------------------------------------------------------------------------------------------*/
+typedef struct esUartDrvDef {
+/**
+ * @brief       Brzina prenosa
+ */
     uint32_t        baudrate;
+
+/**
+ * @brief       Broj bitova podataka
+ */
     uint8_t         dataBits;
-    uint8_t         stopBits;
+
+/**
+ * @brief       Broj stop bitova
+ */
+    enum esUartStopBit stopBits;
+
 /**
  * @brief       Rezim rada UART-a.
  * @details     Postoje tri rezima rada:
@@ -113,50 +132,77 @@ struct esUartDrvDef {
  *              - kada je bafer za prijem pun.
  */
     esUartHandler_T  pRxHandler;
+
+/**
+ * @brief       Funkcija za resavanje gresaka
+ * @details     Ova funkcija se poziva ukoliko je detektovana neka od gresaka.
+ */
     esUartErrHandler_T  pErrorHandler;
-};
+} esUartDrvDef_T;
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Kontrolna struktura drajvera
+ * @details     Ova struktura se instacira za svaki drajver koji se koristi.
+ *//*--------------------------------------------------------------------------------------------*/
+typedef struct esUartDrv {
+    uartDrvIntr_T       driver;
+    esUartDrvDef_T  * drvDef;
+    esDevStatus_T   txStatus;
+    esDevStatus_T   rxStatus;
+} esUartDrv_T;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Inicijalizacija UART modula i hardvera.
+ * @param       aInstance               Pokazivac na strukturu UART drajvera,
+ * @param       aDefinition             definiciona struktura za drajver,
+ * @param       aUartId                 identifikator UART hardverskog modula.
+ *//*--------------------------------------------------------------------------------------------*/
+void esUartInit(
+    esUartDrv_T     * aInstance,
+    const esUartDrvDef_T  * aDefinition,
+    esUartHwId_T    * aUartId);
 
-void esUartStart(
-    esUartDrv_T     * aUart,
-    const esUartDrvDef_T  * aDefinition);
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       DeInicijalizacija UART modula i hardvera.
+ * @param       aUart                   Pokazivac na strukturu UART drajvera.
+ * @details     Funkcija postavlja hardver u rezim male potrosnje.
+ *//*--------------------------------------------------------------------------------------------*/
+void esUartDeInit(
+    esUartDrv_T     * aInstance);
 
-void esUartStop(
-    esUartDrv_T     * aUart);
+esDevStatus_T esUartStatus(
+    esUartDrv_T     * aInstance);
 
-esUartStatus_T esUartStatus(
-    esUartDrv_T     * aUart);
-
-esUartStatus_T esUartTxStatus(
-    esUartDrv_T     * aUart);
+esDevStatus_T esUartTxStatus(
+    esUartDrv_T     * aInstance);
 
 void esUartTxChar(
-    esUartDrv_T     * aUart,
+    esUartDrv_T     * aInstance,
     uint8_t         aData);
 
 void esUartTxBegin(
-    esUartDrv_T     * aUart,
+    esUartDrv_T     * aInstance,
     uint8_t         * aBuffer,
     size_t          aSize);
 
 size_t esUartTxEnd(
-    esUartDrv_T     * aUart);
+    esUartDrv_T     * aInstance);
 
-esUartStatus_T esUartRxStatus(
-    esUartDrv_T     * aUart);
+esDevStatus_T esUartRxStatus(
+    esUartDrv_T     * aInstance);
 
 uint8_t esUartRxChar(
-    esUartDrv_T     * aUart);
+    esUartDrv_T     * aInstance);
 
 void esUartRxBegin(
-    esUartDrv_T     * aUart,
+    esUartDrv_T     * aInstance,
     uint8_t         * aBuffer,
     size_t          aSize);
 
 size_t esUartRxEnd(
-    esUartDrv_T     * aUart);
+    esUartDrv_T     * aInstance);
 
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
@@ -167,5 +213,5 @@ size_t esUartRxEnd(
 
 /** @endcond *//** @} *//*************************************************************************
  * END of port_detect.h
- *//** @} *//*************************************************************************************/
+ *************************************************************************************************/
 #endif /* HAL_USART_H_ */

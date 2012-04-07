@@ -43,9 +43,7 @@
  * INCLUDE FILES
  *************************************************************************************************/
 
-#include "stm32l1xx_rcc.h"
-#include "stm32l1xx_gpio.h"
-#include "stm32l1xx_usart.h"
+
 
 /*-----------------------------------------------------------------------------------------------*
  * Module dependencies
@@ -78,38 +76,7 @@
  * MACRO's
  *************************************************************************************************/
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#define esUART1                                                                 \
-    ((esUartDrv_T *)&uart1drv)
 
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (esUART1 == (val))
-#else
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#define esUART2                                                                 \
-    ((esUartDrv_T *)&uart2drv)
-
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (esUART2 == (val))
-#else
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#define esUART3                                                                 \
-    ((esUartDrv_T *)&uart3drv)
-
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (esUART3 == (val))
-#else
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (0U)
-#endif
 
 
 /*-----------------------------------------------------------------------------------------------*
@@ -124,23 +91,11 @@ extern "C" {
  * DATA TYPES
  *************************************************************************************************/
 
-typedef struct uartDrvExt uartDrvExt_T;
-
 /*************************************************************************************************
  * GLOBAL VARIABLES
  *************************************************************************************************/
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-VARNT_UART_H_EXT uartDrvExt_T uart1drv;
-#endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-VARNT_UART_H_EXT uartDrvExt_T esUart2drv;
-#endif
-
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-VARNT_UART_H_EXT uartDrvExt_T esUart3drv;
-#endif
 
 
 /*************************************************************************************************
