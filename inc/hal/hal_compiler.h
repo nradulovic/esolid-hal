@@ -207,7 +207,16 @@
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief       Direktiva za inline kompajliranje funkcije.
- *
+ * @note        Ova direktiva se NE moze zanemariti od strane kompajlera.
+ */
+/*-----------------------------------------------------------------------------------------------*/
+#if !defined(C_INLINE_ALWAYS) || defined(__DOXYGEN__)
+# define C_INLINE_ALWAYS
+#endif
+
+/*-----------------------------------------------------------------------------------------------*/
+/**
+ * @brief       Direktiva za inline kompajliranje funkcije.
  * @note        Ova direktiva se moze zanemariti od strane kompajlera.
  */
 /*-----------------------------------------------------------------------------------------------*/

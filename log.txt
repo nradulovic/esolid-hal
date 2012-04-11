@@ -1,10 +1,18 @@
 Verzija 1.0a02
 
+Urađen je HAL za GPIO modul za port STM32L1xx. 
+
 inc/hal/hal.h
 - dodat je enumerator za status drajvera
 
 inc/hal/hal_compiler.h
 - dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
+- makro C_INLINE je preimenovan u C_INLINE_ALWAYS, a kreiran je nov makro C_INLINE
+    koji radi isto što i C_INLINE_ALWAYS samo što je kompajleru ostavljena mogućnost
+    da ne inline-uje funkciju.
+
+inc/port/common/GCC/compiler.h
+- videti inc/hal/hal_compiler.h
 
 inc/hal/hal_gpio.h
 - kreiran je potpuno nov interfejs

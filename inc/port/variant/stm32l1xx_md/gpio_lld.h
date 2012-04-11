@@ -1,8 +1,6 @@
 /*************************************************************************************************
  * This file is part of eSolid
  *
- * Template version: 1.1.13 (24.03.2012)
- *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
  * eSolid is free software; you can redistribute it and/or modify
@@ -28,7 +26,7 @@
 /*********************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Interfejs GPIO Low Level Driver modula.
+ * @brief       Interfejs/konfiguracija GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
  * @addtogroup  stm32l1xx_md_gpio
  ****************************************************************************************//** @{ */
@@ -38,176 +36,79 @@
 #define GPIO_LLD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "stm32l1xx_rcc.h"
-#include "stm32l1xx_gpio.h"
-
-/*----------------------------------------------------------------------------------  EXTERNS  --*/
-/** @cond */
-#ifdef GPIO_LLD_H_VAR
-# define GPIO_LLD_H_EXT
-#else
-# define GPIO_LLD_H_EXT extern
-#endif
-/** @endcond*/
+#include "stm32l1xx.h"
 
 /*==================================================================================  DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Definition group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_GPIO)
-# if defined(OPT_HAL_GPIO_USE_A)
-#  define esGPIOA                       ((esGpioDrv_T *)&gpioADrv)
-# endif
-
-# if defined(OPT_HAL_GPIO_USE_B)
-#  define esGPIOB                       ((esGpioDrv_T *)&gpioBDrv)
-# endif
-
-# if defined(OPT_HAL_GPIO_USE_C)
-#  define esGPIOC                       ((esGpioDrv_T *)&gpioCDrv)
-# endif
-
-# if defined(OPT_HAL_GPIO_USE_D)
-#  define esGPIOD                       ((esGpioDrv_T *)&gpioDDrv)
-# endif
-
-# if defined(OPT_HAL_GPIO_USE_E)
-#  define esGPIOE                       ((esGpioDrv_T *)&gpioEDrv)
-# endif
-
-    /*Ne postoje portovi F i G */
-
-# if defined(OPT_HAL_GPIO_USE_H)
-#  define esGPIOH                       ((esGpioDrv_T *)&gpioHDrv)
-# endif
-#endif /* OPT_HAL_GPIO */
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Macro group
- * @brief       brief description
+ * @name        Makroi za brz pristup GPIO modulu
+ * @brief       Ovim makroima se vrsi najbrzi moguci pristup hardverskim
+ *              registrima. Adrese registara se nalaze u RAM memoriji sto
+ *              omogucava brzi pristup nego da se vrsi citanje adrese iz spore
+ *              FLASH memorije. Ovi makroi koriste opisanu tehniku samo kada se
+ *              koristi optimizacija po brzini (OPT_OPTIMIZE_SPEED). Treba
+ *              naglasiti da se strukture za GPIO drajver u tom slucaju
+ *              povecavaju za 8B (po instanci drajverske strukture).
+ *
+ *              Ukoliko se ne koristi optimizacija po brzini makroi ce i dalje
+ *              raditi, ali sa tom razlikom sto ce se pozivati funkcije
  * @{ *//*---------------------------------------------------------------------------------------*/
+#if defined(OPT_OPTIMIZE_SPEED) || defined(__DOXYGEN__)
+# define ES_GPIO_FAST_SET(gpio, pins)                                           \
+    do {                                                                        \
+        gpio->BSRRL = pins;                                                     \
+    } while (0)
 
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOA_DRV(val)                                                \
-    (esGPIOA == (val))
+# define ES_GPIO_FAST_RESET(gpio, pins)                                         \
+    do {                                                                        \
+        gpio->BSRRH = pins;                                                     \
+    } while (0)
+
 #else
-#define DBG_VALID_GPIOA_DRV(val)                                                \
-    (0U)
+
+# define ES_GPIO_FAST_RESET(gpio, pins)                                         \
+    esGpioPinResetFast(gpio, pins)
+
+# define ES_GPIO_FAST_SET(gpio, pins)                                           \
+    esGpioPinSetFast(gpio, pins)
 #endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOB_DRV(val)                                                \
-    (esGPIOB == (val))
-#else
-#define DBG_VALID_GPIOB_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOC_DRV(val)                                                \
-    (esGPIOC == (val))
-#else
-#define DBG_VALID_GPIOC_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOD_DRV(val)                                                \
-    (esGPIOD == (val))
-#else
-#define DBG_VALID_GPIOD_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOE_DRV(val)                                                \
-    (esGPIOE == (val))
-#else
-#define DBG_VALID_GPIOE_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOH_DRV(val)                                                \
-    (esGPIOH == (val))
-#else
-#define DBG_VALID_GPIOH_DRV(val)                                                \
-    (0U)
-#endif
-
-#define GPIO_DRV_LIST(uart)                                                     \
-    (DBG_VALID_GPIOA_DRV(uart) ||                                               \
-     DBG_VALID_GPIOB_DRV(uart) ||                                               \
-     DBG_VALID_GPIOC_DRV(uart) ||                                               \
-     DBG_VALID_GPIOD_DRV(uart) ||                                               \
-     DBG_VALID_GPIOE_DRV(uart) ||                                               \
-     DBG_VALID_GPIOH_DRV(uart))
-
 /** @} *//*--------------------------------------------------------------------------------------*/
 
-/*-------------------------------------------------------------------------  C++ extern begin  --*/
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Data types group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-typedef struct gpioDrvExt gpioDrvExt_T;
 
-/** @} *//*--------------------------------------------------------------------------------------*/
+struct gpioDrvId;
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Drajver struktura
+ * @details     Ova struktura opisuje koji je identifikator drajvera, registri i
+ *              pinovi koji se koriste. U slucaju da se koristi optimizacija po
+ *              brzini, onda se u nju direktno dodavaju adrese registara za brzi
+ *              pristup. U tom slucaju moguce je koristi makroe.
+ */
+struct gpioDrv {
+    GPIO_TypeDef        * regs;
+    struct gpioDrvId    * drvId;
+
+#if defined(OPT_OPTIMIZE_SPEED)
+    __IO uint16_t       * BSRRL;                                                /* BSRR register is split to 2 * 16-bit fields BSRRL */
+    __IO uint16_t       * BSRRH;                                                /* BSRR register is split to 2 * 16-bit fields BSRRH */
+#endif
+    uint16_t            pins;
+};
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Variables group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_GPIO)
-# if defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioADrv;
-# endif
-
-# if defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioBDrv;
-# endif
-
-#if defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioCDrv;
-# endif
-
-#if defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioDDrv;
-# endif
-
-#if defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioEDrv;
-# endif
-
-#if defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
-GPIO_LLD_H_EXT gpioDrvExt_T gpioHDrv;
-# endif
-#endif /* OPT_HAL_GPIO */
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Function group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------  C++ extern end  --*/
-#ifdef __cplusplus
-}
-#endif
-
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+
+#if defined(OPT_HAL_GPIO)
+# if defined(OPT_HAL_GPIO_USE_F)
+#  error "HAL->GPIO: This port does not support PORT F."
+# endif
+# if defined(OPT_HAL_GPIO_USE_G)
+#  error "HAL->GPIO: This port does not support PORT G."
+# endif
+#endif
 
 /** @endcond *//** @} *//*************************************************************************
  * END of gpio_lld.h
