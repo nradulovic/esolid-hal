@@ -28,10 +28,7 @@
  * @author      Nenad Radulovic
  * @brief       Implementacija GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_impl
- ****************************************************************************************//** @{ */
-/**
- * @defgroup    stm32l1xx_md_gpio_impl
+ * @addtogroup  stm32l1xx_md_gpio_impl
  * @brief       GPIO Low Level Driver modul.
  ****************************************************************************************//** @{ */
 
@@ -554,7 +551,7 @@ esDevStatus_T esGpioStatus(
 
     if ((uint32_t)0U != rccState) {
 
-        return (ES_DEV_ACTIVE);
+        return (ES_DEV_READY);
     } else {
 
         return (ES_DEV_INACTIVE);

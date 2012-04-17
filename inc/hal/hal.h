@@ -75,12 +75,38 @@
  * DEFINES
  *************************************************************************************************/
 
+/**
+ * @brief       Status hardvera kojeg opsluzuje drajver
+ * @details     Jednostavniji hardver obicno ima samo dva stanja:
+ *              - stanje neaktivno
+ *              - stanje aktivno
+ *              Stanje neaktivno je naznaceno ES_DEC_INACTIVE enumeratorom. U
+ *              principu, da bi se hardver koristio potrebno je da se hardver
+ *              prebaci u aktivno stanje. Aktivno stanje ima dva podstanja,
+ *              stanje da je hardver spreman za koriscenje i stanje da je
+ *              hardver zauzet. Prvo stanje se oznacava ES_DEV_READY
+ *              enumeratorom, dok se drugo stanje označava ES_DEC_BUSY
+ *              enumeratorom. Dakle, hardver je aktivan ukoliko se nalazi u
+ *              nekom od ES_DEV_READY ili ES_DEV_BUSY.
+ *              Neki hardverski moduli se pored navedenih stanja mogu naci i u
+ *              stanju ES_DEV_ERROR. U ovom stanju se mogu naci bez obzira na
+ *              prethodno stanje.
+ */
 enum esDevStatus {
+/**
+ * @brief       Hardver nije aktiviran.
+ * @details     Ovo stanje je karakteristicno kada se hardver ne koristi i
+ *              drajver je hardver postavio u rezim male potrosnje.
+ */
     ES_DEV_INACTIVE,
-    ES_DEV_ACTIVE,
-    ES_DEV_READY,
-    ES_DEV_BUSY,
-    ES_DEV_ERROR
+
+/**
+ * @brief       Hardver je spreman za koriscenje.
+ * @details     Ovo stanje je podstanje stanja ES_DEV_ACTIVE
+ */
+    ES_DEV_READY,   //!< ES_DEV_READY
+    ES_DEV_BUSY,    //!< ES_DEV_BUSY
+    ES_DEV_ERROR    //!< ES_DEV_ERROR
 };
 
 /*************************************************************************************************
