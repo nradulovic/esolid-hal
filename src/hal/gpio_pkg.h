@@ -27,62 +27,81 @@
 
 /*********************************************************************************************//**
  * @file
- * @author  	nenad
- * @brief       Interface of uart_pkg.
- * @details     Detailed description
- * @note        Notes
+ * @author  	Nenad Radulovic
+ * @brief       Implementacija GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_uart_impl
+ * @addtogroup  hal_gpio_impl
  ****************************************************************************************//** @{ */
 
 
-#ifndef UART_PKG_H_
-#define UART_PKG_H_
+#ifndef GPIO_PKG_H_
+#define GPIO_PKG_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*----------------------------------------------------------------------------------  EXTERNS  --*/
-/** @cond */
-#ifdef UART_PKG_H_VAR
-# define UART_PKG_H_EXT
-#else
-# define UART_PKG_H_EXT extern
-#endif
-/** @endcond*/
-
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Macro group
- * @brief       brief description
+ * @name        Makroi za proveru paramatera
+ * @brief       Koriste se iskljucivo za proveru predatih parametara.
+ * @details     Ukoliko je pretprocesorom iskljucen neki port onda se nece ni
+ *              vrsiti provera parametara sa tim vrednostima.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (esUART1 == (val))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOA_DRV(val)                                                \
+    (&esGPIOA == (val))
 #else
-#define DBG_VALID_UART1_DRV(val)                                                \
+#define DBG_VALID_GPIOA_DRV(val)                                                \
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (esUART2 == (val))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOB_DRV(val)                                                \
+    (&esGPIOB == (val))
 #else
-#define DBG_VALID_UART2_DRV(val)                                                \
+#define DBG_VALID_GPIOB_DRV(val)                                                \
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (esUART3 == (val))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOC_DRV(val)                                                \
+    (&esGPIOC == (val))
 #else
-#define DBG_VALID_UART3_DRV(val)                                                \
+#define DBG_VALID_GPIOC_DRV(val)                                                \
     (0U)
 #endif
 
-#define UART_DRV_LIST(uart)                                                     \
-    (DBG_VALID_UART1_DRV(uart) ||                                               \
-     DBG_VALID_UART2_DRV(uart) ||                                               \
-     DBG_VALID_UART3_DRV(uart))
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOD_DRV(val)                                                \
+    (&esGPIOD == (val))
+#else
+#define DBG_VALID_GPIOD_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOE_DRV(val)                                                \
+    (&esGPIOE == (val))
+#else
+#define DBG_VALID_GPIOE_DRV(val)                                                \
+    (0U)
+#endif
+
+#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
+#define DBG_VALID_GPIOH_DRV(val)                                                \
+    (&esGPIOH == (val))
+#else
+#define DBG_VALID_GPIOH_DRV(val)                                                \
+    (0U)
+#endif
+
+#define GPIO_DRVID_LIST(gpio)                                                     \
+    (DBG_VALID_GPIOA_DRV(gpio) ||                                               \
+     DBG_VALID_GPIOB_DRV(gpio) ||                                               \
+     DBG_VALID_GPIOC_DRV(gpio) ||                                               \
+     DBG_VALID_GPIOD_DRV(gpio) ||                                               \
+     DBG_VALID_GPIOE_DRV(gpio) ||                                               \
+     DBG_VALID_GPIOH_DRV(gpio))
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
@@ -92,12 +111,6 @@ extern "C" {
 
 /*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Variables group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Globalne, privatne funkcije
@@ -105,16 +118,14 @@ extern "C" {
  * @details     Funkcije koje pripadaju ovoj grupi nisu namenjene da ih korisnik
  *              direktno poziva vec se koriste od strane samog HAL sistema.
  * @{ *//*---------------------------------------------------------------------------------------*/
+
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Inicijalizacije UART drajver modula
+ * @brief       Inicijalizacije GPIO drajver modula
  * @details     Ova funkcija se poziva automatski u toku inicijalizacije HAL
  *              paketa.
  *//*--------------------------------------------------------------------------------------------*/
-void lldUartDrvInit(
+void lldGpioDrvInit(
     void);
-
-void lldUartDrvStart(
-    esUartDrv_T     * aUart);
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 
@@ -126,6 +137,6 @@ void lldUartDrvStart(
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of uart_pkg.h
+ * END of gpio_pkg.h
  *************************************************************************************************/
-#endif /* UART_PKG_H_ */
+#endif /* GPIO_PKG_H_ */

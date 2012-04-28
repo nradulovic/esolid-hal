@@ -43,70 +43,6 @@
 HAL_DBG_DEFINE_MODULE(GPIO Low Level Driver);
 
 /*============================================================================  LOCAL MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Makroi za proveru paramatera
- * @brief       Koriste se iskljucivo za proveru predatih parametara.
- * @details     Ukoliko je pretprocesorom iskljucen neki port onda se nece ni
- *              vrsiti provera parametara sa tim vrednostima.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_A) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOA_DRV(val)                                                \
-    (&esGPIOA == (val))
-#else
-#define DBG_VALID_GPIOA_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_B) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOB_DRV(val)                                                \
-    (&esGPIOB == (val))
-#else
-#define DBG_VALID_GPIOB_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_C) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOC_DRV(val)                                                \
-    (&esGPIOC == (val))
-#else
-#define DBG_VALID_GPIOC_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_D) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOD_DRV(val)                                                \
-    (&esGPIOD == (val))
-#else
-#define DBG_VALID_GPIOD_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_E) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOE_DRV(val)                                                \
-    (&esGPIOE == (val))
-#else
-#define DBG_VALID_GPIOE_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_GPIO) && defined(OPT_HAL_GPIO_USE_H) || defined(__DOXYGEN__)
-#define DBG_VALID_GPIOH_DRV(val)                                                \
-    (&esGPIOH == (val))
-#else
-#define DBG_VALID_GPIOH_DRV(val)                                                \
-    (0U)
-#endif
-
-#define GPIO_DRVID_LIST(gpio)                                                     \
-    (DBG_VALID_GPIOA_DRV(gpio) ||                                               \
-     DBG_VALID_GPIOB_DRV(gpio) ||                                               \
-     DBG_VALID_GPIOC_DRV(gpio) ||                                               \
-     DBG_VALID_GPIOD_DRV(gpio) ||                                               \
-     DBG_VALID_GPIOE_DRV(gpio) ||                                               \
-     DBG_VALID_GPIOH_DRV(gpio))
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*=========================================================================  LOCAL DATA TYPES  ==*/
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -128,10 +64,11 @@ typedef struct gpioIntr {
  *              rad sa jednim portom, na primer: lokacije registara GPIO modula,
  *              lokacije i bitovi za RCC modul i sve ostalo sto je potrebno da
  *              se konfigurise da GPIO modul radi. Glavni zadatak ove strukture
- *              je da se spreci potreba da sam korisnik pali i podesava taktne
- *              signale i ostale peripetije sa AHB/APB magistralama.
+ *              je da:
+ *              - ukljuci i podesi odgovarajuce taktne signale i
+ *              - ukljuci kontrolere AHB/APB magistrala.
  *//*--------------------------------------------------------------------------------------------*/
-struct gpioDrvId {
+struct gpioId {
 /**
  * @brief       Pokazivac na GPIO registre
  */
@@ -149,33 +86,84 @@ struct gpioDrvId {
 };
 
 /*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Lokalne funkcije
+ * @{ *//*---------------------------------------------------------------------------------------*/
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Prevod korisnickih argumenata u oblik povoljan za hardverske
+ *              registre.
+ * @param       speed                   Korisnicki argument.
+ * @return      Broj koji treba upisati u registar.
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS uint32_t translateSpeed_(
     enum esGpioSpeed speed);
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Prijavljivanje koriscenih pinova u registar datog porta.
+ * @param       gpioId                  Pokazivac na identifikacionu strukturu
+ *                                      porta koji se koristi,
+ * @param       pins                    pinovi koji se koriste.
+ * @details     Ova funkcija vrsi markiranje koriscenih pinova. Registar
+ *              koriscenih pinova se mora koristiti kako bi GPIO drajver znao
+ *              kada moze da iskljuce GPIO modul.
+ * @iclass
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS void pinRegInsertI_(
-    esGpioDrvId_T       * gpioId,
+    esGpioId_T          * gpioId,
     uint16_t            pins);
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Ispitivanje da li je registar prazan
+ * @param       gpioId                  Pokazivac na identifikacionu strukturu
+ *                                      porta koji se koristi.
+ * @return      TRUE - registar specificiranog porta je prazan (nema korisnika)
+ *              FALSE - registar specificiranog porta nije prazan (ima korisnika)
+ * @details     Ova funkcija se koristi radi provere da li GPIO modul moze da se
+ *              iskljuci.
+ * @iclass
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS bool_T pinRegIsEmptyI_(
-    esGpioDrvId_T       * gpioId);
+    esGpioId_T          * gpioId);
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Odjavljivanje koriscenih pinova u registar datog porta.
+ * @param       gpioId                  Pokazivac na identifikacionu strukturu
+ *                                      porta koji se koristi,
+ * @param       pins                    pinovi koji se koriste.
+ * @details     Ova funkcija vrsi markiranje koriscenih pinova. Registar
+ *              koriscenih pinova se mora koristiti kako bi GPIO drajver znao
+ *              kada moze da iskljuce GPIO modul.
+ * @iclass
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS void pinRegRemoveI_(
-    esGpioDrvId_T       * gpioId,
+    esGpioId_T          * gpioId,
     uint16_t            pins);
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Ukljucivanje (omogucivanje rada) GPIO modula
+ * @param       gpio                    Pokazivac na identifikacionu strukturu
+ *                                      porta koji treba da se ukljuci.
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE void gpioStart_(
-    esGpioDrv_T     * gpio);
+    esGpioDrv_T         * gpio);
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Iskljucivanje (onemogucivanje rada) GPIO modula
+ * @param       gpio                    Pokazivac na identifikacionu strukturu
+ *                                      porta koji treba da se iskljuci.
+ *//*--------------------------------------------------------------------------------------------*/
 C_INLINE void gpioStop_(
-    esGpioDrv_T     * gpio);
+    esGpioDrv_T         * gpio);
+
+/** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==========================================================================  LOCAL VARIABLES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Interni, jedinstveni podaci GPIO drajvera po portu.
- * @details     Struktura se instacira jedna za svaki port. U njima se cuvaju
+ * @name        Interni, jedinstveni podaci GPIO drajvera za svaki port.
+ * @brief       Struktura se instacira jedna za svaki port. U njima se cuvaju
  *              koji se pinovi koriste/ne koriste.
- *//*--------------------------------------------------------------------------------------------*/
+ * @{ *//*---------------------------------------------------------------------------------------*/
 static struct gpioIntr gpioAIntr;
 static struct gpioIntr gpioBIntr;
 static struct gpioIntr gpioCIntr;
@@ -186,39 +174,39 @@ static struct gpioIntr gpioHIntr;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Identifikacione strukture GPIO portova.
- *//*--------------------------------------------------------------------------------------------*/
-const C_ROM struct gpioDrvId esGPIOA = {
+ * @name        Identifikacione strukture GPIO portova.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+const C_ROM struct gpioId esGPIOA = {
     GPIOA,
     &gpioAintr,
     1U
 };
 
-const C_ROM struct gpioDrvId esGPIOB = {
+const C_ROM struct gpioId esGPIOB = {
     GPIOB,
     &gpioBintr,
     2U
 };
 
-const C_ROM struct gpioDrvId esGPIOC = {
+const C_ROM struct gpioId esGPIOC = {
     GPIOC,
     &gpioCintr,
     3U
 };
 
-const C_ROM struct gpioDrvId esGPIOD = {
+const C_ROM struct gpioId esGPIOD = {
     GPIOD,
     &gpioDintr,
     4U
 };
 
-const C_ROM struct gpioDrvId esGPIOE = {
+const C_ROM struct gpioId esGPIOE = {
     GPIOE,
     &gpioEintr,
     5U
 };
 
-const C_ROM struct gpioDrvId esGPIOH = {
+const C_ROM struct gpioId esGPIOH = {
     GPIOH,
     &gpioHintr,
     6U
@@ -228,7 +216,7 @@ const C_ROM struct gpioDrvId esGPIOH = {
 /*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
 /*-----------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS uint32_t translateSpeed_ (
-    enum esGpioSpeed speed) {
+    enum esGpioSpeed    speed) {
 
     switch (speed) {
 
@@ -247,7 +235,7 @@ C_INLINE_ALWAYS uint32_t translateSpeed_ (
 
 /*-----------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS void pinRegInsertI_(
-    esGpioDrvId_T       * gpioId,
+    esGpioId_T          * gpioId,
     uint16_t            pins) {
 
     gpioId->intr->usedPins |= pins;
@@ -255,7 +243,7 @@ C_INLINE_ALWAYS void pinRegInsertI_(
 
 /*-----------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS bool_T pinRegIsEmptyI_(
-    esGpioDrvId_T       * gpioId) {
+    esGpioId_T          * gpioId) {
 
     if ((uint16_t)0U != gpioId->intr->usedPins) {
 
@@ -268,7 +256,7 @@ C_INLINE_ALWAYS bool_T pinRegIsEmptyI_(
 
 /*-----------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS void pinRegRemoveI_(
-    esGpioDrvId_T       * gpioId,
+    esGpioId_T          * gpioId,
     uint16_t            pins) {
 
     gpioId->intr->usedPins &= ~pins;
@@ -358,33 +346,33 @@ void lldGpioDrvInit(
 /*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 /*-----------------------------------------------------------------------------------------------*/
 void esGpioInit(
-    const C_ROM esGpioDef_T * definition,
+    const C_ROM esGpioId_T * gpioId,
+    const C_ROM esGpioDef_T * gpioDef,
     esGpioDrv_T     * gpio,
-    const C_ROM esGpioDrvId_T * gpioId,
     uint16_t        pins) {
 
     uint16_t pinPos;
     uint16_t pos;
 
-    HAL_DBG_CHECK((const C_ROM esGpioDef_T *)0U != definition);                 /* Provera par: mora da se preda definiciona struktura.     */
+    HAL_DBG_CHECK((const C_ROM esGpioDef_T *)0U != gpioDef);                 /* Provera par: mora da se preda definiciona struktura.     */
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
     HAL_DBG_CHECK(GPIO_DRVID_LIST(gpioId));                                     /* Provera par: da li je drvId ispravan?                    */
     HAL_DBG_CHECK((uint16_t)0U != pins);                                        /* Provera par: mora da se izabere barem jedan pin.         */
     HAL_DBG_CHECK(
-        (ES_GPIO_MODE_IN == definition->mode) ||
-        (ES_GPIO_MODE_OUT == definition->mode));                                /* Provera par: da li mode enumerator?                      */
+        (ES_GPIO_MODE_IN == gpioDef->mode) ||
+        (ES_GPIO_MODE_OUT == gpioDef->mode));                                /* Provera par: da li mode enumerator?                      */
     HAL_DBG_CHECK(
-        (ES_GPIO_OTYPE_OPENDRAIN == definition->otype) ||
-        (ES_GPIO_OTYPE_PUSHPULL == definition->otype));
+        (ES_GPIO_OTYPE_OPENDRAIN == gpioDef->otype) ||
+        (ES_GPIO_OTYPE_PUSHPULL == gpioDef->otype));
     HAL_DBG_CHECK(
-        (ES_GPIO_ITYPE_PULLDOWN == definition->itype) ||
-        (ES_GPIO_ITYPE_PULLNONE == definition->itype) ||
-        (ES_GPIO_ITYPE_PULLUP == definition->itype));                           /* Provera par: da li je inType enumerator?                 */
+        (ES_GPIO_ITYPE_PULLDOWN == gpioDef->itype) ||
+        (ES_GPIO_ITYPE_PULLNONE == gpioDef->itype) ||
+        (ES_GPIO_ITYPE_PULLUP == gpioDef->itype));                           /* Provera par: da li je inType enumerator?                 */
     HAL_DBG_CHECK(
-        (ES_GPIO_SPEED_HIGH == definition->speed) ||
-        (ES_GPIO_SPEED_MEDIUM == definition->speed) ||
-        (ES_GPIO_SPEED_LOW == definition->speed));                              /* Provera par: da li speed enumerator?                     */
-    gpio->drvId = (struct gpioDrvId *)gpioId;
+        (ES_GPIO_SPEED_HIGH == gpioDef->speed) ||
+        (ES_GPIO_SPEED_MEDIUM == gpioDef->speed) ||
+        (ES_GPIO_SPEED_LOW == gpioDef->speed));                              /* Provera par: da li speed enumerator?                     */
+    gpio->drvId = (struct gpioId *)gpioId;
     gpio->regs = gpioId->regs;
     gpio->pins = pins;
 
@@ -399,13 +387,13 @@ void esGpioInit(
 
         if ((uint16_t)0U != (pins & pos)) {
             gpio->regs->MODER &= (uint32_t)0x03 << (pinPos * 2U);
-            gpio->regs->MODER |= ((uint32_t)definition->mode) << (pinPos * 2U);
+            gpio->regs->MODER |= ((uint32_t)gpioDef->mode) << (pinPos * 2U);
             gpio->regs->OSPEEDR &= (uint32_t)0x03 << (pinPos * 2U);
-            gpio->regs->OSPEEDR |= translateSpeed_(definition->speed) << (pinPos * 2U);
+            gpio->regs->OSPEEDR |= translateSpeed_(gpioDef->speed) << (pinPos * 2U);
             gpio->regs->OTYPER &= (uint32_t)0x01 << pinPos;
-            gpio->regs->OTYPER |= ((uint32_t)definition->otype) << pinPos;
+            gpio->regs->OTYPER |= ((uint32_t)gpioDef->otype) << pinPos;
             gpio->regs->PUPDR &= (uint32_t)0x03 << (pinPos * 2U);
-            gpio->regs->PUPDR |= ((uint32_t)definition->itype) << (pinPos * 2U);
+            gpio->regs->PUPDR |= ((uint32_t)gpioDef->itype) << (pinPos * 2U);
         }
     }
     RCC->AHBENR &= ~((uint32_t)1U << gpioId->rccPos);                           /* Onemoguci takt za port periferiju.                       */
@@ -437,7 +425,7 @@ void esGpioDeInit(
 
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
     HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
-    gpio->drvId = (struct gpioDrvId *)0U;
+    gpio->drvId = (struct gpioId *)0U;
     gpio->regs = (GPIO_TypeDef *)0U;
     gpio->pins = (uint16_t)0U;
 
@@ -530,13 +518,43 @@ void esGpioWrite(
 }
 
 /*-----------------------------------------------------------------------------------------------*/
-void esGpioFastWrite(
+void esGpioWriteFast(
     esGpioDrv_T     * gpio,
     uint16_t        data) {
 
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
     HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
     gpio->regs->ODR = data;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+uint16_t esGpioRead(
+    esGpioDrv_T     * gpio) {
+
+    uint16_t data;
+
+    HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
+    HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
+    gpioStart_(
+        gpio);
+    data = gpio->regs->IDR;
+    gpioStop_(
+        gpio);
+
+    return (data);
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+uint16_t esGpioReadFast(
+    esGpioDrv_T     * gpio) {
+
+    uint16_t data;
+
+    HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
+    HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
+    data = gpio->regs->IDR;
+
+    return (data);
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -562,4 +580,4 @@ esDevStatus_T esGpioStatus(
 
 /** @endcond *//** @} *//*************************************************************************
  * END of gpio_lld.c
- *//** @} *//*************************************************************************************/
+ *//**********************************************************************************************/

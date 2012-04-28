@@ -28,7 +28,7 @@
  * @author  	Nenad Radulovic
  * @brief       Interfejs UART Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_uart
+ * @addtogroup  stm32l1xx_md_uart_impl
  ****************************************************************************************//** @{ */
 
 
@@ -40,132 +40,53 @@
 #include "stm32l1xx_gpio.h"
 #include "stm32l1xx_usart.h"
 
-/*----------------------------------------------------------------------------------  EXTERNS  --*/
-/** @cond */
-#ifdef UART_LLD_H_VAR
-# define UART_LLD_H_EXT
-#else
-# define UART_LLD_H_EXT extern
-#endif
-/** @endcond*/
-
 /*==================================================================================  DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Definition group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART)
-# if defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#  define esUART1                       ((esUartDrv_T *)&uart1drv)
-# endif
-
-# if defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#  define esUART2                       ((esUartDrv_T *)&uart2drv)
-# endif
-
-# if defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#  define esUART3                       ((esUartDrv_T *)&uart3drv)
-# endif
-#endif /* OPT_HAL_UART */
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*==================================================================================  MACRO's  ==*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Macro group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (esUART1 == (val))
-#else
-#define DBG_VALID_UART1_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (esUART2 == (val))
-#else
-#define DBG_VALID_UART2_DRV(val)                                                \
-    (0U)
-#endif
-
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (esUART3 == (val))
-#else
-#define DBG_VALID_UART3_DRV(val)                                                \
-    (0U)
-#endif
-
-#define UART_DRV_LIST(uart)                                                     \
-    (DBG_VALID_UART1_DRV(uart) ||                                               \
-     DBG_VALID_UART2_DRV(uart) ||                                               \
-     DBG_VALID_UART3_DRV(uart))
-
-/** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
+struct uartId;
+struct uartIntr;
+struct uartDef;
+
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Data types group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-typedef struct uartDrvIntr {
-    USART_TypeDef   * regs;
-} uartDrvIntr_T;
+ * @brief       Upravljacka struktura
+ * @details     Ova struktura opisuje koji je identifikator drajvera, registri i
+ *              pinovi koji se koriste.
+ *//*--------------------------------------------------------------------------------------------*/
+struct uartDrv {
+/**
+ * @brief       Pokazivac na identifikacionu strukturu
+ */
+    struct uartId       * drvId;
 
-typedef struct esUartId {
-    USART_TypeDef   * regs;
-    uint8_t         number;
-} esUartHwId_T;
+/**
+ * @brief       Pokazivac na internu strukturu
+ */
+    struct uartIntr     * drvIntr;
 
-/** @} *//*--------------------------------------------------------------------------------------*/
+/**
+ * @brief       Pokazivac na definicionu strukturu
+ */
+    struct uartDef      * drvDef;
+
+/**
+ * @brief       Pokazivac na registre hardvera
+ */
+    USART_TypeDef       * regs;
+};
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Function group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
 #endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
-#if !defined(OPT_HAL_GPIO) && defined(OPT_HAL_UART)
-# error "HAL=>UART: You must enable OPT_HAL_GPIO option to manage the UART pins."
-#else
-# if defined(OPT_HAL_UART)
-#  if defined(OPT_HAL_UART_USE_1)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_A option to manage UART1 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_2)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_A option to manage UART2 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_3)
-#   if !defined(OPT_HAL_GPIO_USE_A)
-#    error "HAL=>UART: You must enable OPT_HAL_GPIO_USE_B option to manage UART3 pins"
-#   endif
-#  endif
-#  if defined(OPT_HAL_UART_USE_4)
-#   error "HAL=>UART: This port does not support OPT_HAL_UART_USE_4"
-#  endif
-# endif
-#endif
-
 
 /** @endcond *//** @} *//*************************************************************************
  * END of uart_lld.h

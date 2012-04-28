@@ -30,6 +30,42 @@
  * ------------------------------------------------------------------------------------------------
  * @defgroup    port_intf eSolid port interface
  * @brief       Interfejs port sistema.
+ * @section     port_doc Portovanje sistema
+ * U racunarstvu, portovanje je proces prilagodjavanja softvera, tako da
+ * izvrsni program moze biti kreiran za racunarsko okruzenje koje se razlikuje
+ * onog za koje je bio prvobitno projektovan (npr. razlicit procesor,
+ * operativni sistem, druge biblioteke).
+ *
+ * Softver je prenosiv kada je trosak portovanja na novu platformu manji od
+ * cene pisanja celokupnog softvera.
+ *
+ * Rec "port" potice od latinske reci @c portare, sto znaci "prenesti".
+ *
+ * @section     port_levels Port Arhitektura, Varijanta i Platforma
+ *
+ * Port je organizovan u tri nivoa:
+ * - Port Arhitektura vrsi apstrakciju osnovne procesorske arhitekture i
+ * obuhvata objekte kao sto su opsluzivanje prekida, prebacivanje konteksta,
+ * start-up sekvencu i slicno. Klasican predstavnik Port Arhitekture je ARM
+ * Cortex-M3 arhitektura. Ovaj port opisuje registre procesora, prekidni
+ * kontroler i debug hardver koji je karakteristican za @b svaki mikrokontroler
+ * sa ARM Cortex-M3 jezgrom.
+ * - Port Varijanta pokriva specificne osobine procesora kao sto su kes memorija,
+ * MMU i FPU. Port varijanta je, takodje, zaduzen za memorijske i prekidne
+ * kontrolere na samom cipu. a obuhvata tajmere, I/O registre i druge module
+ * hardvera na mikrokontroleru.Obicno se za arhitekturne varijacije
+ * implementacija nalazi u Port Arhitektura, a Port Varijanta pruza samo
+ * odgovarajuce pretprocesorske konfiguracione promenljive.
+ * - Port Platforma vrsi apstrakciju i opisuje osobine platforme koja se koristi.
+ * Pod platformom se podrazumeva mikrokontroler sa dodatnim hardverom. Obicno su
+ * to neki oblici razvojnih ploca. Port Platforma u tom slucaju pruza dodatnu
+ * abstrakciju hardvera tako da se, na primer, umesto porta navede ime LED diode
+ * koja treba da se aktivira.
+ *
+ * Granice izmedju ova tri nivoa nisu uvek jasno definisane, sa obzirom da se
+ * funkcionalnost menja izmedju ova tri nivoa od port-a do port-a. Uopsteno
+ * gledano svaki port se sastoji od modula koji su definisani u dva ili tri
+ * nivoa.
  ****************************************************************************************//** @{ */
 
 

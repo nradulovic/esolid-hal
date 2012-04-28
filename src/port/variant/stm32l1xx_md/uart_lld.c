@@ -28,9 +28,6 @@
  * @author      Nenad Radulovic
  * @brief       Implementacija UART Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_impl
- ****************************************************************************************//** @{ */
-/**
  * @defgroup    stm32l1xx_md_uart_impl
  * @brief       UART Low Level Driver modul.
  ****************************************************************************************//** @{ */
@@ -102,30 +99,26 @@ C_INTERRUPT_HANDLER(USART3_IRQHandler) {
 
 /*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 /*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
-#if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
 /*-----------------------------------------------------------------------------------------------*/
 void lldUartDrvInit(
     void) {
 
 #if defined(OPT_HAL_UART)
-# if defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
-    uart1drv.regs = USART1;
+# if defined(OPT_HAL_UART_USE_1)
     RCC->APB2RSTR |= RCC_APB2RSTR_USART1RST;                                    /* Reset UART hardvera - aktivno.                           */
     RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST;                                   /* Reset UART hardvera - neaktivno.                         */
     RCC->APB2ENR  &= ~RCC_APB2ENR_USART1EN;                                     /* Iskljuci UART takt.                                      */
     RCC->APB2LPENR &= ~RCC_APB2LPENR_USART1LPEN;                                /* Iskljuci UART low-power takt.                            */
 # endif
 
-# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
-    uart2drv.regs = USART2;
+# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2)
     RCC->APB1RSTR |= RCC_APB1RSTR_USART2RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART2RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART2EN;
     RCC->APB1LPENR &= ~RCC_APB2LPENR_USART2LPEN;
 # endif
 
-# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
-    uart3drv.regs = USART3;
+# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3)
     RCC->APB1RSTR |= RCC_APB1RSTR_USART3RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART3RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART3EN;
@@ -207,9 +200,8 @@ void lldUartDrvStop(
     esUartDrv_T     * aUart) {
 
 }
-#endif /* OPT_HAL_UART */
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
  * END of uart_lld.c
- *//** @} *//*************************************************************************************/
+ *//**********************************************************************************************/

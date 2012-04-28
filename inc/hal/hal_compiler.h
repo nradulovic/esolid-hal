@@ -1,7 +1,7 @@
 /*************************************************************************************************
  * This file is part of eSolid
  *
- * Copyright (C) 2011 - Nenad Radulovic
+ * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
  * eSolid is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,21 +17,57 @@
  * along with eSolid; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
+ *
+ * web site:    http://blueskynet.dyndns-server.com
+ * e-mail  :    blueskyniss@gmail.com
  *************************************************************************************************/
 
 
 /*********************************************************************************************//**
  * @file
- *
- * @author      nesa
- *
+ * @author      Nenad Radulovic
  * @brief       Interfejs za kompajler.
- *
  * ------------------------------------------------------------------------------------------------
- *
  * @addtogroup  hal_compiler
+ * @brief       Interfejs za kompajler.
+ * @section     hal_compiler_types Tipovi podataka
+ * @subsection  hal_compiler_basic_typed Osnovni tipovi podataka
  *
+@code
+uint8_t
+uint16_t
+uint32_t
+int8_t
+int16_t
+int32_t
+@endcode
+ *
+ * Ove tipove garantuje C99 standard i definisani su u "stdint.h" za svaki port.
+ * Ukoliko port nema definisane ove tipove, HAL ih definise umesto platforme.
+ *
+@code
+int_fast8_t
+int_fast16_t
+int_fast32_t
+uint_fast8_t
+uint_fast16_t
+uint_fast32_t
+@endcode
+ *
+ * Ovi tipovi podataka se definisu za potrebe brze manipulacije podataka na
+ * ustrb veceg koriscenja memorijskog prostora.
+ *
+ * @section     hal_compiler_ext_types Atomizirani tipovi podataka
+ *
+@code
+atomic_T
+@endcode
+ *
+ * Za ove tipove postoji garancija da se promenljive ovog tipa pisu i citaju u
+ * jednoj instrukciji. U zavisnosti od arhitekture koja se koristi velicina
+ * ovog tipa se menja, ali je minimum velicina jedan bajt.
  ****************************************************************************************//** @{ */
+
 
 #ifndef HAL_COMPILER_H_
 #define HAL_COMPILER_H_

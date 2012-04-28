@@ -28,7 +28,7 @@
  * @author  	Nenad Radulovic
  * @brief       Interfejs/konfiguracija GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_gpio
+ * @addtogroup  stm32l1xx_md_gpio_impl
  ****************************************************************************************//** @{ */
 
 
@@ -40,20 +40,7 @@
 
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Makroi za brz pristup GPIO modulu
- * @brief       Ovim makroima se vrsi najbrzi moguci pristup hardverskim
- *              registrima. Adrese registara se nalaze u RAM memoriji sto
- *              omogucava brzi pristup nego da se vrsi citanje adrese iz spore
- *              FLASH memorije. Ovi makroi koriste opisanu tehniku samo kada se
- *              koristi optimizacija po brzini (OPT_OPTIMIZE_SPEED). Treba
- *              naglasiti da se strukture za GPIO drajver u tom slucaju
- *              povecavaju za 8B (po instanci drajverske strukture).
- *
- *              Ukoliko se ne koristi optimizacija po brzini makroi ce i dalje
- *              raditi, ali sa tom razlikom sto ce se pozivati funkcije
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_OPTIMIZE_SPEED) || defined(__DOXYGEN__)
+#if defined(OPT_OPTIMIZE_SPEED)
 # define ES_GPIO_FAST_SET(gpio, pins)                                           \
     do {                                                                        \
         gpio->BSRRL = pins;                                                     \
@@ -64,36 +51,73 @@
         gpio->BSRRH = pins;                                                     \
     } while (0)
 
-#else
-
-# define ES_GPIO_FAST_RESET(gpio, pins)                                         \
-    esGpioPinResetFast(gpio, pins)
-
-# define ES_GPIO_FAST_SET(gpio, pins)                                           \
-    esGpioPinSetFast(gpio, pins)
 #endif
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 
 /*===============================================================================  DATA TYPES  ==*/
-
-struct gpioDrvId;
+struct gpioId;
+struct gpioIntr;
+struct gpioDef;
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Drajver struktura
+ * @brief       Upravljacka struktura
  * @details     Ova struktura opisuje koji je identifikator drajvera, registri i
  *              pinovi koji se koriste. U slucaju da se koristi optimizacija po
  *              brzini, onda se u nju direktno dodavaju adrese registara za brzi
  *              pristup. U tom slucaju moguce je koristi makroe.
- */
+ *//*--------------------------------------------------------------------------------------------*/
 struct gpioDrv {
-    GPIO_TypeDef        * regs;
-    struct gpioDrvId    * drvId;
+/**
+ * @brief       Pokazivac na identifikacionu strukturu
+ */
+    struct gpioId       * drvId;
 
-#if defined(OPT_OPTIMIZE_SPEED)
+/*
+ * GPIO drajver nema potrebu da poseduje direktan pokazivac na internu strukturu.
+ * Internoj strukturi se pristupa preko ID strukture.
+ */
+#if 0
+/**
+ * @brief       Pokazivac na internu strukturu
+ */
+    struct gpioIntr     * drvIntr;
+#endif
+
+/*
+ * GPIO drajver nema potrebu da poseduje pokazivac na definicionu strukturu.
+ */
+#if 0
+/**
+ * @brief       Pokazivac na definicionu strukturu
+ */
+    struct gpioDef      * drvDef;
+#endif
+
+/**
+ * @brief       Pokazivac na registre hardvera
+ */
+    GPIO_TypeDef        * regs;
+
+#if defined(OPT_OPTIMIZE_SPEED) || defined(__DOXYGEN__)
+/**
+ * @brief       Pokazivac na registar za brz pristup upotrebom makroa.
+ * @details     Ovaj clan se koristi samo ukoliko se koristi optimizacija po
+ *              brzini, odnosno, ukoliko je difinisana promenljiva
+ *              OPT_OPTIMIZE_SPEED.
+ */
     __IO uint16_t       * BSRRL;                                                /* BSRR register is split to 2 * 16-bit fields BSRRL */
+
+/**
+ * @brief       Pokazivac na registar za brz pristup upotrebom makroa.
+ * @details     Ovaj clan se koristi samo ukoliko se koristi optimizacija po
+ *              brzini, odnosno, ukoliko je difinisana promenljiva
+ *              OPT_OPTIMIZE_SPEED.
+ */
     __IO uint16_t       * BSRRH;                                                /* BSRR register is split to 2 * 16-bit fields BSRRH */
 #endif
+
+/**
+ * @brief       Pinovi porta koji se koriste od strane ove upravljacke strukture.
+ */
     uint16_t            pins;
 };
 
