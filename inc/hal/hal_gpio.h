@@ -385,14 +385,14 @@ extern const C_ROM struct gpioId esGPIOH;
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Inicijalizacija GPIO drajvera
- * @param       gpioDef                 Pokazivac na definicionu strukturu. Ova
- *                                      struktura se nalazi u ROM memoriji.
  * @param       gpioId                  Identifikaciona struktura. Ova
  *                                      struktura je definisana od strane HAL-a
  *                                      i korisnik samo navodi ime strukture.
  *                                      Tako struktura esGPIOA opisuje PORT A,
  *                                      esGPIOB opisuje PORT B i tako dalje.
  *                                      Ove strukture se nalaze u ROM memoriji.
+ * @param       gpioDef                 Pokazivac na definicionu strukturu. Ova
+ *                                      struktura se nalazi u ROM memoriji.
  * @param       gpio                    Pokazivac na upravljacku strukturu. Ona
  *                                      je definisana od strane koriscenog porta.
  *                                      Nalazi se u RAM memoriji i intezivno se
@@ -418,11 +418,14 @@ void esGpioInit(
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Deinicijalizacija GPIO modula
  * @param       gpio                    Pokazivac na upravljacku strukturu.
+ * @param       pins                    pinovi koji se vise ne nece koristiti od
+ *                                      strane upravljacke strukture.
  * @details     Funkcija se poziva kada je potrebno da se prekine sa radom sa
- *              GPIO drajverom.
+ *              GPIO drajverom. Hardver ostaje u nepromenjenom stanju.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioDeInit(
-    esGpioDrv_T     * gpio);
+    esGpioDrv_T     * gpio,
+    uint16_t        pins);
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Vrsi naknadnu inicijalizaciju pinova vec postojece upravljacke
@@ -435,7 +438,11 @@ void esGpioDeInit(
  *                                      promenljivoj nastavljaju da rade po
  *                                      staroj konfiguraciji.
  * @details     Funkcija se poziva kada je potrebno da se promeni rezim rada ili
- *              atribut pinova koji su navedeni u @c pins argumentu.
+ *              atribut pinova koji su navedeni u @c pins argumentu. Pinovi koji
+ *              se reinicijalizuju mogu da vec pripadaju upravljackoj strukturi
+ *              @c gpio ili mogu da se dodaju novi pinovi pod uslovom da se ti
+ *              isti pinovi ne koriste od strane druge upravljacke strukture
+ *              (drajvera).
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioReInit(
     const C_ROM esGpioDef_T * gpioDef,
@@ -473,6 +480,8 @@ esDevStatus_T esGpioStatus(
  *                                      logicku jedinicu.
  *              Funkcija automatski vrsi aktiviranje/deaktiviranje GPIO modula.
  * @pre         Drajver treba da bude inicijalizovan esGpioInit() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioPinSet(
     esGpioDrv_T     * gpio,
@@ -485,6 +494,8 @@ void esGpioPinSet(
  *                                      logicku nulu.
  *              Funkcija automatski vrsi aktiviranje/deaktiviranje GPIO modula.
  * @pre         Drajver treba da bude inicijalizovan esGpioInit() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioPinReset(
     esGpioDrv_T     * gpio,
@@ -496,6 +507,8 @@ void esGpioPinReset(
  * @param       data                    podatak koji treba upisati.
  *              Funkcija automatski vrsi aktiviranje/deaktiviranje GPIO modula.
  * @pre         Drajver treba da bude inicijalizovan esGpioInit() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioWrite(
     esGpioDrv_T     * gpio,
@@ -505,6 +518,8 @@ void esGpioWrite(
  * @brief       Dobavlja podatak sa specificiranog porta.
  * @param       gpio                    Pokazivac na upravljacku strukturu.
  * @return      Stanje na pinovima specificiranog porta.
+ * @note        Funkcija nece vratiti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 uint16_t esGpioRead(
     esGpioDrv_T     * gpio);
@@ -560,6 +575,8 @@ void esGpioStop(
  * @param       pins                    maska pinova koji treba da se postave na
  *                                      logicku jedinicu.
  * @pre         Drajver treba da bude aktiviran esGpioStart() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioPinSetFast(
     esGpioDrv_T     * gpio,
@@ -571,6 +588,8 @@ void esGpioPinSetFast(
  * @param       pins                    maska pinova koji treba da se postave na
  *                                      logicku nulu.
  * @pre         Drajver treba da bude aktiviran esGpioStart() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioPinResetFast(
     esGpioDrv_T     * gpio,
@@ -581,6 +600,8 @@ void esGpioPinResetFast(
  * @param       gpio                    Pokazivac na drajver strukturu,
  * @param       data                    podatak koji treba upisati.
  * @pre         Drajver treba da bude aktiviran esGpioStart() funkcijom.
+ * @note        Funkcija nece promeniti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 void esGpioWriteFast(
     esGpioDrv_T     * gpio,
@@ -591,6 +612,8 @@ void esGpioWriteFast(
  * @param       gpio                    Pokazivac na upravljacku strukturu.
  * @return      Stanje na pinovima specificiranog porta.
  * @pre         Drajver treba da bude aktiviran esGpioStart() funkcijom.
+ * @note        Funkcija nece vratiti vrednosti onih pinova koji nisu
+ *              obuhvaceni upravljackom strukturom.
  *//*--------------------------------------------------------------------------------------------*/
 uint16_t esGpioReadFast(
     esGpioDrv_T     * gpio);

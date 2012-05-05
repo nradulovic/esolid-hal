@@ -25,48 +25,77 @@
 
 /*********************************************************************************************//**
  * @file
- * @author      Nenad Radulovic
- * @brief       Implementacija osnovnih HAL funkcija.
+ * @author  	Nenad Radulovic
+ * @brief       Interfejs/konfiguracija Timer Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_impl
+ * @addtogroup  stm32l1xx_md_timer_impl
  ****************************************************************************************//** @{ */
 
+
+#ifndef TIMER_LLD_H_
+#define TIMER_LLD_H_
+
 /*============================================================================  INCLUDE FILES  ==*/
-#include "hal_private.h"
+#include "stm32l1xx.h"
 
-/*============================================================================  LOCAL DEFINES  ==*/
+/*==================================================================================  DEFINES  ==*/
+/*==================================================================================  MACRO's  ==*/
+/*-------------------------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+  
+/*===============================================================================  DATA TYPES  ==*/
+struct tmrId;
+struct tmrIntr;
+struct tmrDef;
+
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Local debug define macro.
+ * @brief       Upravljacka struktura
+ * @details     Ova struktura opisuje koji je identifikator drajvera,
+ *              definicionu strukturu i registre.
  *//*--------------------------------------------------------------------------------------------*/
-DBG_DEFINE_MODULE(Hardware Abstraction Layer);
+struct tmrDrv {
+/**
+ * @brief       Pokazivac na identifikacionu strukturu
+ */
+    struct tmrId        * drvId;
 
-/*============================================================================  LOCAL MACRO's  ==*/
-/*=========================================================================  LOCAL DATA TYPES  ==*/
-/*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
-/*==========================================================================  LOCAL VARIABLES  ==*/
+/**
+ * @brief       Pokazivac na internu strukturu
+ */
+    struct tmrIntr      * drvIntr;
+
+/**
+ * @brief       Pokazivac na definicionu strukturu
+ */
+    struct tmrDef       * drvDef;
+
+/**
+ * @brief       Pokazivac na registre hardvera
+ */
+    TIM_TypeDef         * regs;
+};
+
 /*=========================================================================  GLOBAL VARIABLES  ==*/
-/*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
-/*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
-/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
-/*-----------------------------------------------------------------------------------------------*/
-void esHalInit(
-    void) {
-
-#if defined(OPT_HAL_GPIO) || defined(__DOXYGEN__)
-    lldGpioDrvInit();
-#endif
-
-#if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
-    lldUartDrvInit();
-#endif
-
-#if defined(OPT_HAL_TIMER) || defined(__DOXYGEN__)
-    lldTimerDrvInit();
-#endif
+/*======================================================================  FUNCTION PROTOTYPES  ==*/
+/*---------------------------------------------------------------------------  C++ extern end  --*/
+#ifdef __cplusplus
 }
+#endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
+#if defined(OPT_HAL_TIMER)
+# if defined(OPT_HAL_TIMER_USE_1)
+#  error "HAL->TIMER: This port does not support Timer 1."
+# endif
+# if defined(OPT_HAL_TIMER_USE_5)
+#  error "HAL->TIMER: This port does not support Timer 5."
+# endif
+#endif
+
 /** @endcond *//** @} *//*************************************************************************
- * END of hal.c
+ * END of timer_lld.h
  *************************************************************************************************/
+#endif /* TIMER_LLD_H_ */

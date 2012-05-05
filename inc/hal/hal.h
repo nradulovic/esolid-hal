@@ -147,6 +147,7 @@
 #include "hal_interrupt.h"
 #include "hal_gpio.h"
 #include "hal_uart.h"
+#include "hal_timer.h"
 #include "hal_crc.h"
 #include "hal_support.h"
 

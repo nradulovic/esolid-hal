@@ -95,25 +95,7 @@ struct gpioDrv {
 /**
  * @brief       Pokazivac na registre hardvera
  */
-    GPIO_TypeDef        * regs;
-
-#if defined(OPT_OPTIMIZE_SPEED) || defined(__DOXYGEN__)
-/**
- * @brief       Pokazivac na registar za brz pristup upotrebom makroa.
- * @details     Ovaj clan se koristi samo ukoliko se koristi optimizacija po
- *              brzini, odnosno, ukoliko je difinisana promenljiva
- *              OPT_OPTIMIZE_SPEED.
- */
-    __IO uint16_t       * BSRRL;                                                /* BSRR register is split to 2 * 16-bit fields BSRRL */
-
-/**
- * @brief       Pokazivac na registar za brz pristup upotrebom makroa.
- * @details     Ovaj clan se koristi samo ukoliko se koristi optimizacija po
- *              brzini, odnosno, ukoliko je difinisana promenljiva
- *              OPT_OPTIMIZE_SPEED.
- */
-    __IO uint16_t       * BSRRH;                                                /* BSRR register is split to 2 * 16-bit fields BSRRH */
-#endif
+    volatile GPIO_TypeDef * regs;
 
 /**
  * @brief       Pinovi porta koji se koriste od strane ove upravljacke strukture.

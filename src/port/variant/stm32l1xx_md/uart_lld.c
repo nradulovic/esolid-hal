@@ -28,7 +28,7 @@
  * @author      Nenad Radulovic
  * @brief       Implementacija UART Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @defgroup    stm32l1xx_md_uart_impl
+ * @addtogroup  stm32l1xx_md_uart_impl
  * @brief       UART Low Level Driver modul.
  ****************************************************************************************//** @{ */
 
@@ -53,7 +53,26 @@ HAL_DBG_DEFINE_MODULE(UART Low Level Driver);
 
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Interni, jedinstveni podaci UART drajvera.
+ * @details     Ova struktura se instacira po jednom UART modulu. U njoj se
+ *              cuvaju status UART modula.
+ *//*--------------------------------------------------------------------------------------------*/
+typedef struct uartIntr {
+/**
+ * @brief       Status predajnika.
+ */
+    esDevStatus_T       txStatus;
+
+/**
+ * @brief       Status prijemnika.
+ */
+    esDevStatus_T       rxStatus;
+};
+
 /*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
+
 
 void uartDrvHandler(
     esUartDrv_T     * aDriver);
@@ -111,20 +130,46 @@ void lldUartDrvInit(
     RCC->APB2LPENR &= ~RCC_APB2LPENR_USART1LPEN;                                /* Iskljuci UART low-power takt.                            */
 # endif
 
-# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2)
+# if defined(OPT_HAL_UART_USE_2)
     RCC->APB1RSTR |= RCC_APB1RSTR_USART2RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART2RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART2EN;
-    RCC->APB1LPENR &= ~RCC_APB2LPENR_USART2LPEN;
+    /*
+     RCC->APB1LPENR &= ~RCC_APB2LPENR_USART;
+     */
 # endif
 
-# if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3)
+# if defined(OPT_HAL_UART_USE_3)
     RCC->APB1RSTR |= RCC_APB1RSTR_USART3RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_USART3RST;
     RCC->APB1ENR  &= ~RCC_APB1ENR_USART3EN;
+    /*
     RCC->APB1LPENR &= ~RCC_APB2LPENR_USART3LPEN;
+    */
 # endif
 #endif /* OPT_HAL_UART */
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+esDevStatus_T esUartStatus(
+    esUartDrv_T     * uart) {
+
+    HAL_DBG_CHECK(NULL != uart);                                                /* Provera par: da li je uart inicijalizovan?               */
+    HAL_DBG_CHECK(UART_DRVID_LIST(uart->drvId));                                /* Provera par: da li je drvId validan?                     */
+
+    enum esUartMode mode = uart->drvDef->uartMode;
+
+    switch (mode) {
+        case ES_UART_MODE_RX : {
+
+            return (uart->drvIntr->rxStatus);
+        }
+
+        case ES_UART_MODE_TX : {
+
+            return (uart->drvIntr->txStatus);
+        }
+    }
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -141,7 +186,7 @@ void lldUartDrvStart(
         RCC->APB2ENR |= RCC_APB2ENR_USART1EN;                                   /* Ukljuci UART takt.                                       */
 
         switch (aUart->drvDef.uartMode) {
-            case ES_UART_MODE_RX_ONLY : {
+            case ES_UART_MODE_RX : {
                 GPIOA->AFR[1] &= ~GPIO_AFRH_AFRH10;                             /* Ocisti AF polje pin-a.                                   */
                 GPIOA->AFR[1] |= (UART1_GPIO_AFIO << UART1_GPIO_AFIO_POS_RX);   /* Postavi potrebnu AF vrednost.                            */
                 GPIOA->MODER &= ~GPIO_MODER_MODER10;                            /* Ocisti polje za rezim rada.                              */
@@ -152,7 +197,7 @@ void lldUartDrvStart(
                 break;
             }
 
-            case ES_UART_MODE_TX_ONLY : {
+            case ES_UART_MODE_TX : {
                 GPIOA->AFR[1] &= ~GPIO_AFRH_AFRH9;
                 GPIOA->AFR[1] |= (UART1_GPIO_AFIO << UART1_GPIO_AFIO_POS_TX);
                 GPIOA->MODER &= ~GPIO_MODER_MODER9;
@@ -196,10 +241,8 @@ void lldUartDrvStart(
 #endif /* !OPT_HAL_UART */
 }
 
-void lldUartDrvStop(
-    esUartDrv_T     * aUart) {
 
-}
+
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************

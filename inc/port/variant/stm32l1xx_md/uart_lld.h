@@ -77,6 +77,10 @@ struct uartDrv {
  * @brief       Pokazivac na registre hardvera
  */
     USART_TypeDef       * regs;
+
+/**
+ * @brief
+ */
 };
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/

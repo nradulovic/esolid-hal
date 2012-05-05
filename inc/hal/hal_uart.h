@@ -51,9 +51,9 @@
  * @brief       Rezimi rada UART drajvera
  *//*--------------------------------------------------------------------------------------------*/
 enum esUartMode {
-    ES_UART_MODE_TX_AND_RX,
-    ES_UART_MODE_TX_ONLY,
-    ES_UART_MODE_RX_ONLY,
+    ES_UART_MODE_TX,
+    ES_UART_MODE_RX,
+    ES_UART_MODE_TX_AND_RX
 };
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -65,6 +65,14 @@ enum esUartParity {
     ES_UART_PARITY_ODD
 };
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Moguci izbor broja bitova podataka.
+ *//*--------------------------------------------------------------------------------------------*/
+enum esUartDataBits {
+    ES_UART_DATA_7_BITS,
+    ES_UART_DATA_8_BITS,
+    ES_UART_DATA_9_BITS
+};
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Moguci izbor stop bitova.
  *//*--------------------------------------------------------------------------------------------*/
@@ -112,7 +120,7 @@ typedef void (* pUartErrHandler_T) (esUartError_T);
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Definiciona struktura koja konfigurise UART drajver.
  *//*--------------------------------------------------------------------------------------------*/
-struct esUartDef {
+struct uartDef {
 /**
  * @brief       Brzina prenosa
  */
@@ -120,11 +128,16 @@ struct esUartDef {
 
 /**
  * @brief       Broj bitova podataka
+ * @details     Moguce vrednosti:
+ *              - ES_UART_DATA_7_BITS,
+ *              - ES_UART_DATA_8_BITS,
+ *              - ES_UART_DATA_9_BITS
  */
-    uint8_t             dataBits;
+    enum esUartDataBits dataBits;
 
 /**
  * @brief       Broj stop bitova
+ * @details
  */
     enum esUartStopBit  stopBits;
 
@@ -238,13 +251,16 @@ void esUartInit(
  * @details     Funkcija postavlja hardver u rezim male potrosnje.
  *//*--------------------------------------------------------------------------------------------*/
 void esUartDeInit(
-    esUartDrv_T     * aUart);
+    esUartDrv_T     * uart);
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Vraca status UART harverskog modula.
+ *//*--------------------------------------------------------------------------------------------*/
+esDevStatus_T esUartStatus(
+    esUartDrv_T     * uart);
 
 esDevStatus_T esUartStatus(
-    esUartDrv_T     * aUart);
-
-esDevStatus_T esUartTxStatus(
-    esUartDrv_T     * aUart);
+    esUartDrv_T     * uart);
 
 void esUartTxChar(
     esUartDrv_T     * aUart,
@@ -259,9 +275,6 @@ size_t esUartTxEnd(
     esUartDrv_T     * aUart);
 
 esDevStatus_T esUartRxStatus(
-    esUartDrv_T     * aUart);
-
-uint8_t esUartRxChar(
     esUartDrv_T     * aUart);
 
 void esUartRxBegin(

@@ -52,7 +52,7 @@
 /*-----------------------------------------------------------------------------------------------*
  * Module configuration and adapter
  *-----------------------------------------------------------------------------------------------*/
-#include PORT_ARCH_HEADER(hal/interrupt)
+#include PORT_ARCH_HEADER(interrupt)
 
 
 /*-----------------------------------------------------------------------------------------------*
@@ -86,6 +86,16 @@
 #if !defined(OPT_MAX_INTERRUPT_PRIO) || defined(__DOXYGEN__)
 # define OPT_MAX_INTERRUPT_PRIO
 #endif
+
+enum esHandlerPrio {
+    ES_PRIO_IDLE,
+    ES_PRIO_LOW,
+    ES_PRIO_BELOW_NORMAL,
+    ES_PRIO_NORMAL,
+    ES_PRIO_ABOVE_NORMAL,
+    ES_PRIO_HIGH,
+    ES_PRIO_REALTIME
+};
 
 /*************************************************************************************************
  * MACRO's

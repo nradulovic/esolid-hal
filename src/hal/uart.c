@@ -54,14 +54,14 @@ HAL_DBG_DEFINE_MODULE(HAL UART module);
 esDevStatus_T esUartStatus(
     esUartDrv_T     * aUart) {
 
-    HAL_DBG_CHECK(UART_DRV_LIST(aUart));
+    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
 
     esDevStatus_T status;
 
     if (NULL == aUart->drvDef) {
         status = ES_DEV_INACTIVE;
     } else {
-        status = ES_DEV_ACTIVE;
+        status = ES_DEV_READY;
     }
 
     return (status);
@@ -71,7 +71,7 @@ esDevStatus_T esUartStatus(
 esDevStatus_T esUartRxStatus(
     esUartDrv_T     * aUart) {
 
-    HAL_DBG_CHECK(UART_DRV_LIST(aUart));
+    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
 
     return (aUart->rxStatus);
 }
@@ -80,7 +80,7 @@ esDevStatus_T esUartRxStatus(
 esDevStatus_T esUartTxStatus(
     esUartDrv_T     * aUart) {
 
-    HAL_DBG_CHECK(UART_DRV_LIST(aUart));
+    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
 
     return (aUart->txStatus);
 }
@@ -91,7 +91,7 @@ void esUartInit(
     const C_ROM esUartDef_T * uartDef,
     esUartDrv_T     * uart) {
 
-    HAL_DBG_CHECK(UART_DRV_LIST(uart));
+    HAL_DBG_CHECK(UART_DRVID_LIST(uart));
     HAL_DBG_CHECK((const C_ROM esUartDef_T *)0U != uartDef);
     aUart->drvDef = aDefinition;
     aUart->txStatus = ES_DEV_INACTIVE;
