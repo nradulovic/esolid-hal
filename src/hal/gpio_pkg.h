@@ -20,10 +20,7 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ * ------------------------------------------------------------------------------------------------
  * @file
  * @author  	Nenad Radulovic
  * @brief       Implementacija GPIO Low Level Driver modula.
@@ -125,17 +122,44 @@ extern "C" {
 void lldGpioDrvInit(
     void);
 
-void lldGpioStart(
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Zauzima pinove @c pins na port @c gpioId.
+ * @param       gpioId                      Identifikator GPIO porta,
+ * @param       pins                        pinovi koji se zauzimaju.
+ * @details     Funkcija registruje navedene pinove i obelezava ih kao aktivne.
+ *              Pre poziva ove funkcije neophodno je da se ispitaju statusi
+ *              pinova. To se vrsi funkcijom lldGpioQuery().
+ *              Ukoliko postoji mogucnost da se jednom portu obrate vise
+ *              objekata u nepredvidljivim trenucima, onda je potrebno koristiti
+ *              kriticne sekcije koda.
+ *//*--------------------------------------------------------------------------------------------*/
+void lldGpioOccupy(
     esGpioId_T          * gpioId,
     uint16_t            pins);
 
-void lldGpioStop(
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Oslobadja prethodno zauzete pinove @c pins na portu @c gpioId.
+ * @param       gpioId                      Identifikator GPIO porta,
+ * @param       pins                        pinovi koji se zauzimaju.
+ * @details     Funkcija oslobadja prethodno zauzete pinove upotrebom funkcije
+ *              lldGpioOccupy().
+ *//*--------------------------------------------------------------------------------------------*/
+void lldGpioRelease(
     esGpioId_T          * gpioId,
     uint16_t            pins);
 
-void lldGpioQuery(
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Ispituje status @c pins pinova na portu @c gpioId.
+ * @param       gpioId                      Identifikator GPIO porta,
+ * @param       pins                        pinovi ciji se status trazi.
+ * @return      Stanje svih navedenih pinova, jednako je logicko "I" operaciji
+ *              sa respektivnim stanjima pinova.
+ *  @retval     ES_DEV_READY - svi navedeni pinovi su spremni za koriscenje,
+ *  @retval     ES_DEV_BUSY - barem jedan pin nije spreman za koriscenje.
+ *//*--------------------------------------------------------------------------------------------*/
+esDevStatus_T lldGpioQuery(
     esGpioId_T          * gpioId,
-    uint8_t             pin);
+    uint16_t            pins);
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 

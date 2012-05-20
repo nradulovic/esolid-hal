@@ -137,7 +137,11 @@ struct uartDef {
 
 /**
  * @brief       Broj stop bitova
- * @details
+ * @details     Moguce vrednosti:
+ *              - ES_UART_STOP_HALF_BIT,
+ *              - ES_UART_STOP_ONE_BIT,
+ *              - ES_UART_STOP_ONE_AND_HALF_BIT,
+ *              - ES_UART_STOP_TWO_BITS
  */
     enum esUartStopBit  stopBits;
 
@@ -148,7 +152,25 @@ struct uartDef {
  *              - ES_UART_TX_ONLY - koristi se samo predajna sekcija UART-a
  *              - ES_UART_RX_ONLY - koristi se samo prijemna sekcija UART-a
  */
-    enum esUartMode     uartMode;
+    enum esUartMode     mode;
+
+/**
+ * @brief       Prioritet funkcija za prijem/predaju/resavanje gresaka.
+ * @details     Sve funkcije se izvrsavaju u prekidnoj rutini koja poseduje
+ *              @prio prioritet.
+ *
+ *              Moguce vrednosti:
+ *              - ES_PRIO_IDLE,
+ *              - ES_PRIO_VERY_LOW,
+ *              - ES_PRIO_LOW,
+ *              - ES_PRIO_BELOW_NORMAL,
+ *              - ES_PRIO_NORMAL,
+ *              - ES_PRIO_ABOVE_NORMAL,
+ *              - ES_PRIO_HIGH,
+ *              - ES_PRIO_VERY_HIGH,
+ *              - ES_PRIO_REALTIME
+ */
+    enum esHandlerPrio  prio;
 
 /**
  * @brief       Funkcija za predaju
@@ -156,7 +178,7 @@ struct uartDef {
  *              - kada je predat jedan karakter,
  *              - kada je bafer za slanje prazan.
  */
-    pUartHandler_T     pTxHandler;
+    pUartHandler_T      pTxHandler;
 
 /**
  * @brief       Funkcija za prijem
@@ -164,13 +186,13 @@ struct uartDef {
  *              - kada je primljen jedan karakter,
  *              - kada je bafer za prijem pun.
  */
-    pUartHandler_T     pRxHandler;
+    pUartHandler_T      pRxHandler;
 
 /**
  * @brief       Funkcija za resavanje gresaka
  * @details     Ova funkcija se poziva ukoliko je detektovana neka od gresaka.
  */
-    pUartErrHandler_T  pErrorHandler;
+    pUartErrHandler_T   pErrorHandler;
 };
 
 /*-------------------------------------------------------------------------------------------*//**

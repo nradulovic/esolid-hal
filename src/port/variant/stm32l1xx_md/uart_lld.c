@@ -157,19 +157,6 @@ esDevStatus_T esUartStatus(
     HAL_DBG_CHECK(NULL != uart);                                                /* Provera par: da li je uart inicijalizovan?               */
     HAL_DBG_CHECK(UART_DRVID_LIST(uart->drvId));                                /* Provera par: da li je drvId validan?                     */
 
-    enum esUartMode mode = uart->drvDef->uartMode;
-
-    switch (mode) {
-        case ES_UART_MODE_RX : {
-
-            return (uart->drvIntr->rxStatus);
-        }
-
-        case ES_UART_MODE_TX : {
-
-            return (uart->drvIntr->txStatus);
-        }
-    }
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -185,7 +172,7 @@ void lldUartDrvStart(
         RCC->AHBENR |= RCC_AHBENR_GPIOAEN;                                      /* Ukljuci GPIO takt.                                       */
         RCC->APB2ENR |= RCC_APB2ENR_USART1EN;                                   /* Ukljuci UART takt.                                       */
 
-        switch (aUart->drvDef.uartMode) {
+        switch (aUart->drvDef.mode) {
             case ES_UART_MODE_RX : {
                 GPIOA->AFR[1] &= ~GPIO_AFRH_AFRH10;                             /* Ocisti AF polje pin-a.                                   */
                 GPIOA->AFR[1] |= (UART1_GPIO_AFIO << UART1_GPIO_AFIO_POS_RX);   /* Postavi potrebnu AF vrednost.                            */
@@ -209,7 +196,7 @@ void lldUartDrvStart(
             }
 
             default : {
-                HAL_DBG_CHECK(ES_UART_MODE_TX_AND_RX == aUart->drvDef.uartMode);
+                HAL_DBG_CHECK(ES_UART_MODE_TX_AND_RX == aUart->drvDef.mode);
                 GPIOA->AFR[1] &= ~(GPIO_AFRH_AFRH9 | GPIO_AFRH_AFRH10);
                 GPIOA->AFR[1] |= ((UART1_GPIO_AFIO << UART1_GPIO_AFIO_POS_TX) | (UART1_GPIO_AFIO << UART1_GPIO_AFIO_POS_RX));
                 GPIOA->MODER &= ~(GPIO_MODER_MODER9 | GPIO_MODER_MODER10);
@@ -239,6 +226,32 @@ void lldUartDrvStart(
 #else /* OPT_HAL_UART */
     (void)aUart;
 #endif /* !OPT_HAL_UART */
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+void esUartInit(
+    const C_ROM esUartId_T * uartId,
+    const C_ROM esUartDef_T * uartDef,
+    esUartDrv_T     * uart) {
+
+    HAL_DBG_CHECK((const C_ROM esUartId_T *)0U != uartId);                      /* Provera par: da li je uartId inicijalizovan?             */
+    HAL_DBG_CHECK((const C_ROM esUartDef_T *)0U != uartDef);                    /* Provera par: da li je uartDef inicijalizovan?            */
+    HAL_DBG_CHECK(NULL != uart);                                                /* Provera par: da li je uart inicijalizovan?               */
+    HAL_DBG_CHECK(UART_DRVID_LIST(uartId));                                     /* Provera par: da li je uartId validan?                    */
+    HAL_DBG_CHECK(
+        (ES_UART_DATA_7_BITS == uartDef->dataBits) ||
+        (ES_UART_DATA_8_BITS == uartDef->dataBits) ||
+        (ES_UART_DATA_9_BITS == uartDef->dataBits));                            /* Provera par: da li je dataBits validan enumerator?       */
+    HAL_DBG_CHECK(
+        (ES_UART_STOP_HALF_BIT == uartDef->stopBits) ||
+        (ES_UART_STOP_ONE_AND_HALF_BIT == uartDef->stopBits) ||
+        (ES_UART_STOP_ONE_BIT == uartDef->stopBits) ||
+        (ES_UART_STOP_TWO_BITS == uartDef->stopBits));                          /* Provera par: da li je stopBits validan enumerator?       */
+    HAL_DBG_CHECK(
+        (ES_UART_MODE_RX == uartDef->mode) ||
+        (ES_UART_MODE_TX == uartDef->mode) ||
+        (ES_UART_MODE_TX_AND_RX == uartDef->mode));                             /* Provera par: da li je mode validan enumerator?           */
+
 }
 
 
