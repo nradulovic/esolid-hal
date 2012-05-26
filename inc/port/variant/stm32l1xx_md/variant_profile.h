@@ -67,6 +67,7 @@
 
 #if defined(OPT_HAL_CRC)
 # define ES_FEATURE_CRC
+# include "port/variant/stm32l1xx_md/crc_lld.h"
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/

@@ -20,83 +20,31 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @author      Dejan Ristic
- * @brief       Interfejs/konfiguracija Timer Low Level Driver modula.
+ * @brief       Interfejs/konfiguracija CRC Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32f10x_ld_vl_timer_impl
+ * @addtogroup  stm32l1xx_md_crc_impl
  ****************************************************************************************//** @{ */
 
 
-#ifndef TIMER_LLD_H_
-#define TIMER_LLD_H_
+#ifndef CRC_LLD_H_
+#define CRC_LLD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "stm32f10x.h"
+#include "stm32l1xx.h"
 
 /*==================================================================================  DEFINES  ==*/
+#define IMPL_CRC32
+
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------  C++ extern begin  --*/
-#ifdef __cplusplus
-extern "C" {
-#endif
-  
 /*===============================================================================  DATA TYPES  ==*/
-struct tmrId;
-struct tmrIntr;
-struct tmrDef;
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Upravljacka struktura
- * @details     Ova struktura opisuje koji je identifikator drajvera,
- *              definicionu strukturu i registre.
- *//*--------------------------------------------------------------------------------------------*/
-struct tmrDrv {
-/**
- * @brief       Pokazivac na identifikacionu strukturu
- */
-    struct tmrId        * drvId;
-
-/**
- * @brief       Pokazivac na internu strukturu
- */
-    struct tmrIntr      * drvIntr;
-
-/**
- * @brief       Pokazivac na definicionu strukturu
- */
-    struct tmrDef       * drvDef;
-
-/**
- * @brief       Pokazivac na registre hardvera
- */
-    TIM_TypeDef         * regs;
-};
-
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*---------------------------------------------------------------------------  C++ extern end  --*/
-#ifdef __cplusplus
-}
-#endif
-
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if defined(OPT_HAL_TIMER)
-# if defined(OPT_HAL_TIMER_USE_1)
-#  error "HAL->TIMER: This port does not support Timer 1."
-# endif
-# if defined(OPT_HAL_TIMER_USE_5)
-#  error "HAL->TIMER: This port does not support Timer 5."
-# endif
-#endif
-
 /** @endcond *//** @} *//*************************************************************************
- * END of timer_lld.h
+ * END of crc_lld.h
  *************************************************************************************************/
-#endif /* TIMER_LLD_H_ */
+#endif /* CRC_LLD_H_ */

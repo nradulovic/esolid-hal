@@ -67,7 +67,7 @@
         if (0U == prio) {                                                       \
             INT_PRIO_MASK_SET_(0U);                                             \
         } else {                                                                \
-            INT_PRIO_MASK_SET_((uint8_t)((uint16_t)256U - (uint16_t)(prio));    \
+            INT_PRIO_MASK_SET_((uint8_t)((uint16_t)256U - (uint16_t)(prio)));   \
         }                                                                       \
     } while (0)
 
