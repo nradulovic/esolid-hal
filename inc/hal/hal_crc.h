@@ -46,27 +46,98 @@ extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
+/**
+ * @brief       Definiciona struktura CRC drajvera
+ * @details     Sledeca struktura cuva kontekst za izvrsavanje CRC algoritma.
+ *              Sva polja strukture su parametri kojima se konfigurise algoritam.
+ */
+struct crcDef {
+/**
+ * @brief       Polinom CRC algoritma
+ * @details     Ovom promenljivom se iskazuje polinom CRC algoritma. Zadnji bit
+ *              polinoma se izostavlja. Na primer, ako je polinom 10110, onda
+ *              treba navesti 06. Vazan aspekt ovog parametra je da predstavlja
+ *              nereflektovan polinom.
+ */
+    uint32_t    poly;
+
+/**
+ * @brief       Sirina polinoma CRC algoritma
+ * @details     Ova vrednost treba da je za 1-bit manja od stvarne sirine
+ *              polinoma.
+ */
+    uint32_t    polyWidth;
+
+/**
+ * @brief       Ovaj parametar odredjuje pocetnu vrednost registra kada pocinje
+ *              algoritam.
+ */
+    uint32_t    initData;
+
+/**
+ * @brief       Ova vrednost se XOR-uje sa vrednoscu iz povratnog registra.
+ */
+    uint32_t    xorOut;
+
+/**
+ * @brief       Reflektovanje ulaznog podatka.
+ * @details     Ovo je boolean parametar. Ako je vrednost FALSE, ulazni bajtovi
+ *              se obradjuju, gde se 7 bit tretira kao MSB, a bit 0 LSB. Ako
+ *              ovaj parametar ima vrednost TRUE, svaki bajt se reflektuje pre
+ *              obrade.
+ */
+    bool_T      refIn;
+
+/**
+ * @brief       Reflektovanje izlaznog podatka.
+ * @details     Ovo je boolean parametar. Ako je podesen na vrednost FALSE,
+ *              konacna vrednost u povratnom registru se direktno prosledjuje
+ *              XOR out fazi, u suprotnom, ako ovaj parametar ima vrednost TRUE,
+ *              konacna vrednost povratnog registra se prvo reflektuje.
+ */
+    bool_T      refOut;
+};
+
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Funkcije za generisanje 16-bitniog CRC koda
+ * @name        Funkcije za generisanje 16-bitnog i 32-bitnog CRC koda
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Generise 16-bitni CRC kod za ulazni blok @c dataBlk, sa
+ * @brief       Generise 16-bitni CRC kod za ulazni blok @c pDataBlk.
+ * @param       pDataBlk                Ulazni blok podataka,
+ * @param       blkSize                 velicina bloka podataka.
+ * @return      CRC kod za predati blok podataka.
+ *//*--------------------------------------------------------------------------------------------*/
+uint16_t esCrc16(
+    uint8_t             * pDataBlk,
+    size_t              blkSize);
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Generise 16-bitni CRC kod za ulazni blok @c pDataBlk, sa
  *              inicijalnom vrednoscu @c initCrc.
- * @param       dataBlk                 Ulazni blok podataka,
+ * @param       pDataBlk                Ulazni blok podataka,
  * @param       blkSize                 velicina bloka podataka,
  * @param       initCrc                 inicijalna vrednost CRC koda. Koristi se
  *                                      u slucaju kada je potrebno generisati
  *                                      CRC kod za nekoliko sukcesivnih blokova
- *                                      podataka. U suprotnom ova vrednost treba
- *                                      da je jednaka nuli.
+ *                                      podataka.
  * @return      CRC kod za predati blok podataka.
  *//*--------------------------------------------------------------------------------------------*/
-uint16_t esCrc16(
-    uint8_t             * dataBlk,
+uint16_t esCrcPartial16(
+    uint8_t             * pDataBlk,
     size_t              blkSize,
     uint16_t            initCrc);
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Generise 32-bitni CRC kod za ulazni blok @c pDataBlk.
+ * @param       pDataBlk                Ulazni blok podataka,
+ * @param       blkSize                 velicina bloka podataka.
+ * @return      CRC kod za predati blok podataka.
+ *//*--------------------------------------------------------------------------------------------*/
+uint32_t esCrc32(
+    uint8_t             * pDataBlk,
+    size_t              blkSize);
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 
