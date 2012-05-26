@@ -20,10 +20,7 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief   	Konfiguracija HAL-a.
@@ -38,9 +35,19 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "port/port.h"
 #include "hal_config.h"
+#include "dbg/dbg.h"
 
 /*==================================================================================  DEFINES  ==*/
 /*=================================================================================  SETTINGS  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Maksimalni prioritet koji eSolid HAL koristi.
+ * @details     Ova opcija ogranicava maksimalni prioritet izvrsavanja eSolid
+ *              HAL kriticnih sekcija. Ovo omogucava da se koriste odredjeni
+ *              prekidi u sistemu i u toku izvrsenja kriticnih sekcija koda.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_INTERRUPT_PRIO
+#endif
 
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Omogucivanje pojedinacnih modula
@@ -64,7 +71,6 @@
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART
 #endif
-
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -101,13 +107,12 @@
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART_USE_4
 #endif
-
 /** @} *//*--------------------------------------------------------------------------------------*/
+
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Debug podrska
  * @brief       Makroi za debug podrsku. Pogledati @ref dbg_intf.
  * @{ *//*---------------------------------------------------------------------------------------*/
-
 #if defined(OPT_DBG_HAL) || defined(__DOXYGEN__)
 # define HAL_ASSERT                     DBG_ASSERT
 # define HAL_ASSERT_ALWAYS              DBG_ASSERT_ALWAYS
@@ -129,18 +134,10 @@
 # define HAL_DBG_MACRO(expr)            DBG_EMPTY_MACRO()
 # define HAL_DBG_CHECK(expr)            DBG_EMPTY_MACRO()
 #endif
-
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if defined(OPT_HAL_UART)
-#if !defined(OPT_HAL_UART_USE_1) && \
-    !defined(OPT_HAL_UART_USE_2) && \
-    !defined(OPT_HAL_UART_USE_3) && \
-    !defined(OPT_HAL_UART_USE_4)
-# error "HAL: You must enable at least one UART module! Use option OPT_HAL_UART_USE_<x> where x is: 1-4."
-#endif
 
 /** @endcond *//** @} *//*************************************************************************
  * END of hal_cfg.h

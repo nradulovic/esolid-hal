@@ -20,7 +20,7 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- * ------------------------------------------------------------------------------------------------
+ *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief       Implementacija GPIO Low Level Driver modula.

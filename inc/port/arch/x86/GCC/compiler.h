@@ -72,8 +72,8 @@
  * @name        Svojstva compiler porta, Intel x86 arhitektura.
  * @{ *//*---------------------------------------------------------------------------------------*/
 
-#if !defined(C_DATA_ALIGNMENT) || defined(__DOXYGEN__)
-# define C_DATA_ALIGNMENT               4
+#if !defined(ES_CPU_ATTRIB_ALIGNMENT) || defined(__DOXYGEN__)
+# define ES_CPU_ATTRIB_ALIGNMENT               4
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/

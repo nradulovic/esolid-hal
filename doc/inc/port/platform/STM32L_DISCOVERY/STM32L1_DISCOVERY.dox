@@ -6,4 +6,4 @@
 /**
  * @defgroup    port_stm32l1-discovery ST STM32L1-DISCOVERY razvojno okruzenje.
  * @brief       Interfejs za STM32L1-DISCOVERY razvojno okruzenje.
- *************************************************************************************************
+ *//** @} *//*************************************************************************************/

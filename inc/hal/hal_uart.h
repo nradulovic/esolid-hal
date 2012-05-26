@@ -20,10 +20,7 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//******************************************************************************************//**
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs za UART modul.
@@ -36,10 +33,12 @@
 #ifndef HAL_USART_H_
 #define HAL_USART_H_
 
+/*
+ * NOTE: Svojstvo odredjuje hardverski profil varijante.
+ */
+#if defined(ES_FEATURE_UART) || defined(__DOXYGEN__)
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include PORT_VARIANT_HEADER(uart_lld)
-
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Moguce opcije za UART modul
@@ -157,7 +156,7 @@ struct uartDef {
 /**
  * @brief       Prioritet funkcija za prijem/predaju/resavanje gresaka.
  * @details     Sve funkcije se izvrsavaju u prekidnoj rutini koja poseduje
- *              @prio prioritet.
+ *              @c prio prioritet.
  *
  *              Moguce vrednosti:
  *              - ES_PRIO_IDLE,
@@ -269,7 +268,7 @@ void esUartInit(
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       DeInicijalizacija UART modula i hardvera.
- * @param       aUart                   Pokazivac na strukturu UART drajvera.
+ * @param       uart                    Pokazivac na strukturu UART drajvera.
  * @details     Funkcija postavlja hardver u rezim male potrosnje.
  *//*--------------------------------------------------------------------------------------------*/
 void esUartDeInit(
@@ -342,4 +341,5 @@ size_t esUartRxEnd(
 /** @endcond *//** @} *//*************************************************************************
  * END of port_detect.h
  *************************************************************************************************/
+#endif /* ES_FEATURE_UART */
 #endif /* HAL_USART_H_ */

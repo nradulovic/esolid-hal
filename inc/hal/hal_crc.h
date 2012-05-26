@@ -23,47 +23,62 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Profil arhitekture za ARM Cortex-M3.
+ * @brief       Interfejs za CRC modul
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_arm_cm3
+ * @addtogroup  hal_crc
+ * @brief		Izracunavanje CRC (Cyclic Redundancy Check) koda za detekciju gresaka
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_PROFILE_H_
-#define ARCH_PROFILE_H_
+#ifndef HAL_CRC_H_
+#define HAL_CRC_H_
 
+/*
+ * NOTE: Svojstvo odredjuje hardverski profil varijante.
+ */
+#if defined(ES_FEATURE_CRC) || defined(__DOXYGEN__)
 /*============================================================================  INCLUDE FILES  ==*/
-#include "port/arch/arm_cm3/cpu.h"
-#include "port/arch/arm_cm3/interrupt.h"
-
 /*==================================================================================  DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante svojstva za ARM Cortex-M3
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_FEATURE_CPU
-#define ES_FEATURE_INTERRUPT
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Identifikacione konstante za ARM Cortex-M3
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_CPU_NAME                                                         \
-    "Cortex-M3"
-
-#define ES_HAL_CPU_SERIES                                                       \
-    "ARMv7-M"
-
-#define ES_HAL_CPU_MANUF                                                        \
-    "ARM"
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*==================================================================================  MACRO's  ==*/
+/*-------------------------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Funkcije za generisanje 16-bitniog CRC koda
+ * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Generise 16-bitni CRC kod za ulazni blok @c dataBlk, sa
+ *              inicijalnom vrednoscu @c initCrc.
+ * @param       dataBlk                 Ulazni blok podataka,
+ * @param       blkSize                 velicina bloka podataka,
+ * @param       initCrc                 inicijalna vrednost CRC koda. Koristi se
+ *                                      u slucaju kada je potrebno generisati
+ *                                      CRC kod za nekoliko sukcesivnih blokova
+ *                                      podataka. U suprotnom ova vrednost treba
+ *                                      da je jednaka nuli.
+ * @return      CRC kod za predati blok podataka.
+ *//*--------------------------------------------------------------------------------------------*/
+uint16_t esCrc16(
+    uint8_t             * dataBlk,
+    size_t              blkSize,
+    uint16_t            initCrc);
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------  C++ extern end  --*/
+#ifdef __cplusplus
+}
+#endif
+
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of arch_profile.h
+ * END of hal_crc.h
  *************************************************************************************************/
-#endif /* ARCH_PROFILE_H_ */
+#endif /* ES_FEATURE_CRC */
+#endif /* HAL_CRC_H_ */

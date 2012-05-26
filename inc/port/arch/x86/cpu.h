@@ -76,13 +76,13 @@
  * @name        Implementacija za Intel x86 arhitekturu
  * @{ *//*---------------------------------------------------------------------------------------*/
 
-#if !defined(HAL_CPU_FLS) || defined(__DOXYGEN__)
-# define HAL_CPU_FLS(expr1)                                                     \
+#if !defined(ES_CPU_FLS) || defined(__DOXYGEN__)
+# define ES_CPU_FLS(expr1)                                                     \
     (31 - __builtin_clz(expr1))
 #endif
 
-#if !defined(HAL_CPU_FFS) || defined(__DOXYGEN__)
-# define HAL_CPU_FFS(expr1)                                                     \
+#if !defined(ES_CPU_FFS) || defined(__DOXYGEN__)
+# define ES_CPU_FFS(expr1)                                                     \
     ( __builtin_ffs(expr1) - 1)
 #endif
 
@@ -91,7 +91,7 @@
  * @name        Atributi za Intel x86 arhitekturu
  * @{ *//*---------------------------------------------------------------------------------------*/
 
-#define PORT_SUPP_IDENTIC_ROM_RAM       PORT_TRUE
+#define ES_CPU_ATTRIB_UNITED_ACCESS       PORT_TRUE
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 

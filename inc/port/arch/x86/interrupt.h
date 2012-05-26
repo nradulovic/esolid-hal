@@ -4,7 +4,7 @@
  *
  * Template version 1.1.5 (29.12.2011)
  *
- * Copyright (C) 2011 - Nenad Radulović
+ * Copyright (C) 2011 - Nenad Radulovic
  *
  * lcsw-eSolid is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,20 +83,14 @@
  * @name        Implementacija za Intel x86 x64 arhitekturu
  * @{ *//*---------------------------------------------------------------------------------------*/
 
-#if !defined(HAL_CRITICAL_DECL) || defined(__DOXYGEN__)
-# define HAL_CRITICAL_DECL()													\
+# define ES_CRITICAL_DECL()													\
 	extern C_UNUSED_VAR(uint8_t, ES_CONCAT(emptyVar, __LINE__))
-#endif
 
-#if !defined(HAL_CRITICAL_ENTER) || defined(__DOXYGEN__)
-# define HAL_CRITICAL_ENTER()													\
+# define ES_CRITICAL_ENTER()													\
 	(void)0
-#endif
 
-#if !defined(HAL_CRITICAL_EXIT) || defined(__DOXYGEN__)
-# define HAL_CRITICAL_EXIT()													\
+# define ES_CRITICAL_EXIT()													\
 	(void)0
-#endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 

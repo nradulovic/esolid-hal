@@ -20,10 +20,7 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief       Interfejs za GPIO modul.
@@ -35,76 +32,16 @@
  *              hardvera u rezim male potrosnje, GPIO drajver ce iskoristiti
  *              navedenu osobinu i postavice hardver u rezim male potrosnje
  *              kada se ne koristi.
- * @section     gpio_usage Koriscenje GPIO drajvera
- *              Koriscenje se grubo svodi na tri koraka:
- *              - inicijalizacija (@ref gpio_usage_init)
- *              - pozivi funkcija GPIO modula (@ref gpio_usage_functions)
- *              - deinicijalizacija
- *
- * @subsection  gpio_usage_init Inicijalizacija
- *              Potrebno je najpre instancirati strukturu promenljivih, javnih
- *              podataka, odnosno, upravljacku strukturu esGpioDrv_T.
- *              Instaciranje se moze izvrsiti neposredno:
-@code
-esGpioDrv_T gpioDrajver;
-@endcode
- *              ili, upotrebom malloc funkcije:
-@code
-esGpioDrv_T * pGpioDrajver;
-
-pGpioDrajver = esHmemAlloc(sizeof(esGpioDrv_T));
-@endcode
- *              Zatim se formira definiciona struktura. Definiciona struktura
- *              se cuva iskljucivo u ROM/FLASH memoriji. Definiciona struktura
- *              se moze kreirati neposredno:
-@code
-const C_ROM esGpioDef_T gpioDefinicija = {
-    ES_GPIO_MODE_IN,
-    ES_GPIO_SPEED_LOW,
-    ES_GPIO_OTYPE_PUSHPULL,
-    ES_GPIO_ITYPE_PULLNONE
-};
-@endcode
- *              ili upotrebom makroa:
-@code
-ES_GPIO_DEFINITION(
-    gpioDefinicija,
-    ES_GPIO_MODE_IN,
-    ES_GPIO_SPEED_LOW,
-    ES_GPIO_OTYPE_PUSHPULL,
-    ES_GPIO_ITYPE_PULLNONE);
-@endcode
- *              Nakon definisanja ove dve strukture init funkcija za port A i
- *              pin 0 se poziva na sledeci nacin:
-@code
-esGpioInit(
-    &gpioDefinicija,
-    &gpioDrajver,
-    &esGPIOA,
-    1U);
-@endcode
- *              Pozivom init funkcije se izvrsava inicijalizacija GPIO drajvera
- *              i navedenog hardverskog modula.
- * @subsection  gpio_usage_functions Funkcije GPIO drajvera
- *              GPIO drajver vrsi automatsko aktiviranje/deaktiviranje GPIO
- *              hardverskog modula ukoliko to korisceni HAL port podrzava.
- *              Funkcije automatski azuriraju stanje koriscenih resursa (pinovi
- *              i portovi) i u zavisnosti od stanja hardvera automatski se
- *              postavljaju u rezim minimalne potrosnje kada se GPIO modul ne
- *              koristi.
- *              Naravno, azuriranje stanja GPIO modula unosi dodatni overhead u
- *              radu sa GPIO modulom. U cilju otklanjanja dodatnog overhead-a
- *              napravljene su funkcije i makroi za brz pristup koji postavljaju
- *              odredjene zahteve u pogledu njihovog koriscenja. Pogledati
- *              dokumentaciju za pojedinacne funkcije.
  ****************************************************************************************//** @{ */
 
 #ifndef HAL_GPIO_H_
 #define HAL_GPIO_H_
 
+/*
+ * NOTE: Svojstvo odredjuje hardverski profil varijante.
+ */
+#if defined(ES_FEATURE_GPIO) || defined(__DOXYGEN__)
 /*============================================================================  INCLUDE FILES  ==*/
-#include PORT_VARIANT_HEADER(gpio_lld)
-
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Moguce opcije za GPIO port pinove
@@ -379,6 +316,7 @@ extern const C_ROM struct gpioId esGPIOH;
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
+
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Opste funkcije za rad sa GPIO modulom.
  * @brief       Inicijalizacija, deinicijalizacija i status GPIO modula.
@@ -627,7 +565,9 @@ uint16_t esGpioReadFast(
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
+
 /** @endcond *//** @} *//*************************************************************************
  * END of hal_gpio.h
  *************************************************************************************************/
+#endif /* ES_FEATURE_GPIO */
 #endif /* HAL_GPIO_H_ */

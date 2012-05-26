@@ -1,22 +1,20 @@
 /*************************************************************************************************
- * This file is part of esolid-haldsm
- *
- * Template version: 1.1.15 (20.05.2012)
+ * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
- * esolid-haldsm is free software; you can redistribute it and/or modify
+ * eSolid is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * esolid-haldsm is distributed in the hope that it will be useful,
+ * eSolid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with esolid-haldsm; if not, write to the Free Software
+ * along with eSolid; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  *
@@ -24,72 +22,63 @@
  * e-mail  :    blueskyniss@gmail.com
  *//******************************************************************************************//**
  * @file
- * @author  	nenad
- * @brief       Interface of c.
- * @details     Detailed description
- * @note        Notes
+ * @author  	Nenad Radulovic
+ * @brief       Profil varijante za STM32L1xx_MD seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  module_intf
- * @brief		Interface of c module.
- * @section		sec_name Section name
+ * @addtogroup  hal_stm32l1xx_md
  ****************************************************************************************//** @{ */
 
 
-#ifndef C_H_
-#define C_H_
+#ifndef VARIANT_PROFILE_H_
+#define VARIANT_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include PORT_COMPILER_HEADER(compiler)
-
-/*----------------------------------------------------------------------------------  EXTERNS  --*/
-/** @cond */
-#ifdef C_H_VAR
-# define C_H_EXT
-#else
-# define C_H_EXT extern
-#endif
-/** @endcond*/
-
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Definition group
- * @brief       brief description
+ * @name        Identifikacione konstante
  * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
+#define ES_HAL_MCU_NAME                                                         \
+    "STM32L1xx"
 
-/*==================================================================================  MACRO's  ==*/
+#define ES_HAL_MCU_SERIES                                                       \
+    "Ultra-low power 32-bit"
+
+#define ES_HAL_MCU_MANUF                                                        \
+    "STMicroelectronics"
+
+/** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Macro group
- * @brief       brief description
+ * @name        Konstante dostupnosti
  * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
+#if defined(OPT_HAL_GPIO)
+# define ES_FEATURE_GPIO
+# include "port/variant/stm32l1xx_md/gpio_lld.h"
+#endif
 
+#if defined(OPT_HAL_UART)
+# define ES_FEATURE_UART
+# include "port/variant/stm32l1xx_md/uart_lld.h"
+#endif
+
+#if defined(OPT_HAL_TIMER)
+# define ES_FEATURE_TIMER
+# include "port/variant/stm32l1xx_md/timer_lld.h"
+#endif
+
+#if defined(OPT_HAL_CRC)
+# define ES_FEATURE_CRC
+#endif
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Data types group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*=========================================================================  GLOBAL VARIABLES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Variables group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Function group
- * @brief       brief description
- * @{ *//*---------------------------------------------------------------------------------------*/
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
@@ -98,6 +87,6 @@ extern "C" {
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of c.h
+ * END of variant_profile.h
  *************************************************************************************************/
-#endif /* C_H_ */
+#endif /* VARIANT_PROFILE_H_ */

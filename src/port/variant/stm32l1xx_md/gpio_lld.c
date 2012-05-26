@@ -251,24 +251,24 @@ C_INLINE_ALWAYS void gpioStopI_(
 C_INLINE void gpioStart_(
     esGpioDrv_T     * gpio) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
 
-    HAL_CRITICAL_ENTER();
+    ES_CRITICAL_ENTER();
     gpioStartI_(
         gpio);
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
 C_INLINE void gpioStop_(
     esGpioDrv_T     * gpio) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
 
-    HAL_CRITICAL_ENTER();
+    ES_CRITICAL_ENTER();
     gpioStopI_(
         gpio);
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -351,15 +351,15 @@ void lldGpioOccupy(
     esGpioId_T          * gpioId,
     uint16_t            pins) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
 
     HAL_ASSERT((uint16_t)0U != pins);                                           /* Provera: da li se koristi barem jedan pin?               */
     HAL_ASSERT((uint16_t)0U == (gpioId->intr->registry & pins));                /* Provera: pinovi moraju da budu slobodni.                 */
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
     gpioId->intr->active |= pins;                                               /* Oznaci da su pinovi aktivni.                             */
     RCC->AHBENR |= ((uint32_t)1U << gpioId->rccPos);                            /* Omoguci takt za port periferiju.                         */
     gpioId->intr->registry |= pins;                                             /* Registruj koriscene pinove.                              */
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -367,18 +367,18 @@ void lldGpioRelease(
     esGpioId_T          * gpioId,
     uint16_t            pins) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
 
     HAL_ASSERT((uint16_t)0U != pins);                                           /* Provera: da li se koristi barem jedan pin?               */
     HAL_ASSERT((gpioId->intr->registry & ~pins) == pins);                       /* Provera: pinovi moraju da budu zauzeti.                  */
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
     gpioId->intr->active &= ~pins;
 
     if ((uint16_t)0U == gpioId->intr->active) {
         RCC->AHBENR &= ~((uint32_t)1U << gpioId->rccPos);                       /* Onemoguci takt za port periferiju.                       */
     }
     gpioId->intr->registry &= ~pins;
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -405,7 +405,7 @@ void esGpioInit(
     esGpioDrv_T     * gpio,
     uint16_t        pins) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
 
     HAL_DBG_CHECK((const C_ROM esGpioDef_T *)0U != gpioDef);                    /* Provera par: mora da se preda definiciona struktura.     */
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
@@ -435,9 +435,9 @@ void esGpioInit(
         gpio,
         pins);
     RCC->AHBENR &= ~((uint32_t)1U << gpioId->rccPos);                           /* Onemoguci takt za port periferiju.                       */
-    HAL_CRITICAL_ENTER();
+    ES_CRITICAL_ENTER();
     gpioId->intr->registry |= pins;                                             /* Registruj da se pinovi koriste.                          */
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
     gpio->pins = pins;                                                          /* Prijavi u upravljacku strukturu da se pinovi koriste.    */
 }
 
@@ -557,21 +557,21 @@ void esGpioWrite(
     esGpioDrv_T     * gpio,
     uint16_t        data) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
     uint16_t tmpData;
     uint16_t tmpPort;
 
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
     HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
     tmpData = data & gpio->pins;
-    HAL_CRITICAL_ENTER();
+    ES_CRITICAL_ENTER();
     gpioStartI_(
         gpio);
     tmpPort = gpio->regs->ODR & ~gpio->pins;
     gpio->regs->ODR = tmpPort | tmpData;
     gpioStopI_(
         gpio);
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -579,17 +579,17 @@ void esGpioWriteFast(
     esGpioDrv_T     * gpio,
     uint16_t        data) {
 
-    HAL_CRITICAL_DECL();
+    ES_CRITICAL_DECL();
     uint16_t tmpData;
     uint16_t tmpPort;
 
     HAL_DBG_CHECK(NULL != gpio);                                                /* Provera par: da li je gpio definisan?                    */
     HAL_DBG_CHECK(GPIO_DRVID_LIST(gpio->drvId));                                /* Provera par: da li je drvId ispravan?                    */
     tmpData = data & gpio->pins;
-    HAL_CRITICAL_ENTER();
+    ES_CRITICAL_ENTER();
     tmpPort = gpio->regs->ODR & ~gpio->pins;
     gpio->regs->ODR = tmpPort | tmpData;
-    HAL_CRITICAL_EXIT();
+    ES_CRITICAL_EXIT();
 }
 
 /*-----------------------------------------------------------------------------------------------*/
