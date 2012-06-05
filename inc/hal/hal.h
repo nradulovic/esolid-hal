@@ -34,10 +34,13 @@
 #define HAL_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#include "port/port.h"
 #include "cfg/hal_cfg.h"
 #include "hal_compiler.h"
+#include "dbg/dbg.h"
 
-#include PORT_MCU_PROFILE_HEADER()
+#include "port/profile/profiles.h"
+
 #include "hal_cpu.h"
 #include "hal_interrupt.h"
 #include "hal_gpio.h"
@@ -47,56 +50,32 @@
 
 
 /*==================================================================================  DEFINES  ==*/
+#if defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante dostupnosti HAL modula
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
 # define ES_FEATURE_CPU
 # define ES_FEATURE_INTERRUPT
 # define ES_FEATURE_GPIO
 # define ES_FEATURE_UART
 # define ES_FEATURE_CRC
 # define ES_FEATURE_TIMER
-#endif
 /** @} *//*--------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Identifikacione konstante mikroprocesora
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if !defined(ES_HAL_CPU_NAME) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_NAME                                                        \
-    "Unknown CPU name"
-#endif
-
-#if !defined(ES_HAL_CPU_SERIES) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_SERIES                                                      \
-    "Unknown CPU series"
-#endif
-
-#if !defined(ES_HAL_CPU_MANUF) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_MANUF                                                       \
-    "Unknown CPU manufacturer"
-#endif
+# define ES_HAL_CPU_NAME
+# define ES_HAL_CPU_SERIES
+# define ES_HAL_CPU_MANUF
 /** @} *//*--------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Identifikacione konstante mikrokontrolera
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if !defined(ES_HAL_MCU_NAME) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_NAME                                                        \
-    "Unknown MCU name"
-#endif
-
-#if !defined(ES_HAL_MCU_SERIES) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_SERIES                                                      \
-    "Unknown MCU series"
-#endif
-
-#if !defined(ES_HAL_MCU_MANUF) || defined(__DOXYGEN__)
-# define ES_HAL_MCU_MANUF                                                       \
-    "Unknown MCU manufacturer"
-#endif
+# define ES_HAL_MCU_NAME
+# define ES_HAL_MCU_SERIES
+# define ES_HAL_MCU_MANUF
 /** @} *//*--------------------------------------------------------------------------------------*/
+#endif
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Status hardvera kojeg opsluzuje drajver
