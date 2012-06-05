@@ -72,44 +72,40 @@
 #ifndef PORT_H_
 #define PORT_H_
 
-
 /*============================================================================  INCLUDE FILES  ==*/
-#include "port/port_detect.h"
-
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Port konstanta koja se koristi prilikom ispitavanja mogucnosti
- *              port sistema.
- * @details     Ova promenljiva pokazuje da je dati atribut podrzan.
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_TRUE                       1
+ * @name        Podrzani kompajleri
+ * @brief       Konstante koje prepoznaje port sistem za konfiguraciju
+ *              kompajlera.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define _GCC_                           401
+#define _IAR_                           402
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*
+ *              Odredjivanje kompajlera
+ *-----------------------------------------------------------------------------------------------*/
+#if defined(OPT_PORT_CMN)
+# if (OPT_PORT_CMN == _GCC_)
+#  define PORT_CMN                      GCC
+# endif
+#else
+# if defined(__GNUC__)
+#  define PORT_CMN                      GCC
+# elif defined(__IAR_SYSTEMS_ICC) || defined(__IAR_SYSTEMS_ICC__)
+#  define PORT_CMN                      IAR
+# endif
+#endif
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Port konstanta koja se koristi prilikom ispitivanja mogucnosti
- *              port sistema.
- * @details     Ova promenljiva pokazuje da dati atribut nije podrzan.
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_FALSE                      2
+#if !defined(PORT_CMN)
+# error "Can not resolve port compiler, please specify in OPT_PORT_CMN option."
+#endif
 
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Pomocni makroi za ispravan rad port sistema
  * @note        Svi pomocni makroi su namenjeni iskljucivo za internu upotrebu
  * @{ *//*---------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Koristi se u makrou PORT_CONCAT().
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_ICONCAT(expr1, expr2)      expr1 ## expr2
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Objedinjuje argumente u jedan niz.
- * @param       expr1                   Prvi argument koji se spaja
- * @param       expr2                   Drugi argumenr koji se spaja
- * @return      expression = expr1 + expr2
- * @details     Nakon poziva PORT_CONCAT(var, 123) dobija se var123.
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_CONCAT(expr1, expr2)       PORT_ICONCAT(expr1, expr2)
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Neposredno (Immediate) pretvaranje izraza u niz karaktera.
@@ -141,13 +137,10 @@
     PORT_STRING(port/common/PORT_CMN/common_module.h)
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Ucitava zaglavlje mikrokontrolera
+ * @brief       Ucitava zaglavlje zavisno od kompajlera
  *//*--------------------------------------------------------------------------------------------*/
-#define PORT_MCU_PROFILE_HEADER()                                               \
-    PORT_STRING(port/variant/PORT_VARIANT.h)
-
-#define PORT_ARCH_COMPILER_HEADER(header)                                            \
-    PORT_STRING(port/arch/PORT_ARCH/PORT_CMN/header.h)
+#define PORT_CMN_DEPENDENT(header)                                       \
+    PORT_STRING(./PORT_CMN/header.h)
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Vraca putanju za Platform klasu port sistema.

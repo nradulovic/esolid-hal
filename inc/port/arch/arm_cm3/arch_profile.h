@@ -33,8 +33,8 @@
 #define ARCH_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include PORT_ARCH_COMPILER_HEADER(cpu)
-#include PORT_ARCH_COMPILER_HEADER(interrupt)
+#include PORT_CMN_DEPENDENT(cpu)
+#include PORT_CMN_DEPENDENT(interrupt)
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -47,14 +47,9 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Identifikacione konstante za ARM Cortex-M3
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_CPU_NAME                                                         \
-    "Cortex-M3"
-
-#define ES_HAL_CPU_SERIES                                                       \
-    "ARMv7-M"
-
-#define ES_HAL_CPU_MANUF                                                        \
-    "ARM"
+#define ES_HAL_CPU_NAME                 "Cortex-M3"
+#define ES_HAL_CPU_SERIES               "ARMv7-M"
+#define ES_HAL_CPU_MANUF                "ARM"
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==================================================================================  MACRO's  ==*/

@@ -37,11 +37,8 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Identifikacione konstante
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_MCU_NAME                                                         \
+#define ES_HAL_MCU_FAMILY                                                       \
     "STM32F10x"
-
-#define ES_HAL_MCU_SERIES                                                       \
-    "Low & medium-density value line"
 
 #define ES_HAL_MCU_MANUF                                                        \
     "STMicroelectronics"
@@ -50,23 +47,19 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante dostupnosti
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_GPIO)
-# define ES_FEATURE_GPIO
+#if (defined(OPT_HAL_GPIO) && defined(ES_FEATURE_GPIO))
 # include "port/family/stm32f10x/gpio_lld.h"
 #endif
 
-#if defined(OPT_HAL_UART)
-# define ES_FEATURE_UART
+#if (defined(OPT_HAL_UART) && defined(ES_FEATURE_UART))
 # include "port/family/stm32f10x/uart_lld.h"
 #endif
 
-#if defined(OPT_HAL_TIMER)
-# define ES_FEATURE_TIMER
+#if (defined(OPT_HAL_TIMER) && defined(ES_FEATURE_TIMER))
 # include "port/family/stm32f10x/timer_lld.h"
 #endif
 
-#if defined(OPT_HAL_CRC)
-# define ES_FEATURE_CRC
+#if (defined(OPT_HAL_CRC) && defined(ES_FEATURE_CRC))
 # include "port/family/stm32f10x/crc_lld.h"
 #endif
 
