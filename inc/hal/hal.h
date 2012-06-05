@@ -37,8 +37,7 @@
 #include "cfg/hal_cfg.h"
 #include "hal_compiler.h"
 
-#include PORT_VARIANT_HEADER(variant_profile)
-#include PORT_ARCH_HEADER(arch_profile)
+#include PORT_MCU_PROFILE_HEADER()
 #include "hal_cpu.h"
 #include "hal_interrupt.h"
 #include "hal_gpio.h"

@@ -35,7 +35,7 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
  *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_DEFINE_MODULE(HAL CRC module)
+HAL_DBG_DEFINE_MODULE(HAL crc module)
 ;
 
 /*============================================================================  LOCAL MACRO's  ==*/
@@ -308,30 +308,24 @@ const C_ROM uint8_t crc16LkTbl[256] =
 /*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 /*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
-#if !defined(HAL_CRC_VARIANT__)
-# if defined(OPT_OPTIMIZE_SPEED)
 /*-----------------------------------------------------------------------------------------------*/
-uint16_t esCrc16(
-    uint8_t             * dataBlk,
+#if !defined(IMPL_CRCPARTIAL16)
+uint16_t esCrcPartial16(
+    uint8_t             * pDataBlk,
     size_t              blkSize,
     uint16_t            initCrc) {
 
     uint8_t cntr;
+
+    HAL_DBG_CHECK(NULL != pDataBlk);                                            /* Provera par: da li je pDataBlk validan?                  */
+    HAL_DBG_CHECK((size_t)0U != blkSize);                                       /* Provera par: blok podataka ne sme da bude prazan.        */
+
+# if defined(OPT_OPTIMIZE_SPEED)
 
     for (cntr = (uint8_t)0U; cntr < blkSize; cntr++) {
         initCrc = (initCrc << 8U) ^ crc16LkTbl[(initCrc >> 8U) ^ *dataBlk++];
     }
-
-    return (initCrc);
-}
 # else /* OPT_OPTIMIZE_SPEED */
-/*-----------------------------------------------------------------------------------------------*/
-uint16_t esCrc16(
-    uint8_t             * dataBlk,
-    size_t              blkSize,
-    uint16_t            initCrc) {
-
-    uint8_t cntr;
 
     while ((size_t)0U <= --blkSize) {
         initCrc = initCrc ^ (*dataBlk++ << 8U);
@@ -345,16 +339,37 @@ uint16_t esCrc16(
             }
         }
     }
-
+# endif /* !OPT_OPTIMIZE_SPEED */
     return (initCrc);
 }
-# endif /* !OPT_OPTIMIZE_SPEED */
-#else
-/*
- * NOTE: Standard ne dozvoljava prazne izvrsne datoteke
- */
-extern uint8_t dummyVariable;
-#endif /* !HAL_CRC_VARIANT__ */
+#endif /* !IMPL_CRCPARTIAL16 */
+
+#if !defined(IMPL_CRC16)
+uint16_t esCrc16(
+    uint8_t             * pDataBlk,
+    size_t              blkSize) {
+
+    esCrcPartial16(
+        pDataBlk,
+        blkSize,
+        0U);
+}
+#endif /* !IMPL_CRC16 */
+
+#if !defined(IMPL_CRC32)
+uint16_t esCrc16(
+    uint8_t             * pDataBlk,
+    size_t              blkSize) {
+
+    HAL_DBG_CHECK(NULL != pDataBlk);                                            /* Provera par: da li je pDataBlk validan?                  */
+    HAL_DBG_CHECK((size_t)0U != blkSize);                                       /* Provera par: blok podataka ne sme da bude prazan.        */
+
+    /**
+     * @todo: Napisati funkciju za soft CRC-32
+     */
+    return (0U);
+}
+#endif /* !IMPL_CRC32 */
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************

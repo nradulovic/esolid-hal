@@ -68,6 +68,17 @@
 #define _LINUX_X86_X64_					204
 #define _WIN_X86_						205
 #define _WIN_X86_X64_					206
+#define _STM32F10X_MD_VL_               207
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Podrzani portovi klase familije.
+ * @brief       Konstante koje prepoznaje port sistem za konfiguraciju
+ *              familije.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+
+#define _STM32F10X_                     301
+#define _STM32L1XX_                     302
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -104,11 +115,15 @@
 
 # if (OPT_PORT_VARIANT == _STM32L1XX_MD_)
 #  define PORT_VARIANT                  stm32l1xx_md
-#  define OPT_PORT_ARCH                 _ARM_CM3_
+#  define OPT_PORT_FAMILY               _STM32L1XX_
 
 # elif (OPT_PORT_VARIANT == _STM32F10X_LD_VL_)
 #  define PORT_VARIANT                  stm32f10x_ld_vl
-#  define OPT_PORT_ARCH                 _ARM_CM3_
+#  define OPT_PORT_FAMILY               _STM32F10X_
+
+# elif (OPT_PORT_VARIANT == _STM32F10X_MD_VL_)
+#  define PORT_VARIANT                  stm32f10x_md_vl
+#  define OPT_PORT_FAMILY               _STM32F10X_
 
 # elif (OPT_PORT_VARIANT == _LINUX_X86_)
 #  define PORT_VARIANT					linux_x86
@@ -122,7 +137,27 @@
 #  error "Can not resolve port variant class, please check OPT_PORT_VARIANT option."
 # endif
 #else
-# error "OPT_PORT_VARIANT not defined, please define OPT_PORT_VARIANT or OPT_PORT_PLATFORM option."
+# error "OPT_PORT_VARIANT not defined. Please, define OPT_PORT_VARIANT or OPT_PORT_PLATFORM option."
+#endif
+
+/*-----------------------------------------------------------------------------------------------*
+ *              Definisanje familije
+ *-----------------------------------------------------------------------------------------------*/
+#if defined(OPT_PORT_FAMILY)
+
+# if (OPT_PORT_FAMILY == _STM32L1XX_)
+#  define PORT_FAMILY                   stm32l1xx
+#  define OPT_PORT_ARCH                 _ARM_CM3_
+
+# elif (OPT_PORT_FAMILY == _STM32F10X_)
+#  define PORT_FAMILY                   stm32f10x
+#  define OPT_PORT_ARCH                 _ARM_CM3_
+
+# else
+#  error "Can not resolve port family class, please check OPT_PORT_FAMILY option."
+# endif
+#else
+# error "OPT_PORT_FAMILY not defined. Please, define OPT_PORT_FAMILY or OPT_PORT_PLATFORM option."
 #endif
 
 /*-----------------------------------------------------------------------------------------------*
@@ -137,10 +172,10 @@
 #  define PORT_ARCH						x86
 
 # else
-#  error "Can not resolve port variant architecture, please check OPT_PORT_ARCH option."
+#  error "Can not resolve port architecture class, please check OPT_PORT_ARCH option."
 # endif
 #else
-# error "OPT_PORT_ARCH not defined, please define OPT_PORT_ARCH, OPT_PORT_VARIANT or OPT_PORT_PLATFORM option."
+# error "OPT_PORT_ARCH not defined. Please, define OPT_PORT_ARCH, OPT_PORT_VARIANT or OPT_PORT_PLATFORM option."
 #endif
 
 /*-----------------------------------------------------------------------------------------------*

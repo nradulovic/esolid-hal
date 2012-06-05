@@ -113,9 +113,8 @@ extern "C" {
  * @details     Funkcije koje pripadaju ovoj grupi nisu namenjene da ih korisnik
  *              direktno poziva vec se koriste od strane samog HAL sistema.
  * @{ *//*---------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Inicijalizacije GPIO drajver modula
+ * @brief       Inicijalizacija GPIO drajver modula
  * @details     Ova funkcija se poziva automatski u toku inicijalizacije HAL
  *              paketa.
  *//*--------------------------------------------------------------------------------------------*/

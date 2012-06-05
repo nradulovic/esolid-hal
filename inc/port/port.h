@@ -137,28 +137,17 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Vraca putanju za Common klasu port sistema.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(PORT_CMN) || defined(__DOXYGEN__)
-# define PORT_CMN_HEADER(common_module)                                         \
+#define PORT_CMN_HEADER(common_module)                                          \
     PORT_STRING(port/common/PORT_CMN/common_module.h)
-#endif
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Vraca putanju za Arch klasu port sistema.
+ * @brief       Ucitava zaglavlje mikrokontrolera
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(PORT_ARCH) || defined(__DOXYGEN__)
-# define PORT_ARCH_HEADER(arch_module)                                          \
-    PORT_STRING(port/arch/PORT_ARCH/arch_module.h)
-#else
-# error "PORT_ARCH is not defined. Please define it according to the used architecture."
-#endif
+#define PORT_MCU_PROFILE_HEADER()                                               \
+    PORT_STRING(port/variant/PORT_VARIANT.h)
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Vraca putanju za Varian klasu port sistema.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(PORT_VARIANT) || defined(__DOXYGEN__)
-# define PORT_VARIANT_HEADER(variant_module)                                    \
-    PORT_STRING(port/variant/PORT_VARIANT/variant_module.h)
-#endif
+#define PORT_ARCH_COMPILER_HEADER(header)                                            \
+    PORT_STRING(port/arch/PORT_ARCH/PORT_CMN/header.h)
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Vraca putanju za Platform klasu port sistema.
@@ -167,15 +156,7 @@
 # define PORT_PLATFORM_HEADER(platform_module)                                  \
     PORT_STRING(port/platform/PORT_PLATFORM/platform_module.h)
 #endif
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Vraca putanju ka kompajlerskom poddirektorijumu.
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_COMPILER_HEADER(module)                                            \
-    PORT_STRING(PORT_CMN/module.h)
-
 /** @} *//*--------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {

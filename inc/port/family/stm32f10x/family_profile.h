@@ -23,14 +23,14 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Profil varijante za STM32L1xx_MD seriju.
+ * @brief       Profil familije za STM32F10x seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_stm32l1xx_md
+ * @addtogroup  hal_stm32f10x
  ****************************************************************************************//** @{ */
 
 
-#ifndef VARIANT_PROFILE_H_
-#define VARIANT_PROFILE_H_
+#ifndef FAMILY_PROFILE_H_
+#define FAMILY_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
 /*==================================================================================  DEFINES  ==*/
@@ -38,10 +38,10 @@
  * @name        Identifikacione konstante
  * @{ *//*---------------------------------------------------------------------------------------*/
 #define ES_HAL_MCU_NAME                                                         \
-    "STM32L1xx"
+    "STM32F10x"
 
 #define ES_HAL_MCU_SERIES                                                       \
-    "Ultra-low power 32-bit"
+    "Low & medium-density value line"
 
 #define ES_HAL_MCU_MANUF                                                        \
     "STMicroelectronics"
@@ -52,42 +52,32 @@
  * @{ *//*---------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_GPIO)
 # define ES_FEATURE_GPIO
-# include "port/variant/stm32l1xx_md/gpio_lld.h"
+# include "port/family/stm32f10x/gpio_lld.h"
 #endif
 
 #if defined(OPT_HAL_UART)
 # define ES_FEATURE_UART
-# include "port/variant/stm32l1xx_md/uart_lld.h"
+# include "port/family/stm32f10x/uart_lld.h"
 #endif
 
 #if defined(OPT_HAL_TIMER)
 # define ES_FEATURE_TIMER
-# include "port/variant/stm32l1xx_md/timer_lld.h"
+# include "port/family/stm32f10x/timer_lld.h"
 #endif
 
 #if defined(OPT_HAL_CRC)
 # define ES_FEATURE_CRC
-# include "port/variant/stm32l1xx_md/crc_lld.h"
+# include "port/family/stm32f10x/crc_lld.h"
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------  C++ extern begin  --*/
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*---------------------------------------------------------------------------  C++ extern end  --*/
-#ifdef __cplusplus
-}
-#endif
-
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of variant_profile.h
+ * END of family_profile.h
  *************************************************************************************************/
-#endif /* VARIANT_PROFILE_H_ */
+#endif /* FAMILY_PROFILE_H_ */

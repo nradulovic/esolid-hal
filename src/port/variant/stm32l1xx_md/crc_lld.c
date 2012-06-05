@@ -20,25 +20,24 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//******************************************************************************************//**
  * @file
  * @author      Nenad Radulovic
- * @brief       Implementacija osnovnih HAL funkcija.
+ * @brief       Implementacija CRC Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_impl
+ * @addtogroup  stm32l1xx_md_crc_impl
+ * @brief       CRC Low Level Driver modul.
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "hal_private.h"
+#define CRC_LLD_H_VAR
+#include "../src/hal/hal_private.h"
 
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
  *//*--------------------------------------------------------------------------------------------*/
-DBG_DEFINE_MODULE(Hardware Abstraction Layer);
+HAL_DBG_DEFINE_MODULE(HAL crc modul);
 
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
@@ -47,30 +46,60 @@ DBG_DEFINE_MODULE(Hardware Abstraction Layer);
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
 /*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
-/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 /*-----------------------------------------------------------------------------------------------*/
-void esHalInit(
+void lldCrcDrvInit(
     void) {
 
-#if defined(ES_FEATURE_GPIO) || defined(__DOXYGEN__)
-    lldGpioDrvInit();
-#endif
+    RCC->AHBRSTR |= RCC_AHBRSTR_CRCRST;
+    RCC->AHBRSTR &= ~RCC_AHBRSTR_CRCRST;
+    CRC->CR |= CRC_CR_RESET;
+    RCC->AHBENR &= ~RCC_AHBENR_CRCEN;
+}
 
-#if defined(ES_FEATURE_UART) || defined(__DOXYGEN__)
-    lldUartDrvInit();
-#endif
+/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+/*-----------------------------------------------------------------------------------------------*/
+uint32_t esCrc32(
+    uint8_t             * pDataBlk,
+    size_t              blkSize) {
 
-#if defined(ES_FEATURE_TIMER) || defined(__DOXYGEN__)
-    lldTimerDrvInit();
-#endif
+    size_t cntr;
+    size_t cnt;
+    volatile uint32_t data;
+    uint32_t * pWord;
 
-#if defined(ES_FEATURE_CRC) || defined(__DOXYGEN__)
-    lldCrcDrvInit();
-#endif
+    HAL_DBG_CHECK(NULL != pDataBlk);                                            /* Provera par: da li je pDataBlk validan?                  */
+    HAL_DBG_CHECK((size_t)0U != blkSize);                                       /* Provera par: blok podataka ne sme da bude prazan.        */
+    RCC->AHBENR |= RCC_AHBENR_CRCEN;
+    CRC->CR |= CRC_CR_RESET;
+    pWord = (uint32_t *)pDataBlk;
+    cnt = blkSize >> 2U;
+
+    if ((size_t)0U != cnt) {
+
+        for (cntr = (size_t)0U; cntr < cnt; cntr++) {
+            CRC->DR = *pWord++;
+        }
+    }
+    cnt = blkSize & (size_t)3U;
+
+    if ((size_t)0U != cnt) {
+
+        if ((size_t)1U == cnt) {
+            CRC->DR = *((uint8_t *)pWord);
+        } else if ((size_t)2U == cnt) {
+            CRC->DR = *((uint16_t *)pWord);
+        } else {
+            CRC->DR = *pWord & (uint32_t)(0x00FFFFFF);
+        }
+    }
+    data = CRC->DR;
+    RCC->AHBENR &= ~RCC_AHBENR_CRCEN;
+
+    return (data);
 }
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of hal.c
+ * END of crc_lld.c
  *************************************************************************************************/

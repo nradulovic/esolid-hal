@@ -46,11 +46,14 @@ extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
-/**
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Tipovi podataka za CRC drajver
+ * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
  * @brief       Definiciona struktura CRC drajvera
  * @details     Sledeca struktura cuva kontekst za izvrsavanje CRC algoritma.
  *              Sva polja strukture su parametri kojima se konfigurise algoritam.
- */
+ *//*--------------------------------------------------------------------------------------------*/
 struct crcDef {
 /**
  * @brief       Polinom CRC algoritma
@@ -97,6 +100,24 @@ struct crcDef {
  */
     bool_T      refOut;
 };
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Upravljacka struktura CRC drajvera.
+ * @details     Struktura se koristi za cuvanje informacija koji CRC algoritam
+ *              se koristi, status CRC modula i radni prostor za algoritam. Da
+ *              bi se CRC drajver koristio mora da se najpre ova struktura
+ *              instancira.
+ *//*--------------------------------------------------------------------------------------------*/
+typedef struct crcDrv esCrcDrv_T;
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Definiciona struktura CRC drajvera.
+ * @details     Struktura se koristi da se na lak nacin funkciji za
+ *              inicijalizaciju preda opis CRC algoritma. Jedna definiciona
+ *              struktura se moze koristi za inicijalizaciju vise drajvera.
+ *//*--------------------------------------------------------------------------------------------*/
+typedef struct crcDef esCrcDef_T;
+/** @} *//*--------------------------------------------------------------------------------------*/
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
