@@ -31,6 +31,7 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
+#if defined(ES_FEATURE_CRC) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
@@ -45,7 +46,7 @@ HAL_DBG_DEFINE_MODULE(HAL crc module)
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Look-up tabela za brzo, tabelarno izracunavanje CRC-16 koda.
  *//*--------------------------------------------------------------------------------------------*/
-const C_ROM uint8_t crc16LkTbl[256] =
+const C_ROM uint32_t crc16LkTbl[256] =
     { 0x0000,
       0x1021,
       0x2042,
@@ -327,8 +328,8 @@ uint16_t esCrcPartial16(
     }
 # else /* OPT_OPTIMIZE_SPEED */
 
-    while ((size_t)0U <= --blkSize) {
-        initCrc = initCrc ^ (*dataBlk++ << 8U);
+    while ((size_t)0U != --blkSize) {
+        initCrc = initCrc ^ (*pDataBlk++ << 8U);
 
         for (cntr = (uint8_t)0U; cntr < (uint8_t)8U; cntr++) {
 
@@ -357,7 +358,7 @@ uint16_t esCrc16(
 #endif /* !IMPL_CRC16 */
 
 #if !defined(IMPL_CRC32)
-uint16_t esCrc16(
+uint16_t esCrc32(
     uint8_t             * pDataBlk,
     size_t              blkSize) {
 
@@ -371,6 +372,9 @@ uint16_t esCrc16(
 }
 #endif /* !IMPL_CRC32 */
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#else /* ES_FEATURE_CRC */
+extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
+#endif
 
 /** @endcond *//** @} *//*************************************************************************
  * END of crc.c

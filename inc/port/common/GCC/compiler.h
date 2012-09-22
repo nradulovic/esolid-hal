@@ -136,7 +136,7 @@
 # define C_INLINE_ALWAYS                static __inline__ __attribute__((__always_inline__))
 #endif
 
-#if !define(C_INLINE) || defined(__DOXYGEN__)
+#if !defined(C_INLINE) || defined(__DOXYGEN__)
 # define C_INLINE                       static __inline__
 #endif
 

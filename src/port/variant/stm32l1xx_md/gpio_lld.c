@@ -33,6 +33,7 @@
 #define GPIO_LLD_H_VAR
 #include "../src/hal/hal_private.h"
 
+#if defined(STM32L1XX_MD_) && defined(ES_FEATURE_GPIO) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
@@ -639,6 +640,9 @@ esDevStatus_T esGpioStatus(
 }
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#else /* STM32F10X_MD_VL_ && ES_FEATURE_GPIO */
+extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
+#endif
 
 /** @endcond *//** @} *//*************************************************************************
  * END of gpio_lld.c

@@ -31,11 +31,12 @@
  * @addtogroup  stm32l1xx_md_timer_impl
  * @brief       Timer Low Level Driver modul.
  ****************************************************************************************//** @{ */
-                                                                                                  
+
 /*============================================================================  INCLUDE FILES  ==*/
 #define TIMER_LLD_H_VAR
 #include "../src/hal/hal_private.h"
 
+#if defined(STM32L1XX_MD_) && defined(ES_FEATURE_TIMER) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
@@ -172,6 +173,9 @@ uint32_t esTimerStop(
 }
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#else /* STM32F10X_MD_VL_ && ES_FEATURE_GPIO */
+extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
+#endif
 
 /** @endcond *//** @} *//*************************************************************************
  * END of timer_lld.c

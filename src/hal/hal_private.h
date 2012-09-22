@@ -41,9 +41,15 @@
 
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
+#if defined(ES_FEATURE_GPIO)
 #include "gpio_pkg.h"
+#endif
+#if defined(ES_FEATURE_UART)
 #include "uart_pkg.h"
+#endif
+#if defined(ES_FEATURE_TIMER)
 #include "timer_pkg.h"
+#endif
 
 /*----------------------------------------------------------------------------------  EXTERNS  --*/
 /** @cond */
