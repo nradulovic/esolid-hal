@@ -33,6 +33,23 @@
 #define FAMILY_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/gpio_lld.h"
+#endif
+
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/uart_lld.h"
+#endif
+
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/timer_lld.h"
+#endif
+
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/crc_lld.h"
+#endif
+
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Identifikacione konstante
@@ -42,26 +59,6 @@
 
 #define ES_HAL_MCU_MANUF                                                        \
     "STMicroelectronics"
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante dostupnosti
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if (defined(OPT_HAL_GPIO) && defined(ES_FEATURE_GPIO))
-# include "port/family/stm32f10x/gpio_lld.h"
-#endif
-
-#if (defined(OPT_HAL_UART) && defined(ES_FEATURE_UART))
-# include "port/family/stm32f10x/uart_lld.h"
-#endif
-
-#if (defined(OPT_HAL_TIMER) && defined(ES_FEATURE_TIMER))
-# include "port/family/stm32f10x/timer_lld.h"
-#endif
-
-#if (defined(OPT_HAL_CRC) && defined(ES_FEATURE_CRC))
-# include "port/family/stm32f10x/crc_lld.h"
-#endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*==================================================================================  MACRO's  ==*/

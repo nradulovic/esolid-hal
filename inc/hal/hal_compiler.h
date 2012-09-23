@@ -558,7 +558,7 @@
 # define ES_ATOMIC(code)                                                        \
     do {                                                                        \
         ES_CRITICAL_DECL();                                                     \
-        ES_CRITICAL_ENTER();                                                    \
+        ES_CRITICAL_ENTER(0U);                                                  \
         code;                                                                   \
         ES_CRITICAL_EXIT();                                                     \
     } while (0)

@@ -104,7 +104,7 @@ struct gpioDrv {
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if defined(OPT_HAL_GPIO)
+#if defined(ES_ENABLE_GPIO)
 # if defined(OPT_HAL_GPIO_USE_F)
 #  error "HAL->GPIO: This port does not support PORT F."
 # endif

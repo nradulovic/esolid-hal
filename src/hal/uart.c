@@ -34,7 +34,7 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
-#if defined(ES_FEATURE_UART) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
@@ -100,7 +100,7 @@ void esUartInit(
 }
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-#else /* ES_FEATURE_UART */
+#else /* ES_ENABLE_UART */
 extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
 #endif
 

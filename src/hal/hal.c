@@ -52,19 +52,19 @@ DBG_DEFINE_MODULE(Hardware Abstraction Layer);
 void esHalInit(
     void) {
 
-#if defined(ES_FEATURE_GPIO) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
     lldGpioDrvInit();
 #endif
 
-#if defined(ES_FEATURE_UART) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
     lldUartDrvInit();
 #endif
 
-#if defined(ES_FEATURE_TIMER) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
     lldTimerDrvInit();
 #endif
 
-#if defined(ES_FEATURE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
     lldCrcDrvInit();
 #endif
 }

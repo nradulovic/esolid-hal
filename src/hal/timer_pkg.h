@@ -44,7 +44,7 @@
  * @details     Ukoliko je pretprocesorom iskljucen neki port onda se nece ni
  *              vrsiti provera parametara sa tim vrednostima.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_TIMER) && defined(OPT_HAL_TIMER_USE_1) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_TIMER) && defined(OPT_HAL_TIMER_USE_1) || defined(__DOXYGEN__)
 #define DBG_VALID_TIMER1_DRV(val)                                               \
     (&esTimer1 == (val))
 #else
@@ -52,7 +52,7 @@
     (0U)
 #endif
 
-#if defined(OPT_HAL_TIMER) && defined(OPT_HAL_TIMER_USE_2) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_TIMER) && defined(OPT_HAL_TIMER_USE_2) || defined(__DOXYGEN__)
 #define DBG_VALID_TIMER2_DRV(val)                                               \
     (&esTimer2 == (val))
 #else
@@ -60,7 +60,7 @@
     (0U)
 #endif
 
-#if defined(OPT_HAL_TIMER) && defined(OPT_HAL_TIMER_USE_3) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_TIMER) && defined(OPT_HAL_TIMER_USE_3) || defined(__DOXYGEN__)
 #define DBG_VALID_TIMER3_DRV(val)                                               \
     (&esTimer3 == (val))
 #else
@@ -79,7 +79,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  
+
 /*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/

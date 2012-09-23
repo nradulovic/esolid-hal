@@ -53,7 +53,7 @@
  * @name        Macro group
  * @brief       brief description
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_UART) && defined(OPT_HAL_UART_USE_1) || defined(__DOXYGEN__)
 #define DBG_VALID_UART1_DRV(val)                                                \
     (esUART1 == (val))
 #else
@@ -61,7 +61,7 @@
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_UART) && defined(OPT_HAL_UART_USE_2) || defined(__DOXYGEN__)
 #define DBG_VALID_UART2_DRV(val)                                                \
     (esUART2 == (val))
 #else
@@ -69,7 +69,7 @@
     (0U)
 #endif
 
-#if defined(OPT_HAL_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_UART) && defined(OPT_HAL_UART_USE_3) || defined(__DOXYGEN__)
 #define DBG_VALID_UART3_DRV(val)                                                \
     (esUART3 == (val))
 #else

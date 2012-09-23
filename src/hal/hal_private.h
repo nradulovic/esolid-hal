@@ -1,8 +1,6 @@
 /*************************************************************************************************
  * This file is part of esolid-haldsm
  *
- * Template version: 1.1.13 (24.03.2012)
- *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
  * esolid-haldsm is free software; you can redistribute it and/or modify
@@ -41,13 +39,13 @@
 
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
-#if defined(ES_FEATURE_GPIO)
-#include "gpio_pkg.h"
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+# include "gpio_pkg.h"
 #endif
-#if defined(ES_FEATURE_UART)
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
 #include "uart_pkg.h"
 #endif
-#if defined(ES_FEATURE_TIMER)
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
 #include "timer_pkg.h"
 #endif
 

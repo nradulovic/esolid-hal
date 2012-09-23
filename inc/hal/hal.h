@@ -41,12 +41,29 @@
 
 #include "port/profile/profiles.h"
 
-#include "hal_cpu.h"
-#include "hal_interrupt.h"
-#include "hal_gpio.h"
-#include "hal_uart.h"
-#include "hal_timer.h"
-#include "hal_crc.h"
+#if defined(ES_ENABLE_CPU) || defined(__DOXYGEN__)
+# include "hal_cpu.h"
+#endif
+
+#if defined(ES_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
+# include "hal_interrupt.h"
+#endif
+
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+# include "hal_gpio.h"
+#endif
+
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+# include "hal_uart.h"
+#endif
+
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+# include "hal_timer.h"
+#endif
+
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+# include "hal_crc.h"
+#endif
 
 
 /*==================================================================================  DEFINES  ==*/

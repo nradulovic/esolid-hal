@@ -31,7 +31,7 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
-#if defined(ES_FEATURE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Local debug define macro.
@@ -372,7 +372,7 @@ uint16_t esCrc32(
 }
 #endif /* !IMPL_CRC32 */
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-#else /* ES_FEATURE_CRC */
+#else /* ES_ENABLE_CRC */
 extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
 #endif
 

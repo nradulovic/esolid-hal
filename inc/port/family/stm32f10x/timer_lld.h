@@ -44,7 +44,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  
+
 /*===============================================================================  DATA TYPES  ==*/
 struct tmrId;
 struct tmrIntr;
@@ -86,7 +86,7 @@ struct tmrDrv {
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if defined(OPT_HAL_TIMER)
+#if defined(ES_ENABLE_TIMER)
 # if defined(OPT_HAL_TIMER_USE_1)
 #  error "HAL->TIMER: This port does not support Timer 1."
 # endif

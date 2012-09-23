@@ -79,21 +79,34 @@
 # define ES_HAL_MCU_RAM                 (4096UL)
 /*----------------------------------------------------------------------------*/
 # define ES_FEATURE_GPIO
+
+# if defined(OPT_HAL_GPIO)
+#  define ES_ENABLE_GPIO
+# endif
 # define ES_FEATURE_GPIOA
 # define ES_FEATURE_GPIOB
 # define ES_FEATURE_GPIOC
 # define ES_FEATURE_GPIOD
-# define ES_FEATURE_UART
-# define ES_FEATURE_TIMER
-# define ES_FEATURE_CRC
+
+# if defined(OPT_HAL_UART)
+#  define ES_FEATURE_UART
+# endif
+
+# if defined(OPT_HAL_TIMER)
+#  define ES_FEATURE_TIMER
+# endif
+
+# if defined(OPT_HAL_CRC)
+#  define ES_FEATURE_CRC
+# endif
 #endif
 
 #if defined(STM32F10X_LD_VL_)
 # define PORT_FOUND_
 /*----------------------------------------------------------------------------*/
 # define ES_HAL_MCU_SERIES              "Low density Value Line devices"
-#include "port/family/stm32f10x/family_profile.h"
-#include "port/arch/arm_cm3/arch_profile.h"
+# include "port/family/stm32f10x/family_profile.h"
+# include "port/arch/arm_cm3/arch_profile.h"
 #endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
