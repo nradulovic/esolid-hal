@@ -33,8 +33,12 @@
 #define ARCH_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#if defined(ES_ENABLE_CPU) || defined(__DOXYGEN__)
 #include PORT_CMN_DEPENDENT(cpu)
-#include PORT_CMN_DEPENDENT(interrupt)
+#endif
+#if defined(ES_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
+# include PORT_CMN_DEPENDENT(interrupt)
+#endif
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
