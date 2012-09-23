@@ -626,8 +626,8 @@ typedef uint32_t                        uint_fast32_t;
  *              koriscene arhitekture/varijante.
  * @{ *//*---------------------------------------------------------------------------------------*/
 #if !defined(HAL_DEF_TYPES) || defined(__DOXYGEN__)
-typedef native_t                        size_t
-typedef unative_t                       ptrdiff_t
+typedef uint32_t                        size_t
+typedef uint32_t                        ptrdiff_t
 typedef wchar_t                         uint16_t
 #endif
 /** @} *//*--------------------------------------------------------------------------------------*/
