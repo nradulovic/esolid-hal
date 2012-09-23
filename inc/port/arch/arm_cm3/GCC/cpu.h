@@ -39,6 +39,11 @@
  * @{ *//*---------------------------------------------------------------------------------------*/
 #define ES_CPU_ATTRIB_UNITED_ACCESS
 #define ES_CPU_ATTRIB_ALIGNMENT         4
+#define ES_CPU_NATIVE_BITS              32U
+#define ES_CPU_UNATIVE_BITS             32U
+typedef int32_t                         native_T;
+typedef uint32_t                        unative_T;
+#endif
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==================================================================================  MACRO's  ==*/

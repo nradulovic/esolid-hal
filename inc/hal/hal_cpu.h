@@ -52,6 +52,19 @@
 #endif
 /** @} *//*--------------------------------------------------------------------------------------*/
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Tip podataka koji odgovara sirini magistrale podataka
+ * @brief       Ovi tipovi definisu tipove podataka koji su @b zavisni od
+ *              koriscene arhitekture/varijante.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#if !defined(HAL_NATIVE_TYPES) || defined(__DOXYGEN__)
+# define ES_CPU_NATIVE_BITS             8U
+# define ES_CPU_UNATIVE_BITS            8U
+typedef int8_t                          native_T;
+typedef uint8_t                         unative_T;
+#endif
+/** @} *//*--------------------------------------------------------------------------------------*/
+
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Zaustavi procesor

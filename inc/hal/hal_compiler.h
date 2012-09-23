@@ -621,19 +621,6 @@ typedef uint32_t                        uint_fast32_t;
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Tip podataka koji odgovara sirini magistrale podataka
- * @brief       Ovi tipovi definisu tipove podataka koji su @b zavisni od
- *              koriscene arhitekture/varijante.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if !defined(HAL_NATIVE_TYPES) || defined(__DOXYGEN__)
-# define HAL_NATIVE_BITS                8U
-# define HAL_UNATIVE_BITS               8U
-typedef int8_t                          native_T;
-typedef uint8_t                         unative_T;
-#endif
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
  * @name        Tip podataka size_t, ptrdiff_t i wchar_t
  * @brief       Ovi tipovi definisu tipove podataka koji su @b zavisni od
  *              koriscene arhitekture/varijante.
