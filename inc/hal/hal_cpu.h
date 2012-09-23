@@ -57,10 +57,13 @@
  * @brief       Ovi tipovi definisu tipove podataka koji su @b zavisni od
  *              koriscene arhitekture/varijante.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#if !defined(HAL_NATIVE_TYPES) || defined(__DOXYGEN__)
+#if !defined(ES_CPU_NATIVE_BITS) || defined(__DOXYGEN__)
 # define ES_CPU_NATIVE_BITS             8U
-# define ES_CPU_UNATIVE_BITS            8U
 typedef int8_t                          native_T;
+#endif
+
+#if !defined(ES_CPU_UNATIVE_BITS) || defined(__DOXYGEN__)
+# define ES_CPU_UNATIVE_BITS            8U
 typedef uint8_t                         unative_T;
 #endif
 /** @} *//*--------------------------------------------------------------------------------------*/
