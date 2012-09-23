@@ -259,6 +259,24 @@
 #if !defined(C_PTRCAST) || defined(__DOXYGEN__)
 # define C_PTRCAST(srctype, dsttype, var)
 #endif
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Makro za pronalazak pokazivaca na strukturu kada je poznat
+ *              pokazivac na jedan clan strukture.
+ * @param       ptr                     Pokazivac na clan u nekoj strukturi,
+ * @param       type                    tip te strukture,
+ * @param       member                  ime clana u toj strukturi.
+ * @details     Ovaj makro je zgodan kada imamo pokazivac @c ptr na clan
+ *              @c member neke strukture tipa @c type, a potreban je pokazivac
+ *              na celu strukturu.
+ *              Makro se kompajlira u klasicnu @c load instrukciju, ali sa
+ *              potrebnim offsetom (najcesce je negativni broj) za strukturu.
+ *//*--------------------------------------------------------------------------------------------*/
+#if !defined(C_CONTAINER_OF) || defined(__DOXYGEN__)
+# define C_CONTAINER_OF(ptr, type, member)                                      \
+    ((type *)((char *)ptr - offsetof(type, member)))
+#endif
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**

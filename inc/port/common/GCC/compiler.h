@@ -177,6 +177,19 @@
     C_EXT (((union {srctype src; dsttype dst;} __attribute__ ((__may_alias__)) *)var)->dst)
 #endif
 
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Makro za pronalazak pokazivaca na strukturu kada je poznat
+ *              pokazivac na jedan clan strukture.
+ * @details     U odnosu na klasican makro koji je dostupan u hal_compiler.h
+ *              ovaj makro vrsi dodatnu proveru da li je pokazivac na clan
+ *              strukture ispravnog tipa.
+ *//*--------------------------------------------------------------------------------------------*/
+#if !defined(C_CONTAINER_OF) || defined(__DOXYGEN__)
+#define C_CONTAINER_OF(ptr, type, member) ({                                    \
+    const typeof(((type *)0)->member) * __mptr = (ptr);                         \
+    (type *)((char *)__mptr - offsetof(type, member)); })
+#endif
+
 /*-----------------------------------------------------------------------------------------------*/
 /**
  * @brief       Ovaj makro ima svojstva funkcije i zasticen je od bocnih efekata.
