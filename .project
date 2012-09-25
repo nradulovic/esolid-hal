@@ -6,7 +6,6 @@
 		<project>lchw-STM32L1xx</project>
 		<project>lib-stm32l1xx</project>
 		<project>esolid-config</project>
-		<project>lib-stm32f10x</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
