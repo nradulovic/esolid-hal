@@ -1,22 +1,20 @@
 /*************************************************************************************************
- * This file is part of eSolid
- *
- * Template version: 1.1.15 (20.05.2012)
+ * This file is part of esolid-haldsm
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
- * eSolid is free software; you can redistribute it and/or modify
+ * esolid-haldsm is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * eSolid is distributed in the hope that it will be useful,
+ * esolid-haldsm is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with eSolid; if not, write to the Free Software
+ * along with esolid-haldsm; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  *
@@ -25,31 +23,56 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Ucitavanje svih profila
- * @details     Ova datoteka ucitava sve podrzane profile HAL-a.
+ * @brief       Profili za STM32L1xx MD seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  module_intf
+ * @addtogroup  hal_stm32l1xx_md
  ****************************************************************************************//** @{ */
 
 
-#ifndef PROFILES_H_
-#define PROFILES_H_
+#ifndef STM32L1XX_MD_H_
+#define STM32L1XX_MD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "port/profile/stm32f10x_ld_vl.h"
-#include "port/profile/stm32f10x_md_vl.h"
-#include "port/profile/stm32l1xx_md.h"
-
 /*==================================================================================  DEFINES  ==*/
 /*=================================================================================  SETTINGS  ==*/
 
-#if !defined(PORT_FOUND_)
-# define ES_HAL_MCU_SERIES              "Unknown MCU series"
+#if defined(__DOXYGEN__)
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Podrzani portovi STM32L1xx MD profila
+ * @{ *//*---------------------------------------------------------------------------------------*/
+# define STM32L152RB
+/** @} *//*--------------------------------------------------------------------------------------*/
 #endif
 
+#if defined(STM32L152RB)
+# define STM32L1XX_MD_
+/*----------------------------------------------------------------------------*/
+# define ES_HAL_MCU_NAME                "STM32L152RB"
+# define ES_HAL_MCU_FLASH               (131072UL)
+# define ES_HAL_MCU_RAM                 (16384UL)
+#endif
+
+#if defined(STM32L1XX_MD_)
+# define PORT_FOUND_
+/*----------------------------------------------------------------------------*/
+# define ES_HAL_MCU_SERIES              "Ultra-low-power Medium Density devices"
+# define ES_FEATURE_CPU
+# define ES_FEATURE_INTERRUPT
+
+# if defined(OPT_HAL_CPU)
+#  define ES_ENABLE_CPU
+# endif
+
+# if defined(OPT_HAL_INTERRUPT)
+#  define ES_ENABLE_INTERRUPT
+# endif
+
+# include "port/family/stm32l1xx/family_profile.h"
+# include "port/arch/arm_cm3/arch_profile.h"
+#endif
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of profiles.h
+ * END of stm32l1xx_md.h
  *************************************************************************************************/
-#endif /* PROFILES_H_ */
+#endif /* STM32L1XX_MD_H_ */

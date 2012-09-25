@@ -1,8 +1,6 @@
 /*************************************************************************************************
  * This file is part of eSolid
  *
- * Template version: 1.1.15 (20.05.2012)
- *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
  * eSolid is free software; you can redistribute it and/or modify
@@ -25,31 +23,51 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Ucitavanje svih profila
- * @details     Ova datoteka ucitava sve podrzane profile HAL-a.
+ * @brief       Profil familije za STM32L1xx seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  module_intf
+ * @addtogroup  hal_stm32l1xx
  ****************************************************************************************//** @{ */
 
 
-#ifndef PROFILES_H_
-#define PROFILES_H_
+#ifndef FAMILY_PROFILE_H_
+#define FAMILY_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "port/profile/stm32f10x_ld_vl.h"
-#include "port/profile/stm32f10x_md_vl.h"
-#include "port/profile/stm32l1xx_md.h"
 
-/*==================================================================================  DEFINES  ==*/
-/*=================================================================================  SETTINGS  ==*/
-
-#if !defined(PORT_FOUND_)
-# define ES_HAL_MCU_SERIES              "Unknown MCU series"
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/gpio_lld.h"
 #endif
 
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/uart_lld.h"
+#endif
+
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/timer_lld.h"
+#endif
+
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/crc_lld.h"
+#endif
+
+/*==================================================================================  DEFINES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Identifikacione konstante
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_MCU_FAMILY                                                       \
+    "STM32L1xx"
+
+#define ES_HAL_MCU_MANUF                                                        \
+    "STMicroelectronics"
+
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*==================================================================================  MACRO's  ==*/
+/*===============================================================================  DATA TYPES  ==*/
+/*=========================================================================  GLOBAL VARIABLES  ==*/
+/*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of profiles.h
+ * END of family_profile.h
  *************************************************************************************************/
-#endif /* PROFILES_H_ */
+#endif /* FAMILY_PROFILE_H_ */
