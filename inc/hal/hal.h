@@ -35,11 +35,9 @@
 
 /*============================================================================  INCLUDE FILES  ==*/
 #include "port/port.h"
-#include "cfg/hal_cfg.h"
+#include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "dbg/dbg.h"
-
-#include "port/profile/profiles.h"
+#include "port/profiles.h"
 
 #if defined(ES_ENABLE_CPU) || defined(__DOXYGEN__)
 # include "hal_cpu.h"
