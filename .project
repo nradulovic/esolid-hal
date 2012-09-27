@@ -4,8 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>lchw-STM32L1xx</project>
-		<project>lib-stm32l1xx</project>
-		<project>esolid-config</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
