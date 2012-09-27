@@ -33,6 +33,10 @@
 #define FAMILY_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#define ES_FEATURE_GPIO
+#define ES_FEATURE_UART
+#define ES_FEATURE_TIMER
+#define ES_FEATURE_CRC
 
 #if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
 # include "port/family/stm32f10x/gpio_lld.h"
