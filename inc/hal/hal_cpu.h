@@ -39,6 +39,16 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Operacije za citanje/upis iz ROM memorije su identicne
  *              operacijama za citanje/upis iz RAM memorije.
+ * @details		Kada je ovaj atribut definisan onda kada je memorijski prostor
+ * 				procesora jedinstven i pristup podacima u RAM i ROM memoriji je
+ * 				identičan. Ovaj atribut	moze da se koristi radi selekcije
+ * 				optimalnog algoritma u nekoj funkciji. Primera radi, kod
+ * 				starijih mikrokontrolera (kao sto je PIC16 i PIC18 serija)
+ * 				operacija čitanja podataka iz flash memorije zahteva najpre
+ * 				inicijalizaciju tablicnih registara, a citanje podataka se
+ * 				obavlja indirektno, preko registra. Navedene operacije zahtevaju
+ * 				odredjeno vreme izvrsavanja i cela operacija postaje vrlo
+ * 				neefikasna.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define ES_CPU_ATTRIB_UNITED_ACCESS

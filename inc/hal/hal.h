@@ -26,7 +26,7 @@
  * @brief       Interfejs Hardware Abstraction Layer (HAL) modula.
  * ------------------------------------------------------------------------------------------------
  * @addtogroup  hal_intf
- * @brief       Interfejs Hardware Abstraction Layer (HAL) modula.
+ * @brief       Primarni interfejs Hardware Abstraction Layer (HAL) modula.
  ****************************************************************************************//** @{ */
 
 
@@ -34,32 +34,31 @@
 #define HAL_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include "port/port.h"
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
 #include "port/profiles.h"
 
-#if defined(ES_ENABLE_CPU) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CPU) || defined(__DOXYGEN__)
 # include "hal_cpu.h"
 #endif
 
-#if defined(ES_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
 # include "hal_interrupt.h"
 #endif
 
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_GPIO) || defined(__DOXYGEN__)
 # include "hal_gpio.h"
 #endif
 
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_UART) || defined(__DOXYGEN__)
 # include "hal_uart.h"
 #endif
 
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_TIMER) || defined(__DOXYGEN__)
 # include "hal_timer.h"
 #endif
 
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CRC) || defined(__DOXYGEN__)
 # include "hal_crc.h"
 #endif
 
@@ -67,30 +66,46 @@
 /*==================================================================================  DEFINES  ==*/
 #if defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante dostupnosti HAL modula
+ * @name        Konstante mogucnosti HAL modula
+ * @details     Ove konstante govore da za datu funkcionalnost postoje HAL 
+ *              moduli.
  * @{ *//*---------------------------------------------------------------------------------------*/
-# define ES_FEATURE_CPU
-# define ES_FEATURE_INTERRUPT
-# define ES_FEATURE_GPIO
-# define ES_FEATURE_UART
-# define ES_FEATURE_CRC
-# define ES_FEATURE_TIMER
+# define ES_HAL_FEATURE_CPU
+# define ES_HAL_FEATURE_INTERRUPT
+# define ES_HAL_FEATURE_GPIO
+# define ES_HAL_FEATURE_UART
+# define ES_HAL_FEATURE_CRC
+# define ES_HAL_FEATURE_TIMER
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Identifikacione konstante mikroprocesora
+ * @name        Konstante dostupnosti HAL modula
+ * @details     Ove konstante govore da za datu funkcionalnost postoje HAL
+ *              moduli i da su oni aktivni.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+# define ES_HAL_ENABLE_CPU
+# define ES_HAL_ENABLE_INTERRUPT
+# define ES_HAL_ENABLE_GPIO
+# define ES_HAL_ENABLE_UART
+# define ES_HAL_ENABLE_CRC
+# define ES_HAL_ENABLE_TIMER
+/** @} *//*--------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Identifikacione i opisne konstante mikroprocesora
  * @{ *//*---------------------------------------------------------------------------------------*/
 # define ES_HAL_CPU_NAME
-# define ES_HAL_CPU_SERIES
+# define ES_HAL_CPU_FAMILY
 # define ES_HAL_CPU_MANUF
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Identifikacione konstante mikrokontrolera
+ * @name        Identifikacione i opisne konstante mikrokontrolera
  * @{ *//*---------------------------------------------------------------------------------------*/
 # define ES_HAL_MCU_NAME
-# define ES_HAL_MCU_SERIES
+# define ES_HAL_MCU_FAMILY
 # define ES_HAL_MCU_MANUF
+# define ES_HAL_MCU_FLASH
+# define ES_HAL_MCU_RAM
 /** @} *//*--------------------------------------------------------------------------------------*/
-#endif
+#endif /* __DOXYGEN__ */
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Status hardvera kojeg opsluzuje drajver
@@ -115,24 +130,24 @@ enum esDevStatus {
  * @details     Ovo stanje je karakteristicno kada se hardver ne koristi i
  *              drajver je hardver postavio u rezim male potrosnje.
  */
-    ES_DEV_INACTIVE,
+    ES_HAL_DEV_INACTIVE,
 
 /**
  * @brief       Hardver je spreman za koriscenje.
  */
-    ES_DEV_READY,
+    ES_HAL_DEV_READY,
 
 /**
  * @brief       Hardver nije spreman za koriscenje.
  */
-    ES_DEV_BUSY,
+    ES_HAL_DEV_BUSY,
 
 /**
  * @brief       Hardver je u stanju greske.
  * @details     U zavisnosti od koriscenog hardvera treba da se preduzmu
  *              odredjeni koraci kako bi se greska otklonila/ponistila.
  */
-    ES_DEV_ERROR
+    ES_HAL_DEV_ERROR
 };
 
 /*==================================================================================  MACRO's  ==*/

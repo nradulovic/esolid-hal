@@ -29,69 +29,51 @@
  ****************************************************************************************//** @{ */
 
 
-#ifndef FAMILY_PROFILE_H_
-#define FAMILY_PROFILE_H_
+#ifndef STM32L1XX_PROFILE_H_
+#define STM32L1XX_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*=================================================================================  SETTINGS  ==*/
-
-#define ES_HAL_MCU_VARIANT              "Ultra-low-power Medium Density devices"
-#define ES_HAL_FEATURE_CPU
-#define ES_HAL_FEATURE_INTERRUPT
-/*
- * TODO: Ostali moduli HAL-a treba da podrzavaju ovaj mikrokontroler
- */
-/*
+#if defined(PORT_MEDIUM_DENSITY_)
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Konstante mogucnosti HAL modula
+ * @{ *//*---------------------------------------------------------------------------------------*/
 #define ES_HAL_FEATURE_GPIO
 #define ES_HAL_FEATURE_UART
 #define ES_HAL_FEATURE_TIMER
 #define ES_HAL_FEATURE_CRC
- */
-/*=================================================================================  SETTINGS  ==*/
+/** @} *//*--------------------------------------------------------------------------------------*/
 
-#if defined(OPT_HAL_CPU)
-# define ES_ENABLE_CPU
-#endif
+# if defined(OPT_HAL_GPIO) || defined(__DOXYGEN__)
+#  define ES_ENABLE_GPIO
+#  include "port/family/stm32l1xx/gpio_lld.h"
+# endif
 
-#if defined(OPT_HAL_INTERRUPT)
-# define ES_ENABLE_INTERRUPT
-#endif
+# if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
+#  define ES_ENABLE_UART
+#  include "port/family/stm32l1xx/uart_lld.h"
+# endif
 
-#if defined(OPT_HAL_CPU)
-# define ES_ENABLE_CPU
-#endif
+# if defined(OPT_HAL_TIMER) || defined(__DOXYGEN__)
+#  define ES_ENABLE_TIMER
+#  include "port/family/stm32l1xx/timer_lld.h"
+# endif
 
-#if defined(OPT_HAL_INTERRUPT)
-# define ES_ENABLE_INTERRUPT
-#endif
-
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
-# include "port/family/stm32l1xx/gpio_lld.h"
-#endif
-
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
-# include "port/family/stm32l1xx/uart_lld.h"
-#endif
-
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
-# include "port/family/stm32l1xx/timer_lld.h"
-#endif
-
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
-# include "port/family/stm32l1xx/crc_lld.h"
-#endif
+# if defined(OPT_ENABLE_CRC) || defined(__DOXYGEN__)
+#  define ES_ENABLE_CRC
+#  include "port/family/stm32l1xx/crc_lld.h"
+# endif
+#endif /* PORT_STM32L1XX_MD_ */
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Identifikacione konstante
+ * @name        Opisne konstante
+ * @brief       Ovde se nalaze konstante koje daju vise informacija o
+ *              mikrokontroleru i proizvodjacu.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_MCU_FAMILY                                                       \
-    "STM32L1xx"
-
-#define ES_HAL_MCU_MANUF                                                        \
-    "STMicroelectronics"
-
+#define ES_HAL_MCU_FAMILY               "STM32L1xx"
+#define ES_HAL_MCU_MANUF                "STMicroelectronics"
 /** @} *//*--------------------------------------------------------------------------------------*/
+
 /*==================================================================================  MACRO's  ==*/
 /*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
@@ -101,4 +83,4 @@
 /** @endcond *//** @} *//*************************************************************************
  * END of family_profile.h
  *************************************************************************************************/
-#endif /* FAMILY_PROFILE_H_ */
+#endif /* STM32L1XX_PROFILE_H_ */

@@ -29,27 +29,40 @@
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_PROFILE_H_
-#define ARCH_PROFILE_H_
+#ifndef ARM_CM3_PROFILE_H_
+#define ARM_CM3_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#if defined(ES_ENABLE_CPU) || defined(__DOXYGEN__)
-#include PORT_CMN_DEPENDENT(cpu)
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Konstante mogucnosti HAL modula
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_FEATURE_CPU
+#define ES_HAL_FEATURE_INTERRUPT
+/** @} *//*--------------------------------------------------------------------------------------*/
+
+#if defined(OPT_HAL_CPU)
+# define ES_ENABLE_CPU
+# if defined(__GNUC__)
+#  include "port/arch/arm_cm3/GCC/cpu.h"
+# elif defined(__IAR_SYSTEMS_ICC__)
+#  include "port/arch/arm_cm3/IAR/cpu.h"
+# endif
 #endif
-#if defined(ES_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
-# include PORT_CMN_DEPENDENT(interrupt)
+
+#if defined(OPT_HAL_INTERRUPT)
+# define ES_ENABLE_INTERRUPT
+# if defined(__GNUC__)
+#  include "port/arch/arm_cm3/GCC/interrupt.h"
+# elif defined(__IAR_SYSTEMS_ICC__)
+#  include "port/arch/arm_cm3/IAR/interrupt.h"
+# endif
 #endif
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante svojstva za ARM Cortex-M3
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_FEATURE_CPU
-#define ES_FEATURE_INTERRUPT
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Identifikacione konstante za ARM Cortex-M3
+ * @name        Opisne konstante
+ * @brief       Ovde se nalaze konstante koje daju vise informacija o
+ *              mikroprocesoru i proizvodjacu.
  * @{ *//*---------------------------------------------------------------------------------------*/
 #define ES_HAL_CPU_NAME                 "Cortex-M3"
 #define ES_HAL_CPU_SERIES               "ARMv7-M"
@@ -65,4 +78,4 @@
 /** @endcond *//** @} *//*************************************************************************
  * END of arch_profile.h
  *************************************************************************************************/
-#endif /* ARCH_PROFILE_H_ */
+#endif /* ARM_CM3_PROFILE_H_ */

@@ -34,7 +34,11 @@
 #define HAL_COMPILER_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#include PORT_CMN_HEADER(compiler)
+#if defined(__GNUC__)
+# include "port/compiler/gcc.h"
+#elif defined(__IAR_SYSTEMS_ICC__)
+# include "port/compiler/iar.h"
+#endif
 
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
@@ -639,9 +643,9 @@ typedef wchar_t                         uint16_t
 typedef void * va_list;
 
 # define va_start(ap,l)                                                         \
-    do{                                                                         \
+    do {                                                                        \
         (ap) = (void *)((char *)&(l));                                          \
-    } while(0)
+    } while (0)
 
 # define va_end(ap)
 

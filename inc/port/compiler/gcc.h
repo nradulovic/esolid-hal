@@ -22,15 +22,10 @@
 
 /*********************************************************************************************//**
  * @file
- *
- * @author      nesa
- *
+ * @author      Nenad Radulovic
  * @brief       Interfejs za GCC kompajler, port klasa: common.
- *
  * ------------------------------------------------------------------------------------------------
- *
  * @addtogroup  hal_compiler
- *
  ****************************************************************************************//** @{ */
 
 #ifndef CMN_COMPILER_H_
@@ -64,26 +59,6 @@
 /** @endcond*//***********************************************************************************
  * DEFINES
  *************************************************************************************************/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Svojstva HAL porta
- * @{ *//*---------------------------------------------------------------------------------------*/
-
-#if !defined(PORT_IS_POISONED)
-# define PORT_IS_POISONED
-# if !defined(__cplusplus)
-/*
- * Disallow some C++ keywords as identifiers in C programs,
- * for improved portability.
- */
-#  pragma GCC poison new delete class template typename
-#  pragma GCC poison private protected public operator
-#  pragma GCC poison friend mutable using namespace
-#  pragma GCC poison cin cout cerr clog
-# endif
-#endif
-
-/** @} *//*--------------------------------------------------------------------------------------*/
 
 
 /*************************************************************************************************

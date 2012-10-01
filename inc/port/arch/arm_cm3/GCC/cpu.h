@@ -49,6 +49,25 @@ typedef uint32_t                        unative_T;
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Implementacija za ARM Cortex-M3 arhitekturu
  * @{ *//*---------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Pronalazi bit najvece tezine koji je na logickoj jedinici.
+ * @details     Primer 1: parametar @c value ima vrednost sa binarnom 
+ *              reprezentacijom: 110. Funkcija u ovom slucaju vraca vrednost 2.
+ *              Primer 2: parameter @c value ima vrednost sa binarnom
+ *              reprezentacijom: 101001. Funkcija u ovom slucaju vraca vrednost
+ *              5.
+ **//*-------------------------------------------------------------------------------------------*/
+C_INLINE_ALWAYS uint8_t esCpuFindLastSet (uint32_t value) {
+    uint8_t result;
+    
+    __asm volatile ("clz %0, %1" : "=r" (result) : "r" (value) );
+    return (31U - result);
+}
+
+C_INLINE_ALWAYS uint8_t esCpuFindFirstSet (uint32_t value) {
+}
+
 #define ES_CPU_FLS(expr1)                                                      \
     (31 - __builtin_clz(expr1))
 
