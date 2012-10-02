@@ -75,8 +75,6 @@
 #define PROFILES_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*==================================================================================  DEFINES  ==*/
-/*=================================================================================  SETTINGS  ==*/
 
 /*===============================================================================================*
  * Architecture: ARM Cortex-M3
@@ -86,20 +84,20 @@
  * STMicroelectronics - STM32 F1 Mainstream
  *-----------------------------------------------------------------------------------------------*/
 #if defined(STM32F100RB)
-# define PORT_FOUND_
+# define HAL_PORT_FOUND_
 # include "port/variant/stm32f100rb_profile.h"
 # include "port/family/stm32f10x_profile.h"
-# include "port/arch/arm_cm3_profile.h"
+# include "port/arch/arm_cm3_hal.h"
 #endif
 
 /*-----------------------------------------------------------------------------------------------*
  * STMicroelectronics - STM32 L1 Ultra Low Power
  *-----------------------------------------------------------------------------------------------*/
 #if defined(STM32L152RB)
-# define PORT_FOUND_
+# define HAL_PORT_FOUND_
 # include "port/variant/stm32l152rb_profile.h"
 # include "port/family/stm32l1xx_profile.h"
-# include "port/arch/arm_cm3_profile.h"
+# include "port/arch/arm_cm3_hal.h"
 #endif
 
 /*===============================================================================================*
@@ -110,15 +108,21 @@
  * STMicroelectronics - STM32 F4 Hi-Performance & DSP
  *-----------------------------------------------------------------------------------------------*/
 #if defined(STM32F407VG)
-# define PORT_FOUND_
+# define HAL_PORT_FOUND_
 # include "port/variant/stm32f407vg_profile.h"
 # include "port/family/stm32f4xx_profile.h"
-# include "port/arch/arm_cm3_profile.h"
+# include "port/arch/arm_cm4_hal.h"
 #endif
 
+/*==================================================================================  DEFINES  ==*/
+/*==================================================================================  MACRO's  ==*/
+/*===============================================================================  DATA TYPES  ==*/
+/*=========================================================================  GLOBAL VARIABLES  ==*/
+/*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if !defined(PORT_FOUND_)
+
+#if !defined(HAL_PORT_FOUND_)
 # define ES_HAL_MCU_VARIANT             "Unknown MCU series"
 # if defined(__GNUC__)
 #  warning "HAL Profiles: Cannot determine MCU variant. HAL will be disabled."
