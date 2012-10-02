@@ -36,7 +36,7 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "port/profiles.h"
+#include "port/hal_profiles.h"
 
 #if defined(ES_HAL_ENABLE_CPU) || defined(__DOXYGEN__)
 # include "hal_cpu.h"
@@ -67,7 +67,7 @@
 #if defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante mogucnosti HAL modula
- * @details     Ove konstante govore da za datu funkcionalnost postoje HAL 
+ * @details     Ove konstante govore da za datu funkcionalnost postoje HAL
  *              moduli.
  * @{ *//*---------------------------------------------------------------------------------------*/
 # define ES_HAL_FEATURE_CPU
@@ -151,14 +151,6 @@ enum esDevStatus {
 };
 
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Definisanje makroa za ulazak/izlazak iz kriticnih sekcija koda za HAL module.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define HAL_CRITICAL_DECL()             ES_CRITICAL_DECL()
-#define HAL_CRITICAL_ENTER()            ES_CRITICAL_ENTER(OPT_HAL_INTERRUPT_PRIO)
-#define HAL_CRITICAL_EXIT()             ES_CRITICAL_EXIT()
-/** @} *//*--------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
