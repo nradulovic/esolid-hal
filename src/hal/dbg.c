@@ -23,20 +23,16 @@
  *//******************************************************************************************//**
  * @file
  * @author      Nenad Radulovic
- * @brief       Implementacija osnovnih HAL funkcija.
+ * @brief       Implementacija podrske za Debug modul
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_impl
+ * @addtogroup  dbg_impl
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
+#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
 /*============================================================================  LOCAL DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Local debug define macro.
- *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_DEFINE_MODULE(Hardware Abstraction Layer);
-
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
 /*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
@@ -45,29 +41,76 @@ HAL_DBG_DEFINE_MODULE(Hardware Abstraction Layer);
 /*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
 /*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 /*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+
 /*-----------------------------------------------------------------------------------------------*/
-void esHalInit(
-    void) {
+void esDbgCheckFailed (
+    const char          * moduleName,
+    const char          * fileName,
+    const char          * functionName,
+    const char          * expression,
+    uint16_t            lineNum) {
 
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
-    lldGpioDrvInit();
-#endif
+    esDbgMessage_T check;
 
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
-    lldUartDrvInit();
-#endif
+    check.object.name = "DBG_CHECK";
+    check.object.desc = "debug macro that validates functions parameters";
+    check.object.type = "DBG module macro";
+    check.source.module = moduleName;
+    check.source.file = fileName;
+    check.source.func = functionName;
+    check.source.line = lineNum;
+    check.text.brief = "Function parameter validation failed";
+    check.text.format = "Parameter failed to validate expression: %s";
+    check.text.variables = expression;
+    check.text.type = ES_DBG_MSG_ERROR;
+    check.level = 0U;
+    check.timestamp = HAL_SYSTICK_GET_TICK();
+    esDbgSendMessage (
+        &check);
+}
 
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
-    lldTimerDrvInit();
-#endif
+/*-----------------------------------------------------------------------------------------------*/
+void esDbgAssertFailed (
+    const char          * moduleName,
+    const char          * fileName,
+    const char          * expression,
+    uint16_t            lineNum) {
 
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
-    lldCrcDrvInit();
-#endif
+    esDbgMessage_T assert;
+
+    assert.object.name = "DBG_ASSERT";
+    assert.object.desc = "debug macro that is executing internal checks";
+    assert.object.type = "DBG module macro";
+    assert.source.module = moduleName;
+    assert.source.file = fileName;
+    assert.source.func = DBG_THIS_FUNC;
+    assert.source.line = lineNum;
+    assert.text.brief = "Function internal check failed";
+    assert.text.format = "Expression failed to validate: %s";
+    assert.text.variables = expression;
+    assert.text.type = ES_DBG_MSG_ERROR;
+    assert.level = 0U;
+    assert.timestamp = HAL_SYSTICK_GET_TICK();
+    esDbgSendMessage (
+        &assert);
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+void esDbgSendMessage (
+    esDbgMessage_T      * message) {
+
+    /**
+     * TODO: napisati ovu f-ju
+     */
+    (void)message;
 }
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#else /* OPT_HAL_DBG */
+extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
+#endif
+
 
 /** @endcond *//** @} *//*************************************************************************
- * END of hal.c
+ * END of dbg.c
  *************************************************************************************************/
