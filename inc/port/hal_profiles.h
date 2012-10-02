@@ -25,7 +25,7 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Ucitavanje svih profila
+ * @brief       Ucitavanje svih HAL profila
  * @details     Ova datoteka ucitava sve podrzane profile HAL-a.
  * ------------------------------------------------------------------------------------------------
  * @defgroup    port_intf eSolid port interface
@@ -53,11 +53,11 @@
  * - Port Familija pokriva opste osobine procesora kao sto su kes memorija,
  * MMU, DMA i FPU. Port Familija je, takodje, zaduzen za memorijske i prekidne
  * kontrolere na samom cipu. a obuhvata tajmere, I/O registre i druge module
- * hardvera na mikrokontroleru. 
+ * hardvera na mikrokontroleru.
  * - Port Varijanta predstavlja najprecizniji opis jednog mikrokontrolera jer se
  * u ovom port nivou opisuje koji GPIO portovi postoje, koliko UART, SPI i I2C
- * modula ima u datom kucistu, iznos FLASH i RAM memorije i slicno. Obicno se za 
- * arhitekturne varijacije implementacija nalazi u Port Familija, a Port 
+ * modula ima u datom kucistu, iznos FLASH i RAM memorije i slicno. Obicno se za
+ * arhitekturne varijacije implementacija nalazi u Port Familija, a Port
  * Varijanta pruza samo odgovarajuce pretprocesorske konfiguracione promenljive.
  * - Port Platforma vrsi apstrakciju i opisuje osobine platforme koja se koristi.
  * Pod platformom se podrazumeva mikrokontroler sa dodatnim hardverom. Obicno su
@@ -81,37 +81,12 @@
 /*===============================================================================================*
  * Architecture: ARM Cortex-M3
  *===============================================================================================*/
- 
+
 /*-----------------------------------------------------------------------------------------------*
  * STMicroelectronics - STM32 F1 Mainstream
  *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32F100C8)
-# define PORT_FOUND_
-# define PORT_MEDIUM_DENSITY_VALUE_LINE_
-# include "port/variant/stm32f100c8_profile.h"
-# include "port/family/stm32f10x_profile.h"
-# include "port/arch/arm_cm3_profile.h"
-#endif
-
-#if defined(STM32F100CB)
-# define PORT_FOUND_
-# define PORT_MEDIUM_DENSITY_VALUE_LINE_
-# include "port/variant/stm32f100cb_profile.h"
-# include "port/family/stm32f10x_profile.h"
-# include "port/arch/arm_cm3_profile.h"
-#endif
-
-#if defined(STM32F100R8)
-# define PORT_FOUND_
-# define PORT_MEDIUM_DENSITY_VALUE_LINE_
-# include "port/variant/stm32f100r8_profile.h"
-# include "port/family/stm32f10x_profile.h"
-# include "port/arch/arm_cm3_profile.h"
-#endif
-
 #if defined(STM32F100RB)
 # define PORT_FOUND_
-# define PORT_MEDIUM_DENSITY_VALUE_LINE_
 # include "port/variant/stm32f100rb_profile.h"
 # include "port/family/stm32f10x_profile.h"
 # include "port/arch/arm_cm3_profile.h"
@@ -122,7 +97,6 @@
  *-----------------------------------------------------------------------------------------------*/
 #if defined(STM32L152RB)
 # define PORT_FOUND_
-# define PORT_MEDIUM_DENSITY_
 # include "port/variant/stm32l152rb_profile.h"
 # include "port/family/stm32l1xx_profile.h"
 # include "port/arch/arm_cm3_profile.h"
@@ -131,21 +105,15 @@
 /*===============================================================================================*
  * Architecture: ARM Cortex-M4F
  *===============================================================================================*/
- 
+
 /*-----------------------------------------------------------------------------------------------*
  * STMicroelectronics - STM32 F4 Hi-Performance & DSP
  *-----------------------------------------------------------------------------------------------*/
- 
-#if defined(STM32F100C8)
-/*----------------------------------------------------------------------------*/
+#if defined(STM32F407VG)
 # define PORT_FOUND_
-# define ES_HAL_MCU_NAME                "STM32F100C8"
-# define ES_HAL_MCU_FLASH               (65536UL)
-# define ES_HAL_MCU_RAM                 (8192UL)
-/*----------------------------------------------------------------------------*/
-# include "port/variant/stm32f10x_md_vl/variant_profile.h"
-# include "port/family/stm32f10x/family_profile.h"
-# include "port/arch/arm_cm3/arch_profile.h"
+# include "port/variant/stm32f407vg_profile.h"
+# include "port/family/stm32f4xx_profile.h"
+# include "port/arch/arm_cm3_profile.h"
 #endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
