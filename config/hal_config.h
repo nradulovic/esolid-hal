@@ -57,6 +57,26 @@
  * @name        Omogucivanje pojedinacnih modula
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
+ * @brief       Omogucivanje CPU modula
+ * @details     Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_CPU
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Omogucivanje Interrupt modula
+ * @details     Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_INTERRUPT
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
  * @brief       Omogucivanje GPIO modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
@@ -75,6 +95,37 @@
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART
 #endif
+
+/*--------------------------------------------------------------------------------------------*//**
+ * @brief       Omogucivanje debug (DBG) modula
+ * @details     Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_DBG
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Omogucivanje TIMER modula
+ * @details     Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_TIMER
+#endif
+
+/*--------------------------------------------------------------------------------------------*//**
+ * @brief       Omogucivanje cyclic redundancy check (CRC) modula
+ * @details     Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_CRC
+#endif
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -111,6 +162,11 @@
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART_4
 #endif
+/** @} *//*--------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Podesavanja za Debug (DBG) modul
+ * @{ *//*---------------------------------------------------------------------------------------*/
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
