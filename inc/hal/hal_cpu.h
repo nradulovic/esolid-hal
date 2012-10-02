@@ -129,7 +129,7 @@ typedef uint8_t                         unative_T;
  * @return      Trenutna vrednost broja tick-ova u jedinici vremena.
  *//*--------------------------------------------------------------------------------------------*/
 #if !defined(HAL_SYSTICK_GET_TICK) || defined(__DOXYGEN__)
-# define HAL_SYSTICK_GET_TICK()
+# define HAL_SYSTICK_GET_TICK()             0U
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
