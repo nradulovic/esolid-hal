@@ -33,7 +33,8 @@
 #define STM32L1XX_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-#if defined(PORT_MEDIUM_DENSITY_)
+#if defined(STM32L1XX_MD)
+#define ES_HAL_MCU_FAMILY               "STM32L1xx Medium Density"
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante mogucnosti HAL modula
  * @{ *//*---------------------------------------------------------------------------------------*/
@@ -44,25 +45,25 @@
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 # if defined(OPT_HAL_GPIO) || defined(__DOXYGEN__)
-#  define ES_ENABLE_GPIO
+#  define ES_HAL_ENABLE_GPIO
 #  include "port/family/stm32l1xx/gpio_lld.h"
 # endif
 
 # if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
-#  define ES_ENABLE_UART
+#  define ES_HAL_ENABLE_UART
 #  include "port/family/stm32l1xx/uart_lld.h"
 # endif
 
 # if defined(OPT_HAL_TIMER) || defined(__DOXYGEN__)
-#  define ES_ENABLE_TIMER
+#  define ES_HAL_ENABLE_TIMER
 #  include "port/family/stm32l1xx/timer_lld.h"
 # endif
 
 # if defined(OPT_ENABLE_CRC) || defined(__DOXYGEN__)
-#  define ES_ENABLE_CRC
+#  define ES_HAL_ENABLE_CRC
 #  include "port/family/stm32l1xx/crc_lld.h"
 # endif
-#endif /* PORT_STM32L1XX_MD_ */
+#endif /* STM32L1XX_MD */
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -70,7 +71,6 @@
  * @brief       Ovde se nalaze konstante koje daju vise informacija o
  *              mikrokontroleru i proizvodjacu.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_MCU_FAMILY               "STM32L1xx"
 #define ES_HAL_MCU_MANUF                "STMicroelectronics"
 /** @} *//*--------------------------------------------------------------------------------------*/
 
