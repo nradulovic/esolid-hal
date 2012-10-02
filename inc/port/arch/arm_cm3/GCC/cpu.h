@@ -52,7 +52,7 @@ typedef uint32_t                        unative_T;
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Pronalazi bit najvece tezine koji je na logickoj jedinici.
- * @details     Primer 1: parametar @c value ima vrednost sa binarnom 
+ * @details     Primer 1: parametar @c value ima vrednost sa binarnom
  *              reprezentacijom: 110. Funkcija u ovom slucaju vraca vrednost 2.
  *              Primer 2: parameter @c value ima vrednost sa binarnom
  *              reprezentacijom: 101001. Funkcija u ovom slucaju vraca vrednost
@@ -60,12 +60,22 @@ typedef uint32_t                        unative_T;
  **//*-------------------------------------------------------------------------------------------*/
 C_INLINE_ALWAYS uint8_t esCpuFindLastSet (uint32_t value) {
     uint8_t result;
-    
+
     __asm volatile ("clz %0, %1" : "=r" (result) : "r" (value) );
+
     return (31U - result);
 }
 
 C_INLINE_ALWAYS uint8_t esCpuFindFirstSet (uint32_t value) {
+    uint8_t clzr;
+    int32_t uvalue;
+
+    uvalue = (int32_t)value;
+    uvalue = uvalue & (-uvalue);
+
+    __asm volatile ("clz %0, %1" : "=r" (clzr) : "r" (uvalue));
+
+    return (31U - clzr);
 }
 
 #define ES_CPU_FLS(expr1)                                                      \
