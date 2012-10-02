@@ -1,30 +1,39 @@
 /**
- ******************************************************************************
- * @file
- * @brief     STM32L1xx Ultra Low Power Medium-density Devices vector table for
- *            Atollic toolchain.
- *            This module performs:
- *                - Set the initial SP
- *                - Set the initial PC == Reset_Handler,
- *                - Set the vector table entries with the exceptions ISR address
- *                - Configure the clock system
- *                - Branches to main in the C library (which eventually
- *                  calls main()).
- *            After Reset the Cortex-M3 processor is in Thread mode,
- *            priority is Privileged, and the Stack is set to Main.
- *******************************************************************************
- * @attention
- *
- * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
- * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
- * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
- * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
- * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
- * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
- *
- * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
- *******************************************************************************
- */
+  ******************************************************************************
+  * @file      startup_stm32l1xx_hd.s
+  * @author    MCD Application Team
+  * @version   V1.1.1
+  * @date      09-March-2012
+  * @brief     STM32L1xx Ultra Low Power High-density Devices vector table for 
+  *            Atollic toolchain.
+  *            This module performs:
+  *                - Set the initial SP
+  *                - Set the initial PC == Reset_Handler,
+  *                - Set the vector table entries with the exceptions ISR address
+  *                - Configure the clock system
+  *                - Branches to main in the C library (which eventually
+  *                  calls main()).
+  *            After Reset the Cortex-M3 processor is in Thread mode,
+  *            priority is Privileged, and the Stack is set to Main.
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  *
+  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  * You may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at:
+  *
+  *        http://www.st.com/software_license_agreement_liberty_v2
+  *
+  * Unless required by applicable law or agreed to in writing, software 
+  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  *
+  ******************************************************************************
+  */
 
   .syntax unified
   .cpu cortex-m3
@@ -90,9 +99,9 @@ LoopFillZerobss:
   bcc FillZerobss
 
 /* Call the clock system intitialization function.*/
-/*  bl  SystemInit */
+    bl  SystemInit
 /* Call static constructors */
-/*    bl __libc_init_array */
+    bl __libc_init_array
 /* Call the application's entry point.*/
   bl main
   bx lr
@@ -164,7 +173,7 @@ g_pfnVectors:
   .word DAC_IRQHandler
   .word COMP_IRQHandler
   .word EXTI9_5_IRQHandler
-  .word LCD_IRQHandler
+  .word LCD_IRQHandler  
   .word TIM9_IRQHandler
   .word TIM10_IRQHandler
   .word TIM11_IRQHandler
@@ -185,13 +194,25 @@ g_pfnVectors:
   .word USB_FS_WKUP_IRQHandler
   .word TIM6_IRQHandler
   .word TIM7_IRQHandler
+  .word SDIO_IRQHandler
+  .word TIM5_IRQHandler
+  .word SPI3_IRQHandler
+  .word UART4_IRQHandler
+  .word UART5_IRQHandler
+  .word DMA2_Channel1_IRQHandler
+  .word DMA2_Channel2_IRQHandler
+  .word DMA2_Channel3_IRQHandler
+  .word DMA2_Channel4_IRQHandler
+  .word DMA2_Channel5_IRQHandler
+  .word AES_IRQHandler
+  .word COMP_ACQ_IRQHandler
   .word 0
   .word 0
   .word 0
   .word 0
   .word 0
-  .word BootRAM          /* @0x108. This is for boot in RAM mode for
-                            STM32L15x ULtra Low Power Medium-density devices. */
+  .word BootRAM          /* @0x108. This is for boot in RAM mode for 
+                            STM32L15x ULtra Low Power High-density devices. */
 
 /*******************************************************************************
 *
@@ -301,7 +322,7 @@ g_pfnVectors:
   .thumb_set EXTI9_5_IRQHandler,Default_Handler
 
   .weak LCD_IRQHandler
-  .thumb_set LCD_IRQHandler,Default_Handler
+  .thumb_set LCD_IRQHandler,Default_Handler  
 
   .weak TIM9_IRQHandler
   .thumb_set TIM9_IRQHandler,Default_Handler
@@ -362,4 +383,42 @@ g_pfnVectors:
 
   .weak TIM7_IRQHandler
   .thumb_set TIM7_IRQHandler,Default_Handler
+
+  .weak SDIO_IRQHandler
+  .thumb_set SDIO_IRQHandler,Default_Handler
+
+  .weak TIM5_IRQHandler
+  .thumb_set TIM5_IRQHandler,Default_Handler
+  
+  .weak SPI3_IRQHandler
+  .thumb_set SPI3_IRQHandler,Default_Handler
+
+  .weak UART4_IRQHandler
+  .thumb_set UART4_IRQHandler,Default_Handler
+
+  .weak UART5_IRQHandler
+  .thumb_set UART5_IRQHandler,Default_Handler
+  
+  .weak DMA2_Channel1_IRQHandler
+  .thumb_set DMA2_Channel1_IRQHandler,Default_Handler
+
+  .weak DMA2_Channel2_IRQHandler
+  .thumb_set DMA2_Channel2_IRQHandler,Default_Handler
+
+  .weak DMA2_Channel3_IRQHandler
+  .thumb_set DMA2_Channel3_IRQHandler,Default_Handler
+
+  .weak DMA2_Channel4_IRQHandler
+  .thumb_set DMA2_Channel4_IRQHandler,Default_Handler
+
+  .weak DMA2_Channel5_IRQHandler
+  .thumb_set DMA2_Channel5_IRQHandler,Default_Handler
+
+  .weak AES_IRQHandler
+  .thumb_set AES_IRQHandler,Default_Handler
+
+  .weak COMP_ACQ_IRQHandler
+   .thumb_set COMP_ACQ_IRQHandler,Default_Handler
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
