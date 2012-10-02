@@ -25,4 +25,4 @@ MEMORY
   RW_EEPROM (rw)   : ORIGIN = 0x08080000, LENGTH = 32
 }
 
-INCLUDE "../../port/arch/ARM_CM3/hal/script/arm-cm3_rom.ld"
+INCLUDE "../../port/arch/arm_cm3/script/arm-cm3_rom.ld"
