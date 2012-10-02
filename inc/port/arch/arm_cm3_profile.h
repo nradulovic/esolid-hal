@@ -41,7 +41,7 @@
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 #if defined(OPT_HAL_CPU)
-# define ES_ENABLE_CPU
+# define ES_HAL_ENABLE_CPU
 # if defined(__GNUC__)
 #  include "port/arch/arm_cm3/GCC/cpu.h"
 # elif defined(__IAR_SYSTEMS_ICC__)
@@ -50,7 +50,7 @@
 #endif
 
 #if defined(OPT_HAL_INTERRUPT)
-# define ES_ENABLE_INTERRUPT
+# define ES_HAL_ENABLE_INTERRUPT
 # if defined(__GNUC__)
 #  include "port/arch/arm_cm3/GCC/interrupt.h"
 # elif defined(__IAR_SYSTEMS_ICC__)
