@@ -3901,6 +3901,9 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-haldsm/inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-haldsm/inc/port/family/stm32l1xx/cmsis"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-haldsm/inc/port/arch/arm_cm3/cmsis"/>
+						<entry flags="RESOLVED" kind="macro" name="STM32L1XX_MD" value=""/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/esolid-haldsm/dbg-STM32L1xx_md-o0-csgcc"/>
+						<entry flags="" kind="libraryFile" name="esolid-haldsm"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
