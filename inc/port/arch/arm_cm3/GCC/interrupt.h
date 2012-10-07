@@ -37,67 +37,51 @@
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande za implementaciju makroa.
+ * @brief       Preferiraju se asembler komande ili intrisic funkcije za
+ *              implementaciju makroa.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define INT_PRIO_MASK_GET_()                                                    \
-    C_EXT ({                                                                    \
-        register uint32_t reg;                                                  \
-        __asm volatile (                                                        \
-            "mrs %0, basepri"                                                   \
-            : "=r"(reg) :: "memory", "cc");                                     \
-        reg;                                                                    \
-    })
-
-#define INT_PRIO_MASK_SET_(prio)                                                \
-    do {                                                                        \
-        register uint32_t reg = (prio);                                         \
-        __asm volatile (                                                        \
-            "msr basepri, %0"                                                   \
-            :: "r"(reg) : "memory", "cc");                                      \
-    } while (0)
-
 #define ES_INT_ENABLE()                                                         \
-    __asm volatile ("cpsie i")
+    __enable_irq()
 
 #define ES_INT_DISABLE()                                                        \
-    __asm volatile ("cpsid i")
+    __disable_irq()
 
 #define ES_INT_PRIO_MASK_SET(prio)                                              \
-    do {                                                                        \
-        if (0U == prio) {                                                       \
-            INT_PRIO_MASK_SET_(0U);                                             \
-        } else {                                                                \
-            INT_PRIO_MASK_SET_((uint8_t)((uint16_t)256U - (uint16_t)(prio)));   \
-        }                                                                       \
-    } while (0)
+    __set_BASEPRI(prio)
 
 #define ES_INT_PRIO_MASK_GET()                                                  \
-    C_EXT ({                                                                    \
-        uint32_t mask;                                                          \
-        if (0U != mask) {                                                       \
-            mask = (uint32_t)256U - mask;                                       \
-        }                                                                       \
-        mask;                                                                   \
-    })
+    __get_BASEPRI()
 
 #define ES_CRITICAL_DECL()													    \
 	uint32_t irqLock_
 
-#define ES_CRITICAL_ENTER(prio)						    					\
+#define ES_CRITICAL_ENTER(prio)						    					    \
     do {                                                                        \
-        irqLock_ = INT_PRIO_MASK_GET_();                                        \
-        ES_INT_PRIO_MASK_SET(prio);                                            \
+        irqLock_ = __get_BASEPRI();                                             \
+        __set_BASEPRI(prio);                                                    \
     } while (0)
 
 #define ES_CRITICAL_EXIT()													    \
-    do {                                                                        \
-        __asm volatile (                                                        \
-            "msr basepri, %0"                                                   \
-            :: "r"(irqLock_) : "memory", "cc");                                 \
-    } while (0)
+    __set_BASEPRI(irqLock_)
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*===============================================================================  DATA TYPES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Predefinisani prioriteti prekidnih rutina
+ *//*--------------------------------------------------------------------------------------------*/
+enum esHandlerPrio {
+    ES_PRIO_IDLE = 0,
+    ES_PRIO_VERY_LOW = 255,
+    ES_PRIO_LOW = 254,
+    ES_PRIO_BELOW_NORMAL = 192,
+    ES_PRIO_NORMAL = 128,
+    ES_PRIO_ABOVE_NORMAL = 64,
+    ES_PRIO_HIGH = 32,
+    ES_PRIO_VERY_HIGH = 2,
+    ES_PRIO_REALTIME = 1
+};
+
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
