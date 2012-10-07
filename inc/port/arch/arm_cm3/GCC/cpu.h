@@ -78,11 +78,14 @@ C_INLINE_ALWAYS uint8_t esCpuFindFirstSet (uint32_t value) {
     return (31U - clzr);
 }
 
-#define ES_CPU_FLS(expr1)                                                      \
+#define ES_CPU_FLS(expr1)                                                       \
     (31 - __builtin_clz(expr1))
 
-#define ES_CPU_FFS(expr1)                                                      \
+#define ES_CPU_FFS(expr1)                                                       \
     ( __builtin_ffs(expr1) - 1)
+
+#define ES_CPU_SLEEP()                                                          \
+    __WFI()
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 

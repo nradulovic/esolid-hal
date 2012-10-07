@@ -92,6 +92,18 @@ typedef uint8_t                         unative_T;
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
+ * @brief       Prebaci rezim rada u stanje uspavano
+ * @details     Ovaj makroi prepacuje mikrokontroler u stanje najmanje potrosnje.
+ *              U zavisnosti od implementacije mikrokontrolera deo periferije se,
+ *              takodje, iskljucuje.
+ *//*--------------------------------------------------------------------------------------------*/
+#if !defined(ES_CPU_SLEEP) || defined(__DOXYGEN__)
+# define ES_CPU_SLEEP()                                                         \
+    (void)0
+
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
  * @name        Brza manipulacija sa bitovima
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
