@@ -1,3 +1,7 @@
+Verzija 1.0a04
+- Početak rada na Debug modulu
+- Tagovanje verzije
+
 Verzija 1.0a03
 
 gpio_lld.c

@@ -31,7 +31,7 @@ PROJECT_NAME = "eSolid - HAL and DSM"
 # This could be handy for archiving the generated documentation or
 # if some version control system is used.
 
-PROJECT_NUMBER = 1.0a
+PROJECT_NUMBER = 1.0a04
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer
@@ -129,7 +129,7 @@ FULL_PATH_NAMES = YES
 # If left blank the directory from which doxygen is run is used as the
 # path to strip.
 
-STRIP_FROM_PATH =
+STRIP_FROM_PATH = 
 
 # The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part of
 # the path mentioned in the documentation of a class, which tells
@@ -194,17 +194,7 @@ TAB_SIZE = 4
 # will result in a user-defined paragraph with heading "Side Effects:".
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES = "iclass=@par Klasa funkcije:\n <b>I klasa</b> API funkcija,			\
-			ova funkcija se moze pozvati od strane aplikacije i prekidnih rutina\
-			samo iz kriticnih sekcija koda sa zakljucanim prekidima."			\
-          "sclass=@par Klasa funkcije:\n <b>S klasa</b> API funkcija,			\
-            ova funkcija se moze pozvati samo od strane aplikacije samo iz 		\
-            kriticnih sekcija koda gde je zakljucan scheduler ."						\ 
-          "api=@par Klasa funkcije:\n Normalna <b>API</b> funkcija, ova funkcija\
-            se moze pozvati samo iz aplikacije."								\ 
-          "notapi=@par Klasa funkcije:\n Nije <b>API</b> funkcija, ova funkcija \
-            je namenjena iskljucivo za internu upotrebu."						\ 
-          "mseffect=@attention Makro nema zastitu od bocnih efekata."
+ALIASES = "iclass=@par Klasa funkcije:\n <b>I klasa</b> API funkcija, ova funkcija se moze pozvati od strane aplikacije i prekidnih rutina samo iz kriticnih sekcija koda sa zakljucanim prekidima." "sclass=@par Klasa funkcije:\n <b>S klasa</b> API funkcija, ova funkcija se moze pozvati samo od strane aplikacije samo iz kriticnih sekcija koda gde je zakljucan scheduler ."						\ "api=@par Klasa funkcije:\n Normalna <b>API</b> funkcija, ova funkcija se moze pozvati samo iz aplikacije."								\ "notapi=@par Klasa funkcije:\n Nije <b>API</b> funkcija, ova funkcija je namenjena iskljucivo za internu upotrebu."						\ "mseffect=@attention Makro nema zastitu od bocnih efekata."
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C
 # sources only. Doxygen will then generate output that is more tailored for C.
@@ -622,7 +612,7 @@ WARN_LOGFILE =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT =     ./inc ./src ./doc/inc ./doc/src ./doc/pages
+INPUT = ./inc ./src ./doc/inc ./doc/src ./doc/pages
 #INPUT =     ../inc ../src ./inc
 
 # This tag can be used to specify the character encoding of the source files
@@ -1465,8 +1455,7 @@ INCLUDE_FILE_PATTERNS =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED =    __DOXYGEN__ \
-                E_CALIGNED
+PREDEFINED = __DOXYGEN__ E_CALIGNED
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
@@ -1474,7 +1463,7 @@ PREDEFINED =    __DOXYGEN__ \
 # Use the PREDEFINED tag if you want to use a different macro definition that
 # overrules the definition found in the source code.
 
-EXPAND_AS_DEFINED = E_CALIGNED 
+EXPAND_AS_DEFINED = E_CALIGNED
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then
 # doxygen's preprocessor will remove all references to function-like macros
