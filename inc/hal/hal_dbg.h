@@ -34,6 +34,15 @@
 #define HAL_DBG_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+/*----------------------------------------------------------------------------------  EXTERNS  --*/
+/** @cond */
+#ifdef HAL_DBG_H_VAR
+# define HAL_DBG_H_EXT
+#else
+# define HAL_DBG_H_EXT extern
+#endif
+/** @endcond*/
+
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -41,10 +50,10 @@
  * @brief       Ovi makroi se koriste kao zamena za neaktivne debug makroe.
  * @details     Njihova uloga je da sprece upozorenja za vreme kompajliranja.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define DBG_EMPTY_DECL()                                                        \
+#define ES_EMPTY_DECL()                                                         \
     extern C_UNUSED_VAR(uint8_t, ES_CONCAT(dbgVar, __LINE__))
 
-#define DBG_EMPTY_MACRO()               (void)0
+#define ES_DBG_EMPTY_MACRO()                (void)0
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 
@@ -53,11 +62,11 @@
  * @param       moduleName              Ime modula koji se definise.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define DBG_DEFINE_MODULE(moduleName)                                          \
+# define ES_DBG_DEFINE_MODULE(moduleName)                                       \
     static const C_ROM char * const C_ROM_VAR DBG_THIS_FILE = __FILE__;         \
     static const C_ROM char * const C_ROM_VAR DBG_THIS_MODULE = ES_STRING(moduleName)
 #else
-# define DBG_DEFINE_MODULE(moduleName)                                          \
+# define ES_DBG_DEFINE_MODULE(moduleName)                                       \
     extern C_UNUSED_VAR(uint8_t, unusedDefineModule)
 #endif
 
@@ -65,17 +74,17 @@
  * @brief       Vrsi proveru da li su argumenti predati funkciji ispravni
  * @mseffect
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_USE_CHECK) || defined(__DOXYGEN__)
+#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_CHECK) || defined(__DOXYGEN__)
 # if defined(__GNUC__)
-#  define DBG_CHECK(expr)                                                       \
+#  define ES_DBG_CHECK(expr)                                                    \
     ((expr) ? (void)0 : esDbgCheckFailed(DBG_THIS_MODULE, DBG_THIS_FILE, __func__, ES_STRING(expr), (uint16_t)__LINE__))
 # else
 static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
-#  define DBG_CHECK(expr)                                                       \
+#  define ES_DBG_CHECK(expr)                                                    \
     ((expr) ? (void)0 : esDbgCheckFailed(DBG_THIS_MODULE, DBG_THIS_FILE, DBG_THIS_FUNC, ES_STRING(expr), (uint16_t)__LINE__))
 # endif
 #else
-# define DBG_CHECK(expr)                (void)0
+# define ES_DBG_CHECK(expr)                (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -85,11 +94,11 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  *              @c dbgAssertFailed koja stampa mesto nastanka greske.
  * @mseffect
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_USE_ASSERT) || defined(__DOXYGEN__)
-# define DBG_ASSERT(expr)                                                       \
+#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
+# define ES_DBG_ASSERT(expr)                                                    \
     ((expr) ? (void)0 : esDbgAssertFailed(HAL_DBG_THIS_MODULE, HAL_DBG_THIS_FILE, ES_STRING(expr), (uint16_t)__LINE__))
 #else
-# define DBG_ASSERT(expr)               (void)0
+# define ES_DBG_ASSERT(expr)               (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -97,11 +106,11 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  * @param       msg                     Poruka o gresci koja se ispisuje
  *                                      korisniku.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_USE_ASSERT) || defined(__DOXYGEN__)
-# define DBG_ASSERT_ALWAYS(msg)                                                 \
+#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
+# define ES_DBG_ASSERT_ALWAYS(msg)                                              \
     esDbgAssertFailed(DBG_THIS_MODULE, DBG_THIS_FILE, ES_STRING(msg), (uint16_t)__LINE__)
 #else
-# define DBG_ASSERT_ALWAYS(msg)         (void)0
+# define ES_DBG_ASSERT_ALWAYS(msg)         (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -111,22 +120,37 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  * @details     Ovaj makro se najcesce postavlja u delovima koda koji su poznati
  *              za vreme kompajliranja.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_USE_ASSERT) || defined(__DOXYGEN__)
-# define DBG_ASSERT_COMPILE(expr)                                               \
+#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
+# define ES_DBG_ASSERT_COMPILE(expr)                                            \
     extern char ES_CONCAT(compileAssert, __LINE__) [(expr) ? 1 : -1]
 #else
-# define DBG_ASSERT_COMPILE(expr)                                               \
+# define ES_DBG_ASSERT_COMPILE(expr)                                            \
     extern C_UNUSED_VAR(uint8_t, ES_CONCAT(dbgVar, __LINE__))
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Izvrsavanje @c expr koda samo kada je definisan debug rezim.
+ * @brief       Izvrsavanje debug @c expr koda.
+ * @details     Ovaj makro izvrsava @c expr kod samo kada je Debug modul ukljucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define DBG_MACRO(expr)                                                        \
+# define ES_DBG_MACRO(expr)                                                     \
     expr
 #else
-# define DBG_MACRO(expr)                                                        \
+# define ES_DBG_MACRO(expr)                                                     \
+    (void)0
+#endif
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Izvrsavanje debug @c expr koda.
+ * @details     Ovaj makro izvrsava @c expr kod samo kada je Debug modul ukljucen.
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_TRACE) || defined(__DOXYGEN__)
+# define ES_DBG_TRACE(filterBitMask, format, ...)                               \
+    if (0U != ((filterBitMask) & filterBitMap)) {                               \
+        esDbgTrace(format, __VA_ARGS__);                                        \
+    }
+#else
+# define ES_DBG_TRACE(filterBitMask, format, ...)                               \
     (void)0
 #endif
 
@@ -224,18 +248,16 @@ typedef struct esDbgMessage {
  * @brief       Brojac vremena nastanka poruke
  */
     uint16_t      timestamp;
-
-/**
- * @brief       Nivo prioriteta poruke.
- * @details     Ovim parametrom moze da se okarakterise vaznost poruke. Nula '0'
- *              oznacava najvecu vaznost poruke. Sto je broj veci, to je vaznost
- *              poruke manja. Ovaj parametar se moze koristiti prilikom
- *              filtriranja manje vaznih poruka.
- */
-    uint16_t      level;
 } esDbgMessage_T;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Bit mapa ukljucenih Trace filtera
+ * @details     Svaki bit ove promenljive predstavlja filter za jedan tip
+ *              informacija.
+ *//*--------------------------------------------------------------------------------------------*/
+HAL_DBG_H_EXT uint32_t filterBitMap;
+
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Funkcije javnog interfejsa

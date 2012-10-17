@@ -167,6 +167,36 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Podesavanja za Debug (DBG) modul
  * @{ *//*---------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------*//**
+ * @brief       Ukljucivanje/iskljucivanje ASSERT makroa
+ * @details     Ukoliko je ova opcija:
+ *              - definisana - Assert makroi su ukljuceni,
+ *              - nedefinisana - Assert makroi su iskljuceni u svim projektima
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_DBG_ASSERT
+#endif
+
+/*--------------------------------------------------------------------------------------------*//**
+ * @brief       Ukljucivanje/iskljucivanje CHECK makroa
+ * @details     Ukoliko je ova opcija:
+ *              - definisana - Check makroi su ukljuceni,
+ *              - nedefinisana - Check makroi su iskljuceni u svim projektima
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_DBG_CHECK
+#endif
+
+/*--------------------------------------------------------------------------------------------*//**
+ * @brief       Ukljucivanje/iskljucivanje TRACE makroa
+ * @details     Ukoliko je ova opcija:
+ *              - definisana - Trace makroi su ukljuceni,
+ *              - nedefinisana - Trace makroi su iskljuceni u svim projektima
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define OPT_HAL_DBG_TRACE
+#endif
+
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/

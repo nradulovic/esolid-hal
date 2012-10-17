@@ -29,6 +29,7 @@
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
+#define HAL_DBG_H_VAR
 #include "hal_private.h"
 
 #if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
@@ -63,7 +64,6 @@ void esDbgCheckFailed (
     check.text.format = "Parameter failed to validate expression: %s";
     check.text.variables = expression;
     check.text.type = ES_DBG_MSG_ERROR;
-    check.level = 0U;
     check.timestamp = HAL_SYSTICK_GET_TICK();
     esDbgSendMessage (
         &check);
@@ -89,10 +89,17 @@ void esDbgAssertFailed (
     assert.text.format = "Expression failed to validate: %s";
     assert.text.variables = expression;
     assert.text.type = ES_DBG_MSG_ERROR;
-    assert.level = 0U;
     assert.timestamp = HAL_SYSTICK_GET_TICK();
     esDbgSendMessage (
         &assert);
+}
+
+esDbgMessage_T * esDbgNewMessage(size_t messageSize) {
+
+}
+/*-----------------------------------------------------------------------------------------------*/
+void esDbgTrace(const char * format, ...) {
+
 }
 
 /*-----------------------------------------------------------------------------------------------*/
