@@ -50,7 +50,7 @@
  * @brief       Ovi makroi se koriste kao zamena za neaktivne debug makroe.
  * @details     Njihova uloga je da sprece upozorenja za vreme kompajliranja.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_EMPTY_DECL()                                                         \
+#define ES_DBG_EMPTY_DECL()                                                     \
     extern C_UNUSED_VAR(uint8_t, ES_CONCAT(dbgVar, __LINE__))
 
 #define ES_DBG_EMPTY_MACRO()                (void)0
