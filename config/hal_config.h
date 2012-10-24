@@ -41,6 +41,10 @@
 #define STM32L152RB
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
+#define OPT_HAL_LOG
+#define OPT_HAL_LOG_ASSERT
+#define OPT_HAL_LOG_CHECK
+#define OPT_HAL_LOG_TRACE
 
 /*=================================================================================  SETTINGS  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -97,13 +101,13 @@
 #endif
 
 /*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje debug (DBG) modula
+ * @brief       Omogucivanje modula za vodjenje dnevnika (LOG)
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
  *              - nedefinisano - moduj je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
-# define OPT_HAL_DBG
+# define OPT_HAL_LOG
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -165,7 +169,7 @@
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Podesavanja za Debug (DBG) modul
+ * @name        Podesavanje modula za vodjenje dnevnika, LOG modul
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------*//**
  * @brief       Ukljucivanje/iskljucivanje ASSERT makroa
@@ -174,7 +178,7 @@
  *              - nedefinisana - Assert makroi su iskljuceni u svim projektima
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
-# define OPT_HAL_DBG_ASSERT
+# define OPT_HAL_LOG_ASSERT
 #endif
 
 /*--------------------------------------------------------------------------------------------*//**
@@ -184,7 +188,7 @@
  *              - nedefinisana - Check makroi su iskljuceni u svim projektima
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
-# define OPT_HAL_DBG_CHECK
+# define OPT_HAL_LOG_CHECK
 #endif
 
 /*--------------------------------------------------------------------------------------------*//**
@@ -194,7 +198,7 @@
  *              - nedefinisana - Trace makroi su iskljuceni u svim projektima
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
-# define OPT_HAL_DBG_TRACE
+# define OPT_HAL_LOG_TRACE
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/

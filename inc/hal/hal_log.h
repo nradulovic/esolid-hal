@@ -23,50 +23,38 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Interfejs modula za podrsku debagiranja.
+ * @brief       Interfejs modula za vodjenje dnevnika (log).
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_dbg
- * @brief		Interfejs modula za podrsku debagiranja.
+ * @addtogroup  hal_log
+ * @brief		Interfejs modula za vodjenje dnevnika (log).
  ****************************************************************************************//** @{ */
 
 
-#ifndef HAL_DBG_H_
-#define HAL_DBG_H_
+#ifndef HAL_LOG_H_
+#define HAL_LOG_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
 /*----------------------------------------------------------------------------------  EXTERNS  --*/
 /** @cond */
-#ifdef HAL_DBG_H_VAR
-# define HAL_DBG_H_EXT
+#ifdef HAL_LOG_H_VAR
+# define HAL_LOG_H_EXT
 #else
-# define HAL_DBG_H_EXT extern
+# define HAL_LOG_H_EXT extern
 #endif
 /** @endcond*/
 
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Makroi bez dejstva
- * @brief       Ovi makroi se koriste kao zamena za neaktivne debug makroe.
- * @details     Njihova uloga je da sprece upozorenja za vreme kompajliranja.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_DBG_EMPTY_DECL()                                                     \
-    extern C_UNUSED_VAR(uint8_t, ES_CONCAT(dbgVar, __LINE__))
-
-#define ES_DBG_EMPTY_MACRO()                (void)0
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
  * @brief       Definisanje imena modula.
  * @param       moduleName              Ime modula koji se definise.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define ES_DBG_DEFINE_MODULE(moduleName)                                       \
-    static const C_ROM char * const C_ROM_VAR DBG_THIS_FILE = __FILE__;         \
-    static const C_ROM char * const C_ROM_VAR DBG_THIS_MODULE = ES_STRING(moduleName)
+#if defined(OPT_HAL_LOG) || defined(__DOXYGEN__)
+# define ES_LOG_DEFINE_MODULE(moduleName)                                       \
+    static const C_ROM char * const C_ROM_VAR LOG_THIS_FILE = __FILE__;         \
+    static const C_ROM char * const C_ROM_VAR LOG_THIS_MODULE = ES_STRING(moduleName)
 #else
-# define ES_DBG_DEFINE_MODULE(moduleName)                                       \
+# define ES_LOG_DEFINE_MODULE(moduleName)                                       \
     extern C_UNUSED_VAR(uint8_t, unusedDefineModule)
 #endif
 
@@ -74,17 +62,17 @@
  * @brief       Vrsi proveru da li su argumenti predati funkciji ispravni
  * @mseffect
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_CHECK) || defined(__DOXYGEN__)
+#if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_CHECK) || defined(__DOXYGEN__)
 # if defined(__GNUC__)
-#  define ES_DBG_CHECK(expr)                                                    \
-    ((expr) ? (void)0 : esDbgCheckFailed(DBG_THIS_MODULE, DBG_THIS_FILE, __func__, ES_STRING(expr), (uint16_t)__LINE__))
+#  define ES_LOG_CHECK(expr)                                                    \
+    ((expr) ? (void)0 : esLogCheckFailed(LOG_THIS_MODULE, LOG_THIS_FILE, __func__, ES_STRING(expr), (uint16_t)__LINE__))
 # else
-static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
-#  define ES_DBG_CHECK(expr)                                                    \
-    ((expr) ? (void)0 : esDbgCheckFailed(DBG_THIS_MODULE, DBG_THIS_FILE, DBG_THIS_FUNC, ES_STRING(expr), (uint16_t)__LINE__))
+static const C_ROM char * const C_ROM_VAR LOG_THIS_FUNC = "Unknown function";
+#  define ES_LOG_CHECK(expr)                                                    \
+    ((expr) ? (void)0 : esLogCheckFailed(LOG_THIS_MODULE, LOG_THIS_FILE, LOG_THIS_FUNC, ES_STRING(expr), (uint16_t)__LINE__))
 # endif
 #else
-# define ES_DBG_CHECK(expr)                (void)0
+# define ES_LOG_CHECK(expr)                (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -94,11 +82,11 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  *              @c dbgAssertFailed koja stampa mesto nastanka greske.
  * @mseffect
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
-# define ES_DBG_ASSERT(expr)                                                    \
-    ((expr) ? (void)0 : esDbgAssertFailed(HAL_DBG_THIS_MODULE, HAL_DBG_THIS_FILE, ES_STRING(expr), (uint16_t)__LINE__))
+#if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_ASSERT) || defined(__DOXYGEN__)
+# define ES_LOG_ASSERT(expr)                                                    \
+    ((expr) ? (void)0 : esLogAssertFailed(HAL_LOG_THIS_MODULE, HAL_LOG_THIS_FILE, ES_STRING(expr), (uint16_t)__LINE__))
 #else
-# define ES_DBG_ASSERT(expr)               (void)0
+# define ES_LOG_ASSERT(expr)               (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -106,11 +94,11 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  * @param       msg                     Poruka o gresci koja se ispisuje
  *                                      korisniku.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
-# define ES_DBG_ASSERT_ALWAYS(msg)                                              \
-    esDbgAssertFailed(DBG_THIS_MODULE, DBG_THIS_FILE, ES_STRING(msg), (uint16_t)__LINE__)
+#if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_ASSERT) || defined(__DOXYGEN__)
+# define ES_LOG_ASSERT_ALWAYS(msg)                                              \
+    esLogAssertFailed(LOG_THIS_MODULE, LOG_THIS_FILE, ES_STRING(msg), (uint16_t)__LINE__)
 #else
-# define ES_DBG_ASSERT_ALWAYS(msg)         (void)0
+# define ES_LOG_ASSERT_ALWAYS(msg)         (void)0
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**
@@ -120,11 +108,11 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  * @details     Ovaj makro se najcesce postavlja u delovima koda koji su poznati
  *              za vreme kompajliranja.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_ES_DBG_ASSERT) || defined(__DOXYGEN__)
-# define ES_DBG_ASSERT_COMPILE(expr)                                            \
+#if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_ASSERT) || defined(__DOXYGEN__)
+# define ES_LOG_ASSERT_COMPILE(expr)                                            \
     extern char ES_CONCAT(compileAssert, __LINE__) [(expr) ? 1 : -1]
 #else
-# define ES_DBG_ASSERT_COMPILE(expr)                                            \
+# define ES_LOG_ASSERT_COMPILE(expr)                                            \
     extern C_UNUSED_VAR(uint8_t, ES_CONCAT(dbgVar, __LINE__))
 #endif
 
@@ -132,25 +120,13 @@ static const C_ROM char * const C_ROM_VAR DBG_THIS_FUNC = "Unknown function";
  * @brief       Izvrsavanje debug @c expr koda.
  * @details     Ovaj makro izvrsava @c expr kod samo kada je Debug modul ukljucen.
  *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define ES_DBG_MACRO(expr)                                                     \
-    expr
-#else
-# define ES_DBG_MACRO(expr)                                                     \
-    (void)0
-#endif
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Izvrsavanje debug @c expr koda.
- * @details     Ovaj makro izvrsava @c expr kod samo kada je Debug modul ukljucen.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) && defined(OPT_HAL_DBG_TRACE) || defined(__DOXYGEN__)
-# define ES_DBG_TRACE(filterBitMask, format, ...)                               \
-    if (0U != ((filterBitMask) & filterBitMap)) {                               \
-        esDbgTrace(format, __VA_ARGS__);                                        \
+#if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_TRACE) || defined(__DOXYGEN__)
+# define ES_LOG_TRACE(filterBitMap, filterBitMask, format, ...)                               \
+    if (0U != ((filterBitMask) & (filterBitMap))) {                               \
+        esLogTrace(format, __VA_ARGS__);                                        \
     }
 #else
-# define ES_DBG_TRACE(filterBitMask, format, ...)                               \
+# define ES_LOG_TRACE(filterBitMask, format, ...)                               \
     (void)0
 #endif
 
@@ -160,50 +136,96 @@ extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
-#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
+#if defined(OPT_HAL_LOG) || defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Tipovi debug poruka
+ * @brief       Kategorije log poruka
  *//*--------------------------------------------------------------------------------------------*/
-typedef enum esDbgMsgType {
+typedef enum esLogCategory {
 /**
  * @brief       Poruka je izvestaj o gresci
  */
-    ES_DBG_MSG_ERROR,
+    ES_LOG_CATEGORY_ERR,
 
 /**
  * @brief       Poruka je informativnog karaktera
  */
-    ES_DBG_MSG_INFO,
+    ES_LOG_CATEGORY_INFO,
 
 /**
  * @brief       Poruka upozorenja o mogucem problemu
  */
-    ES_DBG_MSG_WARNING
-} esDbgMsgType_T;
+    ES_LOG_CATEGORY_WARNING
+} esLogCategory_T;
 
+/**
+ * @brief		Nivo obelezavanja dogadjaja u dnevnik
+ * @details		Aplikacija moze da ima nekoliko nivoa obelezavanja u dnevnik u
+ * 				zavisnosti od znacaja/ozbiljnosti dogadjaja. Postoje sledeci
+ * 				predefinisani nivoi znacaja dogadjaja.
+ *
+ * 				Aplikacija moze da odluci koji nivoi znacaja dogadjaja ce se
+ * 				ubacivati u dnevnik. Na primer, ukoliko izvorni kod poseduje
+ * 				sve navedene nivoe znacaja, a zeljeni nivo je postavljen na
+ * 				nivo ES_LOG_LEVEL_WARN, onda se u dnevniku pojavljuju samo
+ * 				poruke sa nivoom jednakim ili vecim od nivoa ES_LOG_LEVEL_WARN.
+ * 				Poruke sa nizim nivoom se za vreme kompajliranja pretvaraju u
+ * 				prazne izraze.
+ */
+typedef enum esLogLevel {
+/**
+ * @brief		Kriticne greske koje dovode do toga da se aplikacija zaustavi.
+ */
+	ES_LOG_LEVEL_FATAL,
+
+/**
+ * @brief		Greske za vreme izvrsavanja aplikacije, ali aplikacija moze da
+ * 				nastavi sa izvrsavanjem.
+ */
+	ES_LOG_LEVEL_ERROR,
+
+/**
+ * @brief		Upozorenja
+ */
+	ES_LOG_LEVEL_WARN,
+
+/**
+ * @brief		Informativne poruke
+ */
+	ES_LOG_LEVEL_INFO,
+
+/**
+ * @brief		Debug poruke
+ */
+	ES_LOG_LEVEL_DEBUG,
+
+/**
+ * @brief		Poruke sa finim detaljima
+ */
+	ES_LOG_LEVEL_TRACE
+};
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Opis objekta generatora poruke
  *//*--------------------------------------------------------------------------------------------*/
-typedef struct esDbgObject {
+typedef struct esLogObject {
     const char C_ROM * C_ROM_VAR name;
     const char C_ROM * C_ROM_VAR type;
     const char C_ROM * C_ROM_VAR desc;
-} esDbgObject_T;
+} esLogObject_T;
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Opis izvornog mesta gde se objekat nalazi
  *//*--------------------------------------------------------------------------------------------*/
-typedef struct esDbgSource {
+typedef struct esLogSource {
     const char C_ROM * C_ROM_VAR module;
     const char C_ROM * C_ROM_VAR file;
     const char C_ROM * C_ROM_VAR func;
     int16_t line;
-} esDbgSource_T;
+} esLogSource_T;
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Tekst koji saopštava objekat
  *//*--------------------------------------------------------------------------------------------*/
-typedef struct esDbgText {
+typedef struct esLogText {
 /**
  * @brief       Kratak opis poruke
  */
@@ -220,44 +242,37 @@ typedef struct esDbgText {
     const char       * variables;
 
 /**
- * @brief       Tip poruke. Pogledati @ref esDbgMsgType_T.
+ * @brief       Tip poruke. Pogledati @ref esLogCategory_T.
  */
-    esDbgMsgType_T   type;
-} esDbgText_T;
+    esLogCategory_T   type;
+} esLogText_T;
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Struktura jedne debug poruke
  *//*--------------------------------------------------------------------------------------------*/
-typedef struct esDbgMessage {
+typedef struct esLogMessage {
 /**
  * @brief       Objekat koji je kreirao poruku
  */
-    esDbgObject_T object;
+    esLogObject_T object;
 
 /**
  * @brief       Izvorno mesto poruke
  */
-    esDbgSource_T source;
+    esLogSource_T source;
 
 /**
  * @brief       Text poruke
  */
-    esDbgText_T   text;
+    esLogText_T   text;
 
 /**
  * @brief       Brojac vremena nastanka poruke
  */
     uint16_t      timestamp;
-} esDbgMessage_T;
+} esLogMessage_T;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Bit mapa ukljucenih Trace filtera
- * @details     Svaki bit ove promenljive predstavlja filter za jedan tip
- *              informacija.
- *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_H_EXT uint32_t filterBitMap;
-
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Funkcije javnog interfejsa
@@ -274,7 +289,7 @@ HAL_DBG_H_EXT uint32_t filterBitMap;
  *              bi se prijavila neka interna greska. Svi pokazivaci pokazuju na
  *              tekst u ASCII formatu koji treba da se posalje na Debug monitor.
  *//*--------------------------------------------------------------------------------------------*/
-void esDbgCheckFailed (
+void esLogCheckFailed (
     const char          * moduleName,
     const char          * fileName,
     const char          * functionName,
@@ -291,7 +306,7 @@ void esDbgCheckFailed (
  *              bi se prijavila neka interna greska. Svi pokazivaci pokazuju na
  *              tekst u ASCII formatu koji treba da se posalje na Debug monitor.
  *//*--------------------------------------------------------------------------------------------*/
-void esDbgAssertFailed (
+void esLogAssertFailed (
     const char          * moduleName,
     const char          * fileName,
     const char          * expression,
@@ -304,20 +319,19 @@ void esDbgAssertFailed (
  *              odgovarajuce bafere. Kada se red cekanja popuni, vrsi se slanje
  *              svih poruka.
  *//*--------------------------------------------------------------------------------------------*/
-void esDbgSendMessage (
-    esDbgMessage_T      * message);
+void esLogSendMessage (
+    esLogMessage_T      * message);
 
 /** @} *//*--------------------------------------------------------------------------------------*/
-
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
 #endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-#endif /* OPT_HAL_DBG */
+#endif /* OPT_HAL_LOG */
 
 /** @endcond *//** @} *//*************************************************************************
- * END of dbg.h
+ * END of hal_log.h
  *************************************************************************************************/
-#endif /* HAL_DBG_H_ */
+#endif /* HAL_LOG_H_ */

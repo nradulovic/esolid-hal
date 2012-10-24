@@ -36,7 +36,7 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "hal_dbg.h"
+#include "hal_log.h"
 #include "port/hal_profiles.h"
 
 #if defined(ES_HAL_ENABLE_CPU) || defined(__DOXYGEN__)
