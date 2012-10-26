@@ -36,7 +36,6 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "hal_log.h"
 #include "port/hal_profiles.h"
 
 #if defined(ES_HAL_ENABLE_CPU) || defined(__DOXYGEN__)
@@ -63,6 +62,7 @@
 # include "hal_crc.h"
 #endif
 
+#include "hal_log.h"
 
 /*==================================================================================  DEFINES  ==*/
 #if defined(__DOXYGEN__)
@@ -173,6 +173,28 @@ typedef enum esDevStatus esDevStatus_T;
  *//*--------------------------------------------------------------------------------------------*/
 void esHalInit(
     void);
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Vraca pokazivac na znakovni niz koji sadrzi vreme kompajliranja HAL projekta
+ *//*--------------------------------------------------------------------------------------------*/
+C_INLINE_ALWAYS const C_ROM char * esHalCompileTime (
+    void) {
+
+    const C_ROM char * time = __TIME__;
+
+    return (time);
+}
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Vraca pokazivac na znakovni niz koji sadrzi datum kompajliranja HAL projekta
+ *//*--------------------------------------------------------------------------------------------*/
+C_INLINE_ALWAYS const C_ROM char * esHalCompileDate (
+    void) {
+
+    const C_ROM char * date = __DATE__;
+
+    return (date);
+}
 
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
