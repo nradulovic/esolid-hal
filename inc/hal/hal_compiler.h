@@ -41,6 +41,26 @@
 #endif
 
 /*==================================================================================  DEFINES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Konstante mogucnosti/dostupnosti kompajlera
+ * @brief       Sledece konstante karakterisu i opisuju koje su mogucnosti
+ *              koriscenog kompajlera
+ * @details     Uglavnom se koristi sledeci nacin rada. Ukoliko je neka
+ *              konstanta definisana onda je naveden atribut vazeci za kompajler
+ *              u suprotnom kompajler ne podrzava opciju opisanu tim atributem.
+ *              Medjutim, neke konstante pored stanja definisanosti mogu
+ *              sadrziti i odredjene parametre.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Konstanda dostupnosti makroa sa varijabilnim parametrima
+ * @details     Ukoliko je ova konstanta definisana onda kompajler podrzava
+ *              makroe sa promenljivim brojem parametara (@c variadic makroi).
+ *//*--------------------------------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+# define ES_HAL_FEATURE_VARIADIC_MACRO
+#endif
+
+/** @} *//*--------------------------------------------------------------------------------------*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Makroi za prosirene opcije C programskog jezika
@@ -54,6 +74,8 @@
  * @{ *//*---------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Podrska za automatsko popunjavanje imena funkcija u makroima.
+ * @details     Ovaj makro se u toku kompajliranja pretvara u konstantan
+ *              znakovni niz sa imenom funkcije gde se nalazi.
  *//*--------------------------------------------------------------------------------------------*/
 #if !defined(C_FUNC) || defined(__DOXYGEN__)
 # define C_FUNC                         "<unknown>"
@@ -282,7 +304,6 @@
 #endif
 
 /** @} *//*--------------------------------------------------------------------------------------*/
-
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Opcije C kompajlera za embedded sisteme
  *              Klasa: common
@@ -642,9 +663,9 @@ typedef uint32_t                        uint_fast32_t;
  *              koriscene arhitekture/varijante.
  * @{ *//*---------------------------------------------------------------------------------------*/
 #if !defined(HAL_DEF_TYPES) || defined(__DOXYGEN__)
-typedef uint32_t                        size_t
-typedef uint32_t                        ptrdiff_t
-typedef wchar_t                         uint16_t
+typedef uint32_t                        size_t;
+typedef uint32_t                        ptrdiff_t;
+typedef wchar_t                         uint16_t;
 #endif
 /** @} *//*--------------------------------------------------------------------------------------*/
 
