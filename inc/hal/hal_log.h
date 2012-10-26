@@ -34,16 +34,53 @@
 #define HAL_LOG_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*----------------------------------------------------------------------------------  EXTERNS  --*/
-/** @cond */
-#ifdef HAL_LOG_H_VAR
-# define HAL_LOG_H_EXT
-#else
-# define HAL_LOG_H_EXT extern
-#endif
-/** @endcond*/
-
 /*==================================================================================  DEFINES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Nivo obelezavanja dogadjaja u dnevnik
+ * @details     Aplikacija moze da ima nekoliko nivoa obelezavanja u dnevnik u
+ *              zavisnosti od znacaja/ozbiljnosti dogadjaja. Postoje sledeci
+ *              predefinisani nivoi znacaja dogadjaja.
+ *
+ *              Aplikacija moze da odluci koji nivoi znacaja dogadjaja ce se
+ *              ubacivati u dnevnik. Na primer, ukoliko izvorni kod poseduje
+ *              sve navedene nivoe znacaja, a zeljeni nivo je postavljen na
+ *              nivo ES_LOG_LEVEL_WARN, onda se u dnevniku pojavljuju samo
+ *              poruke sa nivoom jednakim ili vecim od nivoa ES_LOG_LEVEL_WARN.
+ *              Poruke sa nizim nivoom se za vreme kompajliranja pretvaraju u
+ *              prazne makroe.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Kriticne greske koje dovode do toga da se aplikacija zaustavi.
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_FATAL              5U
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Greske za vreme izvrsavanja aplikacije, ali aplikacija moze da
+ *              nastavi sa izvrsavanjem.
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_ERROR              4U
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Upozorenja
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_WARN               3U
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Informativne poruke
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_INFO               2U
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Debug poruke
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_DEBUG              1U
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Poruke sa finim detaljima
+ *//*--------------------------------------------------------------------------------------------*/
+#define ES_LOG_LEVEL_TRACE              0U
+
+/** @} *//*--------------------------------------------------------------------------------------*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Definisanje imena modula.
@@ -138,138 +175,15 @@ extern "C" {
 /*===============================================================================  DATA TYPES  ==*/
 #if defined(OPT_HAL_LOG) || defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Kategorije log poruka
- *//*--------------------------------------------------------------------------------------------*/
-typedef enum esLogCategory {
-/**
- * @brief       Poruka je izvestaj o gresci
- */
-    ES_LOG_CATEGORY_ERR,
-
-/**
- * @brief       Poruka je informativnog karaktera
- */
-    ES_LOG_CATEGORY_INFO,
-
-/**
- * @brief       Poruka upozorenja o mogucem problemu
- */
-    ES_LOG_CATEGORY_WARNING
-} esLogCategory_T;
-
-/**
- * @brief		Nivo obelezavanja dogadjaja u dnevnik
- * @details		Aplikacija moze da ima nekoliko nivoa obelezavanja u dnevnik u
- * 				zavisnosti od znacaja/ozbiljnosti dogadjaja. Postoje sledeci
- * 				predefinisani nivoi znacaja dogadjaja.
- *
- * 				Aplikacija moze da odluci koji nivoi znacaja dogadjaja ce se
- * 				ubacivati u dnevnik. Na primer, ukoliko izvorni kod poseduje
- * 				sve navedene nivoe znacaja, a zeljeni nivo je postavljen na
- * 				nivo ES_LOG_LEVEL_WARN, onda se u dnevniku pojavljuju samo
- * 				poruke sa nivoom jednakim ili vecim od nivoa ES_LOG_LEVEL_WARN.
- * 				Poruke sa nizim nivoom se za vreme kompajliranja pretvaraju u
- * 				prazne izraze.
- */
-typedef enum esLogLevel {
-/**
- * @brief		Kriticne greske koje dovode do toga da se aplikacija zaustavi.
- */
-	ES_LOG_LEVEL_FATAL,
-
-/**
- * @brief		Greske za vreme izvrsavanja aplikacije, ali aplikacija moze da
- * 				nastavi sa izvrsavanjem.
- */
-	ES_LOG_LEVEL_ERROR,
-
-/**
- * @brief		Upozorenja
- */
-	ES_LOG_LEVEL_WARN,
-
-/**
- * @brief		Informativne poruke
- */
-	ES_LOG_LEVEL_INFO,
-
-/**
- * @brief		Debug poruke
- */
-	ES_LOG_LEVEL_DEBUG,
-
-/**
- * @brief		Poruke sa finim detaljima
- */
-	ES_LOG_LEVEL_TRACE
-};
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Opis objekta generatora poruke
- *//*--------------------------------------------------------------------------------------------*/
-typedef struct esLogObject {
-    const char C_ROM * C_ROM_VAR name;
-    const char C_ROM * C_ROM_VAR type;
-    const char C_ROM * C_ROM_VAR desc;
-} esLogObject_T;
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Opis izvornog mesta gde se objekat nalazi
- *//*--------------------------------------------------------------------------------------------*/
-typedef struct esLogSource {
-    const char C_ROM * C_ROM_VAR module;
-    const char C_ROM * C_ROM_VAR file;
-    const char C_ROM * C_ROM_VAR func;
-    int16_t line;
-} esLogSource_T;
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Tekst koji saopštava objekat
- *//*--------------------------------------------------------------------------------------------*/
-typedef struct esLogText {
-/**
- * @brief       Kratak opis poruke
- */
-    const char C_ROM * C_ROM_VAR brief;
-
-/**
- * @brief       Detaljan tekst poruke zajedno sa znakovima za formatiranje
- */
-    const char C_ROM * C_ROM_VAR format;
-
-/**
- * @brief       Promenljive koje treba da se odstampaju.
- */
-    const char       * variables;
-
-/**
- * @brief       Tip poruke. Pogledati @ref esLogCategory_T.
- */
-    esLogCategory_T   type;
-} esLogText_T;
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Struktura jedne debug poruke
+ * @brief       Struktura jedne poruke dnevnika
  *//*--------------------------------------------------------------------------------------------*/
 typedef struct esLogMessage {
-/**
- * @brief       Objekat koji je kreirao poruku
- */
-    esLogObject_T object;
-
-/**
- * @brief       Izvorno mesto poruke
- */
-    esLogSource_T source;
-
-/**
- * @brief       Text poruke
- */
-    esLogText_T   text;
-
-/**
- * @brief       Brojac vremena nastanka poruke
- */
-    uint16_t      timestamp;
+    const char C_ROM    * module;
+    const char C_ROM    * file;
+    const char C_ROM    * func;
+    unative_T           level;
+    uint32_t            timestamp;
+    const char C_ROM    * fmt;
 } esLogMessage_T;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
@@ -278,49 +192,20 @@ typedef struct esLogMessage {
  * @name        Funkcije javnog interfejsa
  * @{ *//*---------------------------------------------------------------------------------------*/
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Prikazuje obavestenje o nevazecem argumentu funkcije
- * @param       moduleName              Ime modula gde je nastala greska,
- * @param       fileName                ime datoteke u modulu,
- * @param       functionName            ime funkcije,
- * @param       expression              greska koja je nastala,
- * @param       lineNum                 redni broj linije koda u datoteci.
- * @details     Ova funkcija dobija sve potrebne parametre od strane makroa kako
- *              bi se prijavila neka interna greska. Svi pokazivaci pokazuju na
- *              tekst u ASCII formatu koji treba da se posalje na Debug monitor.
- *//*--------------------------------------------------------------------------------------------*/
-void esLogCheckFailed (
-    const char          * moduleName,
-    const char          * fileName,
-    const char          * functionName,
-    const char          * expression,
-    uint16_t            lineNum);
+void esLogAdvMessage (
+    const char          * aModule,
+    const char          * aFile,
+    const char          * aFunction,
+    uint32_t            timestamp,
+    unative_T           level,
+    const char          * fmt,
+    ...);
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Prikazuje obavestenje o nastaloj internoj gresci.
- * @param       moduleName              Ime modula gde je nastala greska,
- * @param       fileName                ime datoteke u modulu,
- * @param       expression              greska koja je nastala,
- * @param       lineNum                 redni broj linije koda u datoteci.
- * @details     Ova funkcija dobija sve potrebne parametre od strane makroa kako
- *              bi se prijavila neka interna greska. Svi pokazivaci pokazuju na
- *              tekst u ASCII formatu koji treba da se posalje na Debug monitor.
- *//*--------------------------------------------------------------------------------------------*/
-void esLogAssertFailed (
-    const char          * moduleName,
-    const char          * fileName,
-    const char          * expression,
-    uint16_t            lineNum);
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Ispisuje debug poruku
- * @param       message                 Struktura debug poruke.
- * @details     Ova funkciju uzima informacije u poruci i stavlja ih u
- *              odgovarajuce bafere. Kada se red cekanja popuni, vrsi se slanje
- *              svih poruka.
- *//*--------------------------------------------------------------------------------------------*/
-void esLogSendMessage (
-    esLogMessage_T      * message);
+void esLogSimpleMessage(
+    uint32_t            timestamp,
+    unative_T           level,
+    const char          * fmt,
+    ...);
 
 /** @} *//*--------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------  C++ extern end  --*/
