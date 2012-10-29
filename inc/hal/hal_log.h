@@ -35,52 +35,6 @@
 
 /*============================================================================  INCLUDE FILES  ==*/
 /*==================================================================================  DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Nivo obelezavanja dogadjaja u dnevnik
- * @details     Aplikacija moze da ima nekoliko nivoa obelezavanja u dnevnik u
- *              zavisnosti od znacaja/ozbiljnosti dogadjaja. Postoje sledeci
- *              predefinisani nivoi znacaja dogadjaja.
- *
- *              Aplikacija moze da odluci koji nivoi znacaja dogadjaja ce se
- *              ubacivati u dnevnik. Na primer, ukoliko izvorni kod poseduje
- *              sve navedene nivoe znacaja, a zeljeni nivo je postavljen na
- *              nivo ES_LOG_LEVEL_WARN, onda se u dnevniku pojavljuju samo
- *              poruke sa nivoom jednakim ili vecim od nivoa ES_LOG_LEVEL_WARN.
- *              Poruke sa nizim nivoom se za vreme kompajliranja pretvaraju u
- *              prazne makroe.
- * @{ *//*---------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Kriticne greske koje dovode do toga da se aplikacija zaustavi.
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_FATAL              5U
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Greske za vreme izvrsavanja aplikacije, ali aplikacija moze da
- *              nastavi sa izvrsavanjem.
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_ERROR              4U
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Upozorenja
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_WARN               3U
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Informativne poruke
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_INFO               2U
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Debug poruke
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_DEBUG              1U
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Poruke sa finim detaljima
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_LOG_LEVEL_TRACE              0U
-
-/** @} *//*--------------------------------------------------------------------------------------*/
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Definisanje imena modula.
@@ -158,12 +112,12 @@ static const C_ROM char * const C_ROM_VAR LOG_THIS_FUNC = "Unknown function";
  * @details     Ovaj makro izvrsava @c expr kod samo kada je Debug modul ukljucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(OPT_HAL_LOG) && defined(OPT_HAL_LOG_TRACE) || defined(__DOXYGEN__)
-# define ES_LOG_TRACE(filterBitMap, filterBitMask, format, ...)                               \
-    if (0U != ((filterBitMask) & (filterBitMap))) {                               \
+# define ES_LOG_TRACE_OBJECT(filterBitMap, filterBitMask, format, ...)          \
+    if (0U != ((filterBitMask) & (filterBitMap))) {                             \
         esLogTrace(format, __VA_ARGS__);                                        \
     }
 #else
-# define ES_LOG_TRACE(filterBitMask, format, ...)                               \
+# define ES_LOG_TRACE_OBJECT(filterBitMask, format, ...)                        \
     (void)0
 #endif
 
