@@ -52,6 +52,10 @@
 #endif
 
 /*==================================================================================  DEFINES  ==*/
+#define OPT_LOG_LEVEL                   OPT_HAL_LOG_LEVEL
+#define OPT_LOG_MODULE_NAME             "HAL"
+#include "hal/hal_log_switches.h"
+
 /*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Definisanje makroa za ulazak/izlazak iz kriticnih sekcija koda za HAL module.
@@ -59,30 +63,6 @@
 #define HAL_CRITICAL_DECL()             ES_CRITICAL_DECL()
 #define HAL_CRITICAL_ENTER()            ES_CRITICAL_ENTER(OPT_HAL_INTERRUPT_PRIO)
 #define HAL_CRITICAL_EXIT()             ES_CRITICAL_EXIT()
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        HAL Debug makroi
- * @brief       Ovi makroi pruzaju interfejs za Debug podmodul.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define HAL_DBG_CHECK                  DBG_CHECK
-# define HAL_DBG_ASSERT                 DBG_ASSERT
-# define HAL_DBG_ASSERT_ALWAYS          DBG_ASSERT_ALWAYS
-# define HAL_DBG_ASSERT_COMPILE         DBG_COMPILE_ASSERT
-# define HAL_DBG_MACRO                  DBG_MACRO
-# define HAL_DBG_DECL                   DBG_DECL
-# define HAL_DBG_DEFINE_MODULE          DBG_DEFINE_MODULE
-#else
-# define HAL_DBG_CHECK(expr)            DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT(expr)           DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT_ALWAYS(expr)    DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT_COMPILE(expr)   DBG_EMPTY_DECL()
-# define HAL_DBG_MACRO(expr)            DBG_EMPTY_MACRO()
-# define HAL_DBG_DECL(expr)             DBG_EMPTY_DECL()
-# define HAL_DBG_DEFINE_MODULE(name)    DBG_EMPTY_DECL()
-#endif
-
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
