@@ -33,46 +33,44 @@
 #define STM32L1XX_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+
+/*-----------------------------------------------------------------------------------------------*
+ * STM32L1XX_MD
+ *-----------------------------------------------------------------------------------------------*/
 #if defined(STM32L1XX_MD)
 #include "stm32l1xx.h"
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-#define ES_HAL_MCU_FAMILY               "STM32L1xx Medium Density"
-
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje PORT konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-#define PORT_FAM_STM32L1XX_MD
-
-/*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante mogucnosti HAL modula
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_FEATURE_GPIO
-#define ES_HAL_FEATURE_UART
-#define ES_HAL_FEATURE_TIMER
-#define ES_HAL_FEATURE_CRC
+/* #define ES_HAL_FEATURE_GPIO */
+/* #define ES_HAL_FEATURE_UART */
+/* #define ES_HAL_FEATURE_TIMER */
+/* #define ES_HAL_FEATURE_CRC */
 /** @} *//*--------------------------------------------------------------------------------------*/
 
-# if defined(OPT_HAL_GPIO) || defined(__DOXYGEN__)
-#  define ES_HAL_ENABLE_GPIO
-#  include "port/family/stm32l1xx/gpio_lld.h"
+# if defined(OPT_HAL_GPIO)
+# error "HAL: GPIO module is not implented for this family."
+/* #  define ES_HAL_ENABLE_GPIO */
+/* #  include "port/family/stm32l1xx/gpio_lld.h" */
 # endif
 
-# if defined(OPT_HAL_UART) || defined(__DOXYGEN__)
-#  define ES_HAL_ENABLE_UART
-#  include "port/family/stm32l1xx/uart_lld.h"
+# if defined(OPT_HAL_UART)
+# error "HAL: UART module is not implented for this family."
+/* #  define ES_HAL_ENABLE_UART */
+/* #  include "port/family/stm32l1xx/uart_lld.h" */
 # endif
 
-# if defined(OPT_HAL_TIMER) || defined(__DOXYGEN__)
-#  define ES_HAL_ENABLE_TIMER
-#  include "port/family/stm32l1xx/timer_lld.h"
+# if defined(OPT_HAL_TIMER)
+# error "HAL: TIMER module is not implented for this family."
+/* #  define ES_HAL_ENABLE_TIMER */
+/* #  include "port/family/stm32l1xx/timer_lld.h" */
 # endif
 
-# if defined(OPT_ENABLE_CRC) || defined(__DOXYGEN__)
-#  define ES_HAL_ENABLE_CRC
-#  include "port/family/stm32l1xx/crc_lld.h"
+# if defined(OPT_ENABLE_CRC)
+# error "HAL: CRC module is not implented for this family."
+/* #  define ES_HAL_ENABLE_CRC */
+/* #  include "port/family/stm32l1xx/crc_lld.h" */
 # endif
 #endif /* STM32L1XX_MD */
 
@@ -84,6 +82,21 @@
  * @{ *//*---------------------------------------------------------------------------------------*/
 #define ES_HAL_MCU_MANUF                "STMicroelectronics"
 /** @} *//*--------------------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------------------------*
+ * STM32L1XX_MD
+ *-----------------------------------------------------------------------------------------------*/
+#if defined(STM32L1XX_MD)
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Definisanje konstante - familija
+ *//*--------------------------------------------------------------------------------------------*/
+# define ES_HAL_MCU_FAMILY              "STM32L1xx Medium Density"
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Definisanje PORT konstante - familija
+ *//*--------------------------------------------------------------------------------------------*/
+# define PORT_FAM_STM32L1XX_MD
+#endif /* STM32L1XX_MD */
 
 /*==================================================================================  MACRO's  ==*/
 /*===============================================================================  DATA TYPES  ==*/
