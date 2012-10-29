@@ -32,10 +32,7 @@
 #include "hal_private.h"
 
 /*============================================================================  LOCAL DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Local debug define macro.
- *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_DEFINE_MODULE(Hardware Abstraction Layer);
+ES_LOG_DEFINE_FILE(hal.c)
 
 /*============================================================================  LOCAL MACRO's  ==*/
 /*=========================================================================  LOCAL DATA TYPES  ==*/
@@ -49,6 +46,7 @@ HAL_DBG_DEFINE_MODULE(Hardware Abstraction Layer);
 void esHalInit(
     void) {
 
+    ES_LOG_TRACE("Hardware Abstraction Layer");
 #if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
     lldGpioDrvInit();
 #endif
