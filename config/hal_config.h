@@ -36,6 +36,8 @@
 #define HAL_CONFIG_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#include "hal/hal_log_levels.h"
+
 /*==================================================================================  DEFINES  ==*/
 
 #define STM32L152RB
@@ -45,6 +47,8 @@
 #define OPT_HAL_LOG_ASSERT
 #define OPT_HAL_LOG_CHECK
 #define OPT_HAL_LOG_TRACE
+#define OPT_HAL_LOG_LEVEL               ES_LOG_LEVEL_TRACE
+#define OPT_HAL_LOG_TIMESTAMP           0U
 
 /*=================================================================================  SETTINGS  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -64,7 +68,7 @@
  * @brief       Omogucivanje CPU modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CPU
@@ -74,7 +78,7 @@
  * @brief       Omogucivanje Interrupt modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_INTERRUPT
@@ -84,7 +88,7 @@
  * @brief       Omogucivanje GPIO modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_GPIO
@@ -94,7 +98,7 @@
  * @brief       Omogucivanje UART modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART
@@ -104,7 +108,9 @@
  * @brief       Omogucivanje modula za vodjenje dnevnika (LOG)
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
+ *              Definisanjem ove opcije aplikacija i sam HAL projekat mogu da
+ *              koriste LOG modul.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_LOG
@@ -114,7 +120,7 @@
  * @brief       Omogucivanje TIMER modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_TIMER
@@ -124,7 +130,7 @@
  * @brief       Omogucivanje cyclic redundancy check (CRC) modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
+ *              - nedefinisano - modul je onemogucen.
  *//*--------------------------------------------------------------------------------------------*/
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CRC
