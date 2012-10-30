@@ -1,5 +1,15 @@
+2012-10-30  nenad
+
+	* [r99] inc/hal/script/STM32F100RB_FLASH.ld, inc/port/family/stm32f10x_profile.h, inc/port/family/stm32l1xx_profile.h, inc/port/variant/stm32f100rb_profile.h, src/port/family/stm32f10x/cmsis,
+	  src/port/family/stm32f10x/startup:
+	  Ubačen je port za stm32f10x familiju i STM32F100RB MCU
+	* [r98] config/hal_config.h:
+	  - Dodata je opcija za STM32F100RB
+
 2012-10-29  nenad
 
+	* [r89] ChangeLog:
+	  - Update ChangeLog-a
 	* [r88] .cproject, .project, .settings/org.eclipse.cdt.codan.core.prefs:
 	  - Update projekta
 	* [r87] src/hal/hal_private.h:
