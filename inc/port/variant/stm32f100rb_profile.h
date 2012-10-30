@@ -23,80 +23,60 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Profil familije za STM32L1xx seriju.
+ * @brief       Profil za STM32F100RB mikrokontroler
+ * @details     U ovoj datoteci se navode sve periferije datog mikrokontrolera.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_stm32l1xx
+ * @addtogroup  stm32f100rb
+ * @brief		Profil za stm32f100rb mikrokontroler
  ****************************************************************************************//** @{ */
 
 
-#ifndef STM32L1XX_PROFILE_H_
-#define STM32L1XX_PROFILE_H_
+#ifndef STM32F100RB_PROFILE_H_
+#define STM32F100RB_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-
-/*-----------------------------------------------------------------------------------------------*
- * STM32L1XX_MD
- *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32L1XX_MD)
-#include "stm32l1xx.h"
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante mogucnosti HAL modula
- * @{ *//*---------------------------------------------------------------------------------------*/
-/* #define ES_HAL_FEATURE_GPIO */
-/* #define ES_HAL_FEATURE_UART */
-/* #define ES_HAL_FEATURE_TIMER */
-/* #define ES_HAL_FEATURE_CRC */
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-# if defined(OPT_HAL_GPIO)
-# error "HAL: GPIO module is not implented for this family."
-/* #  define ES_HAL_ENABLE_GPIO */
-/* #  include "port/family/stm32l1xx/gpio_lld.h" */
-# endif
-
-# if defined(OPT_HAL_UART)
-# error "HAL: UART module is not implented for this family."
-/* #  define ES_HAL_ENABLE_UART */
-/* #  include "port/family/stm32l1xx/uart_lld.h" */
-# endif
-
-# if defined(OPT_HAL_TIMER)
-# error "HAL: TIMER module is not implented for this family."
-/* #  define ES_HAL_ENABLE_TIMER */
-/* #  include "port/family/stm32l1xx/timer_lld.h" */
-# endif
-
-# if defined(OPT_ENABLE_CRC)
-# error "HAL: CRC module is not implented for this family."
-/* #  define ES_HAL_ENABLE_CRC */
-/* #  include "port/family/stm32l1xx/crc_lld.h" */
-# endif
-#endif /* STM32L1XX_MD */
-
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Opisne konstante
  * @brief       Ovde se nalaze konstante koje daju vise informacija o
- *              mikrokontroleru i proizvodjacu.
+ *              mikrokontroleru i periferiji.
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_HAL_MCU_MANUF                "STMicroelectronics"
+#define ES_HAL_MCU_NAME                 "STM32F100RB"
+#define ES_HAL_MCU_FLASH                (131072UL)
+#define ES_HAL_MCU_RAM                  (8192UL)
 /** @} *//*--------------------------------------------------------------------------------------*/
 
-/*-----------------------------------------------------------------------------------------------*
- * STM32L1XX_MD
- *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32L1XX_MD)
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-# define ES_HAL_MCU_FAMILY              "STM32L1xx Medium Density"
+ * @name        GPIO konstante
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_FEATURE_GPIOA
+#define ES_HAL_FEATURE_GPIOB
+#define ES_HAL_FEATURE_GPIOC
+#define ES_HAL_FEATURE_GPIOD
+#define ES_HAL_FEATURE_GPIOE
+#define ES_HAL_FEATURE_GPIOH
+/** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje PORT konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-# define PORT_FAM_STM32L1XX_MD
-#endif /* STM32L1XX_MD */
+ * @name        Timer konstante
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_FEATURE_TMR2
+#define ES_HAL_FEATURE_TMR3
+#define ES_HAL_FEATURE_TMR4
+#define ES_HAL_FEATURE_TMR6
+#define ES_HAL_FEATURE_TMR7
+#define ES_HAL_FEATURE_TMR9
+#define ES_HAL_FEATURE_TMR10
+#define ES_HAL_FEATURE_TMR11
+/** @} *//*--------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        UART konstante
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_FEATURE_UART1
+#define ES_HAL_FEATURE_UART2
+#define ES_HAL_FEATURE_UART3
+/** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==================================================================================  MACRO's  ==*/
 /*===============================================================================  DATA TYPES  ==*/
@@ -105,6 +85,6 @@
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of stm32l1xx_profile.h
+ * END of stm32f100rb_profile.h
  *************************************************************************************************/
-#endif /* STM32L1XX_PROFILE_H_ */
+#endif /* STM32F100RB_PROFILE_H_ */

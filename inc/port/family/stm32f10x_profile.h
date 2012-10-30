@@ -23,22 +23,22 @@
  *//******************************************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Profil familije za STM32L1xx seriju.
+ * @brief       Profil familije za STM32F10x seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_stm32l1xx
+ * @addtogroup  hal_stm32f10x
  ****************************************************************************************//** @{ */
 
 
-#ifndef STM32L1XX_PROFILE_H_
-#define STM32L1XX_PROFILE_H_
+#ifndef STM32F10X_PROFILE_H_
+#define STM32F10X_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
 
 /*-----------------------------------------------------------------------------------------------*
- * STM32L1XX_MD
+ * STM32F10X_LD_VL
  *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32L1XX_MD)
-#include "stm32l1xx.h"
+#if defined(STM32F10X_LD_VL)
+#include "stm32f10x.h"
 
 /*-------------------------------------------------------------------------------------------*//**
  * @name        Konstante mogucnosti HAL modula
@@ -52,27 +52,27 @@
 # if defined(OPT_HAL_GPIO)
 # error "HAL: GPIO module is not implented for this family."
 /* #  define ES_HAL_ENABLE_GPIO */
-/* #  include "port/family/stm32l1xx/gpio_lld.h" */
+/* #  include "port/family/stm32f10x/gpio_lld.h" */
 # endif
 
 # if defined(OPT_HAL_UART)
 # error "HAL: UART module is not implented for this family."
 /* #  define ES_HAL_ENABLE_UART */
-/* #  include "port/family/stm32l1xx/uart_lld.h" */
+/* #  include "port/family/stm32f10x/uart_lld.h" */
 # endif
 
 # if defined(OPT_HAL_TIMER)
 # error "HAL: TIMER module is not implented for this family."
 /* #  define ES_HAL_ENABLE_TIMER */
-/* #  include "port/family/stm32l1xx/timer_lld.h" */
+/* #  include "port/family/stm32f10x/timer_lld.h" */
 # endif
 
 # if defined(OPT_ENABLE_CRC)
 # error "HAL: CRC module is not implented for this family."
 /* #  define ES_HAL_ENABLE_CRC */
-/* #  include "port/family/stm32l1xx/crc_lld.h" */
+/* #  include "port/family/stm32f10x/crc_lld.h" */
 # endif
-#endif /* STM32L1XX_MD */
+#endif /* STM32F10X_LD_VL */
 
 /*==================================================================================  DEFINES  ==*/
 /*-------------------------------------------------------------------------------------------*//**
@@ -84,19 +84,19 @@
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------------------------*
- * STM32L1XX_MD
+ * STM32F10X_LD_VL
  *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32L1XX_MD)
+#if defined(STM32F10X_LD_VL)
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Definisanje konstante - familija
  *//*--------------------------------------------------------------------------------------------*/
-# define ES_HAL_MCU_FAMILY              "STM32L1xx Medium Density"
+# define ES_HAL_MCU_FAMILY              "STM32F10x Medium Density Value Line"
 
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Definisanje PORT konstante - familija
  *//*--------------------------------------------------------------------------------------------*/
-# define PORT_FAM_STM32L1XX_MD
-#endif /* STM32L1XX_MD */
+# define PORT_FAM_STM32F10X_LD_VL
+#endif /* STM32F10X_LD_VL */
 
 /*==================================================================================  MACRO's  ==*/
 /*===============================================================================  DATA TYPES  ==*/
@@ -105,6 +105,6 @@
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of stm32l1xx_profile.h
+ * END of stm32f10x_profile.h
  *************************************************************************************************/
-#endif /* STM32L1XX_PROFILE_H_ */
+#endif /* STM32F10X_PROFILE_H_ */
