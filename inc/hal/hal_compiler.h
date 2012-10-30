@@ -297,9 +297,7 @@
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Modifikator za pristup podataka koji su u ROM memoriji.
  * @details     Mnogi kompajleri nude ne-standardne ekstenzije - direktive za
- *              definisanje i pristup podataka u ROM memoriji. Biblioteka libe
- *              koristi E_ROM_VAR pretprocesorsku direktivu za definisanje
- *              kompajlerske direktive za pristup objekata u ROM memoriji.
+ *              definisanje i pristup podataka u ROM memoriji.
  *//*--------------------------------------------------------------------------------------------*/
 #if !defined(C_ROM_VAR) || defined(__DOXYGEN__)
 # define C_ROM_VAR
