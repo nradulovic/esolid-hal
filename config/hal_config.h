@@ -40,7 +40,11 @@
 
 /*==================================================================================  DEFINES  ==*/
 
+/*-- Odabir mikrokontrolera ---------------------------------------------------------------------*/
 #define STM32L152RB
+/* #define STM32F100RB */
+
+/*-- Podesavanje HAL projekta -------------------------------------------------------------------*/
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
 #define OPT_HAL_LOG
