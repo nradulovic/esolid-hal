@@ -15,7 +15,7 @@
 **
 **  Environment : Atollic TrueSTUDIO(R)
 **
-**  Distribution: The file is distributed “as is,” without any warranty
+**  Distribution: The file is distributed ï¿½as is,ï¿½ without any warranty
 **                of any kind.
 **
 **  (c)Copyright Atollic AB.
@@ -140,11 +140,22 @@ SECTIONS
   PROVIDE ( end = _ebss );
   PROVIDE ( _end = _ebss );
 
-  /* User_heap_stack section, used to check that there is enough RAM left */
-  ._user_heap_stack :
+  /* User heap section */
+  . = ALIGN(4);
+  ._heap :
+  {
+    _sheap = . ;       /* define a global symbol at heap start */
+    __heap_start__ = _sheap;
+    . = . + _Min_Heap_Size;
+    . = ALIGN(4);
+    _eheap = .;        /* define a global symbol at heap end */
+    __heap_end__ = _eheap;
+  } >RAM
+  
+  /* used to check that there is enough RAM left */
+  ._stack :
   {
     . = ALIGN(4);
-    . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(4);
   } >RAM
