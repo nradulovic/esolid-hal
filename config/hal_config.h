@@ -38,8 +38,8 @@
 /*============================================================================  INCLUDE FILES  ==*/
 /*==================================================================================  DEFINES  ==*/
 
-/* #define STM32L152RB */
-#define STM32F100RB
+#define STM32L152RB
+/* #define STM32F100RB */
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
 
