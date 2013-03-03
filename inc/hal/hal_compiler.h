@@ -52,11 +52,27 @@
  *              compiler.h arhitekturnu datoteku u direktorijumu
  *              common/arhitektura.
  * @{ *//*---------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*//**
+
+/**
  * @brief       Podrska za automatsko popunjavanje imena funkcija u makroima.
- *//*--------------------------------------------------------------------------------------------*/
+ */
 #if !defined(C_FUNC) || defined(__DOXYGEN__)
 # define C_FUNC                         "<unknown>"
+#endif
+
+/**
+ * @brief       Podrska za automatsko popunjavanje imena datoteke koja se
+ *              kompajlira
+ */
+#if !defined(C_FILE) || defined(__DOXYGEN__)
+# define C_FILE                         "unknown"
+#endif
+
+/**
+ * @brief       Podrska za automatsko popunjavanje reda koda koji se kompajlira.
+ */
+#if !defined(C_LINE) || defined(__DOXYGEN__)
+# define C_LINE                         0U
 #endif
 
 /*-------------------------------------------------------------------------------------------*//**

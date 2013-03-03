@@ -75,6 +75,14 @@
 # endif
 #endif
 
+#if !defined(C_FILE) || defined(__DOXYGEN__)
+# define C_FILE                         __FILE__
+#endif
+
+#if !defined(C_LINE) || defined(__DOXYGEN__)
+# define C_LINE                         __LINE__
+#endif
+
 #if !defined(C_EXT) || defined(__DOXYGEN__)
 # define C_EXT                          __extension__
 #endif
