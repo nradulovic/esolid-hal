@@ -14,4 +14,4 @@ MEMORY
   RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
-INCLUDE "cortex_m3_rom.ld"
+INCLUDE "../../arch/arm_cm3/arm_cm3_rom.ld"

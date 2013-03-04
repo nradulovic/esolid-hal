@@ -1,5 +1,5 @@
 /*
- *  Abstract    Linker script for stm32l1xxBxx Device with 128KByte FLASH, 16KByte RAM
+ *  Abstract    Linker script for STM32L15xxBxx Device with 128KByte FLASH, 16KByte RAM
  *
  *              Set heap size and stack size according to application requirements.
  */
@@ -14,4 +14,4 @@ MEMORY
   RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 16K
 }
 
-INCLUDE "cortex_m3_rom.ld"
+INCLUDE "../../arch/arm_cm3/arm_cm3_rom.ld"
