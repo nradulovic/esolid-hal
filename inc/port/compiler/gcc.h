@@ -169,10 +169,7 @@
  *//*--------------------------------------------------------------------------------------------*/
 #if !defined(C_CONTAINER_OF) || defined(__DOXYGEN__)
 #define C_CONTAINER_OF(ptr, type, member)                                       \
-    C_EXT ({                                                                    \
-        const typeof(((type *)0)->member) * __mptr = (ptr);                     \
-        (type *)((char *)__mptr - offsetof(type, member));                      \
-    })
+        (type *)((uint8_t *)(ptr) - offsetof(type, member))
 #endif
 
 /*-----------------------------------------------------------------------------------------------*/
