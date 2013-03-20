@@ -90,21 +90,18 @@ SECTIONS
         _ebss = .;                      /* define a global symbol at bss end */
     } >RAM
     
-    .stack :
-    {
-        . = ALIGN(8);
-        _sstack = .;
-        . += _Min_Stack_Size;
-        _estack = .;
-    } >RAM
+    _sstack = .;
+    . += _Min_Stack_Size;
+    . = ALIGN(8);
+     _estack = .;
 
-    .heap :
-    {
-        . = ALIGN(4);
-        _sheap = .;                     /* define a global symbol at heap start */
-        . = ORIGIN(RAM) + LENGTH(RAM);
-        _eheap = .;                     /* define a global symbol at heap end */
-    } >RAM
+    /* Because the stack operation is a full descending stack (SP decrement before), 
+    the initial SP value should be set to the first memory after the top of the 
+    stack region. */
+    _sheap = .;                         /* define a global symbol at heap start */
+    . = ORIGIN(RAM) + LENGTH(RAM);
+    _eheap = .;                         /* define a global symbol at heap end */
+
     
     /DISCARD/ :                         /* Remove information from the standard libraries */
     {
