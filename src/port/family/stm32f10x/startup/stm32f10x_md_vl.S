@@ -1,7 +1,7 @@
 /**
  * @file
  * @date        20-March-2013
- * @brief       STM32F10x XL-Density Devices start-up
+ * @brief       STM32F10x Medium Density Value Line Devices start-up
  * @details     This module performs:
  *                  - Disables interrupts
  *                  - Fill the RAM with 0xDEAD value
@@ -109,14 +109,12 @@ Infinite_Loop:
  * The minimal vector table for a Cortex M3.  Note that the proper constructs
  * must be placed on this to ensure that it ends up at physical address
  * 0x0000.0000.
- *
  */
 .section    .isr_vector,"a",%progbits
     .type   g_pfnVectors, %object
     .size   g_pfnVectors, .-g_pfnVectors
     .equ    BootRAM, 0xF108F85F
-    
-    
+
 g_pfnVectors:
     .word   _estack
     .word   Reset_Handler
@@ -152,15 +150,15 @@ g_pfnVectors:
     .word   DMA1_Channel5_IRQHandler
     .word   DMA1_Channel6_IRQHandler
     .word   DMA1_Channel7_IRQHandler
-    .word   ADC1_2_IRQHandler
-    .word   USB_HP_CAN1_TX_IRQHandler
-    .word   USB_LP_CAN1_RX0_IRQHandler
-    .word   CAN1_RX1_IRQHandler
-    .word   CAN1_SCE_IRQHandler
+    .word   ADC1_IRQHandler
+    .word   0
+    .word   0
+    .word   0
+    .word   0
     .word   EXTI9_5_IRQHandler
-    .word   TIM1_BRK_TIM9_IRQHandler
-    .word   TIM1_UP_TIM10_IRQHandler
-    .word   TIM1_TRG_COM_TIM11_IRQHandler
+    .word   TIM1_BRK_TIM15_IRQHandler
+    .word   TIM1_UP_TIM16_IRQHandler
+    .word   TIM1_TRG_COM_TIM17_IRQHandler
     .word   TIM1_CC_IRQHandler
     .word   TIM2_IRQHandler
     .word   TIM3_IRQHandler
@@ -176,25 +174,20 @@ g_pfnVectors:
     .word   USART3_IRQHandler
     .word   EXTI15_10_IRQHandler
     .word   RTCAlarm_IRQHandler
-    .word   USBWakeUp_IRQHandler
-    .word   TIM8_BRK_TIM12_IRQHandler
-    .word   TIM8_UP_TIM13_IRQHandler
-    .word   TIM8_TRG_COM_TIM14_IRQHandler
-    .word   TIM8_CC_IRQHandler
-    .word   ADC3_IRQHandler
-    .word   FSMC_IRQHandler
-    .word   SDIO_IRQHandler
-    .word   TIM5_IRQHandler
-    .word   SPI3_IRQHandler
-    .word   UART4_IRQHandler
-    .word   UART5_IRQHandler
-    .word   TIM6_IRQHandler
-    .word   TIM7_IRQHandler
-    .word   DMA2_Channel1_IRQHandler
-    .word   DMA2_Channel2_IRQHandler
-    .word   DMA2_Channel3_IRQHandler
-    .word   DMA2_Channel4_5_IRQHandler
+    .word   CEC_IRQHandler
     .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   0
+    .word   TIM6_DAC_IRQHandler
+    .word   TIM7_IRQHandler
     .word   0
     .word   0
     .word   0
@@ -328,32 +321,20 @@ g_pfnVectors:
     .weak       DMA1_Channel7_IRQHandler
     .thumb_set  DMA1_Channel7_IRQHandler,Default_Handler
 
-    .weak       ADC1_2_IRQHandler
-    .thumb_set  ADC1_2_IRQHandler,Default_Handler
-
-    .weak       USB_HP_CAN1_TX_IRQHandler
-    .thumb_set  USB_HP_CAN1_TX_IRQHandler,Default_Handler
-
-    .weak       USB_LP_CAN1_RX0_IRQHandler
-    .thumb_set  USB_LP_CAN1_RX0_IRQHandler,Default_Handler
-
-    .weak       CAN1_RX1_IRQHandler
-    .thumb_set  CAN1_RX1_IRQHandler,Default_Handler
-
-    .weak       CAN1_SCE_IRQHandler
-    .thumb_set  CAN1_SCE_IRQHandler,Default_Handler
+    .weak       ADC1_IRQHandler
+    .thumb_set  ADC1_IRQHandler,Default_Handler
 
     .weak       EXTI9_5_IRQHandler
     .thumb_set  EXTI9_5_IRQHandler,Default_Handler
 
-    .weak       TIM1_BRK_TIM9_IRQHandler
-    .thumb_set  TIM1_BRK_TIM9_IRQHandler,Default_Handler
+    .weak       TIM1_BRK_TIM15_IRQHandler
+    .thumb_set  TIM1_BRK_TIM15_IRQHandler,Default_Handler
 
-    .weak       TIM1_UP_TIM10_IRQHandler
-    .thumb_set  TIM1_UP_TIM10_IRQHandler,Default_Handler
+    .weak       TIM1_UP_TIM16_IRQHandler
+    .thumb_set  TIM1_UP_TIM16_IRQHandler,Default_Handler
 
-    .weak       TIM1_TRG_COM_TIM11_IRQHandler
-    .thumb_set  TIM1_TRG_COM_TIM11_IRQHandler,Default_Handler
+    .weak       TIM1_TRG_COM_TIM17_IRQHandler
+    .thumb_set  TIM1_TRG_COM_TIM17_IRQHandler,Default_Handler
 
     .weak       TIM1_CC_IRQHandler
     .thumb_set  TIM1_CC_IRQHandler,Default_Handler
@@ -400,58 +381,12 @@ g_pfnVectors:
     .weak       RTCAlarm_IRQHandler
     .thumb_set  RTCAlarm_IRQHandler,Default_Handler
 
-    .weak       USBWakeUp_IRQHandler
-    .thumb_set  USBWakeUp_IRQHandler,Default_Handler
+    .weak       CEC_IRQHandler
+    .thumb_set  CEC_IRQHandler,Default_Handler
 
-    .weak       TIM8_BRK_TIM12_IRQHandler
-    .thumb_set  TIM8_BRK_TIM12_IRQHandler,Default_Handler
-
-    .weak       TIM8_UP_TIM13_IRQHandler
-    .thumb_set  TIM8_UP_TIM13_IRQHandler,Default_Handler
-
-    .weak       TIM8_TRG_COM_TIM14_IRQHandler
-    .thumb_set  TIM8_TRG_COM_TIM14_IRQHandler,Default_Handler
-
-    .weak       TIM8_CC_IRQHandler
-    .thumb_set  TIM8_CC_IRQHandler,Default_Handler
-
-    .weak       ADC3_IRQHandler
-    .thumb_set  ADC3_IRQHandler,Default_Handler
-
-    .weak       FSMC_IRQHandler
-    .thumb_set  FSMC_IRQHandler,Default_Handler
-
-    .weak       SDIO_IRQHandler
-    .thumb_set  SDIO_IRQHandler,Default_Handler
-
-    .weak       TIM5_IRQHandler
-    .thumb_set  TIM5_IRQHandler,Default_Handler
-
-    .weak       SPI3_IRQHandler
-    .thumb_set  SPI3_IRQHandler,Default_Handler
-
-    .weak       UART4_IRQHandler
-    .thumb_set  UART4_IRQHandler,Default_Handler
-
-    .weak       UART5_IRQHandler
-    .thumb_set  UART5_IRQHandler,Default_Handler
-
-    .weak       TIM6_IRQHandler
-    .thumb_set  TIM6_IRQHandler,Default_Handler
+    .weak       TIM6_DAC_IRQHandler
+    .thumb_set  TIM6_DAC_IRQHandler,Default_Handler
 
     .weak       TIM7_IRQHandler
     .thumb_set  TIM7_IRQHandler,Default_Handler
 
-    .weak       DMA2_Channel1_IRQHandler
-    .thumb_set  DMA2_Channel1_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel2_IRQHandler
-    .thumb_set  DMA2_Channel2_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel3_IRQHandler
-    .thumb_set  DMA2_Channel3_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel4_5_IRQHandler
-    .thumb_set  DMA2_Channel4_5_IRQHandler,Default_Handler
-
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
