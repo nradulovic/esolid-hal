@@ -64,6 +64,7 @@ defined in linker script */
 Reset_Handler:
 
 /* Copy the data segment initializers from flash to SRAM */
+  nop
   movs	r1, #0
   b	LoopCopyDataInit
 
