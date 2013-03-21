@@ -36,30 +36,29 @@
 /*============================================================================  INCLUDE FILES  ==*/
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "hal_dbg.h"
 #include "port/hal_profiles.h"
 
-#if defined(ES_HAL_ENABLE_CPU) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CPU)
 # include "hal_cpu.h"
 #endif
 
-#if defined(ES_HAL_ENABLE_INTERRUPT) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_INTERRUPT)
 # include "hal_interrupt.h"
 #endif
 
-#if defined(ES_HAL_ENABLE_GPIO) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_GPIO)
 # include "hal_gpio.h"
 #endif
 
-#if defined(ES_HAL_ENABLE_UART) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_UART)
 # include "hal_uart.h"
 #endif
 
-#if defined(ES_HAL_ENABLE_TIMER) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_TIMER)
 # include "hal_timer.h"
 #endif
 
-#if defined(ES_HAL_ENABLE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CRC)
 # include "hal_crc.h"
 #endif
 
@@ -108,7 +107,7 @@
 /** @} *//*--------------------------------------------------------------------------------------*/
 #endif /* __DOXYGEN__ */
 
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Status hardvera kojeg opsluzuje drajver
  * @details     Jednostavniji hardver obicno ima samo dva stanja:
  *              - stanje neaktivno
@@ -124,7 +123,7 @@
  *              Neki hardverski moduli se pored navedenih stanja mogu naci i u
  *              stanju ES_DEV_ERROR. U ovom stanju se mogu naci bez obzira na
  *              prethodno stanje.
- *//*--------------------------------------------------------------------------------------------*/
+ */
 enum esDevStatus {
 /**
  * @brief       Hardver nije aktiviran.
@@ -158,19 +157,21 @@ extern "C" {
 #endif
 
 /*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
+
+/**
  * @brief       Status drajvera
  * @see         esDevStatus
- *//*--------------------------------------------------------------------------------------------*/
+ */
 typedef enum esDevStatus esDevStatus_T;
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
+
+/**
  * @brief       Inicijalizuje sve podmodule HAL sistema
  * @details     Ovu funkciju treba pozvati u toku inicijalizacije sistema i pre
  *              koriscenja bilo koje funkcije iz HAL sistema.
- *//*--------------------------------------------------------------------------------------------*/
+ */
 void esHalInit(
     void);
 
@@ -180,7 +181,6 @@ void esHalInit(
 #endif
 
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
 /** @endcond *//** @} *//*************************************************************************
  * END of hal.h
  *************************************************************************************************/
