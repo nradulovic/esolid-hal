@@ -24,7 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs za CPU modul.
- * @addtogroup  hal_cpu
+ * @addtogroup  hal_cpu_intf
  *********************************************************************//** @{ */
 
 #ifndef HAL_CPU_H_
@@ -97,46 +97,6 @@
 
 /** @} *//*-------------------------------------------------------------------*/
 /*===============================================================  MACRO's  ==*/
-
-/*------------------------------------------------------------------------*//**
- * @name        Manipulacija SysTick brojaca.
- * @brief       Makroi za rad sa SysTick brojacem.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Izbor kloka koji se dovodi SysTick brojacu.
- * @param       clksource               Klok koji se dovodi SysTick modulu.
- */
-#if !defined(HAL_SYSTICK_CLOCK_CONFIG) || defined(__DOXYGEN__)
-# define HAL_SYSTICK_CLOCK_CONFIG(clksource)
-#endif
-
-/**
- * @brief       Uzimanje trenutne vrednosti broja tick-ova SysTick modula.
- * @return      Trenutna vrednost broja tick-ova u jedinici vremena.
- */
-#if !defined(HAL_SYSTICK_GET_TICK) || defined(__DOXYGEN__)
-# define HAL_SYSTICK_GET_TICK()             0U
-#endif
-
-/**
- * @brief       Izbor broja tick-ova SysTick modula.
- * @param       tick                	Broj tick-ova koje generise SysTick modul.
- * @return      1 ako nije korektna tick vrednost ili 0 ako jeste.
- */
-#if !defined(HAL_SYSTICK_CONFIG) || defined(__DOXYGEN__)
-# define HAL_SYSTICK_CONFIG(tick)
-#endif
-
-/**
- * @brief       Izvrsi inicijalizaciju SysTick.
- * @param       clksource               Klok koji se dovodi SysTick modulu.
- */
-#if !defined(HAL_SYSTICK_CLOCK_CONFIG) || defined(__DOXYGEN__)
-# define HAL_SYSTICK_CLOCK_CONFIG(clksource)
-#endif
-
-/** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -146,12 +106,9 @@
  * @details     Poziva se kada treba zaustaviti dalji rad procesora.
  * @note        Kada se kompajlira @c release verzija koda funkcija postavlja
  *              procesor u stanje @c sleep.
- * @inline
  */
-#if defined(__DOXYGEN__)
-C_INLINE_ALWAYS void esCpuStop(
+void esCpuStop(
     void);
-#endif
 
 /**
  * @brief       Prebaci rezim rada u stanje uspavano
@@ -164,12 +121,9 @@ C_INLINE_ALWAYS void esCpuStop(
  *              procesor u stanje @c sleep jer obicno @c sleep stanja procesora
  *              gase i vezu sa debagerom. Zbog toga se funkcija kompajlira u
  *              NOP instrukciju i omogucava nesmetano debagiranje.
- * @inline
  */
-#if defined(__DOXYGEN__)
-C_INLINE_ALWAYS void esCpuSleep(
+void esCpuSleep(
     void);
-#endif
 
 /**
  * @brief       Find Last set Bit
@@ -181,23 +135,17 @@ C_INLINE_ALWAYS void esCpuSleep(
  *              Primer 2: parameter @c value ima vrednost sa binarnom
  *              reprezentacijom: 101001. Funkcija u ovom slucaju vraca vrednost
  *              5.
- * @inline
  */
-#if defined(__DOXYGEN__)
-C_INLINE_ALWAYS uint_fast8_t esCpuFindLastSet(
+uint_fast8_t esCpuFindLastSet(
     uint32_t value);
-#endif
 
 /**
  * @brief       Find First set Bit
  * @param       value                   Broj koji se ispituje.
  * @return      Vraca poziciju zadnjeg bita koji je setovan u @c value.
- * @inline
  */
-#if defined(__DOXYGEN__)
-C_INLINE_ALWAYS uint_fast8_t esCpuFindFirstSet(
+uint_fast8_t esCpuFindFirstSet(
     uint32_t value);
-#endif
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
