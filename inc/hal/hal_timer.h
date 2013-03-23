@@ -24,9 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs za Timer modul.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_timer
- * @brief		Upravljanje tajmerima
+ * @addtogroup  hal_timer_intf
  ****************************************************************************************//** @{ */
 
 

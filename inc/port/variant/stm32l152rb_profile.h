@@ -24,10 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Profil za STM32L152RB mikrokontroler
- * @details     U ovoj datoteci se navode sve periferije datog mikrokontrolera.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l152rb
- * @brief		Profil za STM32L152RB mikrokontroler
+ * @addtogroup  port_stm32l152rb
  ****************************************************************************************//** @{ */
 
 

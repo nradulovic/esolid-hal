@@ -24,9 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs za UART modul.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_uart
- * @brief       Upravljanje UART hardverskog modula.
+ * @addtogroup  hal_uart_intf
  ****************************************************************************************//** @{ */
 
 

@@ -24,7 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
- * @addtogroup  intr_intf
+ * @addtogroup  port_arm_cm3
  *********************************************************************//** @{ */
 
 #ifndef ARCH_INTERRUPT_H_

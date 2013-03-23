@@ -27,8 +27,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Interfejs UART Low Level Driver modula.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_uart_impl
+ * @addtogroup  port_stm32f10x
  ****************************************************************************************//** @{ */
 
 

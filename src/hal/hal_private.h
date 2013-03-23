@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,88 +20,53 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief       Privatna sekcija HAL-a
- * ------------------------------------------------------------------------------------------------
  * @addtogroup  hal_impl
- ****************************************************************************************//** @{ */
+ *********************************************************************//** @{ */
 
 
 #ifndef HAL_PRIVATE_H_
 #define HAL_PRIVATE_H_
 
-/*============================================================================  INCLUDE FILES  ==*/
+/*=========================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
 
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_GPIO) || defined(__DOXYGEN__)
 # include "gpio_pkg.h"
 #endif
 
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_UART) || defined(__DOXYGEN__)
 # include "uart_pkg.h"
 #endif
 
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_TIMER) || defined(__DOXYGEN__)
 # include "timer_pkg.h"
 #endif
 
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CRC) || defined(__DOXYGEN__)
 # include "crc_pkg.h"
 #endif
 
-/*==================================================================================  DEFINES  ==*/
-/*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Definisanje makroa za ulazak/izlazak iz kriticnih sekcija koda za HAL module.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define HAL_CRITICAL_DECL()             ES_CRITICAL_DECL()
-#define HAL_CRITICAL_ENTER()            ES_CRITICAL_ENTER(OPT_HAL_INTERRUPT_PRIO)
-#define HAL_CRITICAL_EXIT()             ES_CRITICAL_EXIT()
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        HAL Debug makroi
- * @brief       Ovi makroi pruzaju interfejs za Debug podmodul.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#if defined(OPT_HAL_DBG) || defined(__DOXYGEN__)
-# define HAL_DBG_CHECK                  DBG_CHECK
-# define HAL_DBG_ASSERT                 DBG_ASSERT
-# define HAL_DBG_ASSERT_ALWAYS          DBG_ASSERT_ALWAYS
-# define HAL_DBG_ASSERT_COMPILE         DBG_COMPILE_ASSERT
-# define HAL_DBG_MACRO                  DBG_MACRO
-# define HAL_DBG_DECL                   DBG_DECL
-# define HAL_DBG_DEFINE_MODULE          DBG_DEFINE_MODULE
-#else
-# define HAL_DBG_CHECK(expr)            DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT(expr)           DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT_ALWAYS(expr)    DBG_EMPTY_MACRO()
-# define HAL_DBG_ASSERT_COMPILE(expr)   DBG_EMPTY_DECL()
-# define HAL_DBG_MACRO(expr)            DBG_EMPTY_MACRO()
-# define HAL_DBG_DECL(expr)             DBG_EMPTY_DECL()
-# define HAL_DBG_DEFINE_MODULE(name)    DBG_EMPTY_DECL()
-#endif
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------  C++ extern begin  --*/
+/*===============================================================  DEFINES  ==*/
+/*===============================================================  MACRO's  ==*/
+/*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*===============================================================================  DATA TYPES  ==*/
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*======================================================================  FUNCTION PROTOTYPES  ==*/
-
+/*============================================================  DATA TYPES  ==*/
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*===================================================  FUNCTION PROTOTYPES  ==*/
 /*---------------------------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
 #endif
 
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
-/** @endcond *//** @} *//*************************************************************************
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/** @endcond *//** @} *//******************************************************
  * END of hal_private.h
- *************************************************************************************************/
+ ******************************************************************************/
 #endif /* HAL_PRIVATE_H_ */

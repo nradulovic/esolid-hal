@@ -24,7 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Profil arhitekture za ARM Cortex-M3.
- * @addtogroup  hal_arm_cm3
+ * @addtogroup  port_arm_cm3
  *********************************************************************//** @{ */
 
 

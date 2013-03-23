@@ -27,9 +27,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Implementacija UART Low Level Driver modula.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_uart_impl
- * @brief       UART Low Level Driver modul.
+ * @addtogroup  port_stm32l1xx
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/

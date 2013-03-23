@@ -24,8 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Interfejs/konfiguracija CRC Low Level Driver modula.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_crc_impl
+ * @addtogroup  port_stm32f10x
  ****************************************************************************************//** @{ */
 
 

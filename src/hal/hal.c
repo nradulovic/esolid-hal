@@ -24,7 +24,6 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Implementacija osnovnih HAL funkcija.
- * ------------------------------------------------------------------------------------------------
  * @addtogroup  hal_impl
  ****************************************************************************************//** @{ */
 
@@ -44,19 +43,19 @@
 void esHalInit(
     void) {
 
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_GPIO) || defined(__DOXYGEN__)
     lldGpioDrvInit();
 #endif
 
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_UART) || defined(__DOXYGEN__)
     lldUartDrvInit();
 #endif
 
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_TIMER) || defined(__DOXYGEN__)
     lldTimerDrvInit();
 #endif
 
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+#if defined(ES_HAL_ENABLE_CRC) || defined(__DOXYGEN__)
     lldCrcDrvInit();
 #endif
 }

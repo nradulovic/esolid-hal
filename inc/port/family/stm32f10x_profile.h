@@ -24,7 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Profil familije za STM32F10x seriju.
- * @addtogroup  hal_stm32f10x
+ * @addtogroup  port_stm32f10x
  *********************************************************************//** @{ */
 
 
@@ -143,7 +143,6 @@
 # define PORT_FAM_STM32F10X_MD_VL
 
 # if defined(OPT_HAL_GPIO)
-#  error "HAL: GPIO module is not implented for this family."
 #  define ES_HAL_ENABLE_GPIO
 # endif
 
@@ -174,6 +173,7 @@
  *
  *============================================================================*/
 /*=========================================================  INCLUDE FILES  ==*/
+#include "port/family/stm32f10x/cmsis/stm32f10x.h"                              /* CMSIS                                                    */
 
 #if defined(ES_HAL_ENABLE_GPIO)
 # include "port/family/stm32f10x/gpio_lld.h"

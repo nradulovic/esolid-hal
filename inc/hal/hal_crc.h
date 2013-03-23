@@ -24,9 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Interfejs za CRC modul
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_crc
- * @brief		Izracunavanje CRC (Cyclic Redundancy Check) koda za detekciju gresaka
+ * @addtogroup  hal_crc_intf
  ****************************************************************************************//** @{ */
 
 

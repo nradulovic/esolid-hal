@@ -24,9 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Implementacija GPIO Low Level Driver modula.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  stm32l1xx_md_gpio_impl
- * @brief       GPIO Low Level Driver modul.
+ * @addtogroup  port_stm32l1xx
  ****************************************************************************************//** @{ */
 
 /*============================================================================  INCLUDE FILES  ==*/
