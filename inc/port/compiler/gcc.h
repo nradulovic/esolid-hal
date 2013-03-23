@@ -24,8 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs za GCC kompajler, port klasa: common.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_compiler
+ * @addtogroup  port_gcc
  ****************************************************************************************//** @{ */
 
 #ifndef CMN_COMPILER_H_
@@ -116,23 +115,15 @@
 #endif
 
 #if !defined(C_INLINE_ALWAYS) || defined(__DOXYGEN__)
-# define C_INLINE_ALWAYS                static __inline__ __attribute__((__always_inline__))
+# define C_INLINE_ALWAYS                __inline__ __attribute__((__always_inline__))
 #endif
 
 #if !defined(C_INLINE) || defined(__DOXYGEN__)
-# define C_INLINE                       static __inline__
+# define C_INLINE                       __inline__
 #endif
 
 #if !defined(C_NOINLINE) || defined(__DOXYGEN__)
 # define C_NOINLINE                     __attribute__((noinline))
-#endif
-
-#if !defined(C_PURE_FUNC) || defined(__DOXYGEN__)
-# define C_PURE_FUNC                    __attribute__((pure))
-#endif
-
-#if !defined(C_CONST_FUNC) || defined(__DOXYGEN__)
-# define C_CONST_FUNC                   __attribute__((const))
 #endif
 
 #if !defined(C_UNUSED_FUNC) || defined(__DOXYGEN__)
@@ -145,10 +136,6 @@
 
 #if !defined(C_RESTRICT) || defined(__DOXYGEN__)
 # define C_RESTRICT                     __restrict__
-#endif
-
-#if !defined(C_MUST_CHECK) || defined(__DOXYGEN__)
-# define C_MUST_CHECK                   __attribute__((warn_unused_result))
 #endif
 
 #if !defined(C_NAKED) || defined(__DOXYGEN__)
