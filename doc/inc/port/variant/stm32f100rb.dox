@@ -1,9 +1,9 @@
 /**************************************************************************//**
 @file
-@addtogroup  hal
+@addtogroup     port_stm32f10x
 *//** @{ *//**
-@defgroup    hal_impl Hardware Abstraction Layer (HAL) Implementation
-@brief       Hardware Abstraction Layer (HAL) implementacija
+@defgroup       port_stm32f100rb STM32F100RB
+@brief          STM32F100RB
 
 
 **//** @} *//******************************************************************/

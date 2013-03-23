@@ -1,26 +1,10 @@
-/*********************************************************************************************//**
- * @file
- * @defgroup    hal_intf Hardware Abstraction Layer (HAL) interface
- ****************************************************************************************//** @{ */
-/**
- * @defgroup    hal_uart UART modul
- */
-/**
- * @defgroup    hal_int Interrupt kontroler modul
- */
-/**
- * @defgroup    hal_gpio GPIO modul
- */
-/**
- * @defgroup    hal_crc CRC modul
- */
-/**
- * @defgroup    hal_cpu CPU modul
- */
-/**
- * @defgroup    hal_compiler C Compiler
- */
-/**
+/**************************************************************************//**
+@file
+@addtogroup     hal
+*//** @{ *//**
+@defgroup       hal_intf Hardware Abstraction Layer (HAL) API
+@brief          Hardware Abstraction Layer (HAL) API
+
 @section        hal_intro Hardware Abstraction Layer
 
 U ovom odeljku je predstavljena specifikacija Hardware Abstraction Layer (HAL) 
@@ -40,7 +24,7 @@ sirokog spektra. Programeru se uvek ostavlja mogucnost da se HAL zaobidje i vrsi
 direktan pristup hardveru. Ovakav nacin rada nije preporucljiv jer se smanjuje 
 portabilnost koda.
 
-@section     hal_interface HAL interfejs
+@section        hal_interface HAL interfejs
 
 HAL interfejs je podeljen u nekoliko celina gde svaka celina opsluzuje jedan 
 hardverski modul. Jedna celina cini drajver datog hardverskog modula. Svaki 
@@ -129,4 +113,4 @@ HAL se sastoji iz tri klasa. U sledecoj tabeli prikazani su kratki opisi klasa:
     <td>Prva inicijalizacija hardvera, specifikacija memorijske strukture, konfiguracione opcije (brzina procesora, opcije kompajlera), debug IO funkcije.</td>
 </tr>
 </table>
- *//** @} *//*************************************************************************************/
+**//** @} *//******************************************************************/

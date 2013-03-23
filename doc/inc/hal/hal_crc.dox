@@ -1,8 +1,9 @@
-/*********************************************************************************************//**
- * @file
- * @addtogroup  hal_crc
- ****************************************************************************************//** @{ */
-/**
+/**************************************************************************//**
+@file
+@addtogroup     hal_intf
+*//** @{ *//**
+@defgroup       hal_crc_intf CRC
+@brief          Cyclic redundancy check
 @section        crc_usage Koriscenje CRC modula
 
 Funkcije rade nad jednim blokom podataka proizvoljne velicine, a rezultat obrade 
@@ -52,4 +53,4 @@ prvo reflektuje.
 XOROUT: Ova vrednost se XOR-uje sa vrednoscu iz povratnog registra.
 
 @note Radjeno po "Rocksoft^tm Model CRC Algorithm" algoritmu.
- *//** @} *//*************************************************************************************/
+**//** @} *//******************************************************************/

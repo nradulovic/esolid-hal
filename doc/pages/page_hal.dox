@@ -1,0 +1,85 @@
+/**************************************************************************//**
+@file
+@brief          eSolid HAL
+*//** @{ *//**
+@defgroup       hal eSolid HAL
+@brief          Hardware Abstraction Layer komponenta
+@section        hal_index Sadrzaj
+    - @ref hal_intro
+    - @ref hal_organization
+    - @ref hal_usage
+    
+@section        hal_intro Uvod
+U racunarstvu, portovanje je proces prilagodjavanja softvera, tako da izvrsni 
+program moze biti kreiran za racunarsko okruzenje koje se razlikuje onog za koje 
+je bio prvobitno projektovan (npr. razlicit procesor, operativni sistem, druge 
+biblioteke).
+
+Softver je prenosiv kada je trosak portovanja na novu platformu manji od cene 
+pisanja celokupnog softvera. Rec "port" potice od latinske reci @c portare, sto 
+znaci "prenesti".
+
+- Nazad na @ref hal_index
+    
+@subsection     port_levels Port Arhitektura, Varijanta i Platforma
+
+Port je organizovan u cetiri nivoa:
+    - Port Arhitektura vrsi apstrakciju osnovne procesorske arhitekture i 
+        obuhvata objekte kao sto su opsluzivanje prekida, prebacivanje konteksta, 
+        start-up sekvencu i slicno. Klasican predstavnik Port Arhitekture je ARM 
+        Cortex-M3 arhitektura. Ovaj port opisuje registre procesora, prekidni 
+        kontroler i debug hardver koji je karakteristican za @b svaki 
+        mikrokontroler sa ARM Cortex-M3 jezgrom.
+    - Port Familija pokriva opste osobine procesora kao sto su kes memorija, MMU, 
+        DMA i FPU. Port Familija je, takodje, zaduzen za memorijske i prekidne 
+        kontrolere na samom cipu. a obuhvata tajmere, I/O registre i druge 
+        module hardvera na mikrokontroleru.
+    - Port Varijanta predstavlja najprecizniji opis jednog mikrokontrolera jer 
+        se u ovom port nivou opisuje koji GPIO portovi postoje, koliko UART, SPI 
+        i I2C modula ima u datom kucistu, iznos FLASH i RAM memorije i slicno. 
+        Obicno se za arhitekturne varijacije implementacija nalazi u Port 
+        Familija, a Port Varijanta pruza samo odgovarajuce pretprocesorske 
+        konfiguracione promenljive.
+    - Port Platforma vrsi apstrakciju i opisuje osobine platforme koja se 
+        koristi. Pod platformom se podrazumeva mikrokontroler sa dodatnim 
+        hardverom. Obicno su to neki oblici razvojnih ploca. Port Platforma u 
+        tom slucaju pruza dodatnu abstrakciju hardvera tako da se, na primer, 
+        umesto porta navede ime LED diode koja treba da se aktivira.
+    
+Granice izmedju ova cetiri nivoa nisu uvek jasno definisane, sa obzirom da se 
+funkcionalnost menja izmedju ovih nivoa od port-a do port-a. Uopsteno gledano 
+svaki port se sastoji od modula koji su definisani u nekoliko nivoa.
+
+- Nazad na @ref hal_index
+    
+@section        hal_organization Organizacija
+
+eSolid HAL je organizovan na sledeci nacin:
+    - @ref hal_intf - Interfejs HAL-a. U ovim datotekama se nalaze sve 
+        informacije koje su potrebne korisniku za koriscenje HAL-a. Datoteke
+        definisu tipove podataka, makroe i funkcije koje korisnik poziva da
+        ostvari neku funkciju. 
+    - @ref hal_impl - Datoteke opisuju nacin na koji je HAL realizovan. 
+        Ovaj odeljak je namenjen za naprednije korisnike koje zele da imaju uvid 
+        u rad sistema.
+    - @ref hal_cfg - Konfiguracija HAL-a. Ovaj odeljak opisuje kako se hal 
+        konfigurise i kako opcije uticu na rad i ponasanje sistema. Ovaj odeljak 
+        treba neizbezno pogledati pre pocetka rada na aplikaciji.
+    - @ref eSolid_port - eSolid Port je sistem koji omogucuje da HAL ima uvek
+        isti interfejs nezavisno od mikrokontrolera koji se koristi. 
+        
+Za vise informacija o svakoj celini ponaosob pogledati zasebne module. 
+
+- Nazad na @ref hal_index
+    
+@section        hal_usage Upotreba
+@subsection     hal_environ Podesavanje okruzenja
+ 
+- Nazad na @ref hal_index
+       
+@author         Nenad Radulović
+
+Contact information:
+    - web site:  http://blueskynet.dyndns-server.com
+    - e-mail:    blueskyniss@gmail.com
+**//** @} *//******************************************************************/

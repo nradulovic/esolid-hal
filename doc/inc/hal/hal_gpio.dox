@@ -1,8 +1,9 @@
-/*********************************************************************************************//**
- * @file
- * @addtogroup  hal_gpio
- ****************************************************************************************//** @{ */
-/**
+/**************************************************************************//**
+@file
+@addtogroup     hal_intf
+*//** @{ *//**
+@defgroup       hal_gpio_intf GPIO
+@brief          General Purpose Input/Output
 @section        gpio_usage Koriscenje GPIO drajvera
 
 Koriscenje se grubo svodi na tri koraka:
@@ -74,4 +75,4 @@ koristi. Naravno, azuriranje stanja GPIO modula unosi dodatni overhead u radu sa
 GPIO modulom. U cilju otklanjanja dodatnog overhead-a napravljene su funkcije i 
 makroi za brz pristup koji postavljaju odredjene zahteve u pogledu njihovog 
 koriscenja. Pogledati dokumentaciju za pojedinacne funkcije.
- *//** @} *//*************************************************************************************/
+**//** @} *//******************************************************************/

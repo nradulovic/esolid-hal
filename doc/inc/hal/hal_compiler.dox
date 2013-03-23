@@ -1,10 +1,10 @@
-/*********************************************************************************************//**
- * @file
- * @addtogroup  hal_compiler
- ****************************************************************************************//** @{ */
-/**
+/**************************************************************************//**
+@file
+@addtogroup     hal_intf
+*//** @{ *//**
+@defgroup       hal_compiler C Compiler
+@brief          C Compiler 
 @section        hal_compiler_types Tipovi podataka
-
 @subsection     hal_compiler_basic_typed Osnovni tipovi podataka
 
 @code
@@ -40,4 +40,4 @@ atomic_T
 Za ove tipove postoji garancija da se promenljive ovog tipa pisu i citaju u 
 jednoj instrukciji. U zavisnosti od arhitekture koja se koristi velicina ovog 
 tipa se menja, ali je minimum velicina jedan bajt.
- *//** @} *//*************************************************************************************/
+**//** @} *//******************************************************************/

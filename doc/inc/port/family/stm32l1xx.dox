@@ -1,9 +1,9 @@
 /**************************************************************************//**
 @file
-@addtogroup  hal
+@addtogroup     port_arm_cm3
 *//** @{ *//**
-@defgroup    hal_impl Hardware Abstraction Layer (HAL) Implementation
-@brief       Hardware Abstraction Layer (HAL) implementacija
+@defgroup       port_stm32l1xx ST STM32L1xx serija
+@brief          ST STM32L1xx serija
 
 
 **//** @} *//******************************************************************/

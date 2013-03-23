@@ -1,9 +1,8 @@
 /**************************************************************************//**
 @file
-@addtogroup  hal
+@addtogroup     hal_impl
 *//** @{ *//**
-@defgroup    hal_impl Hardware Abstraction Layer (HAL) Implementation
-@brief       Hardware Abstraction Layer (HAL) implementacija
-
+@defgroup       hal_timer_impl Timer
+@brief          Timer implementacija
 
 **//** @} *//******************************************************************/
