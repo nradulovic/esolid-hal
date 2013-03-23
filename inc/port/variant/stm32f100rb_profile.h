@@ -24,9 +24,7 @@
  * @file
  * @author  	Nenad Radulovic
  * @brief       Profil za STM32F100RB mikrokontroler
- * @details     U ovoj datoteci se navode sve periferije datog mikrokontrolera.
- * @addtogroup  stm32f100rb
- * @brief		Profil za stm32f100rb mikrokontroler
+ * @addtogroup  port_stm32f100rb
  *********************************************************************//** @{ */
 
 #ifndef STM32F100RB_PROFILE_H_
@@ -53,7 +51,13 @@
 #define ES_HAL_FEATURE_GPIOC
 #define ES_HAL_FEATURE_GPIOD
 #define ES_HAL_FEATURE_GPIOE
-#define ES_HAL_FEATURE_GPIOH
+
+#define GPIO_TABLE(ENTRY)                                                       \
+    ENTRY(ES_GPIOA, GPIOA, RCC_APB2ENR_IOPAEN)                                  \
+    ENTRY(ES_GPIOB, GPIOB, RCC_APB2ENR_IOPBEN)                                  \
+    ENTRY(ES_GPIOC, GPIOC, RCC_APB2ENR_IOPCEN)                                  \
+    ENTRY(ES_GPIOD, GPIOD, RCC_APB2ENR_IOPDEN)                                  \
+    ENTRY(ES_GPIOE, GPIOE, RCC_APB2ENR_IOPEEN)
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
