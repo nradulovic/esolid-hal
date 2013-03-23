@@ -24,7 +24,7 @@
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs CPU modula za ARM Cortex-M3 arhitekturu.
- * @addtogroup  hal_cpu
+ * @addtogroup  port_arm_cm3
  *********************************************************************//** @{ */
 
 #ifndef ARCH_CPU_H_
@@ -52,7 +52,7 @@ typedef uint32_t                        unative_T;
  * @{ *//*--------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*/
-C_INLINE_ALWAYS uint_fast8_t esCpuFindLastSet(
+static C_INLINE_ALWAYS uint_fast8_t esCpuFindLastSet(
     uint32_t value) {
 
     uint8_t result;
@@ -63,7 +63,7 @@ C_INLINE_ALWAYS uint_fast8_t esCpuFindLastSet(
 }
 
 /*----------------------------------------------------------------------------*/
-C_INLINE_ALWAYS uint_fast8_t esCpuFindFirstSet(
+static C_INLINE_ALWAYS uint_fast8_t esCpuFindFirstSet(
     uint32_t value) {
 
     uint_fast8_t clzr;
@@ -77,7 +77,7 @@ C_INLINE_ALWAYS uint_fast8_t esCpuFindFirstSet(
 }
 
 /*----------------------------------------------------------------------------*/
-C_INLINE_ALWAYS void esCpuSleep(
+static C_INLINE_ALWAYS void esCpuSleep(
     void) {
 
 #if defined(NDEBUG)
@@ -88,7 +88,7 @@ C_INLINE_ALWAYS void esCpuSleep(
 }
 
 /*----------------------------------------------------------------------------*/
-C_INLINE_ALWAYS void esCpuStop(
+static C_INLINE_ALWAYS void esCpuStop(
     void) {
 
     while (TRUE) {
