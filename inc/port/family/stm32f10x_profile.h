@@ -31,59 +31,19 @@
 #ifndef STM32F10X_PROFILE_H_
 #define STM32F10X_PROFILE_H_
 
-/*============================================================================*
- *
- * STM32F10X_LD
- *
- *============================================================================*/
-#if defined(STM32F10X_LD)
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
+
+#if defined(PORT_SUBFAM_STM32F10X_LD_)
 
 /**
  * @brief       Definisanje konstante - familija
  */
 # define ES_HAL_MCU_FAMILY              "STM32F10x Low density devices"
 
-/**
- * @brief       Definisanje PORT konstante - familija
- */
-# define PORT_FAM_STM32F10X_LD
-
-# if defined(OPT_HAL_GPIO)
-#  error "HAL: GPIO module is not implented for this family."
-#  define ES_HAL_ENABLE_GPIO
-# endif
-
-# if defined(OPT_HAL_UART)
-#  error "HAL: UART module is not implented for this family."
-#  define ES_HAL_ENABLE_UART
-# endif
-
-# if defined(OPT_HAL_TIMER)
-#  error "HAL: TIMER module is not implented for this family."
-#  define ES_HAL_ENABLE_TIMER
-# endif
-
-# if defined(OPT_ENABLE_CRC)
-#  error "HAL: CRC module is not implented for this family."
-#  define ES_HAL_ENABLE_CRC
-# endif
-
-/*===============================================================  MACRO's  ==*/
-/*============================================================  DATA TYPES  ==*/
-/*======================================================  GLOBAL VARIABLES  ==*/
-/*===================================================  FUNCTION PROTOTYPES  ==*/
 #endif /* STM32F10X_LD */
 
-/*============================================================================*
- *
- * STM32F10X_LD_VL
- *
- *============================================================================*/
-#if defined(STM32F10X_LD_VL)
-/*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+#if defined(PORT_SUBFAM_STM32F10X_LD_VL_)
 
 /**
  * @brief       Definisanje konstante - familija
@@ -91,45 +51,9 @@
 # define ES_HAL_MCU_FAMILY                                                      \
     "STM32F10x Low density Value Line devices"
 
-/**
- * @brief       Definisanje PORT konstante - familija
- */
-# define PORT_FAM_STM32F10X_LD_VL
-
-# if defined(OPT_HAL_GPIO)
-#  error "HAL: GPIO module is not implented for this family."
-#  define ES_HAL_ENABLE_GPIO
-# endif
-
-# if defined(OPT_HAL_UART)
-#  error "HAL: UART module is not implented for this family."
-#  define ES_HAL_ENABLE_UART
-# endif
-
-# if defined(OPT_HAL_TIMER)
-#  error "HAL: TIMER module is not implented for this family."
-#  define ES_HAL_ENABLE_TIMER
-# endif
-
-# if defined(OPT_ENABLE_CRC)
-#  error "HAL: CRC module is not implented for this family."
-#  define ES_HAL_ENABLE_CRC
-# endif
-
-/*===============================================================  MACRO's  ==*/
-/*============================================================  DATA TYPES  ==*/
-/*======================================================  GLOBAL VARIABLES  ==*/
-/*===================================================  FUNCTION PROTOTYPES  ==*/
 #endif /* STM32F10X_LD_VL */
 
-/*============================================================================*
- *
- * STM32F10X_MD_VL
- *
- *============================================================================*/
-#if defined(STM32F10X_MD_VL)
-/*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+#if defined(PORT_SUBFAM_STM32F10X_MD_VL_)
 
 /**
  * @brief       Definisanje konstante - familija
@@ -137,61 +61,23 @@
 # define ES_HAL_MCU_FAMILY                                                      \
     "STM32F10x Medium density Value Line devices"
 
-/**
- * @brief       Definisanje PORT konstante - familija
- */
-# define PORT_FAM_STM32F10X_MD_VL
-
-# if defined(OPT_HAL_GPIO)
-#  define ES_HAL_ENABLE_GPIO
-# endif
-
-# if defined(OPT_HAL_UART)
-#  error "HAL: UART module is not implented for this family."
-#  define ES_HAL_ENABLE_UART
-# endif
-
-# if defined(OPT_HAL_TIMER)
-#  error "HAL: TIMER module is not implented for this family."
-#  define ES_HAL_ENABLE_TIMER
-# endif
-
-# if defined(OPT_ENABLE_CRC)
-#  error "HAL: CRC module is not implented for this family."
-#  define ES_HAL_ENABLE_CRC
-# endif
-
-/*===============================================================  MACRO's  ==*/
-/*============================================================  DATA TYPES  ==*/
-/*======================================================  GLOBAL VARIABLES  ==*/
-/*===================================================  FUNCTION PROTOTYPES  ==*/
 #endif /* STM32F10X_MD_VL */
 
-/*============================================================================*
- *
- * COMMON
- *
- *============================================================================*/
-/*=========================================================  INCLUDE FILES  ==*/
-#include "port/family/stm32f10x/cmsis/stm32f10x.h"                              /* CMSIS                                                    */
-
-#if defined(ES_HAL_ENABLE_GPIO)
-# include "port/family/stm32f10x/gpio_lld.h"
+#if defined(OPT_HAL_GPIO)
+# define ES_HAL_ENABLE_GPIO
 #endif
 
-#if defined(ES_HAL_ENABLE_UART)
-# include "port/family/stm32f10x/uart_lld.h"
+#if defined(OPT_HAL_UART)
+# define ES_HAL_ENABLE_UART
 #endif
 
-#if defined(ES_HAL_ENABLE_TIMER)
-# include "port/family/stm32f10x/timer_lld.h"
+#if defined(OPT_HAL_TIMER)
+# define ES_HAL_ENABLE_TIMER
 #endif
 
-#if defined(ES_HAL_ENABLE_CRC)
-# include "port/family/stm32f10x/crc_lld.h"
+#if defined(OPT_ENABLE_CRC)
+# define ES_HAL_ENABLE_CRC
 #endif
-
-/*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
  * @name        Opisne konstante
@@ -211,7 +97,49 @@
 
 /** @} *//*-------------------------------------------------------------------*/
 /*===============================================================  MACRO's  ==*/
+
+#define EXPAND_AS_GPIO_ENUM(a, b, c)    a,
+#define EXPAND_AS_UART_ENUM(a, b, c)    a,
+#define EXPAND_AS_TIMER_ENUM(a, b, c)   a,
+
 /*============================================================  DATA TYPES  ==*/
+
+#if defined(ES_HAL_ENABLE_GPIO)
+
+/**
+ * @brief       Ime Gpio porta koji se koristi
+ * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
+ */
+typedef enum esGpioPort {
+    GPIO_TABLE(EXPAND_AS_GPIO_ENUM)
+    GPIO_LAST_PORT_
+} esGpioPort_T;
+#endif
+
+#if defined(ES_HAL_ENABLE_UART)
+
+/**
+ * @brief       Ime Uart porta koji se koristi
+ * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
+ */
+typedef enum esUartPort {
+    UART_TABLE(EXPAND_AS_UART_ENUM)
+    UART_LAST_PORT_
+} esUartPort_T;
+#endif
+
+#if defined(ES_HAL_ENABLE_TIMER)
+
+/**
+ * @brief       Ime Timera koji se koristi
+ * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
+ */
+typedef enum esTimer {
+    TIMER_TABLE(EXPAND_AS_TIMER_ENUM)
+    TIMER_LAST_
+} esTimer_T;
+#endif
+
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
