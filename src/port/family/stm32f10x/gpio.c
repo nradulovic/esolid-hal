@@ -30,7 +30,9 @@
 /*=========================================================  INCLUDE FILES  ==*/
 #define GPIO_LLD_VAR
 #include "../src/hal/hal_private.h"
+
 #if defined(ES_HAL_ENABLE_GPIO)
+#include "stm32f10x_pkg.h"
 
 /*===============================================================  DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/
@@ -38,6 +40,12 @@
 #define EXPAND_AS_GPIO(a, b, c)         {b, c},
 
 /*======================================================  LOCAL DATA TYPES  ==*/
+
+struct gpioTable {
+    GPIO_TypeDef *  reg;
+    uint32_t        en;
+};
+
 /*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
 /*=======================================================  LOCAL VARIABLES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
@@ -49,7 +57,7 @@ const C_ROM struct gpioTable gpioTable [GPIO_LAST_PORT_] = {
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
 /*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 
-void lldGpioDrvInit(
+void gpioInit(
     void) {
 
     uint8_t cnt;
@@ -226,6 +234,37 @@ void esGpioStop(
     esGpioPort_T    gpioPort) {
 
     RCC->APB2ENR &= ~gpioTable[gpioPort].en;
+}
+
+/*----------------------------------------------------------------------------*/
+void esGpioPinSetFast(
+    esGpioPort_T    gpioPort,
+    uint16_t        pins) {
+
+    gpioTable[gpioPort].reg->BSRR = pins;
+}
+
+/*----------------------------------------------------------------------------*/
+void esGpioPinResetFast(
+    esGpioPort_T    gpioPort,
+    uint16_t        pins) {
+
+    gpioTable[gpioPort].reg->BRR = pins;
+}
+
+/*----------------------------------------------------------------------------*/
+void esGpioWriteFast(
+    esGpioPort_T    gpioPort,
+    uint16_t        data) {
+
+    gpioTable[gpioPort].reg->ODR = data;
+}
+
+/*----------------------------------------------------------------------------*/
+uint16_t esGpioReadFast(
+    esGpioPort_T    gpioPort) {
+
+    return (gpioTable[gpioPort].reg->IDR);
 }
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
