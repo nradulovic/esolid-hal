@@ -43,8 +43,7 @@
  * STMicroelectronics - STM32 F1 Mainstream
  *----------------------------------------------------------------------------*/
 #if defined(STM32F100RB)
-# define                                HAL_PORT_FOUND_
-# define                                STM32F10X_MD_VL
+# define                                PORT_FOUND_
 # include "port/variant/stm32f100rb_profile.h"
 # include "port/family/stm32f10x_profile.h"
 # include "port/arch/arm_cm3_profile.h"
@@ -54,7 +53,7 @@
  * STMicroelectronics - STM32 L1 Ultra Low Power
  *----------------------------------------------------------------------------*/
 #if defined(STM32L152RB)
-# define                                HAL_PORT_FOUND_
+# define                                PORT_FOUND_
 # include "port/variant/stm32l152rb_profile.h"
 # include "port/family/stm32l1xx_profile.h"
 # include "port/arch/arm_cm3_profile.h"
@@ -70,7 +69,7 @@
  * STMicroelectronics - STM32 F4 Hi-Performance & DSP
  *----------------------------------------------------------------------------*/
 #if defined(STM32F407VG)
-# define                                HAL_PORT_FOUND_
+# define                                PORT_FOUND_
 # include "port/variant/stm32f407vg_profile.h"
 # include "port/family/stm32f4xx_profile.h"
 # include "port/arch/arm_cm3_profile.h"
@@ -83,7 +82,7 @@
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
-#if !defined(HAL_PORT_FOUND_)
+#if !defined(PORT_FOUND_)
 # define ES_HAL_MCU_VARIANT             "Unknown MCU series"
 # if defined(__GNUC__)
 #  warning "HAL Profiles: Cannot determine MCU variant. HAL is disabled."
