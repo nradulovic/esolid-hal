@@ -60,7 +60,16 @@ extern "C" {
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
-/*---------------------------------------------------------------------------  C++ extern end  --*/
+
+/**
+ * @brief       Inicijalizuje sve podmodule HAL sistema
+ * @details     Ovu funkciju treba pozvati u toku inicijalizacije sistema i pre
+ *              koriscenja bilo koje funkcije iz HAL sistema.
+ */
+void halInit(
+    void);
+
+/*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
 #endif
