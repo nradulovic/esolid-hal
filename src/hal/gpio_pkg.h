@@ -47,7 +47,7 @@ extern "C" {
  * @details     Ova funkcija se poziva automatski u toku inicijalizacije HAL
  *              paketa.
  */
-void lldGpioDrvInit(
+void gpioInit(
     void);
 
 /*--------------------------------------------------------  C++ extern end  --*/

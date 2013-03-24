@@ -40,11 +40,11 @@
 /*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 /*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 /*-----------------------------------------------------------------------------------------------*/
-void esHalInit(
+void halInit(
     void) {
 
 #if defined(ES_HAL_ENABLE_GPIO) || defined(__DOXYGEN__)
-    lldGpioDrvInit();
+    gpioInit();
 #endif
 
 #if defined(ES_HAL_ENABLE_UART) || defined(__DOXYGEN__)
