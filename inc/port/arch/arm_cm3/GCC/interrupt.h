@@ -36,33 +36,47 @@
 
 /*------------------------------------------------------------------------*//**
  * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
  * @{ *//*--------------------------------------------------------------------*/
 
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
+static C_INLINE_ALWAYS void esIntEnable(
+    void) {
 
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
+    __asm volatile ("cpsie i");
+}
 
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
+static C_INLINE_ALWAYS void esIntDisable(
+    void) {
 
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
+    __asm volatile ("cpsid i");
+}
+
+static C_INLINE_ALWAYS void esIntPrioMaskSet(
+    uint32_t prio) {
+
+    __asm volatile ("msr basepri, %0" : : "r" (prio) );
+}
+
+static C_INLINE_ALWAYS uint32_t esIntPrioMaskGet(
+    void) {
+
+    uint32_t prio;
+
+    __asm volatile ("mrs %0, basepri_max" : "=r" (prio) );
+
+    return(prio);
+}
 
 #define ES_CRITICAL_DECL()													    \
 	uint32_t irqLock_
 
 #define ES_CRITICAL_ENTER(prio)						    					    \
     do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
+        irqLock_ = esIntPrioMaskGet();                                          \
+        esIntPrioMaskSet(prio);                                                 \
     } while (0)
 
 #define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
+    esIntPrioMaskSet(irqLock_)
 
 /** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
