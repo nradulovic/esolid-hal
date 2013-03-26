@@ -34,7 +34,7 @@
 /*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
- * @name        Opisne konstante
+ * @name        STM32F100RB opisne konstante
  * @brief       Ovde se nalaze konstante koje daju vise informacija o
  *              mikrokontroleru i periferiji.
  * @{ *//*--------------------------------------------------------------------*/
@@ -43,45 +43,22 @@
 #define ES_HAL_MCU_RAM                  (8192UL)
 
 /** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        GPIO konstante
- * @{ *//*--------------------------------------------------------------------*/
-#define ES_HAL_FEATURE_GPIOA
-#define ES_HAL_FEATURE_GPIOB
-#define ES_HAL_FEATURE_GPIOC
-#define ES_HAL_FEATURE_GPIOD
-#define ES_HAL_FEATURE_GPIOE
 
-#define GPIO_TABLE(ENTRY)                                                       \
+/**
+ * @brief       Tabela GPIO portova
+ * @notapi
+ */
+#define GPIO_TABLE_(ENTRY)                                                      \
     ENTRY(ES_GPIOA, GPIOA, RCC_APB2ENR_IOPAEN)                                  \
     ENTRY(ES_GPIOB, GPIOB, RCC_APB2ENR_IOPBEN)                                  \
     ENTRY(ES_GPIOC, GPIOC, RCC_APB2ENR_IOPCEN)                                  \
     ENTRY(ES_GPIOD, GPIOD, RCC_APB2ENR_IOPDEN)                                  \
     ENTRY(ES_GPIOE, GPIOE, RCC_APB2ENR_IOPEEN)
 
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Timer konstante
- * @{ *//*--------------------------------------------------------------------*/
-#define ES_HAL_FEATURE_TMR2
-#define ES_HAL_FEATURE_TMR3
-#define ES_HAL_FEATURE_TMR4
-#define ES_HAL_FEATURE_TMR6
-#define ES_HAL_FEATURE_TMR7
-#define ES_HAL_FEATURE_TMR9
-#define ES_HAL_FEATURE_TMR10
-#define ES_HAL_FEATURE_TMR11
-
-/** @} *//*---------------------------*---------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        UART konstante
- * @{ *//*--------------------------------------------------------------------*/
-#define ES_HAL_FEATURE_UART1
-#define ES_HAL_FEATURE_UART2
-#define ES_HAL_FEATURE_UART3
-
-/** @} *//*-------------------------------------------------------------------*/
-
+/**
+ * @brief       Definisanje podfamilije
+ * @notapi
+ */
 # define                                PORT_SUBFAM_STM32F10X_MD_VL_
 
 /*===============================================================  MACRO's  ==*/
