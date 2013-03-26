@@ -35,49 +35,114 @@
 #if defined(__DOXYGEN__)
 /*------------------------------------------------------------------------*//**
  * @name        Konstante mogucnosti HAL modula
- * @details     Ove konstante govore da za datu funkcionalnost postoje HAL
- *              moduli.
+ * @details     Ovi makroi govore da za datu funkcionalnost postoje HAL moduli.
+ *              Ukoliko je makro definisan onda HAL podrzava datu funkcionalnost.
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       HAL podrzava CPU
+ */
 # define ES_HAL_FEATURE_CPU
+
+/**
+ * @brief       HAL podrzava interrupt kontroler
+ */
 # define ES_HAL_FEATURE_INTERRUPT
+
+/**
+ * @brief       HAL podrzava GPIO
+ */
 # define ES_HAL_FEATURE_GPIO
-# define ES_HAL_FEATURE_UART
-# define ES_HAL_FEATURE_CRC
-# define ES_HAL_FEATURE_TIMER
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
  * @name        Konstante dostupnosti HAL modula
  * @details     Ove konstante govore da za datu funkcionalnost postoje HAL
- *              moduli i da su oni aktivni.
+ *              moduli i da su oni aktivni. Ukoliko je makro definisan onda
+ *              je modul i omogucen.
  * @{ *//*--------------------------------------------------------------------*/
-# define ES_HAL_ENABLE_CPU
-# define ES_HAL_ENABLE_INTERRUPT
-# define ES_HAL_ENABLE_GPIO
-# define ES_HAL_ENABLE_UART
-# define ES_HAL_ENABLE_CRC
-# define ES_HAL_ENABLE_TIMER
 
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Identifikacione i opisne konstante mikroprocesora
- * @{ *//*--------------------------------------------------------------------*/
-# define ES_HAL_CPU_NAME
-# define ES_HAL_CPU_FAMILY
-# define ES_HAL_CPU_MANUF
+/**
+ * @brief       HAL podrzava CPU i omoguceno je njegovo koriscenje
+ * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_CPU
+ */
+# define ES_HAL_ENABLE_CPU
+
+/**
+ * @brief       HAL podrzava interrupt kontroler i omoguceno je njegovo
+ *              koriscenje
+ * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_INTERRUPT
+ */
+# define ES_HAL_ENABLE_INTERRUPT
+
+/**
+ * @brief       HAL podrzava GPIO i omoguceno je njegovo koriscenje
+ * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_GPIO
+ */
+# define ES_HAL_ENABLE_GPIO
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
  * @name        Identifikacione i opisne konstante mikrokontrolera
+ * @details     Konstantne niske (string) koje identifikuju mikrokontroler
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Ime mikrokontrolera
+ * @details     Konstantna niska mikrokontrolera, na primer: "STM32F100RB"
+ */
 # define ES_HAL_MCU_NAME
+
+/**
+ * @brief       Familija mikrokontrolera
+ * @details     Konstantna niska familije mikrokontrolera, na primer: "STM32F10x"
+ */
 # define ES_HAL_MCU_FAMILY
+
+/**
+ * @brief       Proizvodzac mikrokontrolera
+ * @details     Konstantna niska imena proizvodzaca, na primer: "ST Microelectronics"
+ */
 # define ES_HAL_MCU_MANUF
+
+/**
+ * @brief       Velicina FLASH (programske) memorije u bajtovima
+ * @details     Tip podatka je unsigned long, odnosno, uint32_t. Na primer:
+ *              32768UL
+ */
 # define ES_HAL_MCU_FLASH
+
+/**
+ * @brief       Velicina RAM memorije u bajtovima
+ * @details     Vraca velicinu RAM memorije u bajtovima. Ukoliko embedded sistem
+ *              poseduje vise RAM memorija, vraca se velicina RAM memorije za
+ *              cuvanje programskih podataka.
+ */
 # define ES_HAL_MCU_RAM
 
 /** @} *//*-------------------------------------------------------------------*/
 #endif /* __DOXYGEN__ */
+
+/*===============================================================  MACRO's  ==*/
+
+/**
+ *
+ */
+#define ES_HWREG_SET(reg, mask, val)                                            \
+    do {                                                                        \
+        unative_T tmp;                                                          \
+        tmp = (unative_T)(reg);                                                 \
+        tmp &= ~((unative_T)mask);                                              \
+        tmp |= (unative_T)(val);                                                \
+        reg = tmp;                                                              \
+    } while (0U)
+
+/*------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*============================================================  DATA TYPES  ==*/
 
 /**
  * @brief       Status hardvera kojeg opsluzuje drajver
@@ -122,15 +187,60 @@ typedef enum esDevStatus {
     ES_HAL_DEV_ERROR
 } esDevStatus_T;
 
-/*===============================================================  MACRO's  ==*/
-/*------------------------------------------------------  C++ extern begin  --*/
-#ifdef __cplusplus
-extern "C" {
-#endif
+/**
+ * @brief       Moguci nivoi perfomansi procesora
+ */
+typedef enum esCpuPerf {
+/**
+ * @brief       Najniza brzina rada procesora
+ * @details     HAL ce postaviti najnizu mogucu brzinu upotrebom internih
+ *              oscilatora
+ */
+    ES_SYS_PERF_DEFAULT,
 
-/*============================================================  DATA TYPES  ==*/
+/**
+ * @brief       Podrazumevana brzina rada procesora
+ * @details     OVa brzina jednaka je fabrickim podesavanjima procesora
+ */
+    ES_SYS_PERF_MEDIUM,
+
+/**
+ * @brief       Najveca brzina rada procesora
+ */
+    ES_SYS_PERF_HIGH
+} esSysPerf_T;
+
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
+
+/**
+ * @brief       Postavlja zeljeni nivo perfomansi mikrokontrolera
+ * @param       speed                   Nivo brzine rada procesora
+ *  @arg        ES_SYS_PERF_DEFAULT
+ *  @arg        ES_SYS_PERF_MEDIUM
+ *  @arg        ES_SYS_PERF_HIGH
+ */
+void esSysPerfSet(
+    esSysPerf_T    speed);
+
+/**
+ * @brief       Vraca u kojem nivou perfomansi se nalazi mikrokontroler
+ * @return      Nivo brzine u kojem se nalazi procesor, magistrale i brzina
+ *              periferije
+ *  @retval     ES_SYS_PERF_DEFAULT
+ *  @retval     ES_SYS_PERF_MEDIUM
+ *  @retval     ES_SYS_PERF_HIGH
+ */
+esSysPerf_T esSysPerfGet(
+    void);
+
+/**
+ * @brief       Vraca vrednost taktne frekvencije jezgra
+ * @return      Vrednost taktne frekvencije u Hz.
+ */
+uint32_t esSysCoreClockGet(
+    void);
+
 /*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
