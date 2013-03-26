@@ -51,7 +51,7 @@ static C_INLINE_ALWAYS void esIntDisable(
 }
 
 static C_INLINE_ALWAYS void esIntPrioMaskSet(
-    uint32_t prio) {
+    uint32_t        prio) {
 
     __asm volatile ("msr basepri, %0" : : "r" (prio) );
 }
@@ -80,22 +80,6 @@ static C_INLINE_ALWAYS uint32_t esIntPrioMaskGet(
 
 /** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
-
-/**
- * @brief       Predefinisani prioriteti prekidnih rutina
- */
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 0x20
-};
-
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/

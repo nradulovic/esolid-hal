@@ -33,8 +33,7 @@
 
 /*=========================================================  INCLUDE FILES  ==*/
 
-#if defined(OPT_HAL_CPU)
-# define ES_HAL_ENABLE_CPU
+#if defined(ES_HAL_ENABLE_CPU)
 # if defined(__GNUC__)
 #  include "port/arch/arm_cm3/GCC/cpu.h"
 # elif defined(__IAR_SYSTEMS_ICC__)
@@ -42,8 +41,7 @@
 # endif
 #endif
 
-#if defined(OPT_HAL_INTERRUPT)
-# define ES_HAL_ENABLE_INTERRUPT
+#if defined(ES_HAL_ENABLE_INTERRUPT)
 # if defined(__GNUC__)
 #  include "port/arch/arm_cm3/GCC/interrupt.h"
 # elif defined(__IAR_SYSTEMS_ICC__)
@@ -54,28 +52,13 @@
 /*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
- * @name        Konstante mogucnosti HAL modula
- * @{ *//*--------------------------------------------------------------------*/
-#define ES_HAL_FEATURE_CPU
-#define ES_HAL_FEATURE_INTERRUPT
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Opisne konstante
- * @brief       Ovde se nalaze konstante koje daju vise informacija o
- *              mikroprocesoru i proizvodjacu.
+ * @name        ARM Cortex-M3 opisne konstante
  * @{ *//*--------------------------------------------------------------------*/
 #define ES_HAL_CPU_NAME                 "Cortex-M3"
 #define ES_HAL_CPU_SERIES               "ARMv7-M"
 #define ES_HAL_CPU_MANUF                "ARM"
 
 /** @} *//*-------------------------------------------------------------------*/
-
-/**
- * @brief       Definisanje PORT konstante - arhitektura
- */
-#define PORT_ARCH_ARM_CM3
-
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/

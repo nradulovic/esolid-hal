@@ -27,117 +27,98 @@
  * @addtogroup  port_stm32f10x
  *********************************************************************//** @{ */
 
-
 #ifndef STM32F10X_PROFILE_H_
 #define STM32F10X_PROFILE_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
 
-#if defined(PORT_SUBFAM_STM32F10X_LD_)
+#if defined(OPT_HAL_GPIO)
+# define ES_HAL_ENABLE_GPIO
+#endif
 
-/**
- * @brief       Definisanje konstante - familija
- */
-# define ES_HAL_MCU_FAMILY              "STM32F10x Low density devices"
-
-#endif /* STM32F10X_LD */
-
-#if defined(PORT_SUBFAM_STM32F10X_LD_VL_)
-
-/**
- * @brief       Definisanje konstante - familija
- */
-# define ES_HAL_MCU_FAMILY                                                      \
-    "STM32F10x Low density Value Line devices"
-
-#endif /* STM32F10X_LD_VL */
-
-#if defined(PORT_SUBFAM_STM32F10X_MD_VL_)
-
-/**
- * @brief       Definisanje konstante - familija
- */
-# define ES_HAL_MCU_FAMILY                                                      \
-    "STM32F10x Medium density Value Line devices"
-
-#endif /* STM32F10X_MD_VL */
+#if defined(OPT_HAL_INTERRUPT)
+# define ES_HAL_ENABLE_INTERRUPT
+#endif
 
 #if defined(OPT_HAL_GPIO)
 # define ES_HAL_ENABLE_GPIO
 #endif
 
-#if defined(OPT_HAL_UART)
-# define ES_HAL_ENABLE_UART
-#endif
-
-#if defined(OPT_HAL_TIMER)
-# define ES_HAL_ENABLE_TIMER
-#endif
-
-#if defined(OPT_ENABLE_CRC)
-# define ES_HAL_ENABLE_CRC
-#endif
-
 /*------------------------------------------------------------------------*//**
- * @name        Opisne konstante
+ * @name        STM32F10x opisne konstante
  * @brief       Ovde se nalaze konstante koje daju vise informacija o
  *              mikrokontroleru i proizvodjacu.
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Proizvodzac mikrokontrolera
+ */
 #define ES_HAL_MCU_MANUF                "STMicroelectronics"
+
+/**
+ * @brief       Familija mikrokontrolera
+ */
+#define ES_HAL_MCU_FAMILY               "STM32F10x device"
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
- * @name        Konstante mogucnosti HAL modula
+ * @name        STM32F10x konstante mogucnosti
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Port podrzava GPIO
+ */
 #define ES_HAL_FEATURE_GPIO
-#define ES_HAL_FEATURE_UART
-#define ES_HAL_FEATURE_TIMER
-#define ES_HAL_FEATURE_CRC
+
+/**
+ * @brief       Port podrzava CPU
+ */
+#define ES_HAL_FEATURE_CPU
+
+/**
+ * @brief       Port podrzava interrupt
+ */
+#define ES_HAL_FEATURE_INTERRUPT
 
 /** @} *//*-------------------------------------------------------------------*/
 /*===============================================================  MACRO's  ==*/
 
+/*------------------------------------------------------------------------*//**
+ * @name        STM32F10x pomocni makroi za formiranje tabela hardvera
+ * @{ *//*--------------------------------------------------------------------*/
 #define EXPAND_AS_GPIO_ENUM(a, b, c)    a,
-#define EXPAND_AS_UART_ENUM(a, b, c)    a,
-#define EXPAND_AS_TIMER_ENUM(a, b, c)   a,
 
+/** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
 
-#if defined(ES_HAL_ENABLE_GPIO)
+#if defined(ES_HAL_ENABLE_CPU)
+typedef enum esCpuSpeed {
+    ES_SYS_PERF_DEFAULT,
+    ES_SYS_PERF_MEDIUM,
+    ES_SYS_PERF_HIGH
+} esSysPerf_T;
+#endif
 
-/**
- * @brief       Ime Gpio porta koji se koristi
- * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
- */
+#if defined(ES_HAL_ENABLE_INTERRUPT)
+enum esInterruptPrio {
+    ES_PRIO_IDLE = 0,
+    ES_PRIO_VERY_LOW = 255,
+    ES_PRIO_LOW = 254,
+    ES_PRIO_BELOW_NORMAL = 192,
+    ES_PRIO_NORMAL = 128,
+    ES_PRIO_ABOVE_NORMAL = 64,
+    ES_PRIO_HIGH = 32,
+    ES_PRIO_VERY_HIGH = 2,
+    ES_PRIO_REALTIME = 0x20
+};
+#endif
+
+#if defined(ES_HAL_ENABLE_GPIO)
 typedef enum esGpioPort {
-    GPIO_TABLE(EXPAND_AS_GPIO_ENUM)
+    GPIO_TABLE_(EXPAND_AS_GPIO_ENUM)
     GPIO_LAST_PORT_
 } esGpioPort_T;
-#endif
-
-#if defined(ES_HAL_ENABLE_UART)
-
-/**
- * @brief       Ime Uart porta koji se koristi
- * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
- */
-typedef enum esUartPort {
-    UART_TABLE(EXPAND_AS_UART_ENUM)
-    UART_LAST_PORT_
-} esUartPort_T;
-#endif
-
-#if defined(ES_HAL_ENABLE_TIMER)
-
-/**
- * @brief       Ime Timera koji se koristi
- * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
- */
-typedef enum esTimer {
-    TIMER_TABLE(EXPAND_AS_TIMER_ENUM)
-    TIMER_LAST_
-} esTimer_T;
 #endif
 
 /*======================================================  GLOBAL VARIABLES  ==*/
