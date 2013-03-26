@@ -22,22 +22,15 @@
  * e-mail  :    blueskyniss@gmail.com
  *//***********************************************************************//**
  * @file
- * @author  	Nenad Radulovic
- * @brief       Privatna sekcija HAL-a
+ * @author      Nenad Radulovic
+ * @brief       Implementacija Sistemsko Low Level Driver modula.
  * @addtogroup  hal_impl
  *********************************************************************//** @{ */
 
-#ifndef HAL_PRIVATE_H_
-#define HAL_PRIVATE_H_
+#ifndef SYS_PKG_H_
+#define SYS_PKG_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "hal/hal.h"
-#include "sys_pkg.h"
-#include "gpio_pkg.h"
-#include "uart_pkg.h"
-#include "timer_pkg.h"
-#include "crc_pkg.h"
-
 /*===============================================================  DEFINES  ==*/
 /*===============================================================  MACRO's  ==*/
 /*------------------------------------------------------  C++ extern begin  --*/
@@ -50,11 +43,12 @@ extern "C" {
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
 /**
- * @brief       Inicijalizuje sve podmodule HAL sistema
- * @details     Ovu funkciju treba pozvati u toku inicijalizacije sistema i pre
- *              koriscenja bilo koje funkcije iz HAL sistema.
+ * @brief       Inicijalizacija CPU drajver modula
+ * @details     Ova funkcija se poziva automatski u toku inicijalizacije HAL
+ *              paketa.
+ * @notapi
  */
-void halInit(
+void sysInit(
     void);
 
 /*--------------------------------------------------------  C++ extern end  --*/
@@ -64,6 +58,6 @@ void halInit(
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of hal_private.h
+ * END of sys_pkg.h
  ******************************************************************************/
-#endif /* HAL_PRIVATE_H_ */
+#endif /* SYS_PKG_H_ */

@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,32 +20,27 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
- * @brief       Implementacija CRC modula.
+ * @brief       Implementacija CRC modula nezavisna od PORT-a.
  * @addtogroup  hal_crc_impl
- ****************************************************************************************//** @{ */
+ *********************************************************************//** @{ */
 
-/*============================================================================  INCLUDE FILES  ==*/
+/*=========================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
 #if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
-/*============================================================================  LOCAL DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Local debug define macro.
- *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_DEFINE_MODULE(HAL crc module)
-;
+/*=========================================================  LOCAL DEFINES  ==*/
+/*=========================================================  LOCAL MACRO's  ==*/
+/*======================================================  LOCAL DATA TYPES  ==*/
+/*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
+/*=======================================================  LOCAL VARIABLES  ==*/
 
-/*============================================================================  LOCAL MACRO's  ==*/
-/*=========================================================================  LOCAL DATA TYPES  ==*/
-/*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
-/*==========================================================================  LOCAL VARIABLES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Look-up tabela za brzo, tabelarno izracunavanje CRC-16 koda.
- *//*--------------------------------------------------------------------------------------------*/
-const C_ROM uint32_t crc16LkTbl[256] =
+ */
+static const C_ROM uint32_t crc16LkTbl[256] =
     { 0x0000,
       0x1021,
       0x2042,
@@ -303,78 +298,57 @@ const C_ROM uint32_t crc16LkTbl[256] =
       0x0ed1,
       0x1ef0 };
 
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
-/*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
-/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
+/*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
+/*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
-/*-----------------------------------------------------------------------------------------------*/
-#if !defined(IMPL_CRCPARTIAL16)
+/*----------------------------------------------------------------------------*/
 uint16_t esCrcPartial16(
-    uint8_t             * pDataBlk,
+    uint8_t *           dataBlk,
     size_t              blkSize,
     uint16_t            initCrc) {
 
     uint8_t cntr;
 
-    HAL_DBG_CHECK(NULL != pDataBlk);                                            /* Provera par: da li je pDataBlk validan?                  */
-    HAL_DBG_CHECK((size_t)0U != blkSize);                                       /* Provera par: blok podataka ne sme da bude prazan.        */
-
-# if defined(OPT_OPTIMIZE_SPEED)
-
     for (cntr = (uint8_t)0U; cntr < blkSize; cntr++) {
         initCrc = (initCrc << 8U) ^ crc16LkTbl[(initCrc >> 8U) ^ *dataBlk++];
     }
-# else /* OPT_OPTIMIZE_SPEED */
 
-    while ((size_t)0U != --blkSize) {
-        initCrc = initCrc ^ (*pDataBlk++ << 8U);
-
-        for (cntr = (uint8_t)0U; cntr < (uint8_t)8U; cntr++) {
-
-            if (initCrc & 0x8000) {
-                initCrc = (initCrc << 1U) ^ 0x1021;
-            } else {
-                initCrc = initCrc << 1U;
-            }
-        }
-    }
-# endif /* !OPT_OPTIMIZE_SPEED */
     return (initCrc);
 }
-#endif /* !IMPL_CRCPARTIAL16 */
 
-#if !defined(IMPL_CRC16)
+/*----------------------------------------------------------------------------*/
 uint16_t esCrc16(
-    uint8_t             * pDataBlk,
+    uint8_t *           dataBlk,
     size_t              blkSize) {
 
-    esCrcPartial16(
-        pDataBlk,
+    uint16_t crc;
+
+    crc = esCrcPartial16(
+        dataBlk,
         blkSize,
         0U);
+
+    return (crc);
 }
-#endif /* !IMPL_CRC16 */
 
-#if !defined(IMPL_CRC32)
+/*----------------------------------------------------------------------------*/
 uint16_t esCrc32(
-    uint8_t             * pDataBlk,
+    uint8_t *           dataBlk,
     size_t              blkSize) {
-
-    HAL_DBG_CHECK(NULL != pDataBlk);                                            /* Provera par: da li je pDataBlk validan?                  */
-    HAL_DBG_CHECK((size_t)0U != blkSize);                                       /* Provera par: blok podataka ne sme da bude prazan.        */
 
     /**
      * @todo: Napisati funkciju za soft CRC-32
      */
     return (0U);
 }
-#endif /* !IMPL_CRC32 */
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-#else /* ES_ENABLE_CRC */
-extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
-#endif
 
-/** @endcond *//** @} *//*************************************************************************
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#else /* ES_ENABLE_CRC */
+extern C_UNUSED_VAR(uint8_t, emptyVariable);
+#endif /* !ES_ENABLE_CRC */
+
+/** @endcond *//** @} *//******************************************************
  * END of crc.c
- *************************************************************************************************/
+ ******************************************************************************/

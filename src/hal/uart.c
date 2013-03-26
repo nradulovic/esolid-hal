@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,86 +20,31 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
  * @brief       Implementacija UART modula
  * @addtogroup  hal_uart_impl
- ****************************************************************************************//** @{ */
+ *********************************************************************//** @{ */
 
-/*============================================================================  INCLUDE FILES  ==*/
+/*=========================================================  INCLUDE FILES  ==*/
 #include "hal_private.h"
 
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
-/*============================================================================  LOCAL DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Local debug define macro.
- *//*--------------------------------------------------------------------------------------------*/
-HAL_DBG_DEFINE_MODULE(HAL UART module);
-
-/*============================================================================  LOCAL MACRO's  ==*/
-/*=========================================================================  LOCAL DATA TYPES  ==*/
-/*================================================================  LOCAL FUNCTION PROTOTYPES  ==*/
-/*==========================================================================  LOCAL VARIABLES  ==*/
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*===============================================================  LOCAL FUNCTION DEFINITIONS  ==*/
-/*======================================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
-/*=======================================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
-/*-----------------------------------------------------------------------------------------------*/
-esDevStatus_T esUartStatus(
-    esUartDrv_T     * aUart) {
-
-    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
-
-    esDevStatus_T status;
-
-    if (NULL == aUart->drvDef) {
-        status = ES_DEV_INACTIVE;
-    } else {
-        status = ES_DEV_READY;
-    }
-
-    return (status);
-}
-
-/*-----------------------------------------------------------------------------------------------*/
-esDevStatus_T esUartRxStatus(
-    esUartDrv_T     * aUart) {
-
-    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
-
-    return (aUart->rxStatus);
-}
-
-/*-----------------------------------------------------------------------------------------------*/
-esDevStatus_T esUartTxStatus(
-    esUartDrv_T     * aUart) {
-
-    HAL_DBG_CHECK(UART_DRVID_LIST(aUart));
-
-    return (aUart->txStatus);
-}
-
-/*-----------------------------------------------------------------------------------------------*/
-void esUartInit(
-    const C_ROM esUartId_T * uartId,
-    const C_ROM esUartDef_T * uartDef,
-    esUartDrv_T     * uart) {
-
-    HAL_DBG_CHECK(UART_DRVID_LIST(uart));
-    HAL_DBG_CHECK((const C_ROM esUartDef_T *)0U != uartDef);
-    aUart->drvDef = aDefinition;
-    aUart->txStatus = ES_DEV_INACTIVE;
-    aUart->rxStatus = ES_DEV_INACTIVE;
-    lldUartDrvStart(
-        aUart);
-}
-
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+#if defined(ES_ENABLE_UART)
+/*=========================================================  LOCAL DEFINES  ==*/
+/*=========================================================  LOCAL MACRO's  ==*/
+/*======================================================  LOCAL DATA TYPES  ==*/
+/*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
+/*=======================================================  LOCAL VARIABLES  ==*/
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
+/*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
+/*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 #else /* ES_ENABLE_UART */
-extern char bogusVar;                                                           /* Neki kompajleri ne prihvataju praznu C datoteku. */
+extern C_UNUSED_VAR(uint8_t, emptyVariable);
 #endif
 
-/** @endcond *//** @} *//*************************************************************************
+/** @endcond *//** @} *//******************************************************
  * END of uart.c
- *************************************************************************************************/
+ ******************************************************************************/

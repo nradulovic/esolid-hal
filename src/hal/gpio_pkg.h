@@ -46,6 +46,7 @@ extern "C" {
  * @brief       Inicijalizacija GPIO drajver modula
  * @details     Ova funkcija se poziva automatski u toku inicijalizacije HAL
  *              paketa.
+ * @notapi
  */
 void gpioInit(
     void);
