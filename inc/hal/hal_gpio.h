@@ -51,7 +51,7 @@ enum esGpioMode {
 /**
  * @brief       Pin je izlaz
  */
-    ES_GPIO_MODE_OUT,
+    ES_GPIO_MODE_OUT
 };
 
 /**
@@ -59,8 +59,23 @@ enum esGpioMode {
  * @note        Ova podesavanja ne podrzavaju svi portovi.
  */
 enum esGpioSpeed {
+/**
+ * @brief       Minimalna brzina rada GPIO porta
+ * @details     Tacna vrednost zavisi od trenutnog PORT-a.
+ */
     ES_GPIO_SPEED_LOW,
+
+/**
+ * @brief       Srednja brzina rada.
+ * @details     Jednaka je maksimalnoj i minimalnoj brzini rada GPIO porta.
+ *              Tacna vrednost zavisi od trenutnog PORT-a.
+ */
     ES_GPIO_SPEED_MEDIUM,
+
+/**
+ * @brief       Maksimalna brzina rada
+ * @details     Tacna vrednost zavisi od trenutnog PORT-a.
+ */
     ES_GPIO_SPEED_HIGH
 };
 
@@ -68,7 +83,16 @@ enum esGpioSpeed {
  * @brief       Rezim rada izlaznog drajvera pina
  */
 enum esGpioOutType {
+/**
+ * @brief       Izlazni pin radi u push-pull rezimu
+ */
     ES_GPIO_OTYPE_PUSHPULL,
+
+/**
+ * @brief       Ukljucen je samo jedna polovina izlaznog drajvera.
+ * @details     Ukoliko hardver podrzava odabir gornje ili donje polovine onda
+ *              se selekcija moze vrsiti preko @ref esGpioInType.
+ */
     ES_GPIO_OTYPE_OPENDRAIN
 };
 
@@ -76,8 +100,19 @@ enum esGpioOutType {
  * @brief       Konfiguracija pull-up ili pull-down otpornika
  */
 enum esGpioInType {
+/**
+ * @brief       Ne koriste se pull-up/pull-down otpori
+ */
     ES_GPIO_ITYPE_PULLNONE,
+
+/**
+ * @brief       Koristi se pull-up
+ */
     ES_GPIO_ITYPE_PULLUP,
+
+/**
+ * @brief       Koristi se pull-down
+ */
     ES_GPIO_ITYPE_PULLDOWN
 };
 
@@ -101,38 +136,90 @@ extern "C" {
 typedef struct esGpioDef {
 /**
  * @brief       Rezim rada pina/pinova
- * @details     Moguce vrednosti:
- *              - ES_GPIO_MODE_IN
- *              - ES_GPIO_MODE_OUT
+ * @details     Specificira rezim rada pinova.
+ * @par         Moguce vrednosti:
+ *              - @ref ES_GPIO_MODE_IN
+ *              - @ref ES_GPIO_MODE_OUT
  */
     enum esGpioMode mode;
 
 /**
  * @brief       Brzina rada pina/pinova
- * @details     Moguce vrednosti:
- *              - ES_GPIO_SPEED_LOW
- *              - ES_GPIO_SPEED_MEDIUM
- *              - ES_GPIO_SPEED_HIGH
+ * @details     Specificira brzinu rada GPIO porta.
+ * @par         Moguce vrednosti:
+ *              - @ref ES_GPIO_SPEED_LOW
+ *              - @ref ES_GPIO_SPEED_MEDIUM
+ *              - @ref ES_GPIO_SPEED_HIGH
  */
     enum esGpioSpeed speed;
 
 /**
  * @brief       Rezim rada izlaznog drajvera
- * @details     Moguce vrednosti:
- *              - ES_GPIO_OTYPE_PUSHPULL
- *              - ES_GPIO_OTYPE_OPENDRAIN
+ * @details     Specificira izlazni rezim rada pinova.
+ * @par         Moguce vrednosti:
+ *              - @ref ES_GPIO_OTYPE_PUSHPULL
+ *              - @ref ES_GPIO_OTYPE_OPENDRAIN
  */
     enum esGpioOutType otype;
 
 /**
  * @brief       Pull-up/pull-down otpori
- * @details     Moguce vrednosti:
- *              - ES_GPIO_ITYPE_PULLNONE
- *              - ES_GPIO_ITYPE_PULLUP
- *              - ES_GPIO_ITYPE_PULLDOWN
+ * @details     Specificira da li se koriste pull-up/push-down otpori.
+ * @par         Moguce vrednosti:
+ *              - @ref ES_GPIO_ITYPE_PULLNONE
+ *              - @ref ES_GPIO_ITYPE_PULLUP
+ *              - @ref ES_GPIO_ITYPE_PULLDOWN
  */
     enum esGpioInType itype;
 } esGpioDef_T;
+
+#if defined(__DOXYGEN__)
+/**
+ * @brief       Ime Gpio porta koji se koristi
+ * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
+ */
+typedef enum esGpio {
+/**
+ * @brief       Identifikatora porta A
+ */
+    ES_GPIOA,
+
+/**
+ * @brief       Identifikatora porta B
+ */
+    ES_GPIOB,
+
+/**
+ * @brief       Identifikatora porta C
+ */
+    ES_GPIOC,
+
+/**
+ * @brief       Identifikatora porta D
+ */
+    ES_GPIOD,
+
+/**
+ * @brief       Identifikatora porta E
+ */
+    ES_GPIOE,
+
+/**
+ * @brief       Identifikatora porta F
+ */
+    ES_GPIOF,
+
+/**
+ * @brief       Identifikatora porta G
+ */
+    ES_GPIOG,
+
+/**
+ * @brief       Identifikatora porta H
+ */
+    ES_GPIOH,
+} esGpio_T;
+#endif
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -145,11 +232,18 @@ typedef struct esGpioDef {
 /**
  * @brief       Inicijalizacija GPIO drajvera
  * @param       gpioPort                GPIO port koji se inicijalizuje
- * @param       gpioDef                 Pokazivac na definicionu strukturu. Ova
- *                                      struktura se nalazi u ROM memoriji.
+ *  @arg        ES_GPIOA
+ *  @arg        ES_GPIOB
+ *  @arg        ES_GPIOC
+ *  @arg        ES_GPIOD
+ *  @arg        ES_GPIOE
+ *  @arg        ES_GPIOF
+ *  @arg        ES_GPIOG
+ *  @arg        ES_GPIOH
+ * @param       gpioDef                 Pokazivac na definicionu strukturu.
  * @param       pins                    Maska pinova koji se konfigurisu.
  * @details     Vrsi inicijalizaciju GPIO porta sa definicionom strukturom
- *              @c gpioDefinition.
+ *              @c gpioDef.
  */
 void esGpioInit(
     esGpioPort_T    gpioPort,
