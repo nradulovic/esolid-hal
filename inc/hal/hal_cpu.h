@@ -34,6 +34,32 @@
 /*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
+ * @name        Identifikacione i opisne konstante mikroprocesora
+ * @details     Konstantne niske (string) koje identifikuju mikroprocesor
+ * @{ *//*--------------------------------------------------------------------*/
+#if defined(__DOXYGEN__)
+
+/**
+ * @brief       Ime procesora
+ * @details     Konstantna niska imena procesora, na primer: "Cortex-M3"
+ */
+# define ES_HAL_CPU_NAME
+
+/**
+ * @brief       Serija procesora
+ * @details     Konstantna niska imena familije procesora, na primer: "ARMv7-M"
+ */
+# define ES_HAL_CPU_SERIES
+
+/**
+ * @brief       Proizvodzac procesora
+ * @details     Konstantna niska proizvodzaca procesora, na primer: "ARM"
+ */
+# define ES_HAL_CPU_MANUF
+#endif
+
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
  * @name        Atributi za CPU
  * @{ *//*--------------------------------------------------------------------*/
 
@@ -87,11 +113,20 @@
  * @brief       Ovi tipovi definisu tipove podataka koji su @b zavisni od
  *              koriscene arhitekture/varijante.
  * @{ *//*--------------------------------------------------------------------*/
+
 #if !defined(ES_CPU_NATIVE_BITS) || defined(__DOXYGEN__)
+/**
+ * @brief       Broj bitova u oznacenom podatku koji ima sirinu data magistrale
+ *              procesora
+ */
 # define ES_CPU_NATIVE_BITS
 #endif
 
 #if !defined(ES_CPU_UNATIVE_BITS) || defined(__DOXYGEN__)
+/**
+ * @brief       Broj bitova u neoznacenom podatku koji ima sirinu data
+ *              magistrale procesora
+ */
 # define ES_CPU_UNATIVE_BITS
 #endif
 
@@ -102,7 +137,7 @@
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
 /**
- * @brief       Zaustavi procesor
+ * @brief       Zaustavlja procesor
  * @details     Poziva se kada treba zaustaviti dalji rad procesora.
  * @note        Kada se kompajlira @c release verzija koda funkcija postavlja
  *              procesor u stanje @c sleep.
@@ -111,7 +146,7 @@ void esCpuStop(
     void);
 
 /**
- * @brief       Prebaci rezim rada u stanje uspavano
+ * @brief       Prebacuje rezim rada CPU-a u stanje uspavano
  * @details     Ovaj makroi prepacuje mikrokontroler u stanje najmanje potrosnje.
  *              Periferija koja generise dogadjaje mora da nastavi da radi. U
  *              slucaju da mikrokontroler ne podrzava rad periferije dok je CPU
@@ -124,6 +159,10 @@ void esCpuStop(
  */
 void esCpuSleep(
     void);
+
+/*------------------------------------------------------------------------*//**
+ * @name        Logicke i aritmeticke operacije
+ * @{ *//*--------------------------------------------------------------------*/
 
 /**
  * @brief       Find Last set Bit
@@ -147,6 +186,7 @@ uint_fast8_t esCpuFindLastSet(
 uint_fast8_t esCpuFindFirstSet(
     uint32_t value);
 
+/** @} *//*-------------------------------------------------------------------*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
  * END of hal_cpu.h
