@@ -23,15 +23,39 @@
  *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
- * @brief       GPIO drajver za STM32F10x seriju.
+ * @brief       Sistemski drajver za STM32F10x seriju.
  * @addtogroup  port_stm32f10x
  *********************************************************************//** @{ */
 
 /*=========================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
+#include "stm32f10x_pkg.h"
 
-#if defined(ES_HAL_ENABLE_CPU)
-#include "../src/port/family/stm32f10x/stm32f10x_pkg.h"
+/*=========================================================  LOCAL DEFINES  ==*/
+/*=========================================================  LOCAL MACRO's  ==*/
+/*======================================================  LOCAL DATA TYPES  ==*/
+/*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
+
+static void sysPerfSetHigh(
+    void);
+
+static void sysPerfSetMedium(
+    void);
+
+static void sysPerfSetDefault(
+    void);
+
+/*=======================================================  LOCAL VARIABLES  ==*/
+
+/**
+ * @brief       Trenutni sistemski profil
+ */
+static esSysPerf_T sysPerfProfile;
+
+static uint32_t cpuFreq = PORT_DEF_CPU_FREQ_;
+
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
 
 #if defined (STM32F10X_LD_VL) || (defined STM32F10X_MD_VL) || (defined STM32F10X_HD_VL)
 /* #define SYSCLK_FREQ_HSE    HSE_VALUE */
@@ -703,11 +727,47 @@ static void SetSysClockTo72(void)
 }
 #endif
 
-/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-#else /* ES_HAL_ENABLE_CPU */
-extern C_UNUSED_VAR(uint8_t, emptyVariable);
-#endif /* !ES_HAL_ENABLE_CPU */
+/*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
+/*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
+/*----------------------------------------------------------------------------*/
+void esSysPerfSet(
+    esSysPerf_T    speed) {
+
+    switch (speed) {
+        case ES_SYS_PERF_HIGH : {
+            sysPerfSetHigh();
+            break;
+        }
+
+        case ES_SYS_PERF_MEDIUM : {
+            sysPerfSetMedium();
+            break;
+        }
+
+        default : {
+            sysPerfSetDefault();
+            break;
+        }
+    }
+}
+
+/*----------------------------------------------------------------------------*/
+esSysPerf_T esSysPerfGet(
+    void) {
+
+    return (sysPerfProfile);
+}
+
+/*----------------------------------------------------------------------------*/
+void sysInit(
+    void) {
+
+    RCC->CIR = 0UL;                                                             /* Disable all interrupts                                   */
+    sysPerfSetDefault();
+}
+
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of cpu.c
+ * END of sys.c
  ******************************************************************************/

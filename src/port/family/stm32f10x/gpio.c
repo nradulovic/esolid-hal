@@ -28,7 +28,6 @@
  *********************************************************************//** @{ */
                                                                                                   
 /*=========================================================  INCLUDE FILES  ==*/
-#define GPIO_LLD_VAR
 #include "../src/hal/hal_private.h"
 
 #if defined(ES_HAL_ENABLE_GPIO)
@@ -37,12 +36,26 @@
 /*===============================================================  DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/
 
+/*------------------------------------------------------------------------*//**
+ * @name        STM32F10x pomocni makroi za formiranje GPIO tabele
+ * @{ *//*--------------------------------------------------------------------*/
 #define EXPAND_AS_GPIO(a, b, c)         {b, c},
 
+/** @} *//*-------------------------------------------------------------------*/
 /*======================================================  LOCAL DATA TYPES  ==*/
 
+/**
+ * @brief       Struktura GPIO identifikatora
+ */
 struct gpioTable {
+/**
+ * @brief       Registri hw
+ */
     GPIO_TypeDef *  reg;
+
+/**
+ * @brief       Bit za omogucavanje takta
+ */
     uint32_t        en;
 };
 
@@ -50,8 +63,11 @@ struct gpioTable {
 /*=======================================================  LOCAL VARIABLES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 
-const C_ROM struct gpioTable gpioTable [GPIO_LAST_PORT_] = {
-    GPIO_TABLE(EXPAND_AS_GPIO)
+/**
+ * @brief       Tabela svih GPIO portova
+ */
+static const C_ROM struct gpioTable gpioTable [GPIO_LAST_PORT_] = {
+    GPIO_TABLE_(EXPAND_AS_GPIO)
 };
 
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/

@@ -31,7 +31,6 @@
 #define STM32F10X_PKG_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
  * @name        STM32F10x selekcija podfamilije
@@ -39,17 +38,60 @@
  *              izvrsiti selekciju potrebne podfamilije.
  * @{ *//*--------------------------------------------------------------------*/
 
+/*
+ * Biramo podfamiliju definisanjem makroa. Medjutim, okruzenje (IDE) mozda vec
+ * definise ove makroe i onda moramo da proverimo to kako bi izbegli greske o
+ * duplim definicijama.
+ */
+#if defined(PORT_SUBFAM_STM32F10X_LD_)
+# if !defined(STM32F10X_LD)
+#  define                               STM32F10X_LD
+# endif
+#endif
+
+#if defined(PORT_SUBFAM_STM32F10X_MD_)
+# if !defined(STM32F10X_MD)
+#  define                               STM32F10X_MD
+# endif
+#endif
+
 #if defined(PORT_SUBFAM_STM32F10X_MD_VL_)
-# define                                STM32F10X_MD_VL
+# if !defined(STM32F10X_MD_VL)
+#  define                               STM32F10X_MD_VL
+# endif
 #endif
 
-#if defined(PORT_SUBFAM_STM32F10X_LD)
-# define                                STM32F10X_LD
+#if defined(PORT_SUBFAM_STM32F10X_HD_)
+# if !defined(STM32F10X_HD)
+#  define                               STM32F10X_HD
+# endif
 #endif
 
-#include "../src/port/family/stm32f10x/cmsis/stm32f10x.h"
+#if defined(PORT_SUBFAM_STM32F10X_HD_VL_)
+# if !defined(STM32F10X_HD_VL)
+#  define                               STM32F10X_HD_VL
+# endif
+#endif
+
+#if defined(PORT_SUBFAM_STM32F10X_XL_)
+# if !defined(STM32F10X_XL)
+#  define                               STM32F10X_XL
+# endif
+#endif
+
+#if defined(PORT_SUBFAM_STM32F10X_CL_)
+# if !defined(STM32F10X_CL)
+#  define                               STM32F10X_CL
+# endif
+#endif
+
+/*
+ * Ne prati se sablon datoteke, ali ovo je jedan od boljih nacina realizacije
+ */
+#include "stm32f10x.h"
 
 /** @} *//*-------------------------------------------------------------------*/
+/*===============================================================  DEFINES  ==*/
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
