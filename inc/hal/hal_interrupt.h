@@ -48,7 +48,7 @@
  *              jednaki prioritetu tekuce izvrsavanog koda.
  */
 #if defined(__DOXYGEN__)
-enum esHandlerPrio {
+enum esInterruptPrio {
 /**
  * @brief       Najnizi prioritet prekidne rutine ili koda koji se izvrsava
  */
@@ -72,61 +72,6 @@ enum esHandlerPrio {
 
 /*===============================================================  MACRO's  ==*/
 
-/*------------------------------------------------------------------------*//**
- * @name        Kontrola glavnog prekida
- * @brief       Makroi za omogucavanje/onemogucavanje svih prekida u sistemu.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Omoguci prekide
- */
-#if defined(__DOXYGEN__)
-# define ES_INT_ENABLE()
-#endif
-
-/**
- * @brief       Onemoguci prekide
- */
-#if defined(__DOXYGEN__)
-# define ES_INT_DISABLE()
-#endif
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Maskiranje prioriteta prekidnih rutina
- * @brief       Ovi makroi se koriste za manipulaciju sa globalnom maskom
- *              prioriteta prekidnih rutina.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Postavi masku prioriteta
- * @param       prio                    Nova maska prioriteta.
- *  @arg        0                       iskljucivanje maske,
- *  @arg        1 - 255                 postavljanje maske.
- * @details     Ovim makroom se postavlja granica prioriteta iznad koje mogu da
- *              se dese prekidi. Najnizi prioritet prekida je 0, a najvisi
- *              prioritet je 255. Maksimalni prioritet koji se moze podesiti
- *              ovim makroom je 255 i postavljanje maske na 255 efektivno
- *              onemogucuje sve prekide. Maska sa vrednoscu 0 je rezervisana za
- *              iskljucivanje maske. Podrazumevano, maska je 0, sto znaci da su
- *              prekidi svih prioriteta omoguceni.
- * @note        Parametar @c prio mora da bude konstanta.
- */
-#if defined(__DOXYGEN__)
-# define ES_INT_PRIO_MASK_SET(prio)
-#endif
-
-/**
- * @brief       Dobavi trenutnu masku prioriteta prekidnih rutina.
- * @return      Trenutna maska prioriteta.
- *  @retval     0                       maska je iskljucena,
- *  @retval     1 - 255                 vrednost maske.
- */
-#if defined(__DOXYGEN__)
-# define ES_INT_PRIO_MASK_GET()
-#endif
-
-/** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
  * @name        Ulazak i izlazak iz kriticnih sekcija koda
  * @brief       Kriticne sekcije koda su zasticene od prekida ciji su prioriteti
@@ -171,6 +116,59 @@ enum esHandlerPrio {
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
+
+/*------------------------------------------------------------------------*//**
+ * @name        Kontrola glavnog prekida
+ * @brief       Funkcije za omogucavanje/onemogucavanje svih prekida u sistemu.
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Omoguci prekide
+ * @details     Omoguci globalni prekid
+ */
+void esIntEnable(
+    void);
+
+/**
+ * @brief       Onemoguci prekide
+ * @details     Onemoguci globalni prekid
+ */
+void esIntDisable(
+    void);
+
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        Maskiranje prioriteta prekidnih rutina
+ * @brief       Ove funkcije se koriste za manipulaciju sa globalnom maskom
+ *              prioriteta prekidnih rutina.
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Postavlja masku prioriteta
+ * @param       prio                    Nova maska prioriteta.
+ *  @arg        0                       iskljucivanje maske,
+ *  @arg        1 - 255                 postavljanje maske.
+ * @details     Ovom funkcijom se postavlja granica prioriteta iznad koje mogu
+ *              da se dese prekidi. Najnizi prioritet prekida je 0, a najvisi
+ *              prioritet je 255. Maksimalni prioritet koji se moze podesiti
+ *              je 255 i postavljanje maske na 255 efektivno onemogucuje sve
+ *              prekide. Maska sa vrednoscu 0 je rezervisana za iskljucivanje
+ *              maske. Podrazumevano, maska je 0, sto znaci da su prekidi svih
+ *              prioriteta omoguceni.
+ */
+void esIntPrioMaskSet(
+    uint32_t        prio);
+
+/**
+ * @brief       Dobavlja trenutnu masku prioriteta prekidnih rutina.
+ * @return      Trenutna maska prioriteta.
+ *  @retval     0                       maska je iskljucena,
+ *  @retval     1 - 255                 vrednost maske.
+ */
+uint32_t esIntPrioMaskGet(
+    void);
+
+/** @} *//*-------------------------------------------------------------------*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
  * END of hal_interrupt.h
