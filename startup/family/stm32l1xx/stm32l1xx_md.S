@@ -1,13 +1,13 @@
 /**
  * @file
- * @date        20-March-2013
- * @brief       STM32F10x XL-Density Devices start-up
+ * @date        25-March-2013
+ * @brief       STM32L1xx Ultra Low Power Medium-density Devices start-up
  * @details     This module performs:
  *                  - Disables interrupts
  *                  - Fill the RAM with 0xDEAD value
  *                  - Initialize .data section
  *                  - Initialize .bss section
- *                  - Call SystemInit function
+ *                  - Call init functions
  *                  - Call static constructors
  *                  - Jump to main() function
  ******************************************************************************/
@@ -17,23 +17,23 @@
     .fpu softvfp
     .thumb
 
-.global     Default_Handler
 .global     g_pfnVectors
+.global     Default_Handler
 
 /*
  * This is the list of linker defined variables
  */
-    .word   _sram                                                               /* start address of RAM space                               */
-    .word   _eram                                                               /* end address of RAM space                                 */
-    .word   _sidata                                                             /* start address for the initialization values of the .data */
+      .word _sram                                                               /* start address of RAM space                               */
+      .word _eram                                                               /* end address of RAM space                                 */
+      .word _sidata                                                             /* start address for the initialization values of the .data */
                                                                                 /* section. defined in linker script.                       */
-    .word   _sdata                                                              /* start address for the .data section. defined in linker   */
+      .word _sdata                                                              /* start address for the .data section. defined in linker   */
                                                                                 /* script                                                   */
-    .word   _edata                                                              /* end address for the .data section. defined in linker     */
+      .word _edata                                                              /* end address for the .data section. defined in linker     */
                                                                                 /* script                                                   */
-    .word   _sbss                                                               /* start address for the .bss section. defined in linker    */
+      .word _sbss                                                               /* start address for the .bss section. defined in linker    */
                                                                                 /* script                                                   */
-    .word   _ebss                                                               /* end address for the .bss section. defined in linker      */
+      .word _ebss                                                               /* end address for the .bss section. defined in linker      */
                                                                                 /* script                                                   */
 
 /*
@@ -127,14 +127,12 @@ Infinite_Loop:
  * The minimal vector table for a Cortex M3.  Note that the proper constructs
  * must be placed on this to ensure that it ends up at physical address
  * 0x0000.0000.
- *
  */
 .section    .isr_vector,"a",%progbits
     .type   g_pfnVectors, %object
     .size   g_pfnVectors, .-g_pfnVectors
     .equ    BootRAM, 0xF108F85F
-    
-    
+
 g_pfnVectors:
     .word   _estack
     .word   Reset_Handler
@@ -154,8 +152,8 @@ g_pfnVectors:
     .word   SysTick_Handler
     .word   WWDG_IRQHandler
     .word   PVD_IRQHandler
-    .word   TAMPER_IRQHandler
-    .word   RTC_IRQHandler
+    .word   TAMPER_STAMP_IRQHandler
+    .word   RTC_WKUP_IRQHandler
     .word   FLASH_IRQHandler
     .word   RCC_IRQHandler
     .word   EXTI0_IRQHandler
@@ -170,16 +168,16 @@ g_pfnVectors:
     .word   DMA1_Channel5_IRQHandler
     .word   DMA1_Channel6_IRQHandler
     .word   DMA1_Channel7_IRQHandler
-    .word   ADC1_2_IRQHandler
-    .word   USB_HP_CAN1_TX_IRQHandler
-    .word   USB_LP_CAN1_RX0_IRQHandler
-    .word   CAN1_RX1_IRQHandler
-    .word   CAN1_SCE_IRQHandler
+    .word   ADC1_IRQHandler
+    .word   USB_HP_IRQHandler
+    .word   USB_LP_IRQHandler
+    .word   DAC_IRQHandler
+    .word   COMP_IRQHandler
     .word   EXTI9_5_IRQHandler
-    .word   TIM1_BRK_TIM9_IRQHandler
-    .word   TIM1_UP_TIM10_IRQHandler
-    .word   TIM1_TRG_COM_TIM11_IRQHandler
-    .word   TIM1_CC_IRQHandler
+    .word   LCD_IRQHandler
+    .word   TIM9_IRQHandler
+    .word   TIM10_IRQHandler
+    .word   TIM11_IRQHandler
     .word   TIM2_IRQHandler
     .word   TIM3_IRQHandler
     .word   TIM4_IRQHandler
@@ -193,87 +191,32 @@ g_pfnVectors:
     .word   USART2_IRQHandler
     .word   USART3_IRQHandler
     .word   EXTI15_10_IRQHandler
-    .word   RTCAlarm_IRQHandler
-    .word   USBWakeUp_IRQHandler
-    .word   TIM8_BRK_TIM12_IRQHandler
-    .word   TIM8_UP_TIM13_IRQHandler
-    .word   TIM8_TRG_COM_TIM14_IRQHandler
-    .word   TIM8_CC_IRQHandler
-    .word   ADC3_IRQHandler
-    .word   FSMC_IRQHandler
-    .word   SDIO_IRQHandler
-    .word   TIM5_IRQHandler
-    .word   SPI3_IRQHandler
-    .word   UART4_IRQHandler
-    .word   UART5_IRQHandler
+    .word   RTC_Alarm_IRQHandler
+    .word   USB_FS_WKUP_IRQHandler
     .word   TIM6_IRQHandler
     .word   TIM7_IRQHandler
-    .word   DMA2_Channel1_IRQHandler
-    .word   DMA2_Channel2_IRQHandler
-    .word   DMA2_Channel3_IRQHandler
-    .word   DMA2_Channel4_5_IRQHandler
     .word   0
     .word   0
     .word   0
     .word   0
     .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   0
-    .word   BootRAM                                                             /* @0x01E0. This is for boot in RAM mode for STM32F10x      */
-                                                                                /* XL-Density devices.                                      */
+    .word   BootRAM                                                             /* @0x108. This is for boot in RAM mode for STM32L15x ULtra */
+                                                                                /* Low Power Medium-density devices.                        */
 
 /*
  * Provide weak aliases for each Exception handler to the Default_Handler.
  * As they are weak aliases, any function with the same name will override
  * this definition.
  */
-    
     .weak       NMI_Handler
     .thumb_set  NMI_Handler,Default_Handler
-  
+
     .weak       HardFault_Handler
     .thumb_set  HardFault_Handler,Default_Handler
-  
+
     .weak       MemManage_Handler
     .thumb_set  MemManage_Handler,Default_Handler
-  
+
     .weak       BusFault_Handler
     .thumb_set  BusFault_Handler,Default_Handler
 
@@ -298,11 +241,11 @@ g_pfnVectors:
     .weak       PVD_IRQHandler
     .thumb_set  PVD_IRQHandler,Default_Handler
 
-    .weak       TAMPER_IRQHandler
-    .thumb_set  TAMPER_IRQHandler,Default_Handler
+    .weak       TAMPER_STAMP_IRQHandler
+    .thumb_set  TAMPER_STAMP_IRQHandler,Default_Handler
 
-    .weak       RTC_IRQHandler
-    .thumb_set  RTC_IRQHandler,Default_Handler
+    .weak       RTC_WKUP_IRQHandler
+    .thumb_set  RTC_WKUP_IRQHandler,Default_Handler
 
     .weak       FLASH_IRQHandler
     .thumb_set  FLASH_IRQHandler,Default_Handler
@@ -346,35 +289,35 @@ g_pfnVectors:
     .weak       DMA1_Channel7_IRQHandler
     .thumb_set  DMA1_Channel7_IRQHandler,Default_Handler
 
-    .weak       ADC1_2_IRQHandler
-    .thumb_set  ADC1_2_IRQHandler,Default_Handler
+    .weak       ADC1_IRQHandler
+    .thumb_set  ADC1_IRQHandler,Default_Handler
 
-    .weak       USB_HP_CAN1_TX_IRQHandler
-    .thumb_set  USB_HP_CAN1_TX_IRQHandler,Default_Handler
+    .weak       USB_HP_IRQHandler
+    .thumb_set  USB_HP_IRQHandler,Default_Handler
 
-    .weak       USB_LP_CAN1_RX0_IRQHandler
-    .thumb_set  USB_LP_CAN1_RX0_IRQHandler,Default_Handler
+    .weak       USB_LP_IRQHandler
+    .thumb_set  USB_LP_IRQHandler,Default_Handler
 
-    .weak       CAN1_RX1_IRQHandler
-    .thumb_set  CAN1_RX1_IRQHandler,Default_Handler
+    .weak       DAC_IRQHandler
+    .thumb_set  DAC_IRQHandler,Default_Handler
 
-    .weak       CAN1_SCE_IRQHandler
-    .thumb_set  CAN1_SCE_IRQHandler,Default_Handler
+    .weak       COMP_IRQHandler
+    .thumb_set  COMP_IRQHandler,Default_Handler
 
     .weak       EXTI9_5_IRQHandler
     .thumb_set  EXTI9_5_IRQHandler,Default_Handler
 
-    .weak       TIM1_BRK_TIM9_IRQHandler
-    .thumb_set  TIM1_BRK_TIM9_IRQHandler,Default_Handler
+    .weak       LCD_IRQHandler
+    .thumb_set  LCD_IRQHandler,Default_Handler
 
-    .weak       TIM1_UP_TIM10_IRQHandler
-    .thumb_set  TIM1_UP_TIM10_IRQHandler,Default_Handler
+    .weak       TIM9_IRQHandler
+    .thumb_set  TIM9_IRQHandler,Default_Handler
 
-    .weak       TIM1_TRG_COM_TIM11_IRQHandler
-    .thumb_set  TIM1_TRG_COM_TIM11_IRQHandler,Default_Handler
+    .weak       TIM10_IRQHandler
+    .thumb_set  TIM10_IRQHandler,Default_Handler
 
-    .weak       TIM1_CC_IRQHandler
-    .thumb_set  TIM1_CC_IRQHandler,Default_Handler
+    .weak       TIM11_IRQHandler
+    .thumb_set  TIM11_IRQHandler,Default_Handler
 
     .weak       TIM2_IRQHandler
     .thumb_set  TIM2_IRQHandler,Default_Handler
@@ -415,60 +358,14 @@ g_pfnVectors:
     .weak       EXTI15_10_IRQHandler
     .thumb_set  EXTI15_10_IRQHandler,Default_Handler
 
-    .weak       RTCAlarm_IRQHandler
-    .thumb_set  RTCAlarm_IRQHandler,Default_Handler
+    .weak       RTC_Alarm_IRQHandler
+    .thumb_set  RTC_Alarm_IRQHandler,Default_Handler
 
-    .weak       USBWakeUp_IRQHandler
-    .thumb_set  USBWakeUp_IRQHandler,Default_Handler
-
-    .weak       TIM8_BRK_TIM12_IRQHandler
-    .thumb_set  TIM8_BRK_TIM12_IRQHandler,Default_Handler
-
-    .weak       TIM8_UP_TIM13_IRQHandler
-    .thumb_set  TIM8_UP_TIM13_IRQHandler,Default_Handler
-
-    .weak       TIM8_TRG_COM_TIM14_IRQHandler
-    .thumb_set  TIM8_TRG_COM_TIM14_IRQHandler,Default_Handler
-
-    .weak       TIM8_CC_IRQHandler
-    .thumb_set  TIM8_CC_IRQHandler,Default_Handler
-
-    .weak       ADC3_IRQHandler
-    .thumb_set  ADC3_IRQHandler,Default_Handler
-
-    .weak       FSMC_IRQHandler
-    .thumb_set  FSMC_IRQHandler,Default_Handler
-
-    .weak       SDIO_IRQHandler
-    .thumb_set  SDIO_IRQHandler,Default_Handler
-
-    .weak       TIM5_IRQHandler
-    .thumb_set  TIM5_IRQHandler,Default_Handler
-
-    .weak       SPI3_IRQHandler
-    .thumb_set  SPI3_IRQHandler,Default_Handler
-
-    .weak       UART4_IRQHandler
-    .thumb_set  UART4_IRQHandler,Default_Handler
-
-    .weak       UART5_IRQHandler
-    .thumb_set  UART5_IRQHandler,Default_Handler
+    .weak       USB_FS_WKUP_IRQHandler
+    .thumb_set  USB_FS_WKUP_IRQHandler,Default_Handler
 
     .weak       TIM6_IRQHandler
     .thumb_set  TIM6_IRQHandler,Default_Handler
 
     .weak       TIM7_IRQHandler
     .thumb_set  TIM7_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel1_IRQHandler
-    .thumb_set  DMA2_Channel1_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel2_IRQHandler
-    .thumb_set  DMA2_Channel2_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel3_IRQHandler
-    .thumb_set  DMA2_Channel3_IRQHandler,Default_Handler
-
-    .weak       DMA2_Channel4_5_IRQHandler
-    .thumb_set  DMA2_Channel4_5_IRQHandler,Default_Handler
-

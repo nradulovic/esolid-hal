@@ -52,14 +52,14 @@ Reset_Handler:
     b       LoopFillDebug                                                       /* Fill RAM space with 0xDEAD value                         */
 
 FillDebug:
-    movw    r3, #57005
-    movt    r3, #57005
+    movw    r3, 0xDEAD
+    movt    r3, 0xDEAD
     str     r3, [r0], #4
 
 LoopFillDebug:
     cmp     r0, r1
     bne     FillDebug
-    bl      init_early__                                                        /* early hw initialization                                  */
+    bl      uInitEarly__                                                        /* early hw initialization                                  */
     movs    r1, #0
     b       LoopCopyDataInit                                                    /* Init .data section                                       */
 
@@ -86,28 +86,31 @@ LoopFillZerobss:
     ldr     r3, = _ebss
     cmp     r2, r3
     bcc     FillZerobss
-
-    bl      init_late__                                                         /* late hw initialization                                   */
     bl      __libc_init_array                                                   /* Call static constructors                                 */
+    bl      uInitLate__                                                         /* late hw initialization                                   */
     bl      halInit
     bl      kernelInit
     bl      main                                                                /* Call the application's entry point.                      */
     bx      lr
     .size   Reset_Handler, .-Reset_Handler
 
+/*
+ * Definition of empty function which is used when user does not define start-up
+ * *init functions.
+ */
 .section    .text.Empty_Func,"ax",%progbits
 Empty_Func:
     bx      lr
     .size   Empty_Func, .-Empty_Func
 
-    .weak       init_early__
-    .thumb_set  init_early__,Empty_Func
+    .weak       uInitEarly__
+    .thumb_set  uInitEarly__,Empty_Func
 
-    .weak       init_late__
-    .thumb_set  init_late__,Empty_Func
+    .weak       uInitLate__
+    .thumb_set  uInitLate__,Empty_Func
 
-    .weak       esKernelInit
-    .thumb_set  esKernelInit,Empty_Func
+    .weak       kernelInit
+    .thumb_set  KernelInit,Empty_Func
 
 /*
  * This is the code that gets called when the processor receives an unexpected
