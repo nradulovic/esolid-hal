@@ -33,8 +33,8 @@
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
 
-/* #define STM32L152RB */
-#define STM32F100RB
+#define STM32L152RB
+/* #define STM32F100RB */
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
 #define OPT_HAL_GPIO
@@ -103,43 +103,6 @@
  */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CRC
-#endif
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Podesavanja za UART modul
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_1
-#endif
-
-/**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_2
-#endif
-
-/**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_3
-#endif
-
-/**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_4
 #endif
 
 /** @} *//*-------------------------------------------------------------------*/
