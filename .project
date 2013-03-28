@@ -3,7 +3,7 @@
 	<name>esolid-haldsm</name>
 	<comment></comment>
 	<projects>
-		<project>lchw-STM32L1xx</project>
+		<project>CMSIS</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

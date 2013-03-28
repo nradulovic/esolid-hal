@@ -39,8 +39,8 @@
  *              mikrokontroleru i periferiji.
  * @{ *//*--------------------------------------------------------------------*/
 #define ES_HAL_MCU_NAME                 "STM32F100RB"
-#define ES_HAL_MCU_FLASH                (131072UL)
-#define ES_HAL_MCU_RAM                  (8192UL)
+#define ES_HAL_MCU_FLASH                131072UL
+#define ES_HAL_MCU_RAM                  8192UL
 
 /** @} *//*-------------------------------------------------------------------*/
 
@@ -60,6 +60,12 @@
  * @notapi
  */
 # define                                PORT_SUBFAM_STM32F10X_MD_VL_
+
+/**
+ * @brief       Definisanje maksimalne frekvencije taktnog signala
+ * @notapi
+ */
+#define PORT_MAX_CPU_FREQ_              24000000UL
 
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/

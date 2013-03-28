@@ -63,12 +63,6 @@
 #define PORT_SUBFAM_STM32L1XX_MD_
 
 /**
- * @brief       Definisanje podrazumevane frekvencije taktnog signala
- * @notapi
- */
-#define PORT_DEF_CPU_FREQ_              2000000UL
-
-/**
  * @brief       Definisanje maksimalne frekvencije taktnog signala
  * @notapi
  */
