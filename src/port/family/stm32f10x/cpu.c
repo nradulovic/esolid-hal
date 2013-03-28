@@ -52,10 +52,23 @@ static void sysPerfSetDefault(
  */
 static esSysPerf_T sysPerfProfile;
 
-static uint32_t cpuFreq = PORT_DEF_CPU_FREQ_;
-
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
+
+static void sysPerfSetHigh(
+    void) {
+
+}
+
+static void sysPerfSetMedium(
+    void) {
+
+}
+
+static void sysPerfSetDefault(
+    void) {
+
+}
 
 #if defined (STM32F10X_LD_VL) || (defined STM32F10X_MD_VL) || (defined STM32F10X_HD_VL)
 /* #define SYSCLK_FREQ_HSE    HSE_VALUE */
