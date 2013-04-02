@@ -31,7 +31,7 @@
 #include "../src/hal/hal_private.h"
 
 #if defined(ES_HAL_ENABLE_GPIO)
-#include "stm32f10x_pkg.h"
+#include "../src/port/family/stm32f10x/stm32f10x_pkg.h"
 
 /*===============================================================  DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/

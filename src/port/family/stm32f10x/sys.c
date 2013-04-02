@@ -58,95 +58,219 @@ static esSysPerf_T sysPerfProfile;
 static void sysPerfSetHigh(
     void) {
 
+    uint32_t startUpCntr;
+    uint32_t status;
+
+    RCC->CR |= RCC_CR_HSION;                                                    /* Enable HSE                                               */
+    startUpCntr = 0UL;
+
+    do {
+        status = RCC->CR & RCC_CR_HSIRDY;
+        startUpCntr++;
+    } while ((0UL == status) && (HSE_STARTUP_TIMEOUT != startUpCntr));
+
+    if (0UL != status) {
+
+#if (24000000UL == PORT_MAX_CPU_FREQ_)
+
+# if defined(STM32F10X_LD) || defined(STM32F10X_LD_VL) ||                       \
+    defined(STM32F10X_MD) || defined(STM32F10X_MD_VL)
+
+        if (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ES_HWREG_SET(
+                RCC->CFGR,
+                RCC_CFGR_SW,
+                RCC_CFGR_SW_HSI);
+
+            while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+                ;
+            }
+        }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_HSEON | RCC_CR_PLLON,
+            0UL);
+        FLASH->ACR &= ~FLASH_ACR_HLFCYA;
+        RCC->CFGR &= ~RCC_CFGR_PLLSRC;                                          /* PLL source = HSI/2                                       */
+        ES_HWREG_SET(
+            RCC->CFGR,
+            RCC_CFGR_PLLMULL,
+            RCC_CFGR_PLLMULL6);
+        RCC->CR |= RCC_CR_PLLON;
+
+        while (0UL == (RCC->CR & RCC_CR_PLLRDY)) {
+            ;
+        }
+        ES_HWREG_SET(
+            RCC->CFGR,
+            RCC_CFGR_SW,
+            RCC_CFGR_SW_PLL);
+
+        while (RCC_CFGR_SWS_PLL != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ;
+        }
+# elif defined(STM32F10X_HD) || defined(STM32F10X_HD_VL)
+# error "NOT IMPLEMENTED"
+# else
+# error "NOT IMPLEMENTED"
+# endif
+#else
+# error "NOT IMPLEMENTED"
+#endif
+        ES_HWREG_SET(                                                           /* HCLK = SYSCLK                                            */
+            RCC->CFGR,
+            RCC_CFGR_HPRE,
+            RCC_CFGR_HPRE_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK2 = SYSCLK                                           */
+            RCC->CFGR,
+            RCC_CFGR_PPRE1,
+            RCC_CFGR_PPRE1_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK1 = HCLK                                             */
+            RCC->CFGR,
+            RCC_CFGR_PPRE2,
+            RCC_CFGR_PPRE2_DIV1);
+    } else {
+        /* Greska! HSI nece da se upali. */
+    }
+
+
+  /* #define STM32F10X_HD */     /*!< STM32F10X_HD: STM32 High density devices */
+  /* #define STM32F10X_HD_VL */  /*!< STM32F10X_HD_VL: STM32 High density value line devices */
+  /* #define STM32F10X_XL */     /*!< STM32F10X_XL: STM32 XL-density devices */
+  /* #define STM32F10X_CL)
+/*#ifdef STM32F10X_CL*/
 }
 
 static void sysPerfSetMedium(
     void) {
 
+    uint32_t startUpCntr;
+    uint32_t status;
+
+    RCC->CR |= RCC_CR_HSION;                                                    /* Enable HSE                                               */
+    startUpCntr = 0UL;
+
+    do {
+        status = RCC->CR & RCC_CR_HSIRDY;
+        startUpCntr++;
+    } while ((0UL == status) && (HSE_STARTUP_TIMEOUT != startUpCntr));
+
+    if (0UL != status) {
+
+#if defined(STM32F10X_LD) || defined(STM32F10X_LD_VL) ||                        \
+    defined(STM32F10X_MD) || defined(STM32F10X_MD_VL)
+
+        if (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ES_HWREG_SET(
+                RCC->CFGR,
+                RCC_CFGR_SW,
+                RCC_CFGR_SW_HSI);
+
+            while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+                ;
+            }
+        }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_HSEON | RCC_CR_PLLON,
+            0UL);
+        FLASH->ACR &= ~FLASH_ACR_HLFCYA;
+        RCC->CFGR &= ~RCC_CFGR_PLLSRC;                                          /* PLL source = HSI/2                                       */
+        ES_HWREG_SET(
+            RCC->CFGR,
+            RCC_CFGR_PLLMULL,
+            RCC_CFGR_PLLMULL4);
+        RCC->CR |= RCC_CR_PLLON;
+
+        while (0UL == (RCC->CR & RCC_CR_PLLRDY)) {
+            ;
+        }
+        ES_HWREG_SET(
+            RCC->CFGR,
+            RCC_CFGR_SW,
+            RCC_CFGR_SW_PLL);
+
+        while (RCC_CFGR_SWS_PLL != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ;
+        }
+
+#elif defined(STM32F10X_HD) || defined(STM32F10X_HD_VL)
+#error "NOT IMPLEMENTED"
+#else
+#error "NOT IMPLEMENTED"
+#endif
+        ES_HWREG_SET(                                                           /* HCLK = SYSCLK                                            */
+            RCC->CFGR,
+            RCC_CFGR_HPRE,
+            RCC_CFGR_HPRE_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK2 = SYSCLK                                           */
+            RCC->CFGR,
+            RCC_CFGR_PPRE1,
+            RCC_CFGR_PPRE1_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK1 = HCLK                                             */
+            RCC->CFGR,
+            RCC_CFGR_PPRE2,
+            RCC_CFGR_PPRE2_DIV1);
+    } else {
+        /* Greska! HSI nece da se upali. */
+    }
 }
 
 static void sysPerfSetDefault(
     void) {
 
-}
+    uint32_t startUpCntr;
+    uint32_t status;
 
-#if defined (STM32F10X_LD_VL) || (defined STM32F10X_MD_VL) || (defined STM32F10X_HD_VL)
-/* #define SYSCLK_FREQ_HSE    HSE_VALUE */
- #define SYSCLK_FREQ_24MHz  24000000
+    RCC->CR |= RCC_CR_HSION;                                                    /* Enable HSE                                               */
+    startUpCntr = 0UL;
+
+    do {
+        status = RCC->CR & RCC_CR_HSIRDY;
+        startUpCntr++;
+    } while ((0UL == status) && (HSE_STARTUP_TIMEOUT != startUpCntr));
+
+    if (0UL != status) {
+
+#if defined(STM32F10X_LD) || defined(STM32F10X_LD_VL) ||                        \
+    defined(STM32F10X_MD) || defined(STM32F10X_MD_VL)
+
+        if (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ES_HWREG_SET(
+                RCC->CFGR,
+                RCC_CFGR_SW,
+                RCC_CFGR_SW_HSI);
+
+            while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+                ;
+            }
+        }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_HSEON | RCC_CR_PLLON,
+            0UL);
+        FLASH->ACR &= ~FLASH_ACR_HLFCYA;
+
+#elif defined(STM32F10X_HD) || defined(STM32F10X_HD_VL)
+#error "NOT IMPLEMENTED"
 #else
-/* #define SYSCLK_FREQ_HSE    HSE_VALUE */
-/* #define SYSCLK_FREQ_24MHz  24000000 */ 
-/* #define SYSCLK_FREQ_36MHz  36000000 */
-/* #define SYSCLK_FREQ_48MHz  48000000 */
-/* #define SYSCLK_FREQ_56MHz  56000000 */
-#define SYSCLK_FREQ_72MHz  72000000
+#error "NOT IMPLEMENTED"
 #endif
-
-__I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-
-#ifdef SYSCLK_FREQ_HSE
-  static void SetSysClockToHSE(void);
-#elif defined SYSCLK_FREQ_24MHz
-  static void SetSysClockTo24(void);
-#elif defined SYSCLK_FREQ_36MHz
-  static void SetSysClockTo36(void);
-#elif defined SYSCLK_FREQ_48MHz
-  static void SetSysClockTo48(void);
-#elif defined SYSCLK_FREQ_56MHz
-  static void SetSysClockTo56(void);  
-#elif defined SYSCLK_FREQ_72MHz
-  static void SetSysClockTo72(void);
-#endif
-
-#ifdef DATA_IN_ExtSRAM
-  static void SystemInit_ExtMemCtl(void); 
-#endif /* DATA_IN_ExtSRAM */
-
-/**
-  * @brief  Setup the microcontroller system
-  *         Initialize the Embedded Flash Interface, the PLL.
-  */
-void SystemInit (void)
-{
-  /* Reset the RCC clock configuration to the default reset state(for debug purpose) */
-  /* Set HSION bit */
-  RCC->CR |= (uint32_t)0x00000001;
-
-  /* Reset SW, HPRE, PPRE1, PPRE2, ADCPRE and MCO bits */
-#ifndef STM32F10X_CL
-  RCC->CFGR &= (uint32_t)0xF8FF0000;
-#else
-  RCC->CFGR &= (uint32_t)0xF0FF0000;
-#endif /* STM32F10X_CL */   
-  
-  /* Reset HSEON, CSSON and PLLON bits */
-  RCC->CR &= (uint32_t)0xFEF6FFFF;
-
-  /* Reset HSEBYP bit */
-  RCC->CR &= (uint32_t)0xFFFBFFFF;
-
-  /* Reset PLLSRC, PLLXTPRE, PLLMUL and USBPRE/OTGFSPRE bits */
-  RCC->CFGR &= (uint32_t)0xFF80FFFF;
-
-#ifdef STM32F10X_CL
-  /* Reset PLL2ON and PLL3ON bits */
-  RCC->CR &= (uint32_t)0xEBFFFFFF;
-
-  /* Disable all interrupts and clear pending bits  */
-  RCC->CIR = 0x00FF0000;
-
-  /* Reset CFGR2 register */
-  RCC->CFGR2 = 0x00000000;
-#elif defined (STM32F10X_LD_VL) || defined (STM32F10X_MD_VL) || (defined STM32F10X_HD_VL)
-  /* Disable all interrupts and clear pending bits  */
-  RCC->CIR = 0x009F0000;
-
-  /* Reset CFGR2 register */
-  RCC->CFGR2 = 0x00000000;      
-#else
-  /* Disable all interrupts and clear pending bits  */
-  RCC->CIR = 0x009F0000;
-#endif /* STM32F10X_CL */
+        ES_HWREG_SET(                                                           /* HCLK = SYSCLK                                            */
+            RCC->CFGR,
+            RCC_CFGR_HPRE,
+            RCC_CFGR_HPRE_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK2 = SYSCLK                                           */
+            RCC->CFGR,
+            RCC_CFGR_PPRE1,
+            RCC_CFGR_PPRE1_DIV1);
+        ES_HWREG_SET(                                                           /* PCLK1 = HCLK                                             */
+            RCC->CFGR,
+            RCC_CFGR_PPRE2,
+            RCC_CFGR_PPRE2_DIV1);
+    } else {
+        /* Greska! HSI nece da se upali. */
+    }
 }
 
 #ifdef SYSCLK_FREQ_HSE
@@ -755,6 +879,11 @@ void esSysPerfSet(
 
         case ES_SYS_PERF_MEDIUM : {
             sysPerfSetMedium();
+            break;
+        }
+
+        case ES_SYS_PERF_LOW : {
+            sysPerfSetDefault();
             break;
         }
 
