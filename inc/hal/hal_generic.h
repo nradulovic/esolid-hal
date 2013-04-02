@@ -192,15 +192,17 @@ typedef enum esDevStatus {
  */
 typedef enum esCpuPerf {
 /**
- * @brief       Najniza brzina rada procesora
- * @details     HAL ce postaviti najnizu mogucu brzinu upotrebom internih
- *              oscilatora
+ * @brief       Podrazumevana brzina rada
  */
     ES_SYS_PERF_DEFAULT,
 
 /**
- * @brief       Podrazumevana brzina rada procesora
- * @details     OVa brzina jednaka je fabrickim podesavanjima procesora
+ * @brief       Najniza brzina rada procesora
+ */
+    ES_SYS_PERF_LOW,
+
+/**
+ * @brief       Srednja brzina rada procesora
  */
     ES_SYS_PERF_MEDIUM,
 
