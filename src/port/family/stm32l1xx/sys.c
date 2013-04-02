@@ -80,11 +80,31 @@ static void sysPerfSetHigh(
     } while ((0UL == status) && (HSI_STARTUP_TIMEOUT != startUpCntr));          /* Wait until HSI is ready                                  */
 
     if (0UL != status) {
+        RCC->APB1ENR |= RCC_APB1ENR_PWREN;                                      /* Enable the PWR interface clock                           */
+        ES_HWREG_SET(                                                           /* Select the Voltage Range 1 (1.8V)                        */
+            PWR->CR,
+            PWR_CR_VOS,
+            PWR_CR_VOS_0);
 
-/*
- * Postavljanje takt oscilatora na HSI: radjeno po RM0038 (doc id 15965, rev 4),
- * Increasing the CPU frequency (in the same voltage range)
- */
+        while (0UL != (PWR->CSR & PWR_CSR_VOSF)) {                              /* Wait Until the Voltage Regulator is ready                */
+            ;
+        }
+        RCC->APB1ENR &= ~RCC_APB1ENR_PWREN;                                     /* Disable the PWR interface clock                          */
+
+        if (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ES_HWREG_SET(
+                RCC->CFGR,
+                RCC_CFGR_SW,
+                RCC_CFGR_SW_HSI);
+
+            while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+                ;
+            }
+        }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_PLLON | RCC_CR_MSION | RCC_CR_HSEON,
+            0UL);
         FLASH->ACR |= FLASH_ACR_ACC64;                                          /* Enable 64-bit access                                     */
 
         if (0UL == (FLASH->ACR & FLASH_ACR_ACC64)) {
@@ -101,16 +121,6 @@ static void sysPerfSetHigh(
  * Podesavanja regulatora napajanja: radjeno po RM0038 (doc id 15965, rev 4),
  * Table 8. Performance versus Vcore range, red: High
  */
-        RCC->APB1ENR |= RCC_APB1ENR_PWREN;                                      /* Enable the PWR interface clock                           */
-        ES_HWREG_SET(                                                           /* Select the Voltage Range 1 (1.8V)                        */
-            PWR->CR,
-            PWR_CR_VOS,
-            PWR_CR_VOS_0);
-
-        while (0UL != (PWR->CSR & PWR_CSR_VOSF)) {                              /* Wait Until the Voltage Regulator is ready                */
-            ;
-        }
-        RCC->APB1ENR &= ~RCC_APB1ENR_PWREN;                                     /* Disable the PWR interface clock                          */
         ES_HWREG_SET(                                                           /* PLL configuration                                        */
             RCC->CFGR,
             RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL | RCC_CFGR_PLLDIV,
@@ -140,11 +150,9 @@ static void sysPerfSetHigh(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        RCC->CR &= ~RCC_CR_MSION;                                               /* Switch off MSI clock generator                           */
-        RCC->CR &= ~RCC_CR_HSEON;
         sysPerfProfile = ES_SYS_PERF_HIGH;
     } else {
-        /* Greska! Nije hteo HSI da se upali. */
+        /* Greska! Nece HSI da se ukljuci */
     }
 }
 
@@ -173,7 +181,31 @@ static void sysPerfSetMedium(
     } while ((0UL == status) && (HSI_STARTUP_TIMEOUT != startUpCntr));          /* Wait until HSI is ready                                  */
 
     if (0UL != status) {
+        RCC->APB1ENR |= RCC_APB1ENR_PWREN;                                      /* Enable the PWR interface clock                           */
+        ES_HWREG_SET(                                                           /* Select the Voltage Range 1 (1.8V)                        */
+            PWR->CR,
+            PWR_CR_VOS,
+            PWR_CR_VOS_0);
 
+        while (0UL != (PWR->CSR & PWR_CSR_VOSF)) {                              /* Wait Until the Voltage Regulator is ready                */
+            ;
+        }
+        RCC->APB1ENR &= ~RCC_APB1ENR_PWREN;                                     /* Disable the PWR interface clock                          */
+
+        if (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+            ES_HWREG_SET(
+                RCC->CFGR,
+                RCC_CFGR_SW,
+                RCC_CFGR_SW_HSI);
+
+            while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {
+                ;
+            }
+        }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_PLLON | RCC_CR_MSION | RCC_CR_HSEON,
+            0UL);
 /*
  * Postavljanje takt oscilatora na HSI: radjeno po RM0038 (doc id 15965, rev 4),
  * Increasing the CPU frequency (in the same voltage range)
@@ -189,29 +221,6 @@ static void sysPerfSetMedium(
             /* Greska! Nece 1WS */
         }
         FLASH->ACR |= FLASH_ACR_PRFTEN;                                         /* Enable Prefetch Buffer                                   */
-
-/*
- * Podesavanja regulatora napajanja: radjeno po RM0038 (doc id 15965, rev 4),
- * Table 8. Performance versus Vcore range, red: High
- */
-        RCC->APB1ENR |= RCC_APB1ENR_PWREN;                                      /* Enable the PWR APB1 Clock                                */
-        ES_HWREG_SET(                                                           /* Select the Voltage Range 1 (1.8V)                        */
-            PWR->CR,
-            PWR_CR_VOS,
-            PWR_CR_VOS_0);
-
-        while (0UL != (PWR->CSR & PWR_CSR_VOSF)) {                              /* Wait Until the Voltage Regulator is ready                */
-            ;
-        }
-        RCC->APB1ENR &= ~RCC_APB1ENR_PWREN;                                     /* Disable the PWR interface clock                          */
-        ES_HWREG_SET(                                                           /* Select HSI as system clock source                        */
-            RCC->CFGR,
-            RCC_CFGR_SW,
-            RCC_CFGR_SW_HSI);
-
-        while (RCC_CFGR_SWS_HSI != (RCC->CFGR & RCC_CFGR_SWS)) {                /* Wait till HSI is used as system clock source             */
-            ;
-        }
         RCC->APB1ENR |= RCC_APB1ENR_PWREN;                                      /* Enable the PWR APB1 Clock                                */
         ES_HWREG_SET(                                                           /* Select the Voltage Range 2 (1.5V)                        */
             PWR->CR,
@@ -234,12 +243,9 @@ static void sysPerfSetMedium(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        RCC->CR &= ~RCC_CR_PLLON;                                               /* Switch off PLL                                           */
-        RCC->CR &= ~RCC_CR_MSION;                                               /* Switch off HSI clock generator                           */
-        RCC->CR &= ~RCC_CR_HSEON;
         sysPerfProfile = ES_SYS_PERF_MEDIUM;
     } else {
-        /* Greska! Nece MSI da se ukljuci */
+        /* Greska! Nece HSI da se ukljuci */
     }
 }
 
@@ -268,6 +274,10 @@ static void sysPerfSetDefault(
     } while((0UL == status) && (HSI_STARTUP_TIMEOUT != startUpCntr));
 
     if (0UL != status) {
+/*
+ * Ne treba da se podigne napon i postavi HSI sa obzirom da se MSI moze
+ * ukljuciti bez obzira na prethodno koriscen CLK i napon napajanja.
+ */
         ES_HWREG_SET(                                                           /* Set MSI clock range to 2MHz                              */
             RCC->ICSCR,
             RCC_ICSCR_MSIRANGE,
@@ -280,6 +290,10 @@ static void sysPerfSetDefault(
         while (RCC_CFGR_SWS_MSI != (RCC->CFGR & RCC_CFGR_SWS)) {                /* Wait till MSI is used as system clock source             */
             ;
         }
+        ES_HWREG_SET(
+            RCC->CR,
+            RCC_CR_PLLON | RCC_CR_HSION | RCC_CR_HSEON,
+            0UL);
         FLASH->ACR &= ~FLASH_ACR_PRFTEN;                                        /* Disable Prefetch Buffer                                  */
         FLASH->ACR &= ~FLASH_ACR_LATENCY;                                       /* Flash 0 wait state                                       */
         FLASH->ACR &= ~FLASH_ACR_ACC64;                                         /* Disable 64-bit access                                    */
@@ -302,9 +316,6 @@ static void sysPerfSetDefault(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        RCC->CR &= ~RCC_CR_PLLON;                                               /* Switch off PLL                                           */
-        RCC->CR &= ~RCC_CR_HSION;                                               /* Switch off HSI clock generator                           */
-        RCC->CR &= ~RCC_CR_HSEON;
         sysPerfProfile = ES_SYS_PERF_DEFAULT;
     } else {
         /* Greska! Nece MSI da se ukljuci */
@@ -399,7 +410,7 @@ uint32_t esSysCoreClockGet(
         case RCC_CFGR_SWS_PLL : {
 
             if (RCC_CFGR_PLLSRC_HSI == (RCC->CFGR & RCC_CFGR_PLLSRC)) {
-                const C_ROM uint32_t mulTable [9] = {
+                static const C_ROM uint32_t mulTable [9] = {
                     3UL,
                     4UL,
                     6UL,
