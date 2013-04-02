@@ -33,8 +33,8 @@
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
 
-#if defined(OPT_HAL_GPIO)
-# define ES_HAL_ENABLE_GPIO
+#if defined(OPT_HAL_CPU)
+# define ES_HAL_ENABLE_CPU
 #endif
 
 #if defined(OPT_HAL_INTERRUPT)
@@ -91,14 +91,6 @@
 
 /** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
-
-#if defined(ES_HAL_ENABLE_CPU)
-typedef enum esCpuSpeed {
-    ES_SYS_PERF_DEFAULT,
-    ES_SYS_PERF_MEDIUM,
-    ES_SYS_PERF_HIGH
-} esSysPerf_T;
-#endif
 
 #if defined(ES_HAL_ENABLE_INTERRUPT)
 enum esInterruptPrio {
