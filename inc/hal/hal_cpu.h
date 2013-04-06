@@ -137,6 +137,22 @@
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
 /**
+ * @brief       Dobavlja trenutnu brzinu rada mikroprocesora
+ * @details     Funkcija smatra da je vrednost frekvencije eksternih oscilatora
+ *              tacno 1MHz. Tako da je korisnik duzan da izvrsi potrebno
+ *              skaliranje frekvencije na pravu vrednost. Recimo da funkcija
+ *              vrati vrednost 2.000.000 Hz, a korisnik je prikljucio kvarz za
+ *              8MHz. Faktor skaliranja je 8MHz/1MHz = 8 sto znaci da izlazna
+ *              vrednost treba da se pomnozi sa 8 i dobijamo da mikroprocesor
+ *              radi na 16.000.000 Hz, odnosno, 16MHz.
+ * @return      Vrednost taktne frekvencije mikroprocesora u Hz kada se koristi
+ *              interni oscilator, a kada se koristi eksterni oscilator vraca
+ *              vrednost Hz po 1MHz.
+ */
+uint32_t esCpuSpeedGet(
+    void);
+
+/**
  * @brief       Zaustavlja procesor
  * @details     Poziva se kada treba zaustaviti dalji rad procesora.
  * @note        Kada se kompajlira @c release verzija koda funkcija postavlja

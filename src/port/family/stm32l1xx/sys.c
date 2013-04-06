@@ -36,13 +36,13 @@
 /*======================================================  LOCAL DATA TYPES  ==*/
 /*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
 
-static void sysPerfSetHigh(
+static void sysSpeedSetHigh(
     void);
 
-static void sysPerfSetMedium(
+static void sysSpeedSetMedium(
     void);
 
-static void sysPerfSetDefault(
+static void sysSpeedSetLow(
     void);
 
 /*=======================================================  LOCAL VARIABLES  ==*/
@@ -50,7 +50,7 @@ static void sysPerfSetDefault(
 /**
  * @brief       Trenutni sistemski profil
  */
-static esSysPerf_T sysPerfProfile;
+static esSysPerf_T gSysSpeed;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
@@ -65,7 +65,7 @@ static esSysPerf_T sysPerfProfile;
  *              - ukljucuje PLL
  *              - iskljucuje MSI
  */
-static void sysPerfSetHigh(
+static void sysSpeedSetHigh(
     void) {
 
     uint16_t startUpCntr;
@@ -150,7 +150,7 @@ static void sysPerfSetHigh(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        sysPerfProfile = ES_SYS_PERF_HIGH;
+        gSysSpeed = ES_SYS_PERF_HIGH;
     } else {
         /* Greska! Nece HSI da se ukljuci */
     }
@@ -166,7 +166,7 @@ static void sysPerfSetHigh(
  *              - iskljucuje PLL
  *              - iskljucuje MSI
  */
-static void sysPerfSetMedium(
+static void sysSpeedSetMedium(
     void) {
 
     uint32_t startUpCntr;
@@ -243,7 +243,7 @@ static void sysPerfSetMedium(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        sysPerfProfile = ES_SYS_PERF_MEDIUM;
+        gSysSpeed = ES_SYS_PERF_MEDIUM;
     } else {
         /* Greska! Nece HSI da se ukljuci */
     }
@@ -259,7 +259,7 @@ static void sysPerfSetMedium(
  *              - iskljucuje PLL
  *              - iskljucuje HSI
  */
-static void sysPerfSetDefault(
+static void sysSpeedSetLow(
     void) {
 
     uint32_t startUpCntr;
@@ -316,7 +316,7 @@ static void sysPerfSetDefault(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        sysPerfProfile = ES_SYS_PERF_DEFAULT;
+        gSysSpeed = ES_SYS_PERF_DEFAULT;
     } else {
         /* Greska! Nece MSI da se ukljuci */
     }
@@ -326,32 +326,32 @@ static void sysPerfSetDefault(
 /*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
 /*----------------------------------------------------------------------------*/
-void esSysPerfSet(
+void esSysSpeedSet(
     esSysPerf_T    speed) {
 
     switch (speed) {
         case ES_SYS_PERF_HIGH : {
-            sysPerfSetHigh();
+            sysSpeedSetHigh();
             break;
         }
 
         case ES_SYS_PERF_MEDIUM : {
-            sysPerfSetMedium();
+            sysSpeedSetMedium();
             break;
         }
 
         default : {
-            sysPerfSetDefault();
+            sysSpeedSetLow();
             break;
         }
     }
 }
 
 /*----------------------------------------------------------------------------*/
-esSysPerf_T esSysPerfGet(
+esSysPerf_T esSysSpeedGet(
     void) {
 
-    return (sysPerfProfile);
+    return (gSysSpeed);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -458,7 +458,7 @@ void sysInit(
     void) {
 
     RCC->CIR = 0UL;                                                             /* Disable all interrupts                                   */
-    sysPerfSetDefault();
+    sysSpeedSetLow();
 }
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/

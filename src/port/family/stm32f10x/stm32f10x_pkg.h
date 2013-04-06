@@ -23,7 +23,7 @@
  *//***********************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Selekcija podfamilije
+ * @brief       Selekcija STM32F10x podfamilije
  * @addtogroup  port_stm32f10x
  *********************************************************************//** @{ */
 

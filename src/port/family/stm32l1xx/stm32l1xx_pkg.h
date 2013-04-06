@@ -23,8 +23,8 @@
  *//***********************************************************************//**
  * @file
  * @author  	Nenad Radulovic
- * @brief       Selekcija podfamilije
- * @addtogroup  port_stm32f10x
+ * @brief       Selekcija STM32L1xx podfamilije
+ * @addtogroup  port_stm32l1xx
  *********************************************************************//** @{ */
 
 #ifndef STM32F10X_PKG_H_
