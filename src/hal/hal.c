@@ -34,11 +34,25 @@
 /*=========================================================  LOCAL MACRO's  ==*/
 /*======================================================  LOCAL DATA TYPES  ==*/
 /*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
+
+#if (OPT_HAL_STARTUP != 1U)
+C_WEAK_FUNC void kernelInit(
+    void);
+#endif
+
 /*=======================================================  LOCAL VARIABLES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
+
+#if (OPT_HAL_STARTUP != 1U)
+C_WEAK_FUNC void kernelInit(
+    void) {
+
+    return;
+}
+#endif
+
 /*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
-/*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
 /*----------------------------------------------------------------------------*/
 void halInit(
@@ -62,6 +76,16 @@ void halInit(
     lldCrcDrvInit();
 #endif
 }
+
+/*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
+
+/*----------------------------------------------------------------------------*/
+#if (OPT_HAL_STARTUP != 1U)
+void esSysInit (void) {
+    halInit();
+    kernelInit();
+}
+#endif
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************

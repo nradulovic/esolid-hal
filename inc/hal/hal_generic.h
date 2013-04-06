@@ -190,50 +190,56 @@ typedef enum esDevStatus {
 /**
  * @brief       Moguci nivoi perfomansi procesora
  */
-typedef enum esCpuPerf {
+typedef enum esSysSpeed {
 /**
- * @brief       Podrazumevana brzina rada
+ * @brief       Najniza brzina rada mikrokontrolera
  */
-    ES_SYS_PERF_DEFAULT,
+    ES_SYS_SPEED_LOW,
 
 /**
- * @brief       Najniza brzina rada procesora
+ * @brief       Srednja brzina rada mikrokontrolera
  */
-    ES_SYS_PERF_LOW,
+    ES_SYS_SPEED_MEDIUM,
 
 /**
- * @brief       Srednja brzina rada procesora
+ * @brief       Najveca brzina rada mikrokontrolera
  */
-    ES_SYS_PERF_MEDIUM,
-
-/**
- * @brief       Najveca brzina rada procesora
- */
-    ES_SYS_PERF_HIGH
-} esSysPerf_T;
+    ES_SYS_SPEED_HIGH
+} esSysSpeed_T;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
+#if (OPT_HAL_STARTUP != 1U)
+/**
+ * @brief       Vrsi inicijalizaciju eSolid sistema
+ * @details     Poziva se samo kada se ne koristi podrazumevani HAL start-up kod.
+ *              U tom slučaju, korisnik mora da explicitno pozove ovu funkciju
+ *              pre pozivanja bilo koje funkcije iz eSolid sistema.
+ */
+void esSysInit(
+    void);
+#endif
+
 /**
  * @brief       Postavlja zeljeni nivo perfomansi mikrokontrolera
  * @param       speed                   Nivo brzine rada procesora
- *  @arg        ES_SYS_PERF_DEFAULT
- *  @arg        ES_SYS_PERF_MEDIUM
- *  @arg        ES_SYS_PERF_HIGH
+ *  @arg        @ref ES_SYS_SPEED_LOW
+ *  @arg        @ref ES_SYS_SPEED_MEDIUM
+ *  @arg        @ref ES_SYS_SPEED_HIGH
  */
-void esSysPerfSet(
-    esSysPerf_T    speed);
+void esSysSpeedSet(
+    esSysSpeed_T    speed);
 
 /**
  * @brief       Vraca u kojem nivou perfomansi se nalazi mikrokontroler
  * @return      Nivo brzine u kojem se nalazi procesor, magistrale i brzina
  *              periferije
  *  @retval     ES_SYS_PERF_DEFAULT
- *  @retval     ES_SYS_PERF_MEDIUM
- *  @retval     ES_SYS_PERF_HIGH
+ *  @retval     ES_SYS_SPEED_MEDIUM
+ *  @retval     ES_SYS_SPEED_HIGH
  */
-esSysPerf_T esSysPerfGet(
+esSysSpeed_T esSysSpeedGet(
     void);
 
 /**
