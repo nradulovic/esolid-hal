@@ -34,24 +34,9 @@
 /*=========================================================  LOCAL MACRO's  ==*/
 /*======================================================  LOCAL DATA TYPES  ==*/
 /*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
-
-#if (OPT_HAL_STARTUP != 1U)
-C_WEAK_FUNC void kernelInit(
-    void);
-#endif
-
 /*=======================================================  LOCAL VARIABLES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
-
-#if (OPT_HAL_STARTUP != 1U)
-C_WEAK_FUNC void kernelInit(
-    void) {
-
-    return;
-}
-#endif
-
 /*===================================  GLOBAL PRIVATE FUNCTION DEFINITIONS  ==*/
 
 /*----------------------------------------------------------------------------*/
@@ -79,11 +64,11 @@ void halInit(
 
 /*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
-/*----------------------------------------------------------------------------*/
-#if (OPT_HAL_STARTUP != 1U)
-void esSysInit (void) {
+#if !defined(ES_HAL_ENABLE_STARTUP)
+void esHalInit(
+    void) {
+
     halInit();
-    kernelInit();
 }
 #endif
 

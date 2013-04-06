@@ -40,6 +40,11 @@
  * @{ *//*--------------------------------------------------------------------*/
 
 /**
+ * @brief       HAL podrzava start-up kod i linker skriptu
+ */
+# define ES_HAL_FEATURE_STARTUP
+
+/**
  * @brief       HAL podrzava CPU
  */
 # define ES_HAL_FEATURE_CPU
@@ -61,6 +66,13 @@
  *              moduli i da su oni aktivni. Ukoliko je makro definisan onda
  *              je modul i omogucen.
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       HAL podrzava start-up kod i linker skriptu i omoguceno je
+ *              njegovo koriscenje
+ * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_STARTUP
+ */
+# define ES_HAL_ENABLE_STARTUP
 
 /**
  * @brief       HAL podrzava CPU i omoguceno je njegovo koriscenje
@@ -209,17 +221,6 @@ typedef enum esSysSpeed {
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
-
-#if (OPT_HAL_STARTUP != 1U)
-/**
- * @brief       Vrsi inicijalizaciju eSolid sistema
- * @details     Poziva se samo kada se ne koristi podrazumevani HAL start-up kod.
- *              U tom slučaju, korisnik mora da explicitno pozove ovu funkciju
- *              pre pozivanja bilo koje funkcije iz eSolid sistema.
- */
-void esSysInit(
-    void);
-#endif
 
 /**
  * @brief       Postavlja zeljeni nivo perfomansi mikrokontrolera

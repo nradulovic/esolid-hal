@@ -33,6 +33,10 @@
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
 
+#if defined(OPT_HAL_STARTUP)
+# define ES_HAL_ENABLE_STARTUP
+#endif
+
 #if defined(OPT_HAL_CPU)
 # define ES_HAL_ENABLE_CPU
 #endif
@@ -65,6 +69,11 @@
 /*------------------------------------------------------------------------*//**
  * @name        STM32F10x konstante mogucnosti
  * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Port podrzava start-up kod i linker skriptu
+ */
+#define ES_HAL_FEATURE_STARTUP
 
 /**
  * @brief       Port podrzava GPIO

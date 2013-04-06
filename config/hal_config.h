@@ -46,6 +46,22 @@
  * @{ *//*--------------------------------------------------------------------*/
 
 /**
+ * @brief       Da li HAL treba da ponudi STARTUP kod
+ * @details     HAL nudi mogućnost da ponudi potpuno okruženje za rad, koje se
+ *              sastoji od start-up koda i linker skripte. Ukoliko korisnik želi
+ *              da koristi eSolid softver u okruženju koje nema navedene
+ *              elemente onda definisanjem ovog makroa HAL će postaviti svoj
+ *              start-up kod.
+ *
+ *              Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ */
+#if defined(__DOXYGEN__)
+# define OPT_HAL_STARTUP
+#endif
+
+/**
  * @brief       Omogucivanje CPU modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
@@ -127,21 +143,6 @@
  */
 #if !defined(OPT_HAL_SYS_SPEED)
 # define OPT_HAL_SYS_SPEED              ES_SYS_SPEED_LOW
-#endif
-
-/**
- * @brief       Da li HAL treba da ponudi STARTUP kod
- * @details     HAL nudi mogućnost da ponudi potpuno okruženje za rad, koje se
- *              sastoji od start-up koda i linker skripte. Ukoliko korisnik želi
- *              da koristi eSolid softver u okruženju koje nema navedene
- *              elemente onda definisanjem ovog makroa HAL će postaviti svoj
- *              start-up kod.
- *              0 - start-up kod je isključen
- *              1 - start-up kod je uključen
- *              Podrazumevano podešavanje 1UL - uključeno
- */
-#if !defined(OPT_HAL_STARTUP)
-# define OPT_HAL_STARTUP                1UL
 #endif
 
 /** @} *//*-------------------------------------------------------------------*/
