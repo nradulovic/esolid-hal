@@ -22,7 +22,7 @@
  * e-mail  :    blueskyniss@gmail.com
  *//***********************************************************************//**
  * @file
- * @author      Nenad Radulovic
+ * @author      Nenad Radulović
  * @brief       Konfiguracija HAL-a
  * @addtogroup  hal_cfg
  *********************************************************************//** @{ */
@@ -33,8 +33,8 @@
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
 
-#define STM32L152RB
-/* #define STM32F100RB */
+/* #define STM32L152RB */
+#define STM32F100RB
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
 #define OPT_HAL_GPIO
@@ -103,6 +103,58 @@
  */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CRC
+#endif
+
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        Podesavanja HAL-a
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Podesavanje brzine rada sistema
+ * @details     Postoje tri nivoa brzine rada sistema:
+ *              - @ref ES_SYS_SPEED_LOW Minimalna brzina rada, najveca usteda
+ *                                      energije
+ *              - @ref ES_SYS_SPEED_MEDIUM Srednja brzina rada
+ *              - @ref ES_SYS_SPEED_HIGH Maksimalna brzina rada, najmanja usteda
+ *                                      energije.
+ *
+ *              Vrsi postavljanje performansi sistema prema datom profilu.
+ *              Funkcije ukljucuju potrebne takt oscilatore, PLL kola,
+ *              preskalere, regulatore napajanja i kontrolere magistrala kako bi
+ *              se izabrani profil aktivirao.
+ *              Podrazumevano podesavanje: ES_SYS_SPEED_LOW
+ */
+#if !defined(OPT_HAL_SYS_SPEED)
+# define OPT_HAL_SYS_SPEED              ES_SYS_SPEED_LOW
+#endif
+
+/**
+ * @brief       Da li HAL treba da ponudi STARTUP kod
+ * @details     HAL nudi mogućnost da ponudi potpuno okruženje za rad, koje se
+ *              sastoji od start-up koda i linker skripte. Ukoliko korisnik želi
+ *              da koristi eSolid softver u okruženju koje nema navedene
+ *              elemente onda definisanjem ovog makroa HAL će postaviti svoj
+ *              start-up kod.
+ *              0 - start-up kod je isključen
+ *              1 - start-up kod je uključen
+ *              Podrazumevano podešavanje 1UL - uključeno
+ */
+#if !defined(OPT_HAL_STARTUP)
+# define OPT_HAL_STARTUP                1UL
+#endif
+
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        Podesavanja kompajlera
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Ukoliko je ovaj makro definisan HAL nece definisati BOOLean
+ *              tipove podataka: TRUE i FALSE
+ */
+#if defined(__DOXYGEN__)
+# define HAL_BOOL_TYPE
 #endif
 
 /** @} *//*-------------------------------------------------------------------*/
