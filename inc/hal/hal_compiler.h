@@ -27,7 +27,6 @@
  * @addtogroup  hal_compiler
  *********************************************************************//** @{ */
 
-
 #ifndef HAL_COMPILER_H_
 #define HAL_COMPILER_H_
 
@@ -252,6 +251,21 @@
 #if !defined(C_CONTAINER_OF) || defined(__DOXYGEN__)
 # define C_CONTAINER_OF(ptr, type, member)                                      \
     ((type *)((char *)ptr - offsetof(type, member)))
+#endif
+
+/**
+ * @brief       Deklarisanje funkcije kao slab simbol.
+ * @details     Deklarisanje funkcije kao slab simbol omogucuje korisniku da
+ *              napise svoju funkciju sa istim imenom koja će potisnuti slabu
+ *              funkciju. Na taj nacin korisnik moze da definise svoju funkciju,
+ *              a ukoliko ne definise svoju funkciju slaba funkcija se definise
+ *              umesto nje.
+ *
+ *              Ovaj makro je pre svega koristan u definisanju bibliotečkih
+ *              funkcija koje mogu biti poništene korisničkim kodom.
+ */
+#if !defined(C_WEAK_FUNC) || defined(__DOXYGEN__)
+# define C_WEAK_FUNC
 #endif
 
 /** @} *//*-------------------------------------------------------------------*/
