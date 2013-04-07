@@ -36,7 +36,6 @@
 /*------------------------------------------------------------------------*//**
  * @name        Atributi za ARM Cortex-M3 arhitekturu
  * @{ *//*--------------------------------------------------------------------*/
-#define ES_CPU_ATTRIB_UNALIGNED_ACCESS
 #define ES_CPU_ATTRIB_LINEAR_ADDR
 #define ES_CPU_ATTRIB_ALIGNMENT         4
 #define ES_CPU_NATIVE_BITS              32U
