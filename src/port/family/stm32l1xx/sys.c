@@ -50,7 +50,7 @@ static void sysSpeedSetLow(
 /**
  * @brief       Trenutni sistemski profil
  */
-static esSysPerf_T gSysSpeed;
+static esSysSpeed_T gSysSpeed;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*============================================  LOCAL FUNCTION DEFINITIONS  ==*/
@@ -150,7 +150,7 @@ static void sysSpeedSetHigh(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        gSysSpeed = ES_SYS_PERF_HIGH;
+        gSysSpeed = ES_SYS_SPEED_HIGH;
     } else {
         /* Greska! Nece HSI da se ukljuci */
     }
@@ -243,7 +243,7 @@ static void sysSpeedSetMedium(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        gSysSpeed = ES_SYS_PERF_MEDIUM;
+        gSysSpeed = ES_SYS_SPEED_MEDIUM;
     } else {
         /* Greska! Nece HSI da se ukljuci */
     }
@@ -316,7 +316,7 @@ static void sysSpeedSetLow(
             RCC->CFGR,
             RCC_CFGR_PPRE2,
             RCC_CFGR_PPRE2_DIV1);
-        gSysSpeed = ES_SYS_PERF_DEFAULT;
+        gSysSpeed = ES_SYS_SPEED_LOW;
     } else {
         /* Greska! Nece MSI da se ukljuci */
     }
@@ -327,15 +327,15 @@ static void sysSpeedSetLow(
 
 /*----------------------------------------------------------------------------*/
 void esSysSpeedSet(
-    esSysPerf_T    speed) {
+    esSysSpeed_T    speed) {
 
     switch (speed) {
-        case ES_SYS_PERF_HIGH : {
+        case ES_SYS_SPEED_HIGH : {
             sysSpeedSetHigh();
             break;
         }
 
-        case ES_SYS_PERF_MEDIUM : {
+        case ES_SYS_SPEED_MEDIUM : {
             sysSpeedSetMedium();
             break;
         }
@@ -348,7 +348,7 @@ void esSysSpeedSet(
 }
 
 /*----------------------------------------------------------------------------*/
-esSysPerf_T esSysSpeedGet(
+esSysSpeed_T esSysSpeedGet(
     void) {
 
     return (gSysSpeed);

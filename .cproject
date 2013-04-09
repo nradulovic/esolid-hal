@@ -69,6 +69,7 @@
 					<sourceEntries>
 						<entry excluding="startup/|doc/|src/port" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/port/family/stm32l1xx"/>
+						<entry excluding="stm32l1xx_hd.S|stm32l1xx_mdp.S" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="startup/gcc/family/stm32l1xx"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
