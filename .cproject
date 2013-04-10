@@ -313,85 +313,11 @@
 		<configuration configurationName="dbg-STM32F10x_md_vl-o0-csgcc"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
-		<buildTargets>
-			<target name="dbg-x86-linux-o0-gcc" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>dbg-x86-linux-o0-gcc</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>clean</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="docs" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>docs</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="docs_clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>docs_clean</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>false</runAllBuilders>
-			</target>
-		</buildTargets>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792;org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792.;org.eclipse.cdt.cross.arm.gnu.linux.elf.c.compiler.debug.2039424350;org.eclipse.cdt.cross.arm.gnu.linux.c.compiler.base.input.1729542180">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792;org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792.;org.eclipse.cdt.cross.arm.gnu.linux.elf.assembler.debug.859085637;org.eclipse.cdt.cross.arm.gnu.linux.assembler.base.input.1072660144">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.release.1922569810;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.297307689">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1350885298;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.2033693911">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.c.compiler.debug.37801154;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.c.compiler.base.input.520196417">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.706248067;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1146637949">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.assembler.release.1669126593;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.assembler.base.input.1208963185">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.1046122923;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.1046122923.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1265308518;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.544083856">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.release.1544524883;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1923080307">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.release.1416387551;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.603788451">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.2022566339;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1253234768">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.lib.debug.1648249799;cdt.managedbuild.config.gnu.lib.debug.1648249799.;cdt.managedbuild.tool.gnu.c.compiler.lib.debug.350883182;cdt.managedbuild.tool.gnu.c.compiler.input.1805440452">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
@@ -399,26 +325,44 @@
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.1296020833;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.1296020833.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.1477361657;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.2134809769">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.release.1922569810;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.297307689">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.assembler.debug.922501382;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.302571372">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1269266749;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.1685300295">
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792;org.eclipse.cdt.cross.arm.gnu.linux.elf.debug.1708259792.;org.eclipse.cdt.cross.arm.gnu.linux.elf.assembler.debug.859085637;org.eclipse.cdt.cross.arm.gnu.linux.assembler.base.input.1072660144">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1350885298;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.2033693911">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.c.compiler.release.1637044528;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.c.compiler.base.input.555624448">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.1046122923;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.1445601291.1046122923.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.1675982117;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1511097785">
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.c.compiler.debug.37801154;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.c.compiler.base.input.520196417">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.debug.153476078.1469217095.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.706248067;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1146637949">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.lib.debug.1546583483;cdt.managedbuild.config.gnu.lib.debug.1546583483.;cdt.managedbuild.tool.gnu.c.compiler.lib.debug.1218424838;cdt.managedbuild.tool.gnu.c.compiler.input.1663733432">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.661520819.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.assembler.release.1669126593;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.assembler.base.input.1208963185">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.c.compiler.debug.347047396;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.247206172">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.debug.217944400.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.assembler.debug.887342317;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.assembler.base.input.1370219057">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.release.1544524883;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1923080307">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.1413284151.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.release.1416387551;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.603788451">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.release.14348883.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.release.2136796535;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.537852387">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>
@@ -432,5 +376,37 @@
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.133174900;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.release.133174900.;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.lib.c.compiler.release.812957245;org.eclipse.cdt.cross.arm.gnu.yagarto.windows.c.compiler.base.input.1629479786">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_YG_GCCWinManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildTarget>clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="docs" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildTarget>docs</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="docs_clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildTarget>docs_clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+		</buildTargets>
 	</storageModule>
 </cproject>
