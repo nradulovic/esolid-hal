@@ -386,8 +386,8 @@
  *              @endcode
  */
 #if !defined(ES_DIV_ROUND) || defined(__DOXYGEN__)
-# define ES_DIV_ROUND(expr1, expr2)                                             \
-    (((expr1) + (expr2) / 2) / (expr2))
+# define ES_DIV_ROUND(numerator, denominator)                                   \
+    (((numerator) + ((denominator) / 2U)) / (denominator))
 #endif
 
 /**
@@ -408,8 +408,8 @@
  *              @endcode
  */
 #if !defined(ES_DIV_ROUNDUP) || defined(__DOXYGEN__)
-# define ES_DIV_ROUNDUP(expr1, expr2)                                           \
-    (((expr1) + (expr2) - 1) / (expr2))
+# define ES_DIV_ROUNDUP(numerator, denominator)                                 \
+    (((numerator) + (denominator) - 1U) / (denominator))
 #endif
 
 /**
@@ -473,8 +473,8 @@
 #endif
 
 /**
- * @brief       Vrsi poravnjanje @a expr1 promenjive sa granicama specificarane
- *              u @a expr2
+ * @brief       Vrsi poravnjanje @a num promenjive sa granicama specificarane
+ *              u @a align
  * @param       num                     Promenjiva koju treba poravnati,
  * @param       align                   granica poravnanja.
  * @details     Primer:
@@ -483,8 +483,24 @@
  *              Dobija se 152.
  * @mseffect
  */
-#if !defined(ES_ALIGN) || defined(__DOXYGEN__)
+#if !defined(ES_ALIGN_UP) || defined(__DOXYGEN__)
 # define ES_ALIGN(num, align)                                                   \
+    ((num) & ~((align) - 1U))
+#endif
+
+/**
+ * @brief       Vrsi poravnjanje @a num promenjive sa granicama specificarane
+ *              u @a align
+ * @param       num                     Promenjiva koju treba poravnati,
+ * @param       align                   granica poravnanja.
+ * @details     Primer:
+ *              @a expr1 ima binarnu vrednost: 10010101 = 149
+ *              @a expr2 ima binarnu vrednost: 00000100 = 4
+ *              Dobija se 152.
+ * @mseffect
+ */
+#if !defined(ES_ALIGN_UP) || defined(__DOXYGEN__)
+# define ES_ALIGN_UP(num, align)                                                \
     (((num) + (align) - 1U) & ~((align) - 1U))
 #endif
 
