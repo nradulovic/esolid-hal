@@ -31,7 +31,7 @@
 #define STM32L1XX_PROFILE_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+/*===============================================================  MACRO's  ==*/
 
 #if defined(OPT_HAL_STARTUP)
 # define ES_HAL_ENABLE_STARTUP
@@ -43,10 +43,6 @@
 
 #if defined(OPT_HAL_INTERRUPT)
 # define ES_HAL_ENABLE_INTERRUPT
-#endif
-
-#if defined(OPT_HAL_GPIO)
-# define ES_HAL_ENABLE_GPIO
 #endif
 
 /*------------------------------------------------------------------------*//**
@@ -76,11 +72,6 @@
 #define ES_HAL_FEATURE_STARTUP
 
 /**
- * @brief       Port podrzava GPIO
- */
-#define ES_HAL_FEATURE_GPIO
-
-/**
  * @brief       Port podrzava CPU
  */
 #define ES_HAL_FEATURE_CPU
@@ -89,16 +80,6 @@
  * @brief       Port podrzava interrupt
  */
 #define ES_HAL_FEATURE_INTERRUPT
-
-/** @} *//*-------------------------------------------------------------------*/
-
-/** @} *//*-------------------------------------------------------------------*/
-/*===============================================================  MACRO's  ==*/
-
-/*------------------------------------------------------------------------*//**
- * @name        STM32L1xx pomocni makroi za formiranje tabela hardvera
- * @{ *//*--------------------------------------------------------------------*/
-#define EXPAND_AS_GPIO_ENUM(a, b, c)    a,
 
 /** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
@@ -115,13 +96,6 @@ enum esInterruptPrio {
     ES_PRIO_VERY_HIGH = 2,
     ES_PRIO_REALTIME = 0x20
 };
-#endif
-
-#if defined(ES_HAL_ENABLE_GPIO)
-typedef enum esGpioPort {
-    GPIO_TABLE_(EXPAND_AS_GPIO_ENUM)
-    GPIO_LAST_PORT_
-} esGpioPort_T;
 #endif
 
 /*======================================================  GLOBAL VARIABLES  ==*/

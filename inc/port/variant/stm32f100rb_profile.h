@@ -31,7 +31,7 @@
 #define STM32F100RB_PROFILE_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+/*===============================================================  MACRO's  ==*/
 
 /*------------------------------------------------------------------------*//**
  * @name        STM32F100RB opisne konstante
@@ -45,17 +45,6 @@
 /** @} *//*-------------------------------------------------------------------*/
 
 /**
- * @brief       Tabela GPIO portova
- * @notapi
- */
-#define GPIO_TABLE_(ENTRY)                                                      \
-    ENTRY(ES_GPIOA, GPIOA, RCC_APB2ENR_IOPAEN)                                  \
-    ENTRY(ES_GPIOB, GPIOB, RCC_APB2ENR_IOPBEN)                                  \
-    ENTRY(ES_GPIOC, GPIOC, RCC_APB2ENR_IOPCEN)                                  \
-    ENTRY(ES_GPIOD, GPIOD, RCC_APB2ENR_IOPDEN)                                  \
-    ENTRY(ES_GPIOE, GPIOE, RCC_APB2ENR_IOPEEN)
-
-/**
  * @brief       Definisanje podfamilije
  * @notapi
  */
@@ -67,7 +56,6 @@
  */
 #define PORT_MAX_CPU_FREQ_              24000000UL
 
-/*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/

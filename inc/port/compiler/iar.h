@@ -33,104 +33,40 @@
 #define IAR_COMMON_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+
+#include <stdint.h>
+#include <stddef.h>
+#include <stdarg.h>
+#include <stdbool.h>
+
 /*===============================================================  MACRO's  ==*/
 
-#if !defined(C_FUNC)
-# define C_FUNC
-#endif
+#define C_FUNC
+#define C_FILE
+#define C_LINE
+#define C_EXT
+#define C_PACKED                        __packed
+#define C_ALIGNED(expr)
+#define C_COMPILE_BARRIER()
+#define C_NORETURN                      __noreturn
+#define C_UNUSED_ARG(type,arg)
+#define C_UNUSED_VAR(type,name)
+#define C_USED_VAR(type,name)
+#define C_INLINE_ALWAYS
+#define C_INLINE
+#define C_NOINLINE
+#define C_UNUSED_FUNC
+#define C_USED_FUNC
+#define C_RESTRICT
+#define C_NAKED
 
-#if !defined(C_FILE)
-# define C_FILE
-#endif
+#define C_CONTAINER_OF(ptr, type, member)                                       \
+        (type *)((uint8_t *)(ptr) - offsetof(type, member))
 
-#if !defined(C_LINE)
-# define C_LINE
-#endif
-
-#if !defined(C_EXT)
-# define C_EXT
-#endif
-
-#if !defined(C_PACKED)
-# define C_PACKED                       __packed
-#endif
-
-#if !defined(C_ALIGNED)
-# define C_ALIGNED(expr)
-#endif
-
-#if !defined(C_COMPILE_BARRIER)
-# define C_COMPILE_BARRIER()
-#endif
-
-#if !defined(C_NORETURN)
-# define C_NORETURN                     __noreturn
-#endif
-
-#if !defined(C_UNUSED_ARG)
-# define C_UNUSED_ARG(type,arg)
-#endif
-
-#if !defined(C_UNUSED_VAR)
-# define C_UNUSED_VAR(type,name)
-#endif
-
-#if !defined(C_USED_VAR)
-# define C_USED_VAR(type,name)
-#endif
-
-#if !defined(C_INLINE_ALWAYS)
-# define C_INLINE_ALWAYS
-#endif
-
-#if !defined(C_INLINE)
-# define C_INLINE
-#endif
-
-#if !defined(C_NOINLINE)
-# define C_NOINLINE
-#endif
-
-#if !defined(C_UNUSED_FUNC)
-# define C_UNUSED_FUNC
-#endif
-
-#if !defined(C_USED_FUNC)
-# define C_USED_FUNC
-#endif
-
-#if !defined(C_RESTRICT)
-# define C_RESTRICT
-#endif
-
-#if !defined(C_NAKED)
-# define C_NAKED
-#endif
-
-#if !defined(C_PTRCAST)
-# define C_PTRCAST(srctype, dsttype, var)
-#endif
-
-#if !defined(C_CONTAINER_OF)
-#define C_CONTAINER_OF(ptr, type, member)
-#endif
-
-#if !defined(C_WEAK_FUNC)
-# define C_WEAK_FUNC                    __weak
-#endif
-
-#if !defined(ES_ABS)
-# define ES_ABS(expr)
-#endif
-
-#if !defined(ES_MAX)
-# define ES_MAX(expr1, expr2)
-#endif
-
-#if !defined(ES_MIN)
-# define ES_MIN(expr1, expr2)
-#endif
+#define C_WEAK_FUNC                     __weak
+#define C_ROM
+#define C_ROM_VAR
+#define C_INTERRUPT_HANDLER(name)       name
 
 /*------------------------------------------------------  C++ extern begin  --*/
 #if defined(__cplusplus)
@@ -139,33 +75,10 @@ extern "C" {
 
 /*============================================================  DATA TYPES  ==*/
 
-#if !defined(HAL_STD_TYPES)
-# include <stdint.h>
-# define HAL_STD_TYPES
-#endif
-
-#if !defined(HAL_BOOL_TYPE)
-# define HAL_BOOL_TYPE
 typedef enum boolType {
     FALSE = 0UL,
     TRUE = 1UL
 } bool_T;
-#endif
-
-#if !defined(HAL_FAST_TYPES)
-# include <stdint.h>
-#define HAL_FAST_TYPES
-#endif
-
-#if !defined(HAL_DEF_TYPES)
-# include <stddef.h>
-# define HAL_DEF_TYPES
-#endif
-
-#if !defined(HAL_VARARG_SUPP)
-# include <stdarg.h>
-# define HAL_VARARG_SUPP
-#endif
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/

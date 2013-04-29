@@ -42,7 +42,7 @@
 /*----------------------------------------------------------------------------*
  * STMicroelectronics - STM32 F1 Mainstream
  *----------------------------------------------------------------------------*/
-#if defined(STM32F100RB)
+#if defined(STM32F100RB) && !defined(PORT_FOUND_)
 # define                                PORT_FOUND_
 # include "port/variant/stm32f100rb_profile.h"
 # include "port/family/stm32f10x_profile.h"
@@ -52,7 +52,7 @@
 /*----------------------------------------------------------------------------*
  * STMicroelectronics - STM32 L1 Ultra Low Power
  *----------------------------------------------------------------------------*/
-#if defined(STM32L152RB)
+#if defined(STM32L152RB) && !defined(PORT_FOUND_)
 # define                                PORT_FOUND_
 # include "port/variant/stm32l152rb_profile.h"
 # include "port/family/stm32l1xx_profile.h"
@@ -68,14 +68,13 @@
 /*----------------------------------------------------------------------------*
  * STMicroelectronics - STM32 F4 Hi-Performance & DSP
  *----------------------------------------------------------------------------*/
-#if defined(STM32F407VG)
+#if defined(STM32F407VG) && !defined(PORT_FOUND_)
 # define                                PORT_FOUND_
 # include "port/variant/stm32f407vg_profile.h"
 # include "port/family/stm32f4xx_profile.h"
 # include "port/arch/arm_cm3_profile.h"
 #endif
 
-/*===============================================================  DEFINES  ==*/
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/

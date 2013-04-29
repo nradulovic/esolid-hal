@@ -90,9 +90,6 @@
 				<externalSettings>
 					<externalSetting>
 						<entry flags="" kind="includePath" name="../esolid-hal/inc"/>
-						<entry flags="" kind="libraryPath" name="../esolid-hal/dbg-STM32F10x_md_vl-o0-csgcc"/>
-						<entry flags="" kind="libraryPath" name="../esolid-hal/linker-scripts/gcc/variant/STM32F100xBxx"/>
-						<entry flags="" kind="libraryFile" name="esolid-hal" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -114,16 +111,12 @@
 							<option id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.option.debugging.level.1209366805" name="Debug level" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.option.debugging.level" value="org.eclipse.cdt.cross.arm.gnu.base.option.debugging.level.max" valueType="enumerated"/>
 							<option id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.option.target.processor.616022824" name="Processor" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.option.target.processor" value="org.eclipse.cdt.cross.arm.gnu.base.option.mcpu.cortex-m3" valueType="enumerated"/>
 							<targetPlatform id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug.1588460372" isAbstract="false" name="Linux Platform" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug"/>
-							<builder buildPath="${workspace_loc:/esolid-haldsm/dbg-o0-csgcc-4.5.2}" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug.940311781" keepEnvironmentInBuildfile="false" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug"/>
+							<builder buildPath="${workspace_loc:/esolid-haldsm/dbg-o0-csgcc-4.5.2}" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug.940311781" keepEnvironmentInBuildfile="true" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug"/>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1269266749" name="ARM Sourcery Linux GCC Assembler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug">
-								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def.1880326016" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="ARM_MATH_CM3"/>
-								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def.1880326016" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.539720015" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
-									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
-									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.1685300295" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input"/>
 							</tool>
@@ -134,9 +127,7 @@
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
 									<listOptionValue builtIn="false" value="../../esolid-hal/inc"/>
 								</option>
-								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def.647700690" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="ARM_MATH_CM3"/>
-								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def.647700690" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.pedantic.1522384019" name="Pedantic (-pedantic)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.extrawarn.311948264" name="Extra warnings (-Wextra)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.extrawarn" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.datasections.66076779" name="Data sections (-fdata-sections)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.datasections" value="true" valueType="boolean"/>
@@ -165,8 +156,6 @@
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.890404446" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
-									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
-									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.565466780" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input"/>
 							</tool>
@@ -199,9 +188,6 @@
 					<externalSetting>
 						<entry flags="" kind="includePath" name="../CMSIS/Include"/>
 						<entry flags="" kind="includePath" name="../CMSIS/Device/ST/STM32F10x/Include"/>
-						<entry flags="RESOLVED" kind="macro" name="ARM_MATH_CM3" value=""/>
-						<entry flags="" kind="libraryPath" name="../CMSIS/Lib/GCC"/>
-						<entry flags="" kind="libraryFile" name="arm_cortexM3l_math" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
@@ -236,12 +222,11 @@
 							<targetPlatform id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug.1108804949" isAbstract="false" name="Linux Platform" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug"/>
 							<builder buildPath="${workspace_loc:/esolid-haldsm/dbg-o0-csgcc-4.5.2}" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug.2027101961" keepEnvironmentInBuildfile="false" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug"/>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.1265308518" name="ARM Sourcery Linux GCC Assembler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug">
-								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def.867905336" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="ARM_MATH_CM3"/>
-								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def.867905336" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.preprocessor.def"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.1891279512" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/CMSIS/Device/ST/STM32F10x/Include&quot;"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 								</option>
@@ -252,13 +237,12 @@
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths.605455543" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/CMSIS/Device/ST/STM32F10x/Include&quot;"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-hal/inc}&quot;"/>
 								</option>
-								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def.1856728185" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="ARM_MATH_CM3"/>
-								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def.1856728185" name="Defined symbols (-D)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.preprocessor.def"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.pedantic.603528078" name="Pedantic (-pedantic)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.pedantic" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.extrawarn.1391087246" name="Extra warnings (-Wextra)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.warnings.extrawarn" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.datasections.719492258" name="Data sections (-fdata-sections)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.datasections" value="true" valueType="boolean"/>
@@ -287,6 +271,7 @@
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.1939329269" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/CMSIS/Device/ST/STM32F10x/Include&quot;"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 								</option>
@@ -296,6 +281,7 @@
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths.1848246479" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="../../CMSIS/Device/ST/STM32F10x/Include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/CMSIS/Device/ST/STM32F10x/Include&quot;"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Include"/>
 									<listOptionValue builtIn="false" value=".././CMSIS/Device/ST/stm32f10x/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-hal/inc}&quot;"/>
@@ -322,12 +308,59 @@
 					<externalSetting>
 						<entry flags="" kind="includePath" name="../CMSIS/Include"/>
 						<entry flags="" kind="includePath" name="../CMSIS/Device/ST/STM32F10x/Include"/>
-						<entry flags="RESOLVED" kind="macro" name="ARM_MATH_CM3" value=""/>
-						<entry flags="" kind="libraryPath" name="../CMSIS/Lib/GCC"/>
-						<entry flags="" kind="libraryFile" name="arm_cortexM3l_math" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
+		</cconfiguration>
+		<cconfiguration id="de.innot.avreclipse.configuration.lib.debug.1423599753">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="de.innot.avreclipse.configuration.lib.debug.1423599753" moduleId="org.eclipse.cdt.core.settings" name="AVR">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="de.innot.avreclipse.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=de.innot.avreclipse.buildArtefactType.staticLib" cleanCommand="rm -f" description="" id="de.innot.avreclipse.configuration.lib.debug.1423599753" name="AVR" parent="de.innot.avreclipse.configuration.lib.debug">
+					<folderInfo id="de.innot.avreclipse.configuration.lib.debug.1423599753." name="/" resourcePath="">
+						<toolChain id="de.innot.avreclipse.toolchain.winavr.lib.debug.298183421" name="AVR-GCC Toolchain" superClass="de.innot.avreclipse.toolchain.winavr.lib.debug">
+							<option id="de.innot.avreclipse.toolchain.options.toolchain.objdump.lib.debug.843409698" name="Generate Extended Listing (Source + generated Assembler)" superClass="de.innot.avreclipse.toolchain.options.toolchain.objdump.lib.debug"/>
+							<option id="de.innot.avreclipse.toolchain.options.toolchain.size.lib.debug.2112416136" name="Print Size" superClass="de.innot.avreclipse.toolchain.options.toolchain.size.lib.debug"/>
+							<targetPlatform id="de.innot.avreclipse.targetplatform.winavr.lib.debug.684613567" name="AVR Cross-Target" superClass="de.innot.avreclipse.targetplatform.winavr.lib.debug"/>
+							<builder buildPath="${workspace_loc:/esolid-hal}/AVR" id="de.innot.avreclipse.target.builder.winavr.lib.debug.1994635835" keepEnvironmentInBuildfile="false" name="AVR GNU Make Builder" superClass="de.innot.avreclipse.target.builder.winavr.lib.debug"/>
+							<tool id="de.innot.avreclipse.tool.assembler.winavr.lib.debug.1805881915" name="AVR Assembler" superClass="de.innot.avreclipse.tool.assembler.winavr.lib.debug">
+								<option id="de.innot.avreclipse.assembler.option.debug.level.434639368" name="Generate Debugging Info" superClass="de.innot.avreclipse.assembler.option.debug.level"/>
+								<inputType id="de.innot.avreclipse.tool.assembler.input.772079150" superClass="de.innot.avreclipse.tool.assembler.input"/>
+							</tool>
+							<tool id="de.innot.avreclipse.tool.compiler.winavr.lib.debug.1632778869" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.lib.debug">
+								<option id="de.innot.avreclipse.compiler.option.debug.level.2131643582" name="Generate Debugging Info" superClass="de.innot.avreclipse.compiler.option.debug.level"/>
+								<option id="de.innot.avreclipse.compiler.option.optimize.1331835932" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize"/>
+								<option id="de.innot.avreclipse.compiler.option.incpath.933471073" name="Include Paths (-I)" superClass="de.innot.avreclipse.compiler.option.incpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-hal/inc}&quot;"/>
+								</option>
+								<option id="de.innot.avreclipse.compiler.option.nowarn.1617636438" name="No Warnings (-w)" superClass="de.innot.avreclipse.compiler.option.nowarn" value="false" valueType="boolean"/>
+								<option id="de.innot.avreclipse.compiler.option.std.1962194071" name="Language Standard" superClass="de.innot.avreclipse.compiler.option.std" value="de.innot.avreclipse.compiler.option.std.c99" valueType="enumerated"/>
+								<inputType id="de.innot.avreclipse.compiler.winavr.input.889617364" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
+							</tool>
+							<tool id="de.innot.avreclipse.tool.cppcompiler.lib.debug.1000335358" name="AVR C++ Compiler" superClass="de.innot.avreclipse.tool.cppcompiler.lib.debug">
+								<option id="de.innot.avreclipse.cppcompiler.option.debug.level.56570444" name="Generate Debugging Info" superClass="de.innot.avreclipse.cppcompiler.option.debug.level"/>
+								<option id="de.innot.avreclipse.cppcompiler.option.optimize.681943240" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize"/>
+							</tool>
+							<tool id="de.innot.avreclipse.tool.linker.winavr.base.366111470" name="AVR C Linker" superClass="de.innot.avreclipse.tool.linker.winavr.base"/>
+							<tool id="de.innot.avreclipse.tool.cpplinker.base.1974160395" name="AVR C++ Linker" superClass="de.innot.avreclipse.tool.cpplinker.base"/>
+							<tool id="de.innot.avreclipse.tool.archiver.winavr.lib.debug.721547081" name="AVR Archiver" superClass="de.innot.avreclipse.tool.archiver.winavr.lib.debug"/>
+							<tool id="de.innot.avreclipse.tool.objdump.winavr.lib.debug.686326903" name="AVR Create Extended Listing" superClass="de.innot.avreclipse.tool.objdump.winavr.lib.debug"/>
+							<tool id="de.innot.avreclipse.tool.size.winavr.lib.debug.1047051459" name="Print Size" superClass="de.innot.avreclipse.tool.size.winavr.lib.debug"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="doc/|startup/|src/port/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -337,6 +370,7 @@
 		<configuration configurationName="dbg-STM32F10x_ld_vl-o0-csgcc">
 			<resource resourceType="PROJECT" workspacePath="/lcsw-eSolid"/>
 		</configuration>
+		<configuration configurationName="dbg-STM32F10x_md_vl-NOSTART-o0-csgcc"/>
 		<configuration configurationName="dbg-STM32L1xx_md-o0-csgcc">
 			<resource resourceType="PROJECT" workspacePath="/lcsw-eSolid"/>
 		</configuration>
@@ -431,6 +465,9 @@
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.lib.debug.1546583483;cdt.managedbuild.config.gnu.lib.debug.1546583483.;cdt.managedbuild.tool.gnu.c.compiler.lib.debug.1218424838;cdt.managedbuild.tool.gnu.c.compiler.input.1663733432">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.lib.debug.1423599753;de.innot.avreclipse.configuration.lib.debug.1423599753.;de.innot.avreclipse.tool.compiler.winavr.lib.debug.1632778869;de.innot.avreclipse.compiler.winavr.input.889617364">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.debug.1333611546.;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.c.compiler.debug.347047396;org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.247206172">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCManagedMakePerProjectProfileC"/>

@@ -45,18 +45,6 @@
 /** @} *//*-------------------------------------------------------------------*/
 
 /**
- * @brief       Tabela GPIO portova
- * @notapi
- */
-#define GPIO_TABLE_(ENTRY)                                                      \
-    ENTRY(ES_GPIOA, GPIOA, RCC_AHBENR_GPIOAEN)                                  \
-    ENTRY(ES_GPIOB, GPIOB, RCC_AHBENR_GPIOBEN)                                  \
-    ENTRY(ES_GPIOC, GPIOC, RCC_AHBENR_GPIOCEN)                                  \
-    ENTRY(ES_GPIOD, GPIOD, RCC_AHBENR_GPIODEN)                                  \
-    ENTRY(ES_GPIOE, GPIOE, RCC_AHBENR_GPIOEEN)                                  \
-    ENTRY(ES_GPIOH, GPIOH, RCC_AHBENR_GPIOHEN)
-
-/**
  * @brief       Definisanje podfamilije
  * @notapi
  */

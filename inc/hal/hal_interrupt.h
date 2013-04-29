@@ -32,6 +32,7 @@
 
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
+#if defined(__DOXYGEN__)
 
 /**
  * @brief       Predefinisani prioriteti izvrsavanja koda
@@ -47,7 +48,6 @@
  *              zabraniti samo odredjene prekide ciji su prekidi manji ili
  *              jednaki prioritetu tekuce izvrsavanog koda.
  */
-#if defined(__DOXYGEN__)
 enum esInterruptPrio {
 /**
  * @brief       Najnizi prioritet prekidne rutine ili koda koji se izvrsava
@@ -68,7 +68,6 @@ enum esInterruptPrio {
  */
     ES_PRIO_REALTIME = 255
 };
-#endif
 
 /*===============================================================  MACRO's  ==*/
 
@@ -84,9 +83,7 @@ enum esInterruptPrio {
  * @details     Ovaj makro se koristi u kombinaciji sa makroima za ulazak i
  *              izlazak iz kriticnih sekcija koda.
  */
-#if defined(__DOXYGEN__)
 # define ES_CRITICAL_DECL()
-#endif
 
 /**
  * @brief       Ulazak u kriticni deo koda, postavlja se najvisi dozvoljeni
@@ -94,25 +91,20 @@ enum esInterruptPrio {
  * @param       prio                    Prioritet kriticne sekcije koda.
  *  @arg        0 - 255                 postavljanje maske.
  */
-#if defined(__DOXYGEN__)
 # define ES_CRITICAL_ENTER(prio)
-#endif
 
 /**
  * @brief       Izlazak iz kriticnog dela koda, vraca se prethodni prioritet.
  */
-#if defined(__DOXYGEN__)
 # define ES_CRITICAL_EXIT()
+
+/** @} *//*-------------------------------------------------------------------*/
+#endif /* defined(__DOXYGEN__) */
+/*------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Pisanje prekidnih rutina
- * @brief       Prekidne rutine se pisu na konzistentan nacin koji je opisan u
- *              @ref doc_irq_handlers.
- * @{ *//*--------------------------------------------------------------------*/
-
-/** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -169,6 +161,11 @@ uint32_t esIntPrioMaskGet(
     void);
 
 /** @} *//*-------------------------------------------------------------------*/
+/*--------------------------------------------------------  C++ extern end  --*/
+#ifdef __cplusplus
+}
+#endif
+
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
  * END of hal_interrupt.h

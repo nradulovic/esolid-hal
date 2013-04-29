@@ -45,10 +45,6 @@ void halInit(
 
     sysInit();
 
-#if defined(ES_HAL_ENABLE_GPIO)
-    gpioInit();
-#endif
-
 #if defined(ES_HAL_ENABLE_UART)
     lldUartDrvInit();
 #endif

@@ -33,7 +33,6 @@
 /*=========================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
 #include "sys_pkg.h"
-#include "gpio_pkg.h"
 #include "uart_pkg.h"
 #include "timer_pkg.h"
 #include "crc_pkg.h"

@@ -31,13 +31,12 @@
 #define HAL_CPU_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
-
+/*===============================================================  MACRO's  ==*/
+#if defined(__DOXYGEN__)
 /*------------------------------------------------------------------------*//**
  * @name        Identifikacione i opisne konstante mikroprocesora
  * @details     Konstantne niske (string) koje identifikuju mikroprocesor
  * @{ *//*--------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
 
 /**
  * @brief       Ime procesora
@@ -56,7 +55,6 @@
  * @details     Konstantna niska proizvodzaca procesora, na primer: "ARM"
  */
 # define ES_HAL_CPU_MANUF
-#endif
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
@@ -83,9 +81,7 @@
  * 				- nedefinisan - CPU ima odvojene adresne prostore za podatke i
  * 				program
  */
-#if defined(__DOXYGEN__)
 # define ES_CPU_ATTRIB_LINEAR_ADDR
-#endif
 
 /**
  * @brief       Pokazuje da li CPU podrzava pristup podacima koji nisu
@@ -96,16 +92,12 @@
  *                  budu poravnani
  *              - nedefinisan - CPU ne podrzava neporavnani pristup
  */
-#if defined(__DOXYGEN__)
 # define ES_CPU_ATTRIB_UNALIGNED_ACCESS
-#endif
 
 /**
  * @brief       Poravnjanje podataka (alignement)
  */
-#if defined(__DOXYGEN__)
 # define ES_CPU_ATTRIB_ALIGNMENT
-#endif
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
@@ -114,24 +106,25 @@
  *              koriscene arhitekture/varijante.
  * @{ *//*--------------------------------------------------------------------*/
 
-#if !defined(ES_CPU_NATIVE_BITS) || defined(__DOXYGEN__)
 /**
  * @brief       Broj bitova u oznacenom podatku koji ima sirinu data magistrale
  *              procesora
  */
 # define ES_CPU_NATIVE_BITS
-#endif
 
-#if !defined(ES_CPU_UNATIVE_BITS) || defined(__DOXYGEN__)
 /**
  * @brief       Broj bitova u neoznacenom podatku koji ima sirinu data
  *              magistrale procesora
  */
 # define ES_CPU_UNATIVE_BITS
-#endif
 
 /** @} *//*-------------------------------------------------------------------*/
-/*===============================================================  MACRO's  ==*/
+#endif /* defined(__DOXYGEN__) */
+/*------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -192,7 +185,7 @@ void esCpuSleep(
  *              5.
  */
 uint_fast8_t esCpuFindLastSet(
-    uint32_t value);
+    uint32_t        value);
 
 /**
  * @brief       Find First set Bit
@@ -200,9 +193,14 @@ uint_fast8_t esCpuFindLastSet(
  * @return      Vraca poziciju zadnjeg bita koji je setovan u @c value.
  */
 uint_fast8_t esCpuFindFirstSet(
-    uint32_t value);
+    uint32_t        value);
 
 /** @} *//*-------------------------------------------------------------------*/
+/*--------------------------------------------------------  C++ extern end  --*/
+#ifdef __cplusplus
+}
+#endif
+
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
  * END of hal_cpu.h
