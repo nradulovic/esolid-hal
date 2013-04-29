@@ -93,16 +93,6 @@
 #endif
 
 /**
- * @brief       Omogucivanje UART modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART
-#endif
-
-/**
  * @brief       Omogucivanje TIMER modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
