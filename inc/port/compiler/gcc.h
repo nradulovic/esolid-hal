@@ -108,11 +108,11 @@
 #endif
 
 #if !defined(C_INLINE_ALWAYS) || defined(__DOXYGEN__)
-# define C_INLINE_ALWAYS                static __inline__ __attribute__((__always_inline__))
+# define C_INLINE_ALWAYS                __inline__ __attribute__((__always_inline__))
 #endif
 
 #if !defined(C_INLINE) || defined(__DOXYGEN__)
-# define C_INLINE                       static __inline__
+# define C_INLINE                       __inline__
 #endif
 
 #if !defined(C_NOINLINE) || defined(__DOXYGEN__)
