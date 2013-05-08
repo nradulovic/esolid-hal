@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>esolid-hal</name>
+	<name>esolid-haldsm</name>
 	<comment></comment>
 	<projects>
-		<project>lchw-STM32L1xx</project>
+		<project>CMSIS</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

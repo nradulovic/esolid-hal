@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,202 +20,148 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *************************************************************************************************/
-
-
-/*********************************************************************************************//**
+ *//***********************************************************************//**
  * @file
- * @author  	Nenad Radulovic
- * @brief   	Konfiguracija HAL-a
- * ------------------------------------------------------------------------------------------------
- * @defgroup    hal_cfg HAL configuration
- ****************************************************************************************//** @{ */
-
+ * @author      Nenad Radulović
+ * @brief       Konfiguracija HAL-a
+ * @addtogroup  hal_cfg
+ *********************************************************************//** @{ */
 
 #ifndef HAL_CONFIG_H_
 #define HAL_CONFIG_H_
 
-/*============================================================================  INCLUDE FILES  ==*/
-#include "hal/hal_log_levels.h"
+/*=========================================================  INCLUDE FILES  ==*/
+/*===============================================================  DEFINES  ==*/
 
-/*==================================================================================  DEFINES  ==*/
-
-/*-- Odabir mikrokontrolera ---------------------------------------------------------------------*/
-#define STM32L152RB
-/* #define STM32F100RB */
-
-/*-- Podesavanje HAL projekta -------------------------------------------------------------------*/
+/* #define STM32L152RB */
+#define STM32F100RB
+#define OPT_HAL_STARTUP
 #define OPT_HAL_CPU
 #define OPT_HAL_INTERRUPT
-#define OPT_HAL_LOG
-#define OPT_HAL_LOG_ASSERT
-#define OPT_HAL_LOG_CHECK
-#define OPT_HAL_LOG_TRACE
-#define OPT_HAL_LOG_LEVEL               ES_LOG_LEVEL_TRACE
-#define OPT_HAL_LOG_TIMESTAMP           0U
+#define OPT_HAL_GPIO
 
-/*=================================================================================  SETTINGS  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Maksimalni prioritet koji eSolid HAL koristi.
- * @details     Ova opcija ogranicava maksimalni prioritet izvrsavanja eSolid
- *              HAL kriticnih sekcija. Ovo omogucava da se koriste odredjeni
- *              prekidi u sistemu i u toku izvrsenja kriticnih sekcija koda.
- *//*--------------------------------------------------------------------------------------------*/
+/*==============================================================  SETTINGS  ==*/
+
+/*------------------------------------------------------------------------*//**
+ * @name        Omogucivanje pojedinacnih modula
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Da li HAL treba da ponudi STARTUP kod
+ * @details     HAL nudi mogućnost da ponudi potpuno okruženje za rad, koje se
+ *              sastoji od start-up koda i linker skripte. Ukoliko korisnik želi
+ *              da koristi eSolid softver u okruženju koje nema navedene
+ *              elemente onda definisanjem ovog makroa HAL će postaviti svoj
+ *              start-up kod.
+ *
+ *              Ukoliko je podesavanje:
+ *              - definisano - modul je omogucen,
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
-# define OPT_HAL_INTERRUPT_PRIO
+# define OPT_HAL_STARTUP
 #endif
 
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Omogucivanje pojedinacnih modula
- * @{ *//*---------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje CPU modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CPU
 #endif
 
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje Interrupt modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_INTERRUPT
 #endif
 
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje GPIO modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_GPIO
 #endif
 
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje UART modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_UART
 #endif
 
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje modula za vodjenje dnevnika (LOG)
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *              Definisanjem ove opcije aplikacija i sam HAL projekat mogu da
- *              koriste LOG modul.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_LOG
-#endif
-
-/*-------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje TIMER modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_TIMER
 #endif
 
-/*--------------------------------------------------------------------------------------------*//**
+/**
  * @brief       Omogucivanje cyclic redundancy check (CRC) modula
  * @details     Ukoliko je podesavanje:
  *              - definisano - modul je omogucen,
- *              - nedefinisano - modul je onemogucen.
- *//*--------------------------------------------------------------------------------------------*/
+ *              - nedefinisano - moduj je onemogucen.
+ */
 #if defined(__DOXYGEN__)
 # define OPT_HAL_CRC
 #endif
 
-/** @} *//*--------------------------------------------------------------------------------------*/
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        Podesavanja HAL-a
+ * @{ *//*--------------------------------------------------------------------*/
 
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Podesavanja za UART modul
- * @{ *//*---------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_1
+/**
+ * @brief       Podesavanje brzine rada sistema
+ * @details     Postoje tri nivoa brzine rada sistema:
+ *              - @ref ES_SYS_SPEED_LOW Minimalna brzina rada, najveca usteda
+ *                                      energije
+ *              - @ref ES_SYS_SPEED_MEDIUM Srednja brzina rada
+ *              - @ref ES_SYS_SPEED_HIGH Maksimalna brzina rada, najmanja usteda
+ *                                      energije.
+ *
+ *              Vrsi postavljanje performansi sistema prema datom profilu.
+ *              Funkcije ukljucuju potrebne takt oscilatore, PLL kola,
+ *              preskalere, regulatore napajanja i kontrolere magistrala kako bi
+ *              se izabrani profil aktivirao.
+ *              Podrazumevano podesavanje: ES_SYS_SPEED_LOW
+ */
+#if !defined(OPT_HAL_SYS_SPEED)
+# define OPT_HAL_SYS_SPEED              ES_SYS_SPEED_LOW
 #endif
 
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- *//*--------------------------------------------------------------------------------------------*/
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        Podesavanja kompajlera
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Ukoliko je ovaj makro definisan HAL nece definisati BOOLean
+ *              tipove podataka: TRUE i FALSE
+ */
 #if defined(__DOXYGEN__)
-# define OPT_HAL_UART_2
+# define HAL_BOOL_TYPE
 #endif
 
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_3
-#endif
-
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Omogucivanje pojedinih UART modula
- * @pre         Mora da bude definisana promenljiva @ref OPT_HAL_UART.
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_UART_4
-#endif
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Podesavanje modula za vodjenje dnevnika, LOG modul
- * @{ *//*---------------------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Ukljucivanje/iskljucivanje ASSERT makroa
- * @details     Ukoliko je ova opcija:
- *              - definisana - Assert makroi su ukljuceni,
- *              - nedefinisana - Assert makroi su iskljuceni u svim projektima
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_LOG_ASSERT
-#endif
-
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Ukljucivanje/iskljucivanje CHECK makroa
- * @details     Ukoliko je ova opcija:
- *              - definisana - Check makroi su ukljuceni,
- *              - nedefinisana - Check makroi su iskljuceni u svim projektima
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_LOG_CHECK
-#endif
-
-/*--------------------------------------------------------------------------------------------*//**
- * @brief       Ukljucivanje/iskljucivanje TRACE makroa
- * @details     Ukoliko je ova opcija:
- *              - definisana - Trace makroi su ukljuceni,
- *              - nedefinisana - Trace makroi su iskljuceni u svim projektima
- *//*--------------------------------------------------------------------------------------------*/
-#if defined(__DOXYGEN__)
-# define OPT_HAL_LOG_TRACE
-#endif
-
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
-/** @endcond *//** @} *//*************************************************************************
+/** @} *//*-------------------------------------------------------------------*/
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/** @endcond *//** @} *//******************************************************
  * END of hal_config.h
- *************************************************************************************************/
+ ******************************************************************************/
 #endif /* HAL_CONFIG_H_ */

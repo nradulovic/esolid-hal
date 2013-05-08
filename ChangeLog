@@ -1,234 +1,1098 @@
+2013-04-07  nenad
+
+	* [r195] /branches/custom-d/inc/port/arch/arm_cm3/GCC/cpu.h:
+	  - BUGFIX: ARM Cortex-M3 se ne može smatrati kao UNALIGNED ACCESS
+	  mikroprocesor
+
+2013-04-06  nenad
+
+	* [r194] /branches/custom-d/inc/hal/hal_uart.h:
+	  - BUGFIX: ne terminisan #if
+
+	* [r193] /branches/custom-d/config/hal_config.h:
+	  - uključena je opcija za start-up
+
+	* [r192] /branches/custom-d/.cproject,
+	  /branches/custom-d/config/hal_config.h,
+	  /branches/custom-d/inc/hal/hal.h,
+	  /branches/custom-d/inc/hal/hal_generic.h,
+	  /branches/custom-d/inc/port/family/stm32f10x_profile.h,
+	  /branches/custom-d/inc/port/family/stm32l1xx_profile.h,
+	  /branches/custom-d/src/hal/hal.c:
+	  - opcija OPT_HAL_STARTUP je ispravno dokumentovana i definisana
+	  - koristi se OPT_HAL_ENABLE_STARTUP da se vidi da li se koristi
+	  start-up opcija
+	  - ne postoji više funkcija esSysInit()
+	  - ubačena je esHalInit() samo ako se ne koristi opcija OPT_HAL_STARTUP
+	  - formiran je novi profil: NOSTARTUP
+
+	* [r191] /branches/custom-d/.cproject,
+	  /branches/custom-d/inc/hal/hal_generic.h,
+	  /branches/custom-d/src/hal/hal.c,
+	  /branches/custom-d/src/hal/hal_private.h:
+	  - doxygen ispravke
+	  - dodata je funkcija esSysInit() koja se koristi kada korisnik ne želi
+	  HAL-ov start-up kod
+
+	* [r190] /branches/custom-d/inc/hal/hal_cpu.h,
+	  /branches/custom-d/src/port/family/stm32f10x/stm32f10x_pkg.h,
+	  /branches/custom-d/src/port/family/stm32f10x/sys.c,
+	  /branches/custom-d/src/port/family/stm32l1xx/stm32l1xx_pkg.h,
+	  /branches/custom-d/src/port/family/stm32l1xx/sys.c:
+	  - dodata je funkcija esCpuSpeedGet()
+	  - funkcija sysSpeedSetLow() ne postavlja brzinu na najmanju vrednost
+	  jer SWD ne radi kako treba pri nižim taktovima
+	  - doxygen ispravke
+
+	* [r189] /branches/custom-d/inc/hal/hal_compiler.h,
+	  /branches/custom-d/inc/port/compiler/gcc.h,
+	  /branches/custom-d/inc/port/compiler/iar.h[ADD]:
+	  - dodat je makro C_WEAK_FUNC
+
+	* [r188] /branches/custom-d/config/hal_config.h:
+	  - dodate su opcije: OPT_HAL_SYS_SPEED, OPT_HAL_STARTUP i HAL_BOOL_TYPE
+
+2013-04-02  nenad
+
+	* [r187] /branches/custom-d/inc/port/family/stm32f10x_profile.h:
+	  - BUGFIX: nije bio uključen ES_HAL_ENABLE_CPU prekidač, uklonjen je
+	  suvišan enumerator
+
+	* [r186] /branches/custom-d/src/port/family/stm32f10x/cpu.c[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/gpio.c,
+	  /branches/custom-d/src/port/family/stm32f10x/sys.c[CPY]:
+	  - Nastavak rada na portu za stm32f10x
+
+	* [r185] /branches/custom-d/src/port/family/stm32l1xx/sys.c:
+	  - Korekcija rada funkcija za sistemske performanse
+
+	* [r184] /branches/custom-d/inc/hal/hal_generic.h:
+	  Dodat je enumerator ES_SYS_PEF_LOW za specifikaciju najnize brzine
+	  rada mikrokontrolera
+
+2013-03-28  nenad
+
+	* [r183] /branches/custom-d/.cproject, /branches/custom-d/.project,
+	  /branches/custom-d/.settings/org.eclipse.cdt.managedbuilder.core.prefs[ADD],
+	  /branches/custom-d/.settings/org.eclipse.ltk.core.refactoring.prefs[ADD],
+	  /branches/custom-d/inc/port/variant/stm32f100rb_profile.h,
+	  /branches/custom-d/inc/port/variant/stm32l152rb_profile.h:
+	  - Prati se novi HAL sistem, JOŠ NIJE ZAVRŠEN
+
+	* [r182] /branches/custom-d/src/port/family/stm32f10x/cpu.c:
+	  - Prati se novi HAL sistem, JOŠ NIJE ZAVRŠEN
+
+2013-03-26  nenad
+
+	* [r181] /branches/custom-d/inc/port/family/stm32l1xx[DEL]:
+	  - Suvišan direktorijum
+
+	* [r180] /branches/custom-d/doc/img/memorg.png[ADD],
+	  /branches/custom-d/doc/img/memorg.uxf[ADD],
+	  /branches/custom-d/doc/linker-scripts[ADD],
+	  /branches/custom-d/doc/linker-scripts/linker-scripts.dox[ADD],
+	  /branches/custom-d/doc/startup[ADD],
+	  /branches/custom-d/doc/startup/startup.dox[ADD]:
+	  - Kreirana je dokumentacija za linker skripte i startup
+
+	* [r179] /branches/custom-d/src/port/family/stm32f10x/cpu.c,
+	  /branches/custom-d/src/port/family/stm32f10x/gpio.c,
+	  /branches/custom-d/src/port/family/stm32f10x/stm32f10x_pkg.h:
+	  - Prati se novi HAL sistem, JOŠ NIJE ZAVRŠEN
+
+	* [r178] /branches/custom-d/src/port/family/stm32l1xx/crc_lld.c[DEL],
+	  /branches/custom-d/src/port/family/stm32l1xx/gpio.c[ADD],
+	  /branches/custom-d/src/port/family/stm32l1xx/gpio_lld.c[DEL],
+	  /branches/custom-d/src/port/family/stm32l1xx/stm32l1xx_pkg.h[ADD],
+	  /branches/custom-d/src/port/family/stm32l1xx/sys.c[CPY],
+	  /branches/custom-d/src/port/family/stm32l1xx/timer_lld.c[DEL],
+	  /branches/custom-d/src/port/family/stm32l1xx/uart_lld.c[DEL]:
+	  - Novi PORT sistem, STM32L1xx je skoro kompletan
+
+	* [r177] /branches/custom-d/src/port/family/stm32f10x/cmsis[DEL],
+	  /branches/custom-d/src/port/family/stm32l1xx/cmsis[DEL],
+	  /branches/custom-d/src/port/family/stm32l1xx/startup[DEL],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_cl.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_hd.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_hd_vl.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_ld.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_ld_vl.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_md.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_md_vl.S,
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_xl.S,
+	  /branches/custom-d/startup/family/stm32l1xx[ADD],
+	  /branches/custom-d/startup/family/stm32l1xx/stm32l1xx_hd.S[ADD],
+	  /branches/custom-d/startup/family/stm32l1xx/stm32l1xx_md.S[ADD],
+	  /branches/custom-d/startup/family/stm32l1xx/stm32l1xx_mdp.S[ADD]:
+	  - CMSIS se BRIŠE is HAL-a
+	  - startup je premešten na pristupačnije mesto
+
+	* [r176] /branches/custom-d/src/port/arch[DEL]:
+	  - Suvišan direktorijum
+
+	* [r175] /branches/custom-d/src/hal/crc.c,
+	  /branches/custom-d/src/hal/crc_pkg.h,
+	  /branches/custom-d/src/hal/gpio_pkg.h,
+	  /branches/custom-d/src/hal/hal.c,
+	  /branches/custom-d/src/hal/hal_private.h,
+	  /branches/custom-d/src/hal/sys_pkg.h[ADD],
+	  /branches/custom-d/src/hal/timer_pkg.h,
+	  /branches/custom-d/src/hal/uart.c,
+	  /branches/custom-d/src/hal/uart_pkg.h:
+	  - Sređivanje komentara
+
+	* [r174] /branches/custom-d/inc/port/variant/stm32f100rb_profile.h,
+	  /branches/custom-d/inc/port/variant/stm32l152rb_profile.h:
+	  - Sređivanje komentara
+	  - Varijanta definiše maksimalne i default taktne signale, treba da se
+	  sredi STM32F10x
+
+	* [r173] /branches/custom-d/inc/port/arch/arm_cm3/GCC/interrupt.h,
+	  /branches/custom-d/inc/port/arch/arm_cm3_profile.h,
+	  /branches/custom-d/inc/port/family/stm32f10x_profile.h,
+	  /branches/custom-d/inc/port/family/stm32l1xx_profile.h:
+	  - Sređivanje komentara
+	  - CPU i Interrupt mogućnosti se definišu u familiji
+
+	* [r172] /branches/custom-d/inc/hal/hal_uart.h:
+	  - Sređivanje komentara
+
+	* [r171] /branches/custom-d/inc/hal/hal_interrupt.h:
+	  - Sređivanje komentara
+	  - Deo makroa je prebačen u funkcije
+
+	* [r170] /branches/custom-d/inc/hal/hal_gpio.h:
+	  - Sređivanje komentara
+
+	* [r169] /branches/custom-d/inc/hal/hal_generic.h:
+	  - Dodat je makro ES_HWREG_SET() za upis u HW registre. Omogucava
+	  modifikaciju registara bez nepotrebnih modifikacija registra
+	  - Dodat je interfejs za podesavanje performansi
+	  - Sređivanje komentara
+
+	* [r168] /branches/custom-d/inc/hal/hal_cpu.h:
+	  - Ubačeni su nedostajući makroi za opis mikroprocesora
+	  - Sređivanje komentara
+
+	* [r167] /branches/custom-d/config/hal_config.h:
+	  - Izbačena su nepotrebna podešavanja za UART
+
+2013-03-24  nenad
+
+	* [r166] /branches/custom-d/src/port/family/stm32f10x/stm32f10x.h[DEL]:
+	  - CMSIS var je izbačen
+
+	* [r165] /branches/custom-d/src/port/family/stm32f10x/cmsis,
+	  /branches/custom-d/src/port/family/stm32f10x/cmsis/stm32f10x.h[ADD]:
+	  - Ovaj deo je izbačen totalno
+
+	* [r164] /branches/custom-d/src/port/family/stm32f10x/startup[DEL]:
+	  - start-up je prebačen na drugo mesto
+
+	* [r163] /branches/custom-d/src/port/family/stm32f10x/cpu.c[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/gpio.c,
+	  /branches/custom-d/src/port/family/stm32f10x/stm32f10x.h[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/stm32f10x_pkg.h[ADD]:
+	  - Izvorni kod familije
+
+	* [r162] /branches/custom-d/inc/port/family/stm32f10x[DEL],
+	  /branches/custom-d/inc/port/family/stm32l1xx/cmsis[DEL]:
+	  - CMSIS var je izbačen
+
+	* [r161] /branches/custom-d/inc/port/family/stm32f10x_profile.h:
+	  - Ovaj profil definiše samo nekoliko makroa
+
+	* [r160] /branches/custom-d/inc/port/arch/arm_cm3/cmsis[DEL]:
+	  - CMSIS arch je izbačen
+
+	* [r159] /branches/custom-d/startup[ADD],
+	  /branches/custom-d/startup/family[ADD],
+	  /branches/custom-d/startup/family/stm32f10x[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_cl.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_hd.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_hd_vl.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_ld.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_ld_vl.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_md.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_md_vl.S[ADD],
+	  /branches/custom-d/startup/family/stm32f10x/stm32f10x_xl.S[ADD]:
+	  - Start-up datoteke su sada ovde
+
+	* [r158] /branches/custom-d/src/port/arch[ADD],
+	  /branches/custom-d/src/port/arch/arm_cm3[ADD],
+	  /branches/custom-d/src/port/arch/arm_cm3/cmsis[ADD],
+	  /branches/custom-d/src/port/arch/arm_cm3/cmsis/core_cm3.h[ADD],
+	  /branches/custom-d/src/port/arch/arm_cm3/cmsis/core_cmFunc.h[ADD],
+	  /branches/custom-d/src/port/arch/arm_cm3/cmsis/core_cmInstr.h[ADD]:
+	  - CMSIS arch je prebačen ovde
+
+	* [r157] /branches/custom-d/src/hal/gpio_pkg.h,
+	  /branches/custom-d/src/hal/hal.c:
+	  - Refaktori
+
+	* [r156] /branches/custom-d/inc/port/variant/stm32f100rb_profile.h:
+	  - Ovaj profil definiše podfamiliju
+
+	* [r155] /branches/custom-d/inc/port/arch/arm_cm3/GCC/interrupt.h:
+	  - Koriste se funkcije umesto makroa
+
+	* [r154] /branches/custom-d/inc/port/hal_profiles.h:
+	  - Ne sme da se definiše STM32F10X_MD_VL
+
+	* [r153] /branches/custom-d/src/hal/hal_private.h:
+	  - izbačena je esHalInit() jer se HAL inicijalizuje u start-up
+
+	* [r152] /branches/custom-d/inc/hal/hal_generic.h:
+	  -- IZMENE: HAL sakriva CMSIS
+	  - izbačena je esHalInit() jer se HAL inicijalizuje u start-up
+
+2013-03-23  nenad
+
+	* [r151] /branches/custom-d/inc/hal/hal_compiler.h,
+	  /branches/custom-d/inc/hal/hal_crc.h,
+	  /branches/custom-d/inc/hal/hal_interrupt.h,
+	  /branches/custom-d/inc/hal/hal_timer.h,
+	  /branches/custom-d/inc/hal/hal_uart.h,
+	  /branches/custom-d/inc/port/arch/arm_cm3/GCC/interrupt.h,
+	  /branches/custom-d/inc/port/arch/arm_cm3_profile.h,
+	  /branches/custom-d/inc/port/family/stm32f10x/crc_lld.h,
+	  /branches/custom-d/inc/port/family/stm32f10x/timer_lld.h,
+	  /branches/custom-d/inc/port/family/stm32f10x/uart_lld.h,
+	  /branches/custom-d/inc/port/family/stm32f10x_profile.h,
+	  /branches/custom-d/inc/port/family/stm32l1xx_profile.h,
+	  /branches/custom-d/inc/port/variant/stm32l152rb_profile.h,
+	  /branches/custom-d/src/hal/crc.c,
+	  /branches/custom-d/src/hal/crc_pkg.h,
+	  /branches/custom-d/src/hal/dbg.c[DEL],
+	  /branches/custom-d/src/hal/hal.c,
+	  /branches/custom-d/src/hal/hal_private.h,
+	  /branches/custom-d/src/hal/timer_pkg.h,
+	  /branches/custom-d/src/hal/uart.c,
+	  /branches/custom-d/src/hal/uart_pkg.h,
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_md_vl.S,
+	  /branches/custom-d/src/port/family/stm32l1xx/crc_lld.c,
+	  /branches/custom-d/src/port/family/stm32l1xx/gpio_lld.c,
+	  /branches/custom-d/src/port/family/stm32l1xx/timer_lld.c,
+	  /branches/custom-d/src/port/family/stm32l1xx/uart_lld.c:
+	  - Doxygen sređivanje
+
+	* [r150] /branches/custom-d/src/port/family/stm32f10x/gpio.c[ADD]:
+	  - GPIO konačno radi za jedan port
+	  - Doxygen sređivanje
+
+	* [r149] /branches/custom-d/src/hal/gpio_pkg.h:
+	  - Doxygen sređivanje
+	  - Uklonjene su razne gluposti
+
+	* [r148] /branches/custom-d/inc/port/variant/stm32f100rb_profile.h:
+	  - GPIO konačno radi za jedan port
+	  - Doxygen sređivanje
+
+	* [r147] /branches/custom-d/inc/port/family/stm32f10x/gpio_lld.h:
+	  - GPIO konačno radi za jedan port
+	  - Doxygen sređivanje
+
+	* [r146] /branches/custom-d/inc/port/compiler/gcc.h:
+	  - Makroi C_INLINE i C_INLINE_ALWAYS vise ne skrivaju static
+	  kvalifikator, zato je neophodno dodati ga ispred
+	  - Doxygen sređivanje
+
+	* [r145] /branches/custom-d/inc/port/arch/arm_cm3/GCC/cpu.h:
+	  - Makroi C_INLINE i C_INLINE_ALWAYS vise ne skrivaju static
+	  kvalifikator, zato je neophodno dodati ga ispred
+	  - Doxygen sređivanje
+
+	* [r144] /branches/custom-d/inc/port/hal_profiles.h:
+	  - Port familija uključuje registre procesora
+	  - Doxygen sređivanje
+
+	* [r143] /branches/custom-d/inc/hal/hal_gpio.h:
+	  - Doxygen sređivanje
+	  - Interfejs je pojednostavljen i sređen. Koriste se lepi prototipovi
+	  funkcija
+
+	* [r142] /branches/custom-d/inc/hal/hal.h,
+	  /branches/custom-d/inc/hal/hal_generic.h[ADD]:
+	  - Doxygen sređivanje
+	  - Morala je da se kreira generic datoteka koja se učitava pre ostalih
+	  modula HAL-a
+
+	* [r141] /branches/custom-d/inc/hal/hal_cpu.h:
+	  - Doxygen sređivanje
+	  - Interfejs je doveden u red, koriste se lepi prototipovi funkcija
+
+	* [r140] /branches/custom-d/inc/port/arch/arm_cm3/cmsis/core_cm3.h,
+	  /branches/custom-d/inc/port/family/stm32f10x/cmsis/stm32f10x.h,
+	  /branches/custom-d/src/port/family/stm32f10x/cmsis/system_stm32f10x.c:
+	  - CMSIS je prilagođen HAL-u
+
+	* [r139] /branches/custom-d/doc/config[ADD],
+	  /branches/custom-d/doc/config/hal_config.dox[ADD],
+	  /branches/custom-d/doc/example/c_ptrcast.c[ADD],
+	  /branches/custom-d/doc/example/es_div_round.c[ADD],
+	  /branches/custom-d/doc/example/es_div_roundup.c[ADD],
+	  /branches/custom-d/doc/example/irq_fast.c[ADD],
+	  /branches/custom-d/doc/example/irq_regular.c[ADD],
+	  /branches/custom-d/doc/inc/dbg[DEL],
+	  /branches/custom-d/doc/inc/hal/hal.dox,
+	  /branches/custom-d/doc/inc/hal/hal_compiler.dox,
+	  /branches/custom-d/doc/inc/hal/hal_cpu.dox[ADD],
+	  /branches/custom-d/doc/inc/hal/hal_crc.dox,
+	  /branches/custom-d/doc/inc/hal/hal_gpio.dox,
+	  /branches/custom-d/doc/inc/hal/hal_interrupt.dox[ADD],
+	  /branches/custom-d/doc/inc/hal/hal_timer.dox[ADD],
+	  /branches/custom-d/doc/inc/hal/hal_uart.dox[ADD],
+	  /branches/custom-d/doc/inc/port/arch/arm_cm3/arm_cm3.dox,
+	  /branches/custom-d/doc/inc/port/arch/x86[DEL],
+	  /branches/custom-d/doc/inc/port/common[DEL],
+	  /branches/custom-d/doc/inc/port/compiler[CPY],
+	  /branches/custom-d/doc/inc/port/compiler/GCC/gcc.dox,
+	  /branches/custom-d/doc/inc/port/compiler/IAR[DEL],
+	  /branches/custom-d/doc/inc/port/family[CPY],
+	  /branches/custom-d/doc/inc/port/family/STM32F10x_LD_VL[DEL],
+	  /branches/custom-d/doc/inc/port/family/STM32L1XX_MD[DEL],
+	  /branches/custom-d/doc/inc/port/family/stm32f10x.dox[ADD],
+	  /branches/custom-d/doc/inc/port/family/stm32l1xx.dox[CPY],
+	  /branches/custom-d/doc/inc/port/hal_profiles.dox[ADD],
+	  /branches/custom-d/doc/inc/port/platform[DEL],
+	  /branches/custom-d/doc/inc/port/variant,
+	  /branches/custom-d/doc/inc/port/variant/stm32f100rb.dox[ADD],
+	  /branches/custom-d/doc/inc/port/variant/stm32l152rb.dox[ADD],
+	  /branches/custom-d/doc/pages/licence.dox[DEL],
+	  /branches/custom-d/doc/pages/literature.dox[DEL],
+	  /branches/custom-d/doc/pages/main.dox[DEL],
+	  /branches/custom-d/doc/pages/page_hal.dox[CPY],
+	  /branches/custom-d/doc/pages/structure.dox[DEL],
+	  /branches/custom-d/doc/pages/usage.dox[DEL],
+	  /branches/custom-d/doc/src/dbg[DEL],
+	  /branches/custom-d/doc/src/hal/cpu.dox[ADD],
+	  /branches/custom-d/doc/src/hal/crc.dox[ADD],
+	  /branches/custom-d/doc/src/hal/gpio.dox[ADD],
+	  /branches/custom-d/doc/src/hal/hal.dox,
+	  /branches/custom-d/doc/src/hal/timer.dox[ADD],
+	  /branches/custom-d/doc/src/hal/uart.dox[ADD],
+	  /branches/custom-d/doc/src/port/variant[DEL]:
+	  - Doxygen sređivanje
+
+	* [r138] /branches/custom-d/config/hal_config.h:
+	  - Izbacene su suvišne debug opcije
+	  - Uključen je GPIO! YaY
+	  - Doxygen sređivanje
+
+2013-03-21  nenad
+
+	* [r137]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_cl.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_cl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd_vl.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd_vl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_ld.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_ld.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_md.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_md.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_xl.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_xl.s[DEL]:
+	  - Rename u validan oblik
+
+	* [r136] /branches/custom-d/src/hal/hal.c:
+	  - Ne koristi se HAL_DBG makro
+
+	* [r135] /branches/custom-d/inc/hal/hal.h:
+	  - Doxygen formatiranje
+
+	* [r134] /branches/custom-d/inc/hal/hal_dbg.h[DEL]:
+	  - Ne koristi se više DBG modul! YaY ^.^
+
+	* [r133] /branches/custom-d/inc/hal/hal_cpu.h:
+	  - Doxygen formatiranje
+	  - Uklonjeni su svi makroi, koriste se samo INLINE funkcije
+
+	* [r132]
+	  /branches/custom-d/linker-scripts/gcc/arch/arm_cm3/arm_cm3_rom.ld:
+	  - Detaljniji opis globalnih promenljivih
+	  - Definišu se i _sram i _eram
+	  - sadržaj sekcija je pojednostavljen
+	  - komentari su sređeni
+
+	* [r131] /branches/custom-d/inc/port/variant/stm32f100rb_profile.h:
+	  - Doxygen formatiranje
+
+	* [r130] /branches/custom-d/inc/port/family/stm32f10x/cmsis/stm32f10x.h:
+	  - nema izmena?
+
+	* [r129] /branches/custom-d/inc/port/family/stm32f10x/gpio_lld.h:
+	  - BUG FIX: učitavanje lošeg include fajla
+
+	* [r128]
+	  /branches/custom-d/inc/port/family/stm32f10x/family_profile.h[DEL]:
+	  - Uklonjen je redudantni fajl
+
+	* [r127] /branches/custom-d/inc/port/family/stm32f10x_profile.h:
+	  - BUG FIX: stm32f100rbt6 nije LD_VL serija već MD_VL!
+
+	* [r126] /branches/custom-d/inc/port/arch/arm_cm3/GCC/interrupt.h:
+	  - Doxygen formatiranje
+
+	* [r125] /branches/custom-d/inc/port/arch/arm_cm3/GCC/cpu.h:
+	  - Doxygen formatiranje
+	  - Uklonjeni su svi makroi, koriste se samo INLINE funkcije
+
+	* [r124] /branches/custom-d/inc/port/arch/arm_cm3_hal.h[DEL],
+	  /branches/custom-d/inc/port/arch/arm_cm3_profile.h[CPY]:
+	  - Rename: praćenje modela imenovanja kao u varijanti i familiji
+
+	* [r123] /branches/custom-d/inc/port/hal_profiles.h:
+	  - Doxygen tekst je prebačen u .dox fajl
+	  - Doxygen formatiranje
+	  - Fajl uključuje sve potrebne datoteke -> hijerarhija je potisnuta
+
+2013-03-20  nenad
+
+	* [r122]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_cl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_hd.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_hd_vl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld_vl.S[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_md.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_md_vl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_xl.s[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_cl.s[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd.s[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_hd_vl.s[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_ld_vl.S[CPY],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_md_vl.S[CPY]:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r121]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_hd_vl.s:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r120]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld_vl.S:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r119]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_xl.s[CPY]:
+	  - Ispravka komentara
+
+	* [r118]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_md.s[CPY]:
+	  - Ispravka komentara
+
+	* [r117]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/stm32f10x_ld.s[CPY]:
+	  - Ispravka komentara
+
+	* [r116]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_cl.s:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r115]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld.s:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r114]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_md.s:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r113]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_xl.s:
+	  - Novi start up algoritam: RAM se popunjava predefinisanom vrednoscu,
+	  iskljucuju se prekidi, postavljena je jedna NOP instrukcija zbog
+	  debagera
+	  - Sređen je stil
+
+	* [r112]
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld_vl.S:
+	  - BUG FIX: Izgleda da svi start-up fajlovi ne rade sa debugerom. Treba
+	  postaviti jednu NOP instrukcije ispred prve instrukcije kako bi sve
+	  radilo normalno. Naime, ispostavilo se da se R1 ne inicijalizuje na 0
+	  i start-up kod nije inicijalizovao .data sekciju.
+
+	* [r111]
+	  /branches/custom-d/linker-scripts/gcc/arch/arm_cm3/arm_cm3_rom.ld:
+	  - Odlučio sam da stavim stack i heap van sekcija, tako da kada se
+	  kompajlira projekat print-size pokazuje pravu potrosnju memorije. Do
+	  sada je uvek pokazivao punu memoriju.
+	  - _estack i _sheap se sada preklapaju jer stack uvek prvo dekrementira
+	  SP pa postavlja podatak. Na taj nacin ustedeli smo 8 Bajtova. YaY!
+
+2013-03-14  nenad
+
+	* [r110] /branches/custom-d/inc/port/compiler/gcc.h:
+	  - Makro je sređen da bude u skladu sa C99
+
+2013-03-04  nenad
+
+	* [r109] /branches/custom-d/.cproject,
+	  /branches/custom-d/inc/hal/script[DEL],
+	  /branches/custom-d/linker-scripts[ADD],
+	  /branches/custom-d/linker-scripts/gcc[ADD],
+	  /branches/custom-d/linker-scripts/gcc/arch[ADD],
+	  /branches/custom-d/linker-scripts/gcc/arch/arm_cm3[ADD],
+	  /branches/custom-d/linker-scripts/gcc/arch/arm_cm3/arm_cm3_rom.ld[ADD],
+	  /branches/custom-d/linker-scripts/gcc/variant[ADD],
+	  /branches/custom-d/linker-scripts/gcc/variant/STM32F100xBxx[ADD],
+	  /branches/custom-d/linker-scripts/gcc/variant/STM32F100xBxx/hal_rom_default.ld[ADD],
+	  /branches/custom-d/linker-scripts/gcc/variant/STM32L15xxBxx[ADD],
+	  /branches/custom-d/linker-scripts/gcc/variant/STM32L15xxBxx/hal_rom_default.ld[ADD]:
+	  - HAL KONAČNO POSTAVLJA ODGOVARAJUĆU LINKER SKRIPTU ZA DATI MCU
+	  - Koristi se organizacija skripti koja je slična podeli port sistema
+
+2013-03-03  nenad
+
+	* [r108] /branches/custom-d/config/hal_config.h:
+	  - Promena procesora u HAL-u
+
+	* [r107] /branches/custom-d/inc/hal/hal_compiler.h,
+	  /branches/custom-d/inc/port/compiler/gcc.h:
+	  - Dodati su makroi C_FILE i C_LINE
+
+2013-02-28  nenad
+
+	* [r106] /branches/custom-d:
+	  Iz nekog razloga SVN zahteva update . direktorijuma
+
+	* [r105] /branches/custom-d/.cproject:
+	  - HAL je dodao novu putanju za LD skripte
+
+	* [r104] /branches/custom-d/inc/hal/script/STM32F100RB_FLASH.ld[DEL],
+	  /branches/custom-d/inc/hal/script/STM32F100xBxx_rom.ld[CPY],
+	  /branches/custom-d/inc/hal/script/STM32L15xxBxx_rom.ld[CPY],
+	  /branches/custom-d/inc/hal/script/cortex_m3_rom.ld[ADD],
+	  /branches/custom-d/inc/hal/script/stm32l1xx_md_rom.ld[DEL]:
+	  - Napravljene su nove, modularne skripte. Za sada imaju dovoljno
+	  mogućnosti da se koriste. Ako treba, dodaće im se još novih
+	  mogućnosti.
+
+	* [r103] /branches/custom-d/config/hal_config.h:
+	  - Prebačena je konfiguracija na STM32L152RB
+
+2013-02-22  nenad
+
+	* [r102] /branches/custom-d/inc/hal/script/stm32l1xx_md_rom.ld:
+	  - Prelazak na nov način kreiranja linker skripte
+
+2012-12-10  nenad
+
+	* [r101] /branches/custom-d/.cproject:
+	  Update projekta
+
 2012-10-30  nenad
 
-	* [r99] inc/hal/script/STM32F100RB_FLASH.ld, inc/port/family/stm32f10x_profile.h, inc/port/family/stm32l1xx_profile.h, inc/port/variant/stm32f100rb_profile.h, src/port/family/stm32f10x/cmsis,
-	  src/port/family/stm32f10x/startup:
+	* [r100] /trunk/ChangeLog:
+	  - Update ChangeLog-a
+
+	* [r99] /trunk/inc/hal/script/STM32F100RB_FLASH.ld[CPY],
+	  /trunk/inc/port/family/stm32f10x_profile.h[CPY],
+	  /trunk/inc/port/family/stm32l1xx_profile.h,
+	  /trunk/inc/port/variant/stm32f100rb_profile.h[CPY],
+	  /trunk/src/port/family/stm32f10x/cmsis[CPY],
+	  /trunk/src/port/family/stm32f10x/startup[CPY]:
 	  Ubačen je port za stm32f10x familiju i STM32F100RB MCU
-	* [r98] config/hal_config.h:
+
+	* [r98] /trunk/config/hal_config.h:
 	  - Dodata je opcija za STM32F100RB
+
+	* [r97] /branches/custom-d/inc/hal/hal_compiler.h:
+	  - Kozmetička izmena opisa makroa C_ROM_VAR
+
+	* [r96] /tags/1.0a05[CPY]:
+	  - Verzija 1.0a05- kompajlira se sa STP-om iz ETT projekta
+
+	* [r95] /branches/custom-d/.cproject:
+	  - Projekat je udešen da se može kompajlirati
+
+	* [r94] /branches/custom-d/inc/port/variant/stm32f100rb_profile.h[CPY],
+	  /branches/custom-d/inc/port/variant/stm32lf100rb_profile.h[DEL],
+	  /branches/custom-d/src/port/family/stm32f10x/cmsis[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/cmsis/system_stm32f10x.c[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_cl.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_hd.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_hd_vl.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_ld_vl.S[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_md.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_md_vl.s[ADD],
+	  /branches/custom-d/src/port/family/stm32f10x/startup/startup_stm32f10x_xl.s[ADD]:
+	  - Dodate su nedostajuce datoteke za startup i CMSIS. Pogrešno je bila
+	  imenovana datoteka stm32f100rb_profile.h
+
+	* [r93] /branches/custom-d/inc/hal/script/STM32F100RB_FLASH.ld[ADD]:
+	  - Dodata je skripta za STM32F100RB mikrokontroler. Ne znam da li da
+	  svaki mikrokontroler ima svoju skriptu ili da skripte bude vazeca za
+	  celu familiju.
+
+	* [r92] /branches/custom-d/config/hal_config.h:
+	  - Ukljucena je opcija za STM32F100RB mikrokontroler
 
 2012-10-29  nenad
 
-	* [r89] ChangeLog:
+	* [r91] /branches/custom-d/inc/port/family/stm32f10x_profile.h[ADD],
+	  /branches/custom-d/inc/port/variant/stm32lf100rb_profile.h[ADD]:
+	  - Dodate su datoteke za stm32f100rb mcu, treba još srediti Eclipse
+	  profil
+
+	* [r90] /branches/custom-d/inc/port/family/stm32l1xx_profile.h:
+	  - Kozmetičke izmene, preuređeni su makroi unutar if/endif izraza
+
+	* [r89] /trunk/ChangeLog:
 	  - Update ChangeLog-a
-	* [r88] .cproject, .project, .settings/org.eclipse.cdt.codan.core.prefs:
+
+	* [r88] /trunk/.cproject, /trunk/.project,
+	  /trunk/.settings/org.eclipse.cdt.codan.core.prefs:
 	  - Update projekta
-	* [r87] src/hal/hal_private.h:
-	  - modifikacija HAL implementacije da prihvati LOG makroe, svi moduli HAL-a ce imati LOG opciju
-	* [r86] src/hal/hal.c:
+
+	* [r87] /trunk/src/hal/hal_private.h:
+	  - modifikacija HAL implementacije da prihvati LOG makroe, svi moduli
+	  HAL-a ce imati LOG opciju
+
+	* [r86] /trunk/src/hal/hal.c:
 	  - esHalInit je prva funkcija koja koristi LOG makro
-	* [r85] inc/hal/hal_log.h, inc/hal/hal_log_levels.h, inc/hal/hal_log_switches.h:
+
+	* [r85] /trunk/inc/hal/hal_log.h, /trunk/inc/hal/hal_log_levels.h[ADD],
+	  /trunk/inc/hal/hal_log_switches.h:
 	  - Ubacivanje novog LOG modula
-	* [r84] config/hal_config.h:
+
+	* [r84] /trunk/config/hal_config.h:
 	  - Konfiguracija je promenjena da u obzir uzme i novi LOG modul.
 
 2012-10-26  nenad
 
-	* [r83] inc/hal/hal_log.h, inc/hal/hal_log_switches.h:
-	  - Nastavak rada na opsežnom loggeru, formirani su neki makroi i interfejs funkcije
-	* [r82] inc/hal/hal_compiler.h:
-	  - Dodata je konstanta dostupnosti za kompajler (varijabilni makroi) i kratak opis makroa C_FUNC
-	* [r81] inc/hal/hal.h:
+	* [r83] /trunk/inc/hal/hal_log.h,
+	  /trunk/inc/hal/hal_log_switches.h[ADD]:
+	  - Nastavak rada na opsežnom loggeru, formirani su neki makroi i
+	  interfejs funkcije
+
+	* [r82] /trunk/inc/hal/hal_compiler.h:
+	  - Dodata je konstanta dostupnosti za kompajler (varijabilni makroi) i
+	  kratak opis makroa C_FUNC
+
+	* [r81] /trunk/inc/hal/hal.h:
 	  - Dodate su funkcije za dobavljanje vremena i datuma kompajliranja
-	* [r80] inc/port/compiler/gcc.h:
+
+	* [r80] /trunk/inc/port/compiler/gcc.h:
 	  - Dodata je konstanta dostupnosti za kompajler (varijabilni makroi)
 
 2012-10-24  nenad
 
-	* [r79] .cproject, ChangeLog, config/hal_config.h, inc/hal/hal.h, inc/hal/hal_compiler.h, inc/hal/hal_dbg.h, inc/hal/hal_log.h:
+	* [r79] /trunk/.cproject, /trunk/ChangeLog[ADD],
+	  /trunk/config/hal_config.h, /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_dbg.h[DEL],
+	  /trunk/inc/hal/hal_log.h[CPY]:
 	  - Izbrisan je suvišan build profil
 	  - Formiran je ChangeLog
 	  - Radi se na hal_log modulu po modelu liblogger-a
 
 2012-10-19  nenad
 
-	* [r77] inc/hal/hal_dbg.h:
+	* [r78] /branches/custom-d/inc/hal/hal_dbg.h:
+	  - Ispravljeno je neregularno ime makroa
+
+	* [r77] /trunk/inc/hal/hal_dbg.h:
 	  - Ispravljena je greška u imenovanju ES_DBG_EMPTY_DECL makroa
 
 2012-10-17  nenad
 
-	* [r74] Doxyfile, log.txt:
+	* [r76] /branches/custom-d[CPY]:
+	  Branch zbog Dejanovih zahteva
+
+	* [r75] /tags/1.0a04[CPY]:
+	  Tagovanje verzije 1.0a04
+
+	* [r74] /trunk/Doxyfile, /trunk/log.txt:
 	  Prebacivanje na verziju 1.0a04
-	* [r73] config/hal_config.h, inc/hal/hal_dbg.h, src/hal/dbg.c:
+
+	* [r73] /trunk/config/hal_config.h, /trunk/inc/hal/hal_dbg.h,
+	  /trunk/src/hal/dbg.c:
 	  - Početak rada na Debug modulu
 
 2012-10-07  nenad
 
-	* [r72] inc/hal/hal_interrupt.h, inc/port/arch/arm_cm3/GCC/interrupt.h:
-	  - Koriste se CMSIS funkcije za rad sa prekidima. Arhitektura definise prekidne nivoe.
-	* [r71] inc/hal/hal_cpu.h, inc/port/arch/arm_cm3/GCC/cpu.h:
+	* [r72] /trunk/inc/hal/hal_interrupt.h,
+	  /trunk/inc/port/arch/arm_cm3/GCC/interrupt.h:
+	  - Koriste se CMSIS funkcije za rad sa prekidima. Arhitektura definise
+	  prekidne nivoe.
+
+	* [r71] /trunk/inc/hal/hal_cpu.h,
+	  /trunk/inc/port/arch/arm_cm3/GCC/cpu.h:
 	  - Dodat je makro ES_CPU_SLEEP
 
 2012-10-03  nenad
 
-	* [r70] .cproject, inc/hal/script/stm32l152rbt6_rom.ld, inc/hal/script/stm32l1xx_md_rom.ld, inc/port/arch/arm_cm3/GCC/cpu.h, inc/port/arch/arm_cm3/script, inc/port/compiler/GCC,
-	  inc/port/family/stm32l1xx_profile.h, src/port/family/stm32l1xx/cmsis/system_stm32l1xx.c:
+	* [r70] /trunk/.cproject,
+	  /trunk/inc/hal/script/stm32l152rbt6_rom.ld[DEL],
+	  /trunk/inc/hal/script/stm32l1xx_md_rom.ld[ADD],
+	  /trunk/inc/port/arch/arm_cm3/GCC/cpu.h,
+	  /trunk/inc/port/arch/arm_cm3/script[DEL],
+	  /trunk/inc/port/compiler/GCC[DEL],
+	  /trunk/inc/port/family/stm32l1xx_profile.h,
+	  /trunk/src/port/family/stm32l1xx/cmsis/system_stm32l1xx.c:
 	  Sređena je linker skripta, obrisane su suvišne stvari
 
 2012-10-02  nenad
 
-	* [r69] inc/port/family/stm32l1xx_profile.h:
+	* [r69] /trunk/inc/port/family/stm32l1xx_profile.h:
 	  - Komentarisanje ES_HAL_MCU_FAMILY
 	  - Definise se PORT konstanta
-	* [r68] inc/port/arch/arm_cm3_hal.h, inc/port/arch/arm_cm3_profile.h:
-	  - Izmena imena datoteke, jer postoji potreba za istom datotekom i u drugim projektima
-	* [r67] inc/port/hal_profiles.h:
+
+	* [r68] /trunk/inc/port/arch/arm_cm3_hal.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3_profile.h[DEL]:
+	  - Izmena imena datoteke, jer postoji potreba za istom datotekom i u
+	  drugim projektima
+
+	* [r67] /trunk/inc/port/hal_profiles.h:
 	  - Kozmeticke prepravke
-	  - Definise se HAL_PORT_FOUND_ umesto PORT_FOUND_, jer i drugi projekti traze svoju promenljivu
-	* [r66] src/hal/hal_private.h, src/hal/timer_pkg.h, src/hal/uart.c, src/hal/uart_pkg.h:
+	  - Definise se HAL_PORT_FOUND_ umesto PORT_FOUND_, jer i drugi projekti
+	  traze svoju promenljivu
+
+	* [r66] /trunk/src/hal/hal_private.h, /trunk/src/hal/timer_pkg.h,
+	  /trunk/src/hal/uart.c, /trunk/src/hal/uart_pkg.h:
 	  - Kozmeticke ispravke
-	* [r65] .cproject, src/port/family/stm32l1xx/cmsis, src/port/family/stm32l1xx/cmsis/system_stm32l1xx.c, src/port/family/stm32l1xx/startup, src/port/family/stm32l1xx/startup/stm32l1xx_hd.S,
-	  src/port/family/stm32l1xx/startup/stm32l1xx_md.S, src/port/family/stm32l1xx/startup/stm32l1xx_mdp.S, src/port/variant:
+
+	* [r65] /trunk/.cproject, /trunk/src/port/family/stm32l1xx/cmsis[ADD],
+	  /trunk/src/port/family/stm32l1xx/cmsis/system_stm32l1xx.c[ADD],
+	  /trunk/src/port/family/stm32l1xx/startup[ADD],
+	  /trunk/src/port/family/stm32l1xx/startup/stm32l1xx_hd.S[ADD],
+	  /trunk/src/port/family/stm32l1xx/startup/stm32l1xx_md.S[ADD],
+	  /trunk/src/port/family/stm32l1xx/startup/stm32l1xx_mdp.S[ADD],
+	  /trunk/src/port/variant[DEL]:
 	  - Dodata je CMSIS STM biblioteka, source datoteke
-	* [r64] src/hal/dbg.c, src/hal/hal.c, src/hal/hal_private.h:
+
+	* [r64] /trunk/src/hal/dbg.c[CPY], /trunk/src/hal/hal.c,
+	  /trunk/src/hal/hal_private.h:
 	  - Debug je ubačen u HAL
-	* [r63] src/dbg:
+
+	* [r63] /trunk/src/dbg[DEL]:
 	  - Debug modul je prebačen u HAL
-	* [r62] inc/hal/hal.h, inc/hal/hal_dbg.h:
+
+	* [r62] /trunk/inc/hal/hal.h, /trunk/inc/hal/hal_dbg.h[CPY]:
 	  - hal.h ukljucuje dbg modul
 	  - dbg modul je u okviru samog HAL-a
-	* [r61] inc/dbg:
+
+	* [r61] /trunk/inc/dbg[DEL]:
 	  - Debug modul je u okviru samog HAL-a
-	* [r60] config/hal_config.h:
-	  - Dodate su nedostajuce opcije, treba da se dodaju opcije za debagovanje samog HAL-a
-	* [r59] src/dbg, src/dbg/dbg.c:
+
+	* [r60] /trunk/config/hal_config.h:
+	  - Dodate su nedostajuce opcije, treba da se dodaju opcije za
+	  debagovanje samog HAL-a
+
+	* [r59] /trunk/src/dbg[ADD], /trunk/src/dbg/dbg.c[ADD]:
 	  - Implementacija novog DBG podmodula
-	* [r58] inc/port/variant/stm32l152rb_profile.h:
-	  - Nema vise finog podesavanja familije od strane varijante, to se radi sa define promenljivom u Eclipse profilu koja je identična promenljivoj u CMSIS STM biblioteci
-	* [r57] inc/port/family/stm32l1xx/cmsis, inc/port/family/stm32l1xx/cmsis/stm32l1xx.h, inc/port/family/stm32l1xx/cmsis/system_stm32l1xx.h:
+
+	* [r58] /trunk/inc/port/variant/stm32l152rb_profile.h:
+	  - Nema vise finog podesavanja familije od strane varijante, to se radi
+	  sa define promenljivom u Eclipse profilu koja je identična
+	  promenljivoj u CMSIS STM biblioteci
+
+	* [r57] /trunk/inc/port/family/stm32l1xx/cmsis[ADD],
+	  /trunk/inc/port/family/stm32l1xx/cmsis/stm32l1xx.h[ADD],
+	  /trunk/inc/port/family/stm32l1xx/cmsis/system_stm32l1xx.h[ADD]:
 	  - Dodata je CMSIS STM biblioteka, header datoteke
-	* [r56] inc/port/family/stm32l1xx_profile.h:
-	  - Familija se određuje istom define promenljivom kao i CMSIS STM biblioteka
+
+	* [r56] /trunk/inc/port/family/stm32l1xx_profile.h:
+	  - Familija se određuje istom define promenljivom kao i CMSIS STM
+	  biblioteka
 	  - Promenjeni su nazivi define promenljivih
 	  - Dodat je precizniji ES_HAL_MCU_FAMILY opis
-	* [r55] inc/port/arch/arm_cm3/GCC/cpu.h:
+
+	* [r55] /trunk/inc/port/arch/arm_cm3/GCC/cpu.h:
 	  - Napisane su ffs i fls funkcije
-	* [r54] inc/port/arch/arm_cm3_profile.h:
+
+	* [r54] /trunk/inc/port/arch/arm_cm3_profile.h:
 	  - Ispravljeni su nazivi define promenljivih
-	* [r53] inc/port/hal_profiles.h, inc/port/profiles.h:
+
+	* [r53] /trunk/inc/port/hal_profiles.h[CPY],
+	  /trunk/inc/port/profiles.h[DEL]:
 	  - Promena imena datoteke
-	* [r52] inc/hal/script/stm32l152rbt6_rom.ld:
+
+	* [r52] /trunk/inc/hal/script/stm32l152rbt6_rom.ld:
 	  - Promena include putanje
-	* [r51] inc/hal/hal.h:
+
+	* [r51] /trunk/inc/hal/hal.h:
 	  - Promena naziva include datoteka
 	  - HAL_CRITICAL makroi su prebačeni u privatnu sekciju
-	* [r50] inc/hal/hal_cpu.h:
+
+	* [r50] /trunk/inc/hal/hal_cpu.h:
 	  - Definisan je prazan makro
-	* [r49] inc/dbg, inc/dbg/dbg.h:
+
+	* [r49] /trunk/inc/dbg[ADD], /trunk/inc/dbg/dbg.h[ADD]:
 	  - Dodata je nova implementacija Debug podmodula
 
 2012-10-01  nenad
 
-	* [r48] inc/hal/hal.h, inc/hal/hal_compiler.h, inc/hal/hal_cpu.h, inc/port/arch/arm_cm3/GCC/cpu.h, inc/port/arch/arm_cm3_profile.h, inc/port/compiler/GCC/compiler.h, inc/port/compiler/gcc.h,
-	  inc/port/family/stm32l1xx_profile.h, inc/port/port.h, inc/port/profiles.h, inc/port/variant/stm32l152rb_profile.h:
+	* [r48] /trunk/inc/hal/hal.h, /trunk/inc/hal/hal_compiler.h,
+	  /trunk/inc/hal/hal_cpu.h, /trunk/inc/port/arch/arm_cm3/GCC/cpu.h,
+	  /trunk/inc/port/arch/arm_cm3_profile.h,
+	  /trunk/inc/port/compiler/GCC/compiler.h[DEL],
+	  /trunk/inc/port/compiler/gcc.h[CPY],
+	  /trunk/inc/port/family/stm32l1xx_profile.h,
+	  /trunk/inc/port/port.h[DEL], /trunk/inc/port/profiles.h,
+	  /trunk/inc/port/variant/stm32l152rb_profile.h:
 	  Dalje uproscavanje projekta
 
 2012-09-27  nenad
 
-	* [r47] .cproject, .project, inc/port/profiles.h:
+	* [r47] /trunk/.cproject, /trunk/.project,
+	  /trunk/inc/port/profiles.h[CPY]:
 	  - Zadnje podešavanje ovog projekta
-	* [r46] inc/port/profile:
+
+	* [r46] /trunk/inc/port/profile[DEL]:
 	  - Profili više ne postoje u ovakvoj formi
-	* [r45] inc/port/common, inc/port/compiler, inc/port/compiler/IAR:
+
+	* [r45] /trunk/inc/port/common[DEL], /trunk/inc/port/compiler[CPY],
+	  /trunk/inc/port/compiler/IAR[DEL]:
 	  - Common struktura više ne postoji, sada je to compiler
-	* [r44] inc/port/arch/arm_cm3/arch_profile.h, inc/port/arch/arm_cm3/cmsis, inc/port/arch/arm_cm3/cmsis/core_cm3.h, inc/port/arch/arm_cm3/cmsis/core_cmFunc.h,
-	  inc/port/arch/arm_cm3/cmsis/core_cmInstr.h, inc/port/arch/arm_cm3_profile.h, inc/port/arch/x86:
+
+	* [r44] /trunk/inc/port/arch/arm_cm3/arch_profile.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/cmsis[ADD],
+	  /trunk/inc/port/arch/arm_cm3/cmsis/core_cm3.h[ADD],
+	  /trunk/inc/port/arch/arm_cm3/cmsis/core_cmFunc.h[ADD],
+	  /trunk/inc/port/arch/arm_cm3/cmsis/core_cmInstr.h[ADD],
+	  /trunk/inc/port/arch/arm_cm3_profile.h[CPY],
+	  /trunk/inc/port/arch/x86[DEL]:
 	  - Arch struktura je pojednostavljena
-	* [r43] inc/port/variant/stm32f10x_md_vl.h, inc/port/variant/stm32l152rb_profile.h:
+
+	* [r43] /trunk/inc/port/variant/stm32f10x_md_vl.h[DEL],
+	  /trunk/inc/port/variant/stm32l152rb_profile.h[ADD]:
 	  - Varijanta je ono što određuje sve ostalo
-	* [r42] inc/port/family/stm32l1xx_profile.h:
+
+	* [r42] /trunk/inc/port/family/stm32l1xx_profile.h[CPY]:
 	  - Family struktura je pojednostavljena
-	* [r41] inc/port/platform:
-	  - Platforma se ne razmatra u ovom stadijumu, ako treba, lako će se dodati kasnije
-	* [r40] inc/port/family/stm32f10x/cmsis, inc/port/family/stm32f10x/cmsis/stm32f10x.h, inc/port/family/stm32f10x/cmsis/system_stm32f10x.h, inc/port/family/stm32f10x/family_profile.h,
-	  inc/port/family/stm32l1xx/family_profile.h, src/port/family, src/port/family/stm32f10x, src/port/family/stm32l1xx, src/port/family/stm32l1xx/crc_lld.c, src/port/family/stm32l1xx/gpio_lld.c,
-	  src/port/family/stm32l1xx/timer_lld.c, src/port/family/stm32l1xx/uart_lld.c:
+
+	* [r41] /trunk/inc/port/platform[DEL]:
+	  - Platforma se ne razmatra u ovom stadijumu, ako treba, lako će se
+	  dodati kasnije
+
+	* [r40] /trunk/inc/port/family/stm32f10x/cmsis[ADD],
+	  /trunk/inc/port/family/stm32f10x/cmsis/stm32f10x.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/cmsis/system_stm32f10x.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/family_profile.h,
+	  /trunk/inc/port/family/stm32l1xx/family_profile.h[DEL],
+	  /trunk/src/port/family[ADD], /trunk/src/port/family/stm32f10x[ADD],
+	  /trunk/src/port/family/stm32l1xx[ADD],
+	  /trunk/src/port/family/stm32l1xx/crc_lld.c[ADD],
+	  /trunk/src/port/family/stm32l1xx/gpio_lld.c[ADD],
+	  /trunk/src/port/family/stm32l1xx/timer_lld.c[ADD],
+	  /trunk/src/port/family/stm32l1xx/uart_lld.c[ADD]:
 	  - Family struktura je pojednostavljena
-	* [r39] src/dbg:
+
+	* [r39] /trunk/src/dbg[DEL]:
 	  - Debug modul se briše iz ovog projekata
-	* [r38] inc/hal/cfg:
-	  - Konfiguracija se postavlja u ./config direktorijum radi lakšeg pristupa
-	* [r37] inc/hal/hal.h:
+
+	* [r38] /trunk/inc/hal/cfg[DEL]:
+	  - Konfiguracija se postavlja u ./config direktorijum radi lakšeg
+	  pristupa
+
+	* [r37] /trunk/inc/hal/hal.h:
 	  - Promene u projektu zahtevaju manje promene putanja datoteka
-	* [r36] inc/dbg:
+
+	* [r36] /trunk/inc/dbg[DEL]:
 	  - Debug modul se briše iz ovog projekata
-	* [r35] config, config/hal_config.h:
+
+	* [r35] /trunk/config[ADD], /trunk/config/hal_config.h[ADD]:
 	  - Konfiguracija iz esolid-config je prebačena nazad u ovaj projekat
 
 2012-09-25  nenad
 
-	* [r34] .cproject, .project:
+	* [r34] /trunk/.cproject, /trunk/.project:
 	  - Prebačen je na STM32L.
-	* [r33] inc/port/common/GCC/compiler.h, inc/port/family/stm32l1xx, inc/port/family/stm32l1xx/family_profile.h, inc/port/profile/profiles.h, inc/port/profile/stm32l1xx_md.h:
+
+	* [r33] /trunk/inc/port/common/GCC/compiler.h,
+	  /trunk/inc/port/family/stm32l1xx[ADD],
+	  /trunk/inc/port/family/stm32l1xx/family_profile.h[ADD],
+	  /trunk/inc/port/profile/profiles.h,
+	  /trunk/inc/port/profile/stm32l1xx_md.h[ADD]:
 	  - Dodata je STM32L1xx familija procesora.
 
 2012-09-23  nenad
 
-	* [r32] inc/hal/hal_cpu.h, inc/port/arch/arm_cm3/GCC/cpu.h:
+	* [r32] /trunk/inc/hal/hal_cpu.h,
+	  /trunk/inc/port/arch/arm_cm3/GCC/cpu.h:
 	  - Ispravljene su sitne greške oko makroa za nativne tipove
-	* [r31] inc/hal/hal_compiler.h:
+
+	* [r31] /trunk/inc/hal/hal_compiler.h:
 	  - Ispravljena je greška da kompajler zavisi od CPU-a
-	* [r30] inc/hal/hal_compiler.h, inc/hal/hal_cpu.h, inc/port/arch/arm_cm3/GCC/cpu.h:
-	  - Prebačeni su makroi: HAL_NATIVE_BITS -> ES_CPU_NATIVE_BITS jer njih definiše procesor, a ne kompajler.
-	* [r29] inc/hal/hal_cpu.h, inc/hal/hal_interrupt.h, inc/port/arch/arm_cm3/arch_profile.h, inc/port/profile/stm32f10x_ld_vl.h:
+
+	* [r30] /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_cpu.h,
+	  /trunk/inc/port/arch/arm_cm3/GCC/cpu.h:
+	  - Prebačeni su makroi: HAL_NATIVE_BITS -> ES_CPU_NATIVE_BITS jer njih
+	  definiše procesor, a ne kompajler.
+
+	* [r29] /trunk/inc/hal/hal_cpu.h, /trunk/inc/hal/hal_interrupt.h,
+	  /trunk/inc/port/arch/arm_cm3/arch_profile.h,
+	  /trunk/inc/port/profile/stm32f10x_ld_vl.h:
 	  - Sređeni su header fajlovi za CPU i prekide.
-	* [r28] inc/hal/hal_compiler.h, inc/port/common/GCC/compiler.h:
+
+	* [r28] /trunk/inc/hal/hal_compiler.h,
+	  /trunk/inc/port/common/GCC/compiler.h:
 	  - Dodat je makro C_CONTAINER_OF
-	* [r27] .cproject, .project, inc/hal/hal.h, inc/hal/hal_compiler.h, inc/hal/hal_gpio.h, inc/port/family/stm32f10x/family_profile.h, inc/port/family/stm32f10x/gpio_lld.h,
-	  inc/port/family/stm32f10x/timer_lld.h, inc/port/profile/stm32f10x_ld_vl.h, src/hal/crc.c, src/hal/hal.c, src/hal/hal_private.h, src/hal/timer_pkg.h, src/hal/uart.c, src/hal/uart_pkg.h,
-	  src/port/variant/stm32l1xx_md/crc_lld.c, src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/timer_lld.c, src/port/variant/stm32l1xx_md/uart_lld.c:
-	  - HAL je još više sređen. Sada se ponaša normalnije kada HAL opcije nisu uključene.
+
+	* [r27] /trunk/.cproject, /trunk/.project, /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/port/family/stm32f10x/family_profile.h,
+	  /trunk/inc/port/family/stm32f10x/gpio_lld.h,
+	  /trunk/inc/port/family/stm32f10x/timer_lld.h,
+	  /trunk/inc/port/profile/stm32f10x_ld_vl.h, /trunk/src/hal/crc.c,
+	  /trunk/src/hal/hal.c, /trunk/src/hal/hal_private.h,
+	  /trunk/src/hal/timer_pkg.h, /trunk/src/hal/uart.c,
+	  /trunk/src/hal/uart_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/crc_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/timer_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
+	  - HAL je još više sređen. Sada se ponaša normalnije kada HAL opcije
+	  nisu uključene.
 
 2012-09-22  nenad
 
-	* [r26] .cproject, .project, inc/hal/hal_uart.h, inc/port/common/GCC/compiler.h, inc/port/profile/profiles.h, inc/port/profile/stm32f10x_ld_vl.h, inc/port/profile/stm32f10x_md_vl.h,
-	  src/hal/crc.c, src/hal/hal_private.h, src/hal/uart.c, src/port/variant/stm32l1xx_md/crc_lld.c, src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/timer_lld.c,
-	  src/port/variant/stm32l1xx_md/uart_lld.c:
-	  Projekat je sređen da kada nema nikakve konfiguracije i dalje prolazi kompilaciju ali skoro bez funkcionalnosti. Ovo je dobro jer su još uvek dostupni neki makroi u slučaju kada se koristi
-	  nepodržani procesor.
+	* [r26] /trunk/.cproject, /trunk/.project, /trunk/inc/hal/hal_uart.h,
+	  /trunk/inc/port/common/GCC/compiler.h,
+	  /trunk/inc/port/profile/profiles.h,
+	  /trunk/inc/port/profile/stm32f10x_ld_vl.h,
+	  /trunk/inc/port/profile/stm32f10x_md_vl.h, /trunk/src/hal/crc.c,
+	  /trunk/src/hal/hal_private.h, /trunk/src/hal/uart.c,
+	  /trunk/src/port/variant/stm32l1xx_md/crc_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/timer_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
+	  Projekat je sređen da kada nema nikakve konfiguracije i dalje prolazi
+	  kompilaciju ali skoro bez funkcionalnosti. Ovo je dobro jer su još
+	  uvek dostupni neki makroi u slučaju kada se koristi nepodržani
+	  procesor.
 
 2012-06-05  nenad
 
-	* [r25] .cproject, inc/hal/cfg/hal_cfg.h, inc/hal/hal.h:
+	* [r25] /trunk/.cproject, /trunk/inc/hal/cfg/hal_cfg.h,
+	  /trunk/inc/hal/hal.h:
 	  Celokupno ažuriranje
-	* [r24] inc/port/port_detect.h:
+
+	* [r24] /trunk/inc/port/port_detect.h[DEL]:
 	  brisanje suvišnih datoteka
-	* [r23] inc/port/arch/arm_cm3/arch_profile.h, inc/port/family/stm32f10x/family_profile.h, inc/port/port.h, inc/port/profile, inc/port/profile/linux_x86_x64, inc/port/profile/profiles.h,
-	  inc/port/profile/stm32f10x_ld_vl.h, inc/port/profile/stm32f10x_md_vl.h:
+
+	* [r23] /trunk/inc/port/arch/arm_cm3/arch_profile.h,
+	  /trunk/inc/port/family/stm32f10x/family_profile.h,
+	  /trunk/inc/port/port.h, /trunk/inc/port/profile[CPY],
+	  /trunk/inc/port/profile/linux_x86_x64[DEL],
+	  /trunk/inc/port/profile/profiles.h[ADD],
+	  /trunk/inc/port/profile/stm32f10x_ld_vl.h[ADD],
+	  /trunk/inc/port/profile/stm32f10x_md_vl.h:
 	  Prelazak na novu hijerarhiju
-	* [r22] .settings/org.eclipse.core.resources.prefs, doc/inc/hal/hal_crc.dox, inc/port/variant/linux_x86_x64:
+
+	* [r22] /trunk/.settings/org.eclipse.core.resources.prefs[ADD],
+	  /trunk/doc/inc/hal/hal_crc.dox,
+	  /trunk/inc/port/variant/linux_x86_x64[DEL]:
 	  Obrisan je rep prethodne hijerarhije
-	* [r21] .cproject, .project, inc/hal/hal.h, inc/hal/hal_crc.h, inc/hal/hal_gpio.h, inc/hal/hal_uart.h, inc/port/arch/arm_cm3/GCC, inc/port/arch/arm_cm3/GCC/cpu.h,
-	  inc/port/arch/arm_cm3/GCC/interrupt.h, inc/port/arch/arm_cm3/arch_profile.h, inc/port/arch/arm_cm3/cpu.h, inc/port/arch/arm_cm3/interrupt.h, inc/port/family, inc/port/family/stm32f10x,
-	  inc/port/family/stm32f10x/crc_lld.h, inc/port/family/stm32f10x/family_profile.h, inc/port/family/stm32f10x/gpio_lld.h, inc/port/family/stm32f10x/timer_lld.h,
-	  inc/port/family/stm32f10x/uart_lld.h, inc/port/platform/STM32F4-DISCOVERY, inc/port/platform/STM32VLDISCOVERY, inc/port/port.h, inc/port/port_detect.h, inc/port/variant/linux_x86,
-	  inc/port/variant/stm32f10x_ld_vl, inc/port/variant/stm32f10x_md_vl.h, inc/port/variant/stm32l1xx_md, inc/port/variant/win_x86, inc/port/variant/win_x86_x64, src/hal/crc.c, src/hal/crc_pkg.h,
-	  src/hal/gpio_pkg.h, src/hal/hal.c, src/port/variant/stm32f10x_ld_vl/crc.c, src/port/variant/stm32f10x_ld_vl/timer_lld.c, src/port/variant/stm32l1xx_md/crc_lld.c,
-	  src/port/variant/stm32l1xx_md/gpio_lld.c:
+
+	* [r21] /trunk/.cproject, /trunk/.project, /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_crc.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/hal/hal_uart.h, /trunk/inc/port/arch/arm_cm3/GCC[ADD],
+	  /trunk/inc/port/arch/arm_cm3/GCC/cpu.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/GCC/interrupt.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/arch_profile.h,
+	  /trunk/inc/port/arch/arm_cm3/cpu.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/interrupt.h[DEL],
+	  /trunk/inc/port/family[ADD], /trunk/inc/port/family/stm32f10x[ADD],
+	  /trunk/inc/port/family/stm32f10x/crc_lld.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/family_profile.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/gpio_lld.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/timer_lld.h[ADD],
+	  /trunk/inc/port/family/stm32f10x/uart_lld.h[ADD],
+	  /trunk/inc/port/platform/STM32F4-DISCOVERY[ADD],
+	  /trunk/inc/port/platform/STM32VLDISCOVERY[ADD],
+	  /trunk/inc/port/port.h, /trunk/inc/port/port_detect.h,
+	  /trunk/inc/port/variant/linux_x86[DEL],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl[DEL],
+	  /trunk/inc/port/variant/stm32f10x_md_vl.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md[DEL],
+	  /trunk/inc/port/variant/win_x86[DEL],
+	  /trunk/inc/port/variant/win_x86_x64[DEL], /trunk/src/hal/crc.c,
+	  /trunk/src/hal/crc_pkg.h, /trunk/src/hal/gpio_pkg.h,
+	  /trunk/src/hal/hal.c,
+	  /trunk/src/port/variant/stm32f10x_ld_vl/crc.c[DEL],
+	  /trunk/src/port/variant/stm32f10x_ld_vl/timer_lld.c[DEL],
+	  /trunk/src/port/variant/stm32l1xx_md/crc_lld.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c:
 	  Prelazak na novu hujerarhiju port sistema
 
 2012-05-26  nenad
 
-	* [r20] inc/hal/hal_crc.h, inc/port/arch/x86/GCC:
+	* [r20] /trunk/inc/hal/hal_crc.h, /trunk/inc/port/arch/x86/GCC[DEL]:
 	  - Brisanje starih/nepotrebnih datoteka
 	  
 	  hal_crc.h
 	  - prelazak na napredan drajver za CRC modul
-	* [r19] inc/port/variant/linux_x86_x64/hal:
+
+	* [r19] /trunk/inc/port/variant/linux_x86_x64/hal[DEL]:
 	  Brisanje nepotrebnih datoteka
-	* [r18] inc/port/arch/arm_cm3/interrupt.h, inc/port/arch/x86/compiler.h, inc/port/arch/x86/cpu.h, inc/port/arch/x86/interrupt.h, inc/port/arch/x86/script, inc/port/variant/linux_x86/hal,
-	  inc/port/variant/stm32f10x_ld_vl/hal, inc/port/variant/stm32f10x_ld_vl/timer_lld.h, inc/port/variant/stm32l1xx_md/crc_lld.h, inc/port/variant/stm32l1xx_md/variant_profile.h,
-	  inc/port/variant/win_x86/hal, inc/port/variant/win_x86_x64/hal:
+
+	* [r18] /trunk/inc/port/arch/arm_cm3/interrupt.h,
+	  /trunk/inc/port/arch/x86/compiler.h[DEL],
+	  /trunk/inc/port/arch/x86/cpu.h[DEL],
+	  /trunk/inc/port/arch/x86/interrupt.h[DEL],
+	  /trunk/inc/port/arch/x86/script[DEL],
+	  /trunk/inc/port/variant/linux_x86/hal[DEL],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal[DEL],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/timer_lld.h[DEL],
+	  /trunk/inc/port/variant/stm32l1xx_md/crc_lld.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/variant_profile.h,
+	  /trunk/inc/port/variant/win_x86/hal[DEL],
+	  /trunk/inc/port/variant/win_x86_x64/hal[DEL]:
 	  arm_cm3/interrupt.h
 	  - ispravljena je greška u makrou za postavljanje maske
 	  
 	  inc/port/*
 	  - brisanje starih datoteka
-	* [r17] doc/inc/hal/hal.dox, doc/inc/hal/hal_compiler.dox, doc/inc/hal/hal_crc.dox, doc/inc/hal/hal_gpio.dox, doc/inc/port/common/GCC/gcc.dox, doc/inc/port/common/IAR/iar.dox,
-	  doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox, inc/hal/cfg/hal_cfg.h, inc/hal/hal.h, inc/hal/hal_compiler.h, inc/hal/hal_cpu.h, inc/hal/hal_crc.h, inc/hal/hal_gpio.h,
-	  inc/hal/hal_interrupt.h, inc/hal/hal_support.h, inc/hal/hal_timer.h, inc/hal/hal_uart.h, inc/port/arch/arm_cm3/arch_profile.h, inc/port/arch/arm_cm3/compiler, inc/port/arch/arm_cm3/cpu.h,
-	  inc/port/arch/arm_cm3/interrupt.h, inc/port/arch/x86/GCC/compiler.h, inc/port/arch/x86/cpu.h, inc/port/arch/x86/interrupt.h, inc/port/common/GCC/compiler.h,
-	  inc/port/variant/linux_x86_x64/hal/compiler.h, inc/port/variant/stm32l1xx_md/cpu.h, inc/port/variant/stm32l1xx_md/crc.h, inc/port/variant/stm32l1xx_md/gpio_lld.h,
-	  inc/port/variant/stm32l1xx_md/variant_profile.h, log.txt, src/hal/crc.c, src/hal/crc_pkg.h, src/hal/gpio_pkg.h, src/port/variant/stm32l1xx_md/gpio_lld.c:
+
+	* [r17] /trunk/doc/inc/hal/hal.dox,
+	  /trunk/doc/inc/hal/hal_compiler.dox[ADD],
+	  /trunk/doc/inc/hal/hal_crc.dox[ADD],
+	  /trunk/doc/inc/hal/hal_gpio.dox[ADD],
+	  /trunk/doc/inc/port/common/GCC/gcc.dox,
+	  /trunk/doc/inc/port/common/IAR/iar.dox,
+	  /trunk/doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox,
+	  /trunk/inc/hal/cfg/hal_cfg.h, /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_cpu.h,
+	  /trunk/inc/hal/hal_crc.h[ADD], /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/hal/hal_interrupt.h, /trunk/inc/hal/hal_support.h[DEL],
+	  /trunk/inc/hal/hal_timer.h, /trunk/inc/hal/hal_uart.h,
+	  /trunk/inc/port/arch/arm_cm3/arch_profile.h,
+	  /trunk/inc/port/arch/arm_cm3/compiler[DEL],
+	  /trunk/inc/port/arch/arm_cm3/cpu.h,
+	  /trunk/inc/port/arch/arm_cm3/interrupt.h,
+	  /trunk/inc/port/arch/x86/GCC/compiler.h,
+	  /trunk/inc/port/arch/x86/cpu.h, /trunk/inc/port/arch/x86/interrupt.h,
+	  /trunk/inc/port/common/GCC/compiler.h,
+	  /trunk/inc/port/variant/linux_x86_x64/hal/compiler.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/cpu.h[DEL],
+	  /trunk/inc/port/variant/stm32l1xx_md/crc.h[DEL],
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio_lld.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/variant_profile.h[ADD],
+	  /trunk/log.txt, /trunk/src/hal/crc.c[ADD],
+	  /trunk/src/hal/crc_pkg.h[ADD], /trunk/src/hal/gpio_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c:
 	  gpio_lld.c
 	  - refaktor makroa HAL_CRITICAL_x => ES_CRITICAL_x
 	  - TREBA VRATITI NA HAL_CRITICAL!!!
@@ -320,18 +1184,28 @@
 	  - dodati komentari
 	  
 	  Doxygen dokumentacija je sklonjena pod DOC direktorijum
-	* [r16] inc/port/arch/arm_cm3/GCC, inc/port/arch/arm_cm3/arch_profile.h, inc/port/arch/arm_cm3/compiler, inc/port/arch/arm_cm3/compiler.h, inc/port/arch/arm_cm3/compiler/GCC,
-	  inc/port/arch/arm_cm3/compiler/GCC/c.h, inc/port/arch/arm_cm3/compiler/GCC/compiler.h, inc/port/arch/arm_cm3/compiler/IAR:
+
+	* [r16] /trunk/inc/port/arch/arm_cm3/GCC[DEL],
+	  /trunk/inc/port/arch/arm_cm3/arch_profile.h[ADD],
+	  /trunk/inc/port/arch/arm_cm3/compiler[ADD],
+	  /trunk/inc/port/arch/arm_cm3/compiler.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/compiler/GCC[ADD],
+	  /trunk/inc/port/arch/arm_cm3/compiler/GCC/c.h[ADD],
+	  /trunk/inc/port/arch/arm_cm3/compiler/GCC/compiler.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/compiler/IAR[ADD]:
 	  Prebacivanje u novi vid uključivanja header datoteka
 
 2012-05-23  nenad
 
-	* [r15] inc/hal/hal_crc.h:
+	* [r15] /trunk/inc/hal/hal_crc.h[DEL]:
 	  Brisanje starog CRC modula
 
 2012-05-20  nenad
 
-	* [r14] inc/hal/hal_interrupt.h, inc/hal/hal_uart.h, src/hal/gpio_pkg.h, src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/uart_lld.c:
+	* [r14] /trunk/inc/hal/hal_interrupt.h, /trunk/inc/hal/hal_uart.h,
+	  /trunk/src/hal/gpio_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
 	  hal_interrupt.h
 	  - dodata su jos dva nivoa prioriteta
 	  
@@ -352,113 +1226,331 @@
 
 2012-05-05  nenad
 
-	* [r13] inc/hal/hal.h, inc/hal/hal_gpio.h, inc/hal/hal_interrupt.h, inc/hal/hal_timer.h, inc/hal/hal_uart.h, inc/port/variant/stm32f10x_ld_vl/timer_lld.h,
-	  inc/port/variant/stm32l1xx_md/gpio_lld.h, inc/port/variant/stm32l1xx_md/timer_lld.h, inc/port/variant/stm32l1xx_md/uart_lld.h, src/hal/gpio_pkg.h, src/hal/hal.c, src/hal/hal_private.h,
-	  src/hal/timer_pkg.h, src/hal/uart.c, src/hal/uart_pkg.h, src/port/variant/stm32f10x_ld_vl/timer_lld.c, src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/timer_lld.c,
-	  src/port/variant/stm32l1xx_md/uart_lld.c:
-	  - Dodat je Timer modul, ostali moduli se i dalje sređuju. Prilikom kreiranja novog modula treba uzeti kao referentni modul GPIO modul, jer on pokriva dosta mogućih slučajeva.
+	* [r13] /trunk/inc/hal/hal.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/hal/hal_interrupt.h, /trunk/inc/hal/hal_timer.h[ADD],
+	  /trunk/inc/hal/hal_uart.h,
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/timer_lld.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio_lld.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/timer_lld.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/uart_lld.h,
+	  /trunk/src/hal/gpio_pkg.h, /trunk/src/hal/hal.c,
+	  /trunk/src/hal/hal_private.h, /trunk/src/hal/timer_pkg.h[ADD],
+	  /trunk/src/hal/uart.c, /trunk/src/hal/uart_pkg.h,
+	  /trunk/src/port/variant/stm32f10x_ld_vl/timer_lld.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/timer_lld.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
+	  - Dodat je Timer modul, ostali moduli se i dalje sređuju. Prilikom
+	  kreiranja novog modula treba uzeti kao referentni modul GPIO modul,
+	  jer on pokriva dosta mogućih slučajeva.
 
 2012-04-28  nenad
 
-	* [r12] Doxyfile, inc/hal/hal.h, inc/hal/hal_compiler.h, inc/hal/hal_gpio.h, inc/hal/hal_uart.h, inc/port/port.h, inc/port/variant/stm32l1xx_md/gpio_lld.h,
-	  inc/port/variant/stm32l1xx_md/uart_lld.h, inc/port/variant/stm32l1xx_md/usart.h, src/hal/gpio_pkg.h, src/hal/hal.c, src/hal/uart.c, src/hal/uart_pkg.h,
-	  src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/uart_lld.c:
+	* [r12] /trunk/Doxyfile, /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/hal/hal_uart.h, /trunk/inc/port/port.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio_lld.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/uart_lld.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/usart.h[DEL],
+	  /trunk/src/hal/gpio_pkg.h[ADD], /trunk/src/hal/hal.c[ADD],
+	  /trunk/src/hal/uart.c, /trunk/src/hal/uart_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c,
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
 	  Prelazi se na nov vid organizacije HAL drajvera.
-	* [r11] doc/inc/hal/hal.dox, doc/src/hal/hal.dox:
+
+	* [r11] /trunk/doc/inc/hal/hal.dox, /trunk/doc/src/hal/hal.dox:
 	  Koristi se novi način za organizaciju doxygen dokumenata.
 
 2012-04-17  nenad
 
-	* [r10] Doxyfile, doc/inc/hal/hal.dox, inc/hal/hal.h, inc/hal/hal_gpio.h, inc/port/variant/linux_x86_x64/hal/gpio.h, inc/port/variant/linux_x86_x64/hal/usart.h,
-	  inc/port/variant/stm32f10x_ld_vl/hal/gpio.h, inc/port/variant/stm32f10x_ld_vl/hal/usart.h, src/hal/gpio_pkg.h, src/hal/hal_private.h, src/port/variant/stm32f10x_ld_vl/gpio.c,
-	  src/port/variant/stm32f10x_ld_vl/usart.c, src/port/variant/stm32l1xx_md/gpio.c, src/port/variant/stm32l1xx_md/gpio_lld.c:
+	* [r10] /trunk/Doxyfile, /trunk/doc/inc/hal/hal.dox,
+	  /trunk/inc/hal/hal.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/port/variant/linux_x86_x64/hal/gpio.h[DEL],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/usart.h[DEL],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/gpio.h[DEL],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/usart.h[DEL],
+	  /trunk/src/hal/gpio_pkg.h[DEL], /trunk/src/hal/hal_private.h,
+	  /trunk/src/port/variant/stm32f10x_ld_vl/gpio.c[DEL],
+	  /trunk/src/port/variant/stm32f10x_ld_vl/usart.c[DEL],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio.c[DEL],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c:
 	  Nastavljeno je dokumentovanje GPIO modula.
 
 2012-04-11  nenad
 
-	* [r9] inc/hal/hal_compiler.h, inc/hal/hal_gpio.h, inc/port/common/GCC/compiler.h, inc/port/variant/stm32l1xx_md/gpio.h, inc/port/variant/stm32l1xx_md/gpio_lld.h, log.txt, src/hal/gpio.c,
-	  src/port/variant/stm32l1xx_md/gpio_lld.c:
+	* [r9] /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/port/common/GCC/compiler.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio.h[DEL],
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio_lld.h, /trunk/log.txt,
+	  /trunk/src/hal/gpio.c[DEL],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c:
 	  Urađen je HAL za GPIO modul, port STM32L1xx
 
 2012-04-07  nenad
 
-	* [r8] doc/inc/hal/hal.dox, doc/inc/hal/hal_compiler.dox, doc/inc/hal/hal_cpu.dox, doc/inc/hal/hal_crc.dox, doc/inc/hal/hal_detect.dox, doc/inc/hal/hal_gpio.dox, doc/inc/hal/hal_interrupt.dox,
-	  doc/inc/hal/hal_usart.dox, inc/hal/cfg/hal_cfg.h, inc/hal/hal.h, inc/hal/hal_gpio.h, inc/hal/hal_uart.h, inc/port/arch/arm_cm3/cpu.h, inc/port/variant/stm32l1xx_md/gpio_lld.h,
-	  inc/port/variant/stm32l1xx_md/uart_lld.h, inc/port/variant/stm32l1xx_md/usart.h, log.txt, src/hal/gpio.c, src/hal/gpio_pkg.h, src/hal/hal_private.h, src/hal/uart.c, src/hal/uart_pkg.h,
-	  src/port/variant/stm32l1xx_md/gpio_lld.c, src/port/variant/stm32l1xx_md/uart_lld.c:
-	  Nastavljen je rad na UART i GPIO modulu. Još uvek se koristi stari interfejs. Treba napisati nov interfejs koji se lako uklapa u ideju o naprednim drajverima.
+	* [r8] /trunk/doc/inc/hal/hal.dox,
+	  /trunk/doc/inc/hal/hal_compiler.dox[DEL],
+	  /trunk/doc/inc/hal/hal_cpu.dox[DEL],
+	  /trunk/doc/inc/hal/hal_crc.dox[DEL],
+	  /trunk/doc/inc/hal/hal_detect.dox[DEL],
+	  /trunk/doc/inc/hal/hal_gpio.dox[DEL],
+	  /trunk/doc/inc/hal/hal_interrupt.dox[DEL],
+	  /trunk/doc/inc/hal/hal_usart.dox[DEL], /trunk/inc/hal/cfg/hal_cfg.h,
+	  /trunk/inc/hal/hal.h, /trunk/inc/hal/hal_gpio.h,
+	  /trunk/inc/hal/hal_uart.h, /trunk/inc/port/arch/arm_cm3/cpu.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio_lld.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/uart_lld.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/usart.h, /trunk/log.txt,
+	  /trunk/src/hal/gpio.c[ADD], /trunk/src/hal/gpio_pkg.h[ADD],
+	  /trunk/src/hal/hal_private.h[ADD], /trunk/src/hal/uart.c,
+	  /trunk/src/hal/uart_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/gpio_lld.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
+	  Nastavljen je rad na UART i GPIO modulu. Još uvek se koristi stari
+	  interfejs. Treba napisati nov interfejs koji se lako uklapa u ideju o
+	  naprednim drajverima.
 
 2012-04-06  nenad
 
-	* [r7] src/port/variant/stm32l1xx_md/uart_lld.c:
+	* [r7] /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
 	  Napisana je inicijalizacija za GPIO sa direktnim pristupom registrima.
 
 2012-04-05  nenad
 
-	* [r6] inc/port/arch/x86/hal, inc/port/common/GCC/hal:
+	* [r6] /trunk/inc/port/arch/x86/hal[DEL],
+	  /trunk/inc/port/common/GCC/hal[DEL]:
 	  Izbrisani su nepotrebni direktorijumi.
-	* [r5] .cproject, inc/hal/hal_uart.h, inc/port/variant/stm32f10x_ld_vl/hal/usart.h, inc/port/variant/stm32l1xx_md/usart.h, log.txt, src/hal/uart.c, src/hal/uart_pkg.h,
-	  src/port/variant/stm32l1xx_md/uart_lld.c:
-	  Nastavljen je rad na UART drajveru. Trenutno je započet korišćenjem biblioteke. Ozbiljno se razmišljam da se koristi direktan registarski pristup, jer ove bibliotečke funkcije postaju znatan
-	  overhead (po pitanju zauzeća i efikasnosti kod-a u radu HAL-a.
-	* [r4] .cproject, .project, doc/inc/hal/hal_crc.dox, doc/inc/hal/hal_detect.dox, doc/inc/port/port.dox, inc/dbg/cfg, inc/hal/cfg, inc/hal/cfg/hal_cfg.h, inc/hal/hal.h, inc/hal/hal_compiler.h,
-	  inc/hal/hal_uart.h, inc/hal/hal_usart.h, inc/port/arch/arm_cm3/hal, inc/port/port.h, inc/port/port_detect.h, inc/port/variant/stm32l1xx_md/cpu.h, inc/port/variant/stm32l1xx_md/crc.h,
-	  inc/port/variant/stm32l1xx_md/gpio.h, inc/port/variant/stm32l1xx_md/hal, inc/port/variant/stm32l1xx_md/uart_lld.h, inc/port/variant/stm32l1xx_md/usart.h, log.txt, src/hal, src/hal/uart.c,
-	  src/hal/uart_pkg.h, src/port/variant/stm32l1xx_md/uart_lld.c:
+
+	* [r5] /trunk/.cproject, /trunk/inc/hal/hal_uart.h,
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/usart.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/usart.h, /trunk/log.txt,
+	  /trunk/src/hal/uart.c, /trunk/src/hal/uart_pkg.h,
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c:
+	  Nastavljen je rad na UART drajveru. Trenutno je započet korišćenjem
+	  biblioteke. Ozbiljno se razmišljam da se koristi direktan registarski
+	  pristup, jer ove bibliotečke funkcije postaju znatan overhead (po
+	  pitanju zauzeća i efikasnosti kod-a u radu HAL-a.
+
+	* [r4] /trunk/.cproject, /trunk/.project,
+	  /trunk/doc/inc/hal/hal_crc.dox[ADD],
+	  /trunk/doc/inc/hal/hal_detect.dox, /trunk/doc/inc/port/port.dox[DEL],
+	  /trunk/inc/dbg/cfg[DEL], /trunk/inc/hal/cfg[ADD],
+	  /trunk/inc/hal/cfg/hal_cfg.h[ADD], /trunk/inc/hal/hal.h,
+	  /trunk/inc/hal/hal_compiler.h, /trunk/inc/hal/hal_uart.h[CPY],
+	  /trunk/inc/hal/hal_usart.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/hal[DEL], /trunk/inc/port/port.h,
+	  /trunk/inc/port/port_detect.h,
+	  /trunk/inc/port/variant/stm32l1xx_md/cpu.h[CPY],
+	  /trunk/inc/port/variant/stm32l1xx_md/crc.h[CPY],
+	  /trunk/inc/port/variant/stm32l1xx_md/gpio.h[CPY],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal[DEL],
+	  /trunk/inc/port/variant/stm32l1xx_md/uart_lld.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/usart.h[CPY],
+	  /trunk/log.txt[ADD], /trunk/src/hal[ADD], /trunk/src/hal/uart.c[ADD],
+	  /trunk/src/hal/uart_pkg.h[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/uart_lld.c[ADD]:
 	  hal/hal_compiler.h
 	  - dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
 	  
 	  hal/hal_uart.h
 	  - kreira se potpuno nov interfejs od došadašnjeg
 	  
-	  Doxygen će možda da koristi drugi sistem. Datoteke će se blagovremeno prebaciti u nov format.
+	  Doxygen će možda da koristi drugi sistem. Datoteke će se blagovremeno
+	  prebaciti u nov format.
 
 2012-04-03  nenad
 
-	* [r3] .cproject, doc/inc/dbg/dbg.dox, doc/inc/hal/hal.dox, doc/inc/hal/hal_compiler.dox, doc/inc/hal/hal_cpu.dox, doc/inc/hal/hal_detect.dox, doc/inc/hal/hal_gpio.dox,
-	  doc/inc/hal/hal_interrupt.dox, doc/inc/hal/hal_usart.dox, doc/inc/port/arch/ARM_CM3, doc/inc/port/arch/X86, doc/inc/port/arch/arm_cm3, doc/inc/port/arch/arm_cm3/ARM_CM3.dox,
-	  doc/inc/port/arch/arm_cm3/arm_cm3.dox, doc/inc/port/arch/arm_cm3/core, doc/inc/port/arch/x86, doc/inc/port/arch/x86/x86.dox, doc/inc/port/common/GCC/gcc.dox, doc/inc/port/common/IAR/iar.dox,
-	  doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox, doc/inc/port/port.dox, doc/inc/port/variant/STM32F10x_LD_VL/STM32F10X_LD_VL.dox,
-	  doc/inc/port/variant/STM32L1XX_MD/STM32L1XX_MD.dox, doc/pages/licence.dox, doc/pages/literature.dox, doc/pages/main.dox, doc/pages/structure.dox, doc/pages/usage.dox, doc/src/dbg/dbg.dox,
-	  doc/src/hal/hal.dox, doc/src/port/variant/STM32F10X_LD_VL, doc/src/port/variant/stm32f10x_ld_vl, doc/src/port/variant/stm32f10x_ld_vl/gpio.dox,
-	  doc/src/port/variant/stm32f10x_ld_vl/usart.dox, inc/port/arch/ARM_CM3, inc/port/arch/arm_cm3, inc/port/arch/arm_cm3/GCC, inc/port/arch/arm_cm3/compiler.h, inc/port/arch/arm_cm3/core,
-	  inc/port/arch/arm_cm3/cpu.h, inc/port/arch/arm_cm3/hal/GCC, inc/port/arch/arm_cm3/hal/compiler.h, inc/port/arch/arm_cm3/hal/cpu.h, inc/port/arch/arm_cm3/hal/interrupt.h,
-	  inc/port/arch/arm_cm3/hal/script, inc/port/arch/arm_cm3/interrupt.h, inc/port/arch/arm_cm3/script, inc/port/arch/x86/GCC, inc/port/arch/x86/compiler.h, inc/port/arch/x86/core,
-	  inc/port/arch/x86/cpu.h, inc/port/arch/x86/hal/GCC, inc/port/arch/x86/hal/compiler.h, inc/port/arch/x86/hal/cpu.h, inc/port/arch/x86/hal/interrupt.h, inc/port/arch/x86/hal/script,
-	  inc/port/arch/x86/interrupt.h, inc/port/arch/x86/script, inc/port/common/GCC/compiler.h, inc/port/common/GCC/hal/compiler.h, readme.txt, src/port/variant/STM32F10X_LD_VL,
-	  src/port/variant/stm32f10x_ld_vl, src/port/variant/stm32l1xx_md/gpio.c, src/port/variant/stm32l1xx_md/hal, src/port/variant/stm32l1xx_md/startup.S:
+	* [r3] /trunk/.cproject, /trunk/doc/inc/dbg/dbg.dox,
+	  /trunk/doc/inc/hal/hal.dox, /trunk/doc/inc/hal/hal_compiler.dox,
+	  /trunk/doc/inc/hal/hal_cpu.dox, /trunk/doc/inc/hal/hal_detect.dox,
+	  /trunk/doc/inc/hal/hal_gpio.dox, /trunk/doc/inc/hal/hal_interrupt.dox,
+	  /trunk/doc/inc/hal/hal_usart.dox,
+	  /trunk/doc/inc/port/arch/ARM_CM3[DEL],
+	  /trunk/doc/inc/port/arch/X86[DEL],
+	  /trunk/doc/inc/port/arch/arm_cm3[CPY],
+	  /trunk/doc/inc/port/arch/arm_cm3/ARM_CM3.dox[DEL],
+	  /trunk/doc/inc/port/arch/arm_cm3/arm_cm3.dox[CPY],
+	  /trunk/doc/inc/port/arch/arm_cm3/core[DEL],
+	  /trunk/doc/inc/port/arch/x86[CPY],
+	  /trunk/doc/inc/port/arch/x86/x86.dox,
+	  /trunk/doc/inc/port/common/GCC/gcc.dox,
+	  /trunk/doc/inc/port/common/IAR/iar.dox,
+	  /trunk/doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox,
+	  /trunk/doc/inc/port/port.dox,
+	  /trunk/doc/inc/port/variant/STM32F10x_LD_VL/STM32F10X_LD_VL.dox,
+	  /trunk/doc/inc/port/variant/STM32L1XX_MD/STM32L1XX_MD.dox,
+	  /trunk/doc/pages/licence.dox, /trunk/doc/pages/literature.dox,
+	  /trunk/doc/pages/main.dox, /trunk/doc/pages/structure.dox,
+	  /trunk/doc/pages/usage.dox, /trunk/doc/src/dbg/dbg.dox,
+	  /trunk/doc/src/hal/hal.dox,
+	  /trunk/doc/src/port/variant/STM32F10X_LD_VL[DEL],
+	  /trunk/doc/src/port/variant/stm32f10x_ld_vl[CPY],
+	  /trunk/doc/src/port/variant/stm32f10x_ld_vl/gpio.dox,
+	  /trunk/doc/src/port/variant/stm32f10x_ld_vl/usart.dox,
+	  /trunk/inc/port/arch/ARM_CM3[DEL], /trunk/inc/port/arch/arm_cm3[CPY],
+	  /trunk/inc/port/arch/arm_cm3/GCC[CPY],
+	  /trunk/inc/port/arch/arm_cm3/compiler.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/core[DEL],
+	  /trunk/inc/port/arch/arm_cm3/cpu.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/hal/GCC[DEL],
+	  /trunk/inc/port/arch/arm_cm3/hal/compiler.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/hal/cpu.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/hal/interrupt.h[DEL],
+	  /trunk/inc/port/arch/arm_cm3/hal/script[DEL],
+	  /trunk/inc/port/arch/arm_cm3/interrupt.h[CPY],
+	  /trunk/inc/port/arch/arm_cm3/script[CPY],
+	  /trunk/inc/port/arch/x86/GCC[CPY],
+	  /trunk/inc/port/arch/x86/compiler.h[CPY],
+	  /trunk/inc/port/arch/x86/core[DEL],
+	  /trunk/inc/port/arch/x86/cpu.h[CPY],
+	  /trunk/inc/port/arch/x86/hal/GCC[DEL],
+	  /trunk/inc/port/arch/x86/hal/compiler.h[DEL],
+	  /trunk/inc/port/arch/x86/hal/cpu.h[DEL],
+	  /trunk/inc/port/arch/x86/hal/interrupt.h[DEL],
+	  /trunk/inc/port/arch/x86/hal/script[DEL],
+	  /trunk/inc/port/arch/x86/interrupt.h[CPY],
+	  /trunk/inc/port/arch/x86/script[CPY],
+	  /trunk/inc/port/common/GCC/compiler.h[CPY],
+	  /trunk/inc/port/common/GCC/hal/compiler.h[DEL], /trunk/readme.txt,
+	  /trunk/src/port/variant/STM32F10X_LD_VL[DEL],
+	  /trunk/src/port/variant/stm32f10x_ld_vl[CPY],
+	  /trunk/src/port/variant/stm32l1xx_md/gpio.c[CPY],
+	  /trunk/src/port/variant/stm32l1xx_md/hal[DEL],
+	  /trunk/src/port/variant/stm32l1xx_md/startup.S[CPY]:
 	  Doxygen dokumentacija je sređivana.
 	  Izbrisane su suvišne datoteke.
 
 2012-04-02  nenad
 
-	* [r2] .checkstyle, .cproject, .project, .settings, .settings/org.eclipse.cdt.codan.core.prefs, Doxyfile, doc, doc/example, doc/html, doc/img, doc/inc, doc/inc/dbg, doc/inc/dbg/dbg.dox,
-	  doc/inc/hal, doc/inc/hal/hal.dox, doc/inc/hal/hal_compiler.dox, doc/inc/hal/hal_cpu.dox, doc/inc/hal/hal_detect.dox, doc/inc/hal/hal_gpio.dox, doc/inc/hal/hal_interrupt.dox,
-	  doc/inc/hal/hal_usart.dox, doc/inc/port, doc/inc/port/arch, doc/inc/port/arch/ARM_CM3, doc/inc/port/arch/ARM_CM3/ARM_CM3.dox, doc/inc/port/arch/ARM_CM3/core,
-	  doc/inc/port/arch/ARM_CM3/core/cfg, doc/inc/port/arch/X86, doc/inc/port/arch/X86/x86.dox, doc/inc/port/common, doc/inc/port/common/GCC, doc/inc/port/common/GCC/gcc.dox,
-	  doc/inc/port/common/IAR, doc/inc/port/common/IAR/iar.dox, doc/inc/port/platform, doc/inc/port/platform/STM32L_DISCOVERY, doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox,
-	  doc/inc/port/port.dox, doc/inc/port/variant, doc/inc/port/variant/STM32F10x_LD_VL, doc/inc/port/variant/STM32F10x_LD_VL/STM32F10X_LD_VL.dox, doc/inc/port/variant/STM32L1XX_MD,
-	  doc/inc/port/variant/STM32L1XX_MD/STM32L1XX_MD.dox, doc/index.html, doc/latex, doc/pages, doc/pages/licence.dox, doc/pages/literature.dox, doc/pages/main.dox, doc/pages/structure.dox,
-	  doc/pages/usage.dox, doc/src, doc/src/dbg, doc/src/dbg/dbg.dox, doc/src/hal, doc/src/hal/hal.dox, doc/src/port, doc/src/port/variant, doc/src/port/variant/STM32F10X_LD_VL,
-	  doc/src/port/variant/STM32F10X_LD_VL/gpio.dox, doc/src/port/variant/STM32F10X_LD_VL/usart.dox, inc, inc/dbg, inc/dbg/cfg, inc/dbg/dbg.h, inc/hal, inc/hal/hal.h, inc/hal/hal_compiler.h,
-	  inc/hal/hal_cpu.h, inc/hal/hal_crc.h, inc/hal/hal_gpio.h, inc/hal/hal_interrupt.h, inc/hal/hal_support.h, inc/hal/hal_usart.h, inc/hal/script, inc/hal/script/stm32l152rbt6_rom.ld, inc/port,
-	  inc/port/arch, inc/port/arch/ARM_CM3, inc/port/arch/ARM_CM3/core, inc/port/arch/ARM_CM3/core/epe.h, inc/port/arch/ARM_CM3/core/smm.h, inc/port/arch/ARM_CM3/core/tem_def.h,
-	  inc/port/arch/ARM_CM3/hal, inc/port/arch/ARM_CM3/hal/GCC, inc/port/arch/ARM_CM3/hal/GCC/compiler.h, inc/port/arch/ARM_CM3/hal/compiler.h, inc/port/arch/ARM_CM3/hal/cpu.h,
-	  inc/port/arch/ARM_CM3/hal/interrupt.h, inc/port/arch/ARM_CM3/hal/script, inc/port/arch/ARM_CM3/hal/script/arm-cm3_ram.ld, inc/port/arch/ARM_CM3/hal/script/arm-cm3_rom.ld, inc/port/arch/x86,
-	  inc/port/arch/x86/core, inc/port/arch/x86/core/epe.h, inc/port/arch/x86/core/smm.h, inc/port/arch/x86/hal, inc/port/arch/x86/hal/GCC, inc/port/arch/x86/hal/GCC/compiler.h,
-	  inc/port/arch/x86/hal/compiler.h, inc/port/arch/x86/hal/cpu.h, inc/port/arch/x86/hal/interrupt.h, inc/port/arch/x86/hal/script, inc/port/common, inc/port/common/GCC, inc/port/common/GCC/hal,
-	  inc/port/common/GCC/hal/compiler.h, inc/port/common/IAR, inc/port/platform, inc/port/platform/STM32L-DISCOVERY, inc/port/port.h, inc/port/port_detect.h, inc/port/variant,
-	  inc/port/variant/linux_x86, inc/port/variant/linux_x86/hal, inc/port/variant/linux_x86_x64, inc/port/variant/linux_x86_x64/hal, inc/port/variant/linux_x86_x64/hal/compiler.h,
-	  inc/port/variant/linux_x86_x64/hal/cpu.h, inc/port/variant/linux_x86_x64/hal/crc.h, inc/port/variant/linux_x86_x64/hal/gpio.h, inc/port/variant/linux_x86_x64/hal/usart.h,
-	  inc/port/variant/stm32f10x_ld_vl, inc/port/variant/stm32f10x_ld_vl/hal, inc/port/variant/stm32f10x_ld_vl/hal/cpu.h, inc/port/variant/stm32f10x_ld_vl/hal/crc.h,
-	  inc/port/variant/stm32f10x_ld_vl/hal/gpio.h, inc/port/variant/stm32f10x_ld_vl/hal/usart.h, inc/port/variant/stm32l1xx_md, inc/port/variant/stm32l1xx_md/hal,
-	  inc/port/variant/stm32l1xx_md/hal/cpu.h, inc/port/variant/stm32l1xx_md/hal/crc.h, inc/port/variant/stm32l1xx_md/hal/gpio.h, inc/port/variant/stm32l1xx_md/hal/usart.h,
-	  inc/port/variant/win_x86, inc/port/variant/win_x86/hal, inc/port/variant/win_x86_x64, inc/port/variant/win_x86_x64/hal, licence.txt, makefile.defs, makefile.init, makefile.targets,
-	  readme.txt, src, src/dbg, src/dbg/dbg_private.c, src/dbg/dbg_private.h, src/dbg/eS_dbgValidBool.c, src/dbg/eS_dbgValidSint32.c, src/dbg/eS_dbgValidString.c, src/dbg/eS_dbgValidUint32.c,
-	  src/dbg/eS_printBIN.c, src/dbg/eS_printCONFIG.c, src/dbg/eS_printHEX.c, src/dbg/eS_printSDEC.c, src/dbg/eS_printString.c, src/dbg/eS_printUDEC.c, src/dbg/eS_sendDigits.c, src/port,
-	  src/port/variant, src/port/variant/STM32F10X_LD_VL, src/port/variant/STM32F10X_LD_VL/crc.c, src/port/variant/STM32F10X_LD_VL/gpio.c, src/port/variant/STM32F10X_LD_VL/usart.c,
-	  src/port/variant/stm32l1xx_md, src/port/variant/stm32l1xx_md/hal, src/port/variant/stm32l1xx_md/hal/gpio.c, src/port/variant/stm32l1xx_md/hal/startup.S:
+	* [r2] /trunk/.checkstyle[ADD], /trunk/.cproject[ADD],
+	  /trunk/.project[ADD], /trunk/.settings[ADD],
+	  /trunk/.settings/org.eclipse.cdt.codan.core.prefs[ADD],
+	  /trunk/Doxyfile[ADD], /trunk/doc[ADD], /trunk/doc/example[ADD],
+	  /trunk/doc/html[ADD], /trunk/doc/img[ADD], /trunk/doc/inc[ADD],
+	  /trunk/doc/inc/dbg[ADD], /trunk/doc/inc/dbg/dbg.dox[ADD],
+	  /trunk/doc/inc/hal[ADD], /trunk/doc/inc/hal/hal.dox[ADD],
+	  /trunk/doc/inc/hal/hal_compiler.dox[ADD],
+	  /trunk/doc/inc/hal/hal_cpu.dox[ADD],
+	  /trunk/doc/inc/hal/hal_detect.dox[ADD],
+	  /trunk/doc/inc/hal/hal_gpio.dox[ADD],
+	  /trunk/doc/inc/hal/hal_interrupt.dox[ADD],
+	  /trunk/doc/inc/hal/hal_usart.dox[ADD], /trunk/doc/inc/port[ADD],
+	  /trunk/doc/inc/port/arch[ADD], /trunk/doc/inc/port/arch/ARM_CM3[ADD],
+	  /trunk/doc/inc/port/arch/ARM_CM3/ARM_CM3.dox[ADD],
+	  /trunk/doc/inc/port/arch/ARM_CM3/core[ADD],
+	  /trunk/doc/inc/port/arch/ARM_CM3/core/cfg[ADD],
+	  /trunk/doc/inc/port/arch/X86[ADD],
+	  /trunk/doc/inc/port/arch/X86/x86.dox[ADD],
+	  /trunk/doc/inc/port/common[ADD], /trunk/doc/inc/port/common/GCC[ADD],
+	  /trunk/doc/inc/port/common/GCC/gcc.dox[ADD],
+	  /trunk/doc/inc/port/common/IAR[ADD],
+	  /trunk/doc/inc/port/common/IAR/iar.dox[ADD],
+	  /trunk/doc/inc/port/platform[ADD],
+	  /trunk/doc/inc/port/platform/STM32L_DISCOVERY[ADD],
+	  /trunk/doc/inc/port/platform/STM32L_DISCOVERY/STM32L1_DISCOVERY.dox[ADD],
+	  /trunk/doc/inc/port/port.dox[ADD], /trunk/doc/inc/port/variant[ADD],
+	  /trunk/doc/inc/port/variant/STM32F10x_LD_VL[ADD],
+	  /trunk/doc/inc/port/variant/STM32F10x_LD_VL/STM32F10X_LD_VL.dox[ADD],
+	  /trunk/doc/inc/port/variant/STM32L1XX_MD[ADD],
+	  /trunk/doc/inc/port/variant/STM32L1XX_MD/STM32L1XX_MD.dox[ADD],
+	  /trunk/doc/index.html[ADD], /trunk/doc/latex[ADD],
+	  /trunk/doc/pages[ADD], /trunk/doc/pages/licence.dox[ADD],
+	  /trunk/doc/pages/literature.dox[ADD], /trunk/doc/pages/main.dox[ADD],
+	  /trunk/doc/pages/structure.dox[ADD], /trunk/doc/pages/usage.dox[ADD],
+	  /trunk/doc/src[ADD], /trunk/doc/src/dbg[ADD],
+	  /trunk/doc/src/dbg/dbg.dox[ADD], /trunk/doc/src/hal[ADD],
+	  /trunk/doc/src/hal/hal.dox[ADD], /trunk/doc/src/port[ADD],
+	  /trunk/doc/src/port/variant[ADD],
+	  /trunk/doc/src/port/variant/STM32F10X_LD_VL[ADD],
+	  /trunk/doc/src/port/variant/STM32F10X_LD_VL/gpio.dox[ADD],
+	  /trunk/doc/src/port/variant/STM32F10X_LD_VL/usart.dox[ADD],
+	  /trunk/inc[ADD], /trunk/inc/dbg[ADD], /trunk/inc/dbg/cfg[ADD],
+	  /trunk/inc/dbg/dbg.h[ADD], /trunk/inc/hal[ADD],
+	  /trunk/inc/hal/hal.h[ADD], /trunk/inc/hal/hal_compiler.h[ADD],
+	  /trunk/inc/hal/hal_cpu.h[ADD], /trunk/inc/hal/hal_crc.h[ADD],
+	  /trunk/inc/hal/hal_gpio.h[ADD], /trunk/inc/hal/hal_interrupt.h[ADD],
+	  /trunk/inc/hal/hal_support.h[ADD], /trunk/inc/hal/hal_usart.h[ADD],
+	  /trunk/inc/hal/script[ADD],
+	  /trunk/inc/hal/script/stm32l152rbt6_rom.ld[ADD], /trunk/inc/port[ADD],
+	  /trunk/inc/port/arch[ADD], /trunk/inc/port/arch/ARM_CM3[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/core[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/core/epe.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/core/smm.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/core/tem_def.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/GCC[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/GCC/compiler.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/compiler.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/cpu.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/interrupt.h[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/script[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/script/arm-cm3_ram.ld[ADD],
+	  /trunk/inc/port/arch/ARM_CM3/hal/script/arm-cm3_rom.ld[ADD],
+	  /trunk/inc/port/arch/x86[ADD], /trunk/inc/port/arch/x86/core[ADD],
+	  /trunk/inc/port/arch/x86/core/epe.h[ADD],
+	  /trunk/inc/port/arch/x86/core/smm.h[ADD],
+	  /trunk/inc/port/arch/x86/hal[ADD],
+	  /trunk/inc/port/arch/x86/hal/GCC[ADD],
+	  /trunk/inc/port/arch/x86/hal/GCC/compiler.h[ADD],
+	  /trunk/inc/port/arch/x86/hal/compiler.h[ADD],
+	  /trunk/inc/port/arch/x86/hal/cpu.h[ADD],
+	  /trunk/inc/port/arch/x86/hal/interrupt.h[ADD],
+	  /trunk/inc/port/arch/x86/hal/script[ADD], /trunk/inc/port/common[ADD],
+	  /trunk/inc/port/common/GCC[ADD], /trunk/inc/port/common/GCC/hal[ADD],
+	  /trunk/inc/port/common/GCC/hal/compiler.h[ADD],
+	  /trunk/inc/port/common/IAR[ADD], /trunk/inc/port/platform[ADD],
+	  /trunk/inc/port/platform/STM32L-DISCOVERY[ADD],
+	  /trunk/inc/port/port.h[ADD], /trunk/inc/port/port_detect.h[ADD],
+	  /trunk/inc/port/variant[ADD], /trunk/inc/port/variant/linux_x86[ADD],
+	  /trunk/inc/port/variant/linux_x86/hal[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/compiler.h[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/cpu.h[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/crc.h[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/gpio.h[ADD],
+	  /trunk/inc/port/variant/linux_x86_x64/hal/usart.h[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/cpu.h[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/crc.h[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/gpio.h[ADD],
+	  /trunk/inc/port/variant/stm32f10x_ld_vl/hal/usart.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal/cpu.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal/crc.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal/gpio.h[ADD],
+	  /trunk/inc/port/variant/stm32l1xx_md/hal/usart.h[ADD],
+	  /trunk/inc/port/variant/win_x86[ADD],
+	  /trunk/inc/port/variant/win_x86/hal[ADD],
+	  /trunk/inc/port/variant/win_x86_x64[ADD],
+	  /trunk/inc/port/variant/win_x86_x64/hal[ADD], /trunk/licence.txt[ADD],
+	  /trunk/makefile.defs[ADD], /trunk/makefile.init[ADD],
+	  /trunk/makefile.targets[ADD], /trunk/readme.txt[ADD], /trunk/src[ADD],
+	  /trunk/src/dbg[ADD], /trunk/src/dbg/dbg_private.c[ADD],
+	  /trunk/src/dbg/dbg_private.h[ADD],
+	  /trunk/src/dbg/eS_dbgValidBool.c[ADD],
+	  /trunk/src/dbg/eS_dbgValidSint32.c[ADD],
+	  /trunk/src/dbg/eS_dbgValidString.c[ADD],
+	  /trunk/src/dbg/eS_dbgValidUint32.c[ADD],
+	  /trunk/src/dbg/eS_printBIN.c[ADD],
+	  /trunk/src/dbg/eS_printCONFIG.c[ADD],
+	  /trunk/src/dbg/eS_printHEX.c[ADD], /trunk/src/dbg/eS_printSDEC.c[ADD],
+	  /trunk/src/dbg/eS_printString.c[ADD],
+	  /trunk/src/dbg/eS_printUDEC.c[ADD],
+	  /trunk/src/dbg/eS_sendDigits.c[ADD], /trunk/src/port[ADD],
+	  /trunk/src/port/variant[ADD],
+	  /trunk/src/port/variant/STM32F10X_LD_VL[ADD],
+	  /trunk/src/port/variant/STM32F10X_LD_VL/crc.c[ADD],
+	  /trunk/src/port/variant/STM32F10X_LD_VL/gpio.c[ADD],
+	  /trunk/src/port/variant/STM32F10X_LD_VL/usart.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/hal[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/hal/gpio.c[ADD],
+	  /trunk/src/port/variant/stm32l1xx_md/hal/startup.S[ADD]:
 	  Inicijalni import datoteka
-	* [r1] .:
+
+	* [r1] /branches[ADD], /tags[ADD], /trunk[ADD]:
 	  Inicijalni import
 

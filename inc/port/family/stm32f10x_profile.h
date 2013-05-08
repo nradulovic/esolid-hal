@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,91 +20,112 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief       Profil familije za STM32F10x seriju.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  hal_stm32f10x
- ****************************************************************************************//** @{ */
-
+ * @addtogroup  port_stm32f10x
+ *********************************************************************//** @{ */
 
 #ifndef STM32F10X_PROFILE_H_
 #define STM32F10X_PROFILE_H_
 
-/*============================================================================  INCLUDE FILES  ==*/
+/*=========================================================  INCLUDE FILES  ==*/
+/*===============================================================  DEFINES  ==*/
 
-/*-----------------------------------------------------------------------------------------------*
- * STM32F10X_LD_VL
- *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32F10X_LD_VL)
-#include "stm32f10x.h"
+#if defined(OPT_HAL_STARTUP)
+# define ES_HAL_ENABLE_STARTUP
+#endif
 
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Konstante mogucnosti HAL modula
- * @{ *//*---------------------------------------------------------------------------------------*/
-/* #define ES_HAL_FEATURE_GPIO */
-/* #define ES_HAL_FEATURE_UART */
-/* #define ES_HAL_FEATURE_TIMER */
-/* #define ES_HAL_FEATURE_CRC */
-/** @} *//*--------------------------------------------------------------------------------------*/
+#if defined(OPT_HAL_CPU)
+# define ES_HAL_ENABLE_CPU
+#endif
 
-# if defined(OPT_HAL_GPIO)
-# error "HAL: GPIO module is not implented for this family."
-/* #  define ES_HAL_ENABLE_GPIO */
-/* #  include "port/family/stm32f10x/gpio_lld.h" */
-# endif
+#if defined(OPT_HAL_INTERRUPT)
+# define ES_HAL_ENABLE_INTERRUPT
+#endif
 
-# if defined(OPT_HAL_UART)
-# error "HAL: UART module is not implented for this family."
-/* #  define ES_HAL_ENABLE_UART */
-/* #  include "port/family/stm32f10x/uart_lld.h" */
-# endif
+#if defined(OPT_HAL_GPIO)
+# define ES_HAL_ENABLE_GPIO
+#endif
 
-# if defined(OPT_HAL_TIMER)
-# error "HAL: TIMER module is not implented for this family."
-/* #  define ES_HAL_ENABLE_TIMER */
-/* #  include "port/family/stm32f10x/timer_lld.h" */
-# endif
-
-# if defined(OPT_ENABLE_CRC)
-# error "HAL: CRC module is not implented for this family."
-/* #  define ES_HAL_ENABLE_CRC */
-/* #  include "port/family/stm32f10x/crc_lld.h" */
-# endif
-#endif /* STM32F10X_LD_VL */
-
-/*==================================================================================  DEFINES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Opisne konstante
+/*------------------------------------------------------------------------*//**
+ * @name        STM32F10x opisne konstante
  * @brief       Ovde se nalaze konstante koje daju vise informacija o
  *              mikrokontroleru i proizvodjacu.
- * @{ *//*---------------------------------------------------------------------------------------*/
+ * @{ *//*--------------------------------------------------------------------*/
+
+/**
+ * @brief       Proizvodzac mikrokontrolera
+ */
 #define ES_HAL_MCU_MANUF                "STMicroelectronics"
-/** @} *//*--------------------------------------------------------------------------------------*/
 
-/*-----------------------------------------------------------------------------------------------*
- * STM32F10X_LD_VL
- *-----------------------------------------------------------------------------------------------*/
-#if defined(STM32F10X_LD_VL)
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-# define ES_HAL_MCU_FAMILY              "STM32F10x Medium Density Value Line"
+/**
+ * @brief       Familija mikrokontrolera
+ */
+#define ES_HAL_MCU_FAMILY               "STM32F10x device"
 
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Definisanje PORT konstante - familija
- *//*--------------------------------------------------------------------------------------------*/
-# define PORT_FAM_STM32F10X_LD_VL
-#endif /* STM32F10X_LD_VL */
+/** @} *//*-------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*//**
+ * @name        STM32F10x konstante mogucnosti
+ * @{ *//*--------------------------------------------------------------------*/
 
-/*==================================================================================  MACRO's  ==*/
-/*===============================================================================  DATA TYPES  ==*/
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/**
+ * @brief       Port podrzava start-up kod i linker skriptu
+ */
+#define ES_HAL_FEATURE_STARTUP
 
-/** @endcond *//** @} *//*************************************************************************
+/**
+ * @brief       Port podrzava GPIO
+ */
+#define ES_HAL_FEATURE_GPIO
+
+/**
+ * @brief       Port podrzava CPU
+ */
+#define ES_HAL_FEATURE_CPU
+
+/**
+ * @brief       Port podrzava interrupt
+ */
+#define ES_HAL_FEATURE_INTERRUPT
+
+/** @} *//*-------------------------------------------------------------------*/
+/*===============================================================  MACRO's  ==*/
+
+/*------------------------------------------------------------------------*//**
+ * @name        STM32F10x pomocni makroi za formiranje tabela hardvera
+ * @{ *//*--------------------------------------------------------------------*/
+#define EXPAND_AS_GPIO_ENUM(a, b, c)    a,
+
+/** @} *//*-------------------------------------------------------------------*/
+/*============================================================  DATA TYPES  ==*/
+
+#if defined(ES_HAL_ENABLE_INTERRUPT)
+enum esInterruptPrio {
+    ES_PRIO_IDLE = 0,
+    ES_PRIO_VERY_LOW = 255,
+    ES_PRIO_LOW = 254,
+    ES_PRIO_BELOW_NORMAL = 192,
+    ES_PRIO_NORMAL = 128,
+    ES_PRIO_ABOVE_NORMAL = 64,
+    ES_PRIO_HIGH = 32,
+    ES_PRIO_VERY_HIGH = 2,
+    ES_PRIO_REALTIME = 0x20
+};
+#endif
+
+#if defined(ES_HAL_ENABLE_GPIO)
+typedef enum esGpioPort {
+    GPIO_TABLE_(EXPAND_AS_GPIO_ENUM)
+    GPIO_LAST_PORT_
+} esGpioPort_T;
+#endif
+
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*===================================================  FUNCTION PROTOTYPES  ==*/
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/** @endcond *//** @} *//******************************************************
  * END of stm32f10x_profile.h
- *************************************************************************************************/
+ ******************************************************************************/
 #endif /* STM32F10X_PROFILE_H_ */

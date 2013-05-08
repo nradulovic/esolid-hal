@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,68 +20,51 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author  	Nenad Radulovic
  * @brief       Privatna sekcija HAL-a
- * ------------------------------------------------------------------------------------------------
  * @addtogroup  hal_impl
- ****************************************************************************************//** @{ */
-
+ *********************************************************************//** @{ */
 
 #ifndef HAL_PRIVATE_H_
 #define HAL_PRIVATE_H_
 
-/*============================================================================  INCLUDE FILES  ==*/
+/*=========================================================  INCLUDE FILES  ==*/
 #include "hal/hal.h"
+#include "sys_pkg.h"
+#include "gpio_pkg.h"
+#include "uart_pkg.h"
+#include "timer_pkg.h"
+#include "crc_pkg.h"
 
-#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
-# include "gpio_pkg.h"
-#endif
-
-#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
-# include "uart_pkg.h"
-#endif
-
-#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
-# include "timer_pkg.h"
-#endif
-
-#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
-# include "crc_pkg.h"
-#endif
-
-/*==================================================================================  DEFINES  ==*/
-#define OPT_LOG_LEVEL                   OPT_HAL_LOG_LEVEL
-#define OPT_LOG_MODULE_NAME             "HAL"
-#include "hal/hal_log_switches.h"
-
-/*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Definisanje makroa za ulazak/izlazak iz kriticnih sekcija koda za HAL module.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define HAL_CRITICAL_DECL()             ES_CRITICAL_DECL()
-#define HAL_CRITICAL_ENTER()            ES_CRITICAL_ENTER(OPT_HAL_INTERRUPT_PRIO)
-#define HAL_CRITICAL_EXIT()             ES_CRITICAL_EXIT()
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------  C++ extern begin  --*/
+/*===============================================================  DEFINES  ==*/
+/*===============================================================  MACRO's  ==*/
+/*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*===============================================================================  DATA TYPES  ==*/
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*======================================================================  FUNCTION PROTOTYPES  ==*/
+/*============================================================  DATA TYPES  ==*/
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*===================================================  FUNCTION PROTOTYPES  ==*/
 
-/*---------------------------------------------------------------------------  C++ extern end  --*/
+/**
+ * @brief       Inicijalizuje sve podmodule HAL sistema
+ * @details     Ovu funkciju treba pozvati u toku inicijalizacije sistema i pre
+ *              koriscenja bilo koje funkcije iz HAL sistema.
+ * @notapi
+ */
+void halInit(
+    void);
+
+/*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
 #endif
 
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
-/** @endcond *//** @} *//*************************************************************************
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/** @endcond *//** @} *//******************************************************
  * END of hal_private.h
- *************************************************************************************************/
+ ******************************************************************************/
 #endif /* HAL_PRIVATE_H_ */
