@@ -31,6 +31,13 @@
 #define HAL_CPU_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
+#include "hal_compiler.h"
+#include "port/profiles.h"
+
+#if !defined(ES_HAL_FEATURE_CPU)
+# error "HAL: hal_cpu.h does not support your current port"
+#endif
+
 /*===============================================================  MACRO's  ==*/
 #if defined(__DOXYGEN__)
 /*------------------------------------------------------------------------*//**
@@ -191,6 +198,7 @@ uint_fast8_t esCpuFindLastSet(
  * @brief       Find First set Bit
  * @param       value                   Broj koji se ispituje.
  * @return      Vraca poziciju zadnjeg bita koji je setovan u @c value.
+ * @pre         value != 0
  */
 uint_fast8_t esCpuFindFirstSet(
     uint32_t        value);

@@ -81,40 +81,6 @@
 
 /** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
- * @name        Konstante dostupnosti HAL modula
- * @details     Ove konstante govore da za datu funkcionalnost postoje HAL
- *              moduli i da su oni aktivni. Ukoliko je makro definisan onda
- *              je modul i omogucen.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       HAL podrzava start-up kod i linker skriptu i omoguceno je
- *              njegovo koriscenje
- * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_STARTUP
- */
-# define ES_HAL_ENABLE_STARTUP
-
-/**
- * @brief       HAL podrzava CPU i omoguceno je njegovo koriscenje
- * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_CPU
- */
-# define ES_HAL_ENABLE_CPU
-
-/**
- * @brief       HAL podrzava interrupt kontroler i omoguceno je njegovo
- *              koriscenje
- * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_INTERRUPT
- */
-# define ES_HAL_ENABLE_INTERRUPT
-
-/**
- * @brief       HAL podrzava GPIO i omoguceno je njegovo koriscenje
- * @details     Koriscenje se kontrolise opcijom @ref OPT_HAL_GPIO
- */
-# define ES_HAL_ENABLE_GPIO
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
  * @name        Identifikacione i opisne konstante mikrokontrolera
  * @details     Konstantne niske (string) koje identifikuju mikrokontroler
  * @{ *//*--------------------------------------------------------------------*/

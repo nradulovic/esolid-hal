@@ -24,11 +24,11 @@
  * @file
  * @author      Nenad Radulović
  * @brief       Interfejs za GCC kompajler, port klasa: common.
- * @addtogroup  port_gcc
+ * @addtogroup  port_arm-eabi-gcc
  *********************************************************************//** @{ */
 
-#ifndef GCC_COMPILER_H_
-#define GCC_COMPILER_H_
+#ifndef ARM_EABI_GCC_H_
+#define ARM_EABI_GCC_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  MACRO's  ==*/
@@ -85,6 +85,6 @@ typedef enum boolType {
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of gcc.h
+ * END of arm-eabi-gcc.h
  ******************************************************************************/
-#endif /* GCC_COMPILER_H_ */
+#endif /* ARM_EABI_GCC_H_ */

@@ -22,72 +22,43 @@
  * e-mail  :    blueskyniss@gmail.com
  *//***********************************************************************//**
  * @file
- * @author  	Nenad Radulovic
- * @brief       Profil familije za STM32F10x seriju.
- * @addtogroup  port_stm32f10x
+ * @author      Dejan Ristic
+ * @brief       Profil arhitekture za AVR.
+ * @addtogroup  port_avr
  *********************************************************************//** @{ */
 
-#ifndef STM32F10X_PROFILE_H_
-#define STM32F10X_PROFILE_H_
+#ifndef AVR_PROFILE_H_
+#define AVR_PROFILE_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
+
+#if defined(ES_HAL_ENABLE_CPU)
+# if defined(__GNUC__)
+#  include "port/arch/avr/GCC/cpu.h"
+# endif
+#endif
+
+#if defined(ES_HAL_ENABLE_INTERRUPT)
+# if defined(__GNUC__)
+#  include "port/arch/avr/GCC/interrupt.h"
+# endif
+#endif
+
 /*===============================================================  MACRO's  ==*/
 
 /*------------------------------------------------------------------------*//**
- * @name        STM32F10x opisne konstante
- * @brief       Ovde se nalaze konstante koje daju vise informacija o
- *              mikrokontroleru i proizvodjacu.
+ * @name        AVR opisne konstante
  * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Proizvodzac mikrokontrolera
- */
-#define ES_HAL_MCU_MANUF                "STMicroelectronics"
-
-/**
- * @brief       Familija mikrokontrolera
- */
-#define ES_HAL_MCU_FAMILY               "STM32F10x device"
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        STM32F10x konstante mogucnosti
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Port podrzava start-up kod i linker skriptu
- */
-#define ES_HAL_FEATURE_STARTUP
-
-/**
- * @brief       Port podrzava CPU
- */
-#define ES_HAL_FEATURE_CPU
-
-/**
- * @brief       Port podrzava interrupt
- */
-#define ES_HAL_FEATURE_INTERRUPT
+#define ES_HAL_CPU_NAME                 "AVR"
+#define ES_HAL_CPU_SERIES               "AVR"
+#define ES_HAL_CPU_MANUF                "Atmel"
 
 /** @} *//*-------------------------------------------------------------------*/
 /*============================================================  DATA TYPES  ==*/
-
-enum esInterruptPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 0x20
-};
-
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of stm32f10x_profile.h
+ * END of avr_profile.h
  ******************************************************************************/
-#endif /* STM32F10X_PROFILE_H_ */
+#endif /* AVR_PROFILE_H_ */
