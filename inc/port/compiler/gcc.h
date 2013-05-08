@@ -31,12 +31,6 @@
 #define GCC_COMPILER_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdarg.h>
-#include <stdbool.h>
-
 /*===============================================================  MACRO's  ==*/
 
 #if (__STDC_VERSION < 199901L) && (__GNUC__ >= 2) || defined(__DOXYGEN__)
@@ -78,8 +72,8 @@ extern "C" {
 /*============================================================  DATA TYPES  ==*/
 
 typedef enum boolType {
-    FALSE = false,
-    TRUE = true
+    FALSE = 0U,
+    TRUE = 1U
 } bool_T;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
