@@ -33,7 +33,7 @@
 /*=========================================================  INCLUDE FILES  ==*/
 #include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "port/hal_profiles.h"
+#include "port/profiles.h"
 
 #if defined(ES_HAL_ENABLE_CPU)
 # include "hal_cpu.h"

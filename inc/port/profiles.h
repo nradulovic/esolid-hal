@@ -75,6 +75,18 @@
 # include "port/arch/arm_cm3_profile.h"
 #endif
 
+/*============================================================================*
+ *
+ * Architecture: AVR ATmega
+ *
+ *============================================================================*/
+#if defined(ATMEGA32U2)
+# define                                PORT_FOUND_
+# include "port/variant/atmega32u2.h"
+# include "port/family/atmega.h"
+# include "port/arch/avr_profile.h"
+#endif
+
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
 /*======================================================  GLOBAL VARIABLES  ==*/
