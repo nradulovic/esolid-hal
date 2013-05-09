@@ -28,7 +28,8 @@
  *********************************************************************//** @{ */
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "hal_private.h"
+#include "hal/hal.h"
+#include "hal/hal_cpu.h"
 
 /*=========================================================  LOCAL DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/
@@ -43,24 +44,15 @@
 void halInit(
     void) {
 
-    sysInit();
-
-#if defined(ES_HAL_ENABLE_UART)
-    lldUartDrvInit();
-#endif
-
-#if defined(ES_HAL_ENABLE_TIMER)
-    lldTimerDrvInit();
-#endif
-
-#if defined(ES_HAL_ENABLE_CRC)
-    lldCrcDrvInit();
+#if defined(ES_HAL_FEATURE_CPU)
+    esSysPerfSet(
+        ES_SYS_PERF_DEFAULT);
 #endif
 }
 
 /*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
-#if !defined(ES_HAL_ENABLE_STARTUP)
+#if !defined(ES_HAL_FEATURE_STARTUP)
 void esHalInit(
     void) {
 
