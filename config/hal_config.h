@@ -35,84 +35,9 @@
 
 /* #define STM32L152RB */
 #define STM32F100RB
-#define OPT_HAL_STARTUP
-#define OPT_HAL_CPU
-#define OPT_HAL_INTERRUPT
-#define OPT_HAL_GPIO
 
 /*==============================================================  SETTINGS  ==*/
 
-/*------------------------------------------------------------------------*//**
- * @name        Omogucivanje pojedinacnih modula
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Da li HAL treba da ponudi STARTUP kod
- * @details     HAL nudi mogućnost da ponudi potpuno okruženje za rad, koje se
- *              sastoji od start-up koda i linker skripte. Ukoliko korisnik želi
- *              da koristi eSolid softver u okruženju koje nema navedene
- *              elemente onda definisanjem ovog makroa HAL će postaviti svoj
- *              start-up kod.
- *
- *              Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_STARTUP
-#endif
-
-/**
- * @brief       Omogucivanje CPU modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_CPU
-#endif
-
-/**
- * @brief       Omogucivanje Interrupt modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_INTERRUPT
-#endif
-
-/**
- * @brief       Omogucivanje GPIO modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_GPIO
-#endif
-
-/**
- * @brief       Omogucivanje TIMER modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_TIMER
-#endif
-
-/**
- * @brief       Omogucivanje cyclic redundancy check (CRC) modula
- * @details     Ukoliko je podesavanje:
- *              - definisano - modul je omogucen,
- *              - nedefinisano - moduj je onemogucen.
- */
-#if defined(__DOXYGEN__)
-# define OPT_HAL_CRC
-#endif
-
-/** @} *//*-------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*//**
  * @name        Podesavanja HAL-a
  * @{ *//*--------------------------------------------------------------------*/
