@@ -34,12 +34,16 @@
 
 #if defined(__GNUC__)
 # if defined(__AVR__)
-#  include "port/compiler/avr-gcc.h"
-# elif defined(__ARM_EABI__)
-#  include "port/compiler/arm-eabi-gcc.h"
+#  include "common/avr-gcc.h"
+# elif defined(__ARM_EABI__) && defined(__ARM_ARCH_7M__)
+#  include "common/arm-none-eabi-gcc.h"
 # endif
 #elif defined(__IAR_SYSTEMS_ICC__)
 # include "port/compiler/iar.h"
+#endif
+
+#if !defined(PORT_COMPILER_FOUND_)
+# error "HAL: hal_compiler does not support your current compiler"
 #endif
 
 /*===============================================================  MACRO's  ==*/

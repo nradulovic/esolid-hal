@@ -31,7 +31,15 @@
 #define HAL_INT_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-/*===============================================================  DEFINES  ==*/
+#include "hal.h"
+#include "common/int_profile.h"
+
+#if !defined(ES_HAL_FEATURE_INTERRUPT)
+# error "HAL: hal_int.h does not support your current port"
+#endif
+
+/*===============================================================  MACRO's  ==*/
+
 #if defined(__DOXYGEN__)
 
 /**
@@ -69,36 +77,6 @@ enum esInterruptPrio {
     ES_PRIO_REALTIME = 255
 };
 
-/*===============================================================  MACRO's  ==*/
-
-/*------------------------------------------------------------------------*//**
- * @name        Ulazak i izlazak iz kriticnih sekcija koda
- * @brief       Kriticne sekcije koda su zasticene od prekida ciji su prioriteti
- *              manji ili jednaki od prioriteta tekuce izvrsavanog koda.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Deklaracija promenljive u kojoj se cuva trenutnu masku
- *              prioriteta tekuceg koda.
- * @details     Ovaj makro se koristi u kombinaciji sa makroima za ulazak i
- *              izlazak iz kriticnih sekcija koda.
- */
-# define ES_CRITICAL_DECL()
-
-/**
- * @brief       Ulazak u kriticni deo koda, postavlja se najvisi dozvoljeni
- *              prioritet za eSolid
- * @param       prio                    Prioritet kriticne sekcije koda.
- *  @arg        0 - 255                 postavljanje maske.
- */
-# define ES_CRITICAL_ENTER(prio)
-
-/**
- * @brief       Izlazak iz kriticnog dela koda, vraca se prethodni prioritet.
- */
-# define ES_CRITICAL_EXIT()
-
-/** @} *//*-------------------------------------------------------------------*/
 #endif /* defined(__DOXYGEN__) */
 /*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus

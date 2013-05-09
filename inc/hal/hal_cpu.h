@@ -31,10 +31,10 @@
 #define HAL_CPU_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "hal_compiler.h"
-#include "port/profiles.h"
+#include "hal.h"
+#include "common/cpu_profile.h"
 
-#if !defined(ES_HAL_FEATURE_CPU)
+#if !defined(ES_HAL_CPU_ENABLED)
 # error "HAL: hal_cpu.h does not support your current port"
 #endif
 
@@ -127,17 +127,67 @@
 
 /** @} *//*-------------------------------------------------------------------*/
 #endif /* defined(__DOXYGEN__) */
+
+/**
+ * @brief       Upis vrednosti u hardverski registar
+ */
+#define ES_HWREG_SET(reg, mask, val)                                            \
+    do {                                                                        \
+        unative_T tmp;                                                          \
+        tmp = (unative_T)(reg);                                                 \
+        tmp &= ~((unative_T)mask);                                              \
+        tmp |= (unative_T)(val);                                                \
+        reg = tmp;                                                              \
+    } while (0U)
+
 /*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*============================================================  DATA TYPES  ==*/
+
+/**
+ * @brief       Moguci nivoi perfomansi procesora
+ */
+typedef enum esSysPerf {
+/**
+ * @brief       Podrazumevana brzina rada procesora
+ * @details     OVa brzina jednaka je fabrickim podesavanjima procesora
+ */
+    ES_SYS_PERF_DEFAULT,
+
+/**
+ * @brief       Najniza brzina rada procesora
+ * @details     HAL ce postaviti najnizu mogucu brzinu upotrebom internih
+ *              oscilatora
+ */
+    ES_SYS_PERF_LOW,
+
+/**
+ * @brief       Najveca brzina rada procesora
+ */
+    ES_SYS_PERF_HIGH
+} esSysPerf_T;
+
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
 /**
+ * @brief       Postavlja zeljeni nivo perfomansi mikrokontrolera
+ * @param       speed                   Nivo brzine rada procesora
+ *  @arg        ES_SYS_PERF_DEFAULT
+ *  @arg        ES_SYS_PERF_LOW
+ *  @arg        ES_SYS_PERF_HIGH
+ */
+void esSysPerfSet(
+    esSysPerf_T    speed);
+
+/**
  * @brief       Dobavlja trenutnu brzinu rada mikroprocesora
+ * @return      Vrednost taktne frekvencije mikroprocesora u Hz kada se koristi
+ *              interni oscilator, a kada se koristi eksterni oscilator vraca
+ *              vrednost Hz po 1MHz.
  * @details     Funkcija smatra da je vrednost frekvencije eksternih oscilatora
  *              tacno 1MHz. Tako da je korisnik duzan da izvrsi potrebno
  *              skaliranje frekvencije na pravu vrednost. Recimo da funkcija
@@ -145,11 +195,9 @@ extern "C" {
  *              8MHz. Faktor skaliranja je 8MHz/1MHz = 8 sto znaci da izlazna
  *              vrednost treba da se pomnozi sa 8 i dobijamo da mikroprocesor
  *              radi na 16.000.000 Hz, odnosno, 16MHz.
- * @return      Vrednost taktne frekvencije mikroprocesora u Hz kada se koristi
- *              interni oscilator, a kada se koristi eksterni oscilator vraca
- *              vrednost Hz po 1MHz.
+ * @api
  */
-uint32_t esCpuSpeedGet(
+uint32_t esSysCoreClockGet(
     void);
 
 /**
@@ -157,6 +205,7 @@ uint32_t esCpuSpeedGet(
  * @details     Poziva se kada treba zaustaviti dalji rad procesora.
  * @note        Kada se kompajlira @c release verzija koda funkcija postavlja
  *              procesor u stanje @c sleep.
+ * @api
  */
 void esCpuStop(
     void);
@@ -172,6 +221,7 @@ void esCpuStop(
  *              procesor u stanje @c sleep jer obicno @c sleep stanja procesora
  *              gase i vezu sa debagerom. Zbog toga se funkcija kompajlira u
  *              NOP instrukciju i omogucava nesmetano debagiranje.
+ * @api
  */
 void esCpuSleep(
     void);

@@ -31,30 +31,12 @@
 #define HAL_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "../config/hal_config.h"
 #include "hal_compiler.h"
-#include "port/profiles.h"
+#include "common/hal_profile.h"
 
-#if defined(ES_HAL_ENABLE_CPU)
-# include "hal_cpu.h"
+#if !defined(ES_HAL_PROFILE_ENABLED)
+# error "HAL: HAL does not support your current port"
 #endif
-
-#if defined(ES_HAL_ENABLE_INTERRUPT)
-# include "hal_interrupt.h"
-#endif
-
-#if defined(ES_HAL_ENABLE_UART)
-# include "hal_uart.h"
-#endif
-
-#if defined(ES_HAL_ENABLE_TIMER)
-# include "hal_timer.h"
-#endif
-
-#if defined(ES_HAL_ENABLE_CRC)
-# include "hal_crc.h"
-#endif
-
 
 /*===============================================================  MACRO's  ==*/
 #if defined(__DOXYGEN__)
@@ -195,18 +177,6 @@
  * @{ *//*--------------------------------------------------------------------*/
 
 /**
- *
- */
-#define ES_HWREG_SET(reg, mask, val)                                            \
-    do {                                                                        \
-        unative_T tmp;                                                          \
-        tmp = (unative_T)(reg);                                                 \
-        tmp &= ~((unative_T)mask);                                              \
-        tmp |= (unative_T)(val);                                                \
-        reg = tmp;                                                              \
-    } while (0U)
-
-/**
  * @brief       Vrsi poravnjanje @a num promenjive sa granicama specificarane
  *              u @a align
  * @param       num                     Promenjiva koju treba poravnati,
@@ -293,10 +263,54 @@ extern "C" {
 #endif
 
 /*============================================================  DATA TYPES  ==*/
+
+/**
+ * @brief       Status hardvera kojeg opsluzuje drajver
+ * @details     Jednostavniji hardver obicno ima samo dva stanja:
+ *              - stanje neaktivno
+ *              - stanje aktivno
+ *              Stanje neaktivno je naznaceno ES_DEC_INACTIVE enumeratorom. U
+ *              principu, da bi se hardver koristio potrebno je da se hardver
+ *              prebaci u aktivno stanje. Aktivno stanje ima dva podstanja,
+ *              stanje da je hardver spreman za koriscenje i stanje da je
+ *              hardver zauzet. Prvo stanje se oznacava ES_DEV_READY
+ *              enumeratorom, dok se drugo stanje oznacava ES_DEC_BUSY
+ *              enumeratorom. Dakle, hardver je aktivan ukoliko se nalazi u
+ *              nekom od ES_DEV_READY ili ES_DEV_BUSY.
+ *              Neki hardverski moduli se pored navedenih stanja mogu naci i u
+ *              stanju ES_DEV_ERROR. U ovom stanju se mogu naci bez obzira na
+ *              prethodno stanje.
+ */
+typedef enum esDevStatus {
+/**
+ * @brief       Hardver nije aktiviran.
+ * @details     Ovo stanje je karakteristicno kada se hardver ne koristi i
+ *              drajver je hardver postavio u rezim male potrosnje.
+ */
+    ES_HAL_DEV_INACTIVE,
+
+/**
+ * @brief       Hardver je spreman za koriscenje.
+ */
+    ES_HAL_DEV_READY,
+
+/**
+ * @brief       Hardver nije spreman za koriscenje.
+ */
+    ES_HAL_DEV_BUSY,
+
+/**
+ * @brief       Hardver je u stanju greske.
+ * @details     U zavisnosti od koriscenog hardvera treba da se preduzmu
+ *              odredjeni koraci kako bi se greska otklonila/ponistila.
+ */
+    ES_HAL_DEV_ERROR
+} esDevStatus_T;
+
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
-#if !defined(ES_HAL_ENABLE_STARTUP)
+#if !defined(ES_HAL_FEATURE_STARTUP)
 /**
  * @brief       Vrsi inicijalizaciju eSolid HAL sistema
  * @details     Poziva se samo kada se ne koristi podrazumevani HAL start-up kod.
@@ -307,6 +321,7 @@ extern "C" {
 void esHalInit(
     void);
 #endif
+
 /*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }
