@@ -27,8 +27,8 @@
  * @addtogroup  hal_int_intf
  *********************************************************************//** @{ */
 
-#ifndef HAL_INTERRUPT_H_
-#define HAL_INTERRUPT_H_
+#ifndef HAL_INT_H_
+#define HAL_INT_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  DEFINES  ==*/
@@ -168,6 +168,6 @@ uint32_t esIntPrioMaskGet(
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of hal_interrupt.h
+ * END of hal_int.h
  ******************************************************************************/
-#endif /* HAL_INTERRUPT_H_ */
+#endif /* HAL_INT_H_ */
