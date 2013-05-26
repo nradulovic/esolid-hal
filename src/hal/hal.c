@@ -28,9 +28,6 @@
  *********************************************************************//** @{ */
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "hal/hal.h"
-#include "hal/hal_cpu.h"
-
 /*=========================================================  LOCAL DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/
 /*======================================================  LOCAL DATA TYPES  ==*/
@@ -44,10 +41,7 @@
 void halInit(
     void) {
 
-#if defined(ES_HAL_FEATURE_CPU)
-    esSysPerfSet(
-        ES_SYS_PERF_DEFAULT);
-#endif
+    /* Neka inicijalizacija ako je potrebna */
 }
 
 /*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/

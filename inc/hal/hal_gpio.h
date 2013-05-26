@@ -31,12 +31,8 @@
 #define HAL_GPIO_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
-#include "hal.h"
-#include "common/gpio_profile.h"
-
-#if !defined(ES_HAL_GPIO_ENABLED)
-# error "HAL: hal_gpio.h does not support your current port"
-#endif
+#include "compiler.h"
+#include "hal_generic.h"
 
 /*===============================================================  MACRO's  ==*/
 
@@ -131,6 +127,10 @@ extern "C" {
 
 /*============================================================  DATA TYPES  ==*/
 
+/**@brief       Forward declaration
+ */
+typedef struct esGpioPort esGpioPort_T;
+
 /**
  * @brief       Definiciona struktura za GPIO port pinove.
  * @details     U ovoj strukturi se opisuje:
@@ -179,7 +179,6 @@ typedef struct esGpioDef {
     enum esGpioInType itype;
 } esGpioDef_T;
 
-#if defined(__DOXYGEN__)
 /**
  * @brief       Ime Gpio porta koji se koristi
  * @details     Dostupna imena portova zavise od koriscenog mikrokontrolera
@@ -225,7 +224,6 @@ typedef enum esGpio {
  */
     ES_GPIOH,
 } esGpio_T;
-#endif
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -253,7 +251,7 @@ typedef enum esGpio {
  */
 void esGpioInit(
     esGpioPort_T    gpioPort,
-    const C_ROM esGpioDef_T * gpioDef,
+    const PORT_C_ROM esGpioDef_T * gpioDef,
     uint16_t        pins);
 
 /**

@@ -31,12 +31,12 @@
 #ifndef HAL_TIMER_H_
 #define HAL_TIMER_H_
 
-/*
- * NOTE: Svojstvo odredjuje hardverski profil varijante.
- */
-#if defined(ES_FEATURE_TIMER) || defined(__DOXYGEN__)
 /*============================================================================  INCLUDE FILES  ==*/
+#include "compiler.h"
+#include "hal_generic.h"
+
 /*==================================================================================  DEFINES  ==*/
+
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Rezim rada Timer drajvera
  *//*--------------------------------------------------------------------------------------------*/
@@ -55,6 +55,7 @@ enum esTimerMode {
 /** @} *//*--------------------------------------------------------------------------------------*/
 
 /*==================================================================================  MACRO's  ==*/
+
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Pomocni makro za definisanje Timer drajvera
  * @param       name                    Ime upravljacke strukture GPIO drajvera,
@@ -69,7 +70,7 @@ enum esTimerMode {
  * @see esHandlerPrio
  *//*--------------------------------------------------------------------------------------------*/
 #define ES_GPIO_DEFINITION(name, mode, microseconds, pHandler, pHandlerArg, prio) \
-    const C_ROM esTimerDef_T name = {name, mode, microseconds, pHandler, pHandlerArg, prio}
+    const PORT_C_ROM esTimerDef_T name = {name, mode, microseconds, pHandler, pHandlerArg, prio}
 
 /*-------------------------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
@@ -170,21 +171,21 @@ typedef struct tmrDef esTimerDef_T;
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Identifikaciona struktura za Timer modul 1.
  *//*--------------------------------------------------------------------------------------------*/
-extern const C_ROM struct tmrId esTimer1;
+extern const PORT_C_ROM struct tmrId esTimer1;
 # endif
 
 # if defined(OPT_HAL_TIMER_USE_2) || defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Identifikaciona struktura za Timer modul 2.
  *//*--------------------------------------------------------------------------------------------*/
-extern const C_ROM struct tmrId esTimer2;
+extern const PORT_C_ROM struct tmrId esTimer2;
 # endif
 
 # if defined(OPT_HAL_TIMER_USE_3) || defined(__DOXYGEN__)
 /*-------------------------------------------------------------------------------------------*//**
  * @brief       Identifikaciona struktura za Timer modul 3.
  *//*--------------------------------------------------------------------------------------------*/
-extern const C_ROM struct tmrId esTimer3;
+extern const PORT_C_ROM struct tmrId esTimer3;
 # endif
 #endif /* OPT_HAL_TIMER */
 /** @} *//*--------------------------------------------------------------------------------------*/
@@ -203,8 +204,8 @@ extern const C_ROM struct tmrId esTimer3;
  *              u ovom modulu.
  *//*--------------------------------------------------------------------------------------------*/
 void esTimerInit(
-    const C_ROM esTimerId_T * timerId,
-    const C_ROM esTimerDef_T * timerDef,
+    const PORT_C_ROM esTimerId_T * timerId,
+    const PORT_C_ROM esTimerDef_T * timerDef,
     esTimerDrv_T    * timer);
 
 /*-------------------------------------------------------------------------------------------*//**

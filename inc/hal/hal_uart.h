@@ -32,6 +32,7 @@
 
 /*=========================================================  INCLUDE FILES  ==*/
 #include "compiler.h"
+#include "hal_generic.h"
 
 /*===============================================================  DEFINES  ==*/
 
@@ -84,10 +85,10 @@ enum esUartStopBit {
  * @brief       Moguce greske koje UART drajver moze da detektuje
  */
 enum esUartError {
-    ES_UART_ERR_OVERRUN,//!< ES_UART_ERR_OVERRUN
-    ES_UART_ERR_FRAMING,//!< ES_UART_ERR_FRAMING
-    ES_UART_ERR_NOISE,  //!< ES_UART_ERR_NOISE
-    ES_UART_ERR_PARITY, //!< ES_UART_ERR_PARITY
+    ES_UART_ERR_OVERRUN,
+    ES_UART_ERR_FRAMING,
+    ES_UART_ERR_NOISE,
+    ES_UART_ERR_PARITY
 };
 
 /**
@@ -160,17 +161,9 @@ struct esUartDef {
  *              @c prio prioritet.
  *
  *              Moguce vrednosti:
- *              - ES_PRIO_IDLE,
- *              - ES_PRIO_VERY_LOW,
- *              - ES_PRIO_LOW,
- *              - ES_PRIO_BELOW_NORMAL,
- *              - ES_PRIO_NORMAL,
- *              - ES_PRIO_ABOVE_NORMAL,
- *              - ES_PRIO_HIGH,
- *              - ES_PRIO_VERY_HIGH,
- *              - ES_PRIO_REALTIME
+ *              - Zavisno od porta
  */
-    enum esHandlerPrio  prio;
+    uint8_t             prio;
 
 /**
  * @brief       Funkcija za predaju

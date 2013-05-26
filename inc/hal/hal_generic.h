@@ -32,73 +32,8 @@
 
 /*=========================================================  INCLUDE FILES  ==*/
 #include "compiler.h"
-#include "hal_uart.h"
 
 /*===============================================================  MACRO's  ==*/
-#if defined(__DOXYGEN__)
-/*------------------------------------------------------------------------*//**
- * @name        Konstante mogucnosti HAL modula
- * @details     Ovi makroi govore da za datu funkcionalnost postoje HAL moduli.
- *              Ukoliko je makro definisan onda HAL podrzava datu funkcionalnost.
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       HAL podrzava start-up kod i linker skriptu
- */
-# define ES_HAL_FEATURE_STARTUP
-
-/**
- * @brief       HAL podrzava CPU
- */
-# define ES_HAL_FEATURE_CPU
-
-/**
- * @brief       HAL podrzava interrupt kontroler
- */
-# define ES_HAL_FEATURE_INTERRUPT
-
-/** @} *//*-------------------------------------------------------------------*/
-/*------------------------------------------------------------------------*//**
- * @name        Identifikacione i opisne konstante mikrokontrolera
- * @details     Konstantne niske (string) koje identifikuju mikrokontroler
- * @{ *//*--------------------------------------------------------------------*/
-
-/**
- * @brief       Ime mikrokontrolera
- * @details     Konstantna niska mikrokontrolera, na primer: "STM32F100RB"
- */
-# define ES_HAL_MCU_NAME
-
-/**
- * @brief       Familija mikrokontrolera
- * @details     Konstantna niska familije mikrokontrolera, na primer: "STM32F10x"
- */
-# define ES_HAL_MCU_FAMILY
-
-/**
- * @brief       Proizvodzac mikrokontrolera
- * @details     Konstantna niska imena proizvodzaca, na primer: "ST Microelectronics"
- */
-# define ES_HAL_MCU_MANUF
-
-/**
- * @brief       Velicina FLASH (programske) memorije u bajtovima
- * @details     Tip podatka je unsigned long, odnosno, uint32_t. Na primer:
- *              32768UL
- */
-# define ES_HAL_MCU_FLASH
-
-/**
- * @brief       Velicina RAM memorije u bajtovima
- * @details     Vraca velicinu RAM memorije u bajtovima. Ukoliko embedded sistem
- *              poseduje vise RAM memorija, vraca se velicina RAM memorije za
- *              cuvanje programskih podataka.
- */
-# define ES_HAL_MCU_RAM
-
-/** @} *//*-------------------------------------------------------------------*/
-#endif /* __DOXYGEN__ */
-
 /*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
 extern "C" {
