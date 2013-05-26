@@ -28,21 +28,12 @@
 							<targetPlatform id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug.855440071" isAbstract="false" name="Linux Platform" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.platform.debug"/>
 							<builder buildPath="${workspace_loc:/esolid-hal}/dbg-STM32F10x_MD_VL-arm-none-eabi-gcc" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug.716849432" keepEnvironmentInBuildfile="false" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.builder.debug"/>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug.384848196" name="ARM Sourcery Linux GCC Assembler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.assembler.debug">
-								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.1027131169" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/port/arm-none-eabi-gcc/common}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/port/arm-none-eabi-gcc/v7-m}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/inc/common}&quot;"/>
-								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.1027131169" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath"/>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.1565988792" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input"/>
 							</tool>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug.56150641" name="ARM Sourcery Linux GCC C Compiler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.lib.c.compiler.debug">
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level.959379593" name="Optimization level" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.optimization.level" value="org.eclipse.cdt.cross.arm.gnu.base.option.optimization.level.none" valueType="enumerated"/>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths.1326099400" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/port/arm-none-eabi-gcc/common}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/port/arm-none-eabi-gcc/v7-m}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-os/inc/common}&quot;"/>
 									<listOptionValue builtIn="false" value="../../esolid-hal/inc"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-hal/port/arm-none-eabi-gcc/common}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esolid-hal/port/arm-none-eabi-gcc/stm32f10x}&quot;"/>
@@ -73,18 +64,7 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
-				<externalSettings containerId="esolid-os;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
-					<externalSetting>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-os/inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-os/port/arm-none-eabi-gcc/common"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-os/port/arm-none-eabi-gcc/v7-m"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/esolid-os/inc/common"/>
-						<entry flags="" kind="libraryPath" name="../esolid-os/dbg-o0-gcc"/>
-						<entry flags="" kind="libraryFile" name="esolid-os" srcPrefixMapping="" srcRootPath=""/>
-					</externalSetting>
-				</externalSettings>
-			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
