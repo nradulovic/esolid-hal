@@ -31,12 +31,14 @@
 #define HAL_USART_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
+#include "compiler.h"
+
 /*===============================================================  DEFINES  ==*/
 
 /*------------------------------------------------------------------------*//**
  * @name        Moguce opcije za UART modul
  * @brief       Ove opcije se koriste za popunjavanje definicione strukture
- *              @ref uartDef.
+ *              @ref esUartDef.
  * @{ *//*--------------------------------------------------------------------*/
 
 /**
@@ -88,6 +90,11 @@ enum esUartError {
     ES_UART_ERR_PARITY, //!< ES_UART_ERR_PARITY
 };
 
+/**
+ * @brief       Moguce greske koje UART drajver detektuje
+ */
+typedef enum esUartError esUartError_T;
+
 /*===============================================================  MACRO's  ==*/
 /*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
@@ -96,25 +103,24 @@ extern "C" {
 
 /*============================================================  DATA TYPES  ==*/
 
-/**
- * @brief       Moguce greske koje UART drajver detektuje
+/**@brief       Forward declaration of uart driver structure
  */
-typedef enum esUartError esUartError_T;
+typedef struct esUart esUart_T;
 
 /**
  * @brief       Funkcija za opsluzivanje predaje/prijema
  */
-typedef void (* pUartHandler_T) (uint8_t *, size_t);
+typedef size_t (* pUartHandler_T) (uint8_t *, size_t);
 
 /**
  * @brief       Funkcija za opsluzivanje nastalih gresaka
  */
-typedef void (* pUartErrHandler_T) (esUartError_T);
+typedef size_t (* pUartErrHandler_T) (esUartError_T);
 
 /**
  * @brief       Definiciona struktura koja konfigurise UART drajver.
  */
-typedef struct uartDef {
+struct esUartDef {
 /**
  * @brief       Brzina prenosa
  */
@@ -187,7 +193,11 @@ typedef struct uartDef {
  * @details     Ova funkcija se poziva ukoliko je detektovana neka od gresaka.
  */
     pUartErrHandler_T   pErrorHandler;
-} esUartDef_T;
+};
+
+/**@brief       Tip definicione strukture
+ */
+typedef struct esUartDef esUartDef_T;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
@@ -195,11 +205,11 @@ typedef struct uartDef {
 /**
  * @brief       Inicijalizacija UART modula i hardvera.
  * @param       uart                    UART koji se konfigurise
- * @param       uartDef                 pokazivac na definicionu strukturu,
+ * @param       esUartDef                 pokazivac na definicionu strukturu,
  */
 void esUartInit(
-    esUart_T        uart
-    const C_ROM esUartDef_T * uartDef);
+    esUart_T        * uart,
+    const PORT_C_ROM esUartDef_T * uartDef);
 
 /**
  * @brief       DeInicijalizacija UART modula i hardvera.
@@ -207,39 +217,39 @@ void esUartInit(
  * @details     Funkcija postavlja hardver u rezim male potrosnje.
  */
 void esUartDeInit(
-    esUart_T        uart);
+    esUart_T  *     uart);
 
 /**
  * @brief       Vraca status UART harverskog modula.
  */
 esDevStatus_T esUartStatus(
-    esUart_T        uart);
+    esUart_T *      uart);
 
 esDevStatus_T esUartStatus(
-    esUartDrv_T     * uart);
+    esUart_T *      uart);
 
 void esUartTxChar(
-    esUartDrv_T     * aUart,
-    uint8_t         aData);
+    esUart_T *      uart,
+    uint8_t         data);
 
 void esUartTxBegin(
-    esUartDrv_T     * aUart,
-    uint8_t         * aBuffer,
-    size_t          aSize);
+    esUart_T *      uart,
+    uint8_t *       buff,
+    size_t          buffSize);
 
 size_t esUartTxEnd(
-    esUartDrv_T     * aUart);
+    esUart_T *      uart);
 
 esDevStatus_T esUartRxStatus(
-    esUartDrv_T     * aUart);
+    esUart_T *      uart);
 
 void esUartRxBegin(
-    esUartDrv_T     * aUart,
-    uint8_t         * aBuffer,
-    size_t          aSize);
+    esUart_T *      uart,
+    uint8_t *       buff,
+    size_t          buffSize);
 
 size_t esUartRxEnd(
-    esUartDrv_T     * aUart);
+    esUart_T *      uart);
 
 /*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
