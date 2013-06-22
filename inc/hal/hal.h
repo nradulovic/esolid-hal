@@ -1,4 +1,4 @@
-/******************************************************************************
+/*
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -31,6 +31,13 @@
  *      3. ./esolid-hal/startup/<compiler>/<arch name>
  * - references
  *      1. CMSIS
+ * - exported include paths:
+ *      1. ./esolid-hal/inc
+ * - exported lib include paths:
+ *      1. ./esolid-hal/<profile name>
+ *      2. ./esolid-hal/linker-scripts/<compiler>/variant/<variant name>
+ * - exported lib:
+ *      1. esolid-hal
  *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
