@@ -1,7 +1,7 @@
 /******************************************************************************
  * This file is part of esolid-hal
  *
- * Template version: 1.1.18 (10.03.2013)
+ * Template version: 1.1.15 (20.05.2012)
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
@@ -24,65 +24,51 @@
  * e-mail  :    blueskyniss@gmail.com
  *//***********************************************************************//**
  * @file
- * @author  	Nenad Radulović
- * @brief       Interfejs za IAR kompajler, port klasa: common.
- * @addtogroup  port_iar
+ * @author  	Dejan Ristic
+ * @brief       Profil za ATmega32u2 mikrokontroler
+ * @addtogroup  port_atmega32u2
  *********************************************************************//** @{ */
 
-#ifndef IAR_COMMON_H_
-#define IAR_COMMON_H_
+#ifndef ATMEGA32U2_PROFILE_H_
+#define ATMEGA32U2_PROFILE_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
 /*===============================================================  MACRO's  ==*/
+/*------------------------------------------------------------------------*//**
+ * @name        ATmega32u2 opisne konstante
+ * @brief       Ovde se nalaze konstante koje daju vise informacija o
+ *              mikrokontroleru i periferiji.
+ * @{ *//*--------------------------------------------------------------------*/
+#define ES_HAL_MCU_NAME                 "ATmega32u2"
+#define ES_HAL_MCU_FLASH                32768UL
+#define ES_HAL_MCU_RAM                  1024UL
 
-#define C_FUNC
-#define C_FILE
-#define C_LINE
-#define C_EXT
-#define C_PACKED                        __packed
-#define C_ALIGNED(expr)
-#define C_COMPILE_BARRIER()
-#define C_NORETURN                      __noreturn
-#define C_UNUSED_ARG(type,arg)
-#define C_UNUSED_VAR(type,name)
-#define C_USED_VAR(type,name)
-#define C_INLINE_ALWAYS
-#define C_INLINE
-#define C_NOINLINE
-#define C_UNUSED_FUNC
-#define C_USED_FUNC
-#define C_RESTRICT
-#define C_NAKED
+/** @} *//*-------------------------------------------------------------------*/
 
-#define C_CONTAINER_OF(ptr, type, member)                                       \
-        (type *)((uint8_t *)(ptr) - offsetof(type, member))
+/**
+ * @brief       Definisanje podfamilije
+ * @notapi
+ */
+/*
+ * Ovaj define sam koristo da odredim podfamiliju kod STM32. Mozda kod Atmela
+ * nije potreban
+ */
+# define                                PORT_SUBFAM_ATMEGA
 
-#define C_WEAK_FUNC                     __weak
-#define C_ROM
-#define C_ROM_VAR
-#define C_INTERRUPT_HANDLER(name)       name
-
-/*------------------------------------------------------  C++ extern begin  --*/
-#if defined(__cplusplus)
-extern "C" {
-#endif
+/**
+ * @brief       Definisanje maksimalne frekvencije taktnog signala
+ * @notapi
+ */
+/*
+ * Ovaj define sam koristio za start-up kod. Mozda kod ATmega nije potreban
+ */
+#define PORT_MAX_CPU_FREQ_              16000000UL
 
 /*============================================================  DATA TYPES  ==*/
-
-typedef enum boolType {
-    FALSE = 0U,
-    TRUE = 1U
-} bool_T;
-
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
-/*--------------------------------------------------------  C++ extern end  --*/
-#if defined(__cplusplus)
-}
-#endif
-
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of iar.h
+ * END of atmega32u2_profile.h
  ******************************************************************************/
-#endif /* IAR_COMMON_H_ */
+#endif /* ATMEGA32U2_PROFILE_H_ */

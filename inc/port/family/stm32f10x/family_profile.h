@@ -22,71 +22,56 @@
  * e-mail  :    blueskyniss@gmail.com
  *//******************************************************************************************//**
  * @file
- * @author      Nenad Radulovic
- * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
+ * @author  	Nenad Radulovic
+ * @brief       Profil familije za STM32F10x seriju.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  intr_intf
+ * @addtogroup  hal_stm32f10x
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_INTERRUPT_H_
-#define ARCH_INTERRUPT_H_
+#ifndef FAMILY_PROFILE_H_
+#define FAMILY_PROFILE_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#define ES_FEATURE_GPIO
+#define ES_FEATURE_UART
+#define ES_FEATURE_TIMER
+#define ES_FEATURE_CRC
+
+#if defined(ES_ENABLE_GPIO) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/gpio_lld.h"
+#endif
+
+#if defined(ES_ENABLE_UART) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/uart_lld.h"
+#endif
+
+#if defined(ES_ENABLE_TIMER) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/timer_lld.h"
+#endif
+
+#if defined(ES_ENABLE_CRC) || defined(__DOXYGEN__)
+# include "port/family/stm32f10x/crc_lld.h"
+#endif
+
 /*==================================================================================  DEFINES  ==*/
-/*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
+ * @name        Identifikacione konstante
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
+#define ES_HAL_MCU_FAMILY                                                       \
+    "STM32F10x"
 
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
-
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
-
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
-
-#define ES_CRITICAL_DECL()													    \
-	uint32_t irqLock_
-
-#define ES_CRITICAL_ENTER(prio)						    					    \
-    do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
-    } while (0)
-
-#define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
+#define ES_HAL_MCU_MANUF                                                        \
+    "STMicroelectronics"
 
 /** @} *//*--------------------------------------------------------------------------------------*/
-
+/*==================================================================================  MACRO's  ==*/
 /*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Predefinisani prioriteti prekidnih rutina
- *//*--------------------------------------------------------------------------------------------*/
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 1
-};
-
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of interrupt.h
+ * END of family_profile.h
  *************************************************************************************************/
-#endif /* ARCH_INTERRUPT_H_ */
+#endif /* FAMILY_PROFILE_H_ */

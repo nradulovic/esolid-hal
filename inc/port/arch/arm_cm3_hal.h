@@ -22,71 +22,65 @@
  * e-mail  :    blueskyniss@gmail.com
  *//******************************************************************************************//**
  * @file
- * @author      Nenad Radulovic
- * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
+ * @author  	Nenad Radulovic
+ * @brief       Profil arhitekture za ARM Cortex-M3.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  intr_intf
+ * @addtogroup  hal_arm_cm3
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_INTERRUPT_H_
-#define ARCH_INTERRUPT_H_
+#ifndef ARM_CM3_HAL_H_
+#define ARM_CM3_HAL_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
-/*==================================================================================  DEFINES  ==*/
-/*==================================================================================  MACRO's  ==*/
 /*-------------------------------------------------------------------------------------------*//**
- * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
+ * @name        Konstante mogucnosti HAL modula
  * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
-
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
-
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
-
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
-
-#define ES_CRITICAL_DECL()													    \
-	uint32_t irqLock_
-
-#define ES_CRITICAL_ENTER(prio)						    					    \
-    do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
-    } while (0)
-
-#define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
-
+#define ES_HAL_FEATURE_CPU
+#define ES_HAL_FEATURE_INTERRUPT
 /** @} *//*--------------------------------------------------------------------------------------*/
 
-/*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Predefinisani prioriteti prekidnih rutina
- *//*--------------------------------------------------------------------------------------------*/
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 1
-};
+#if defined(OPT_HAL_CPU)
+# define ES_HAL_ENABLE_CPU
+# if defined(__GNUC__)
+#  include "port/arch/arm_cm3/GCC/cpu.h"
+# elif defined(__IAR_SYSTEMS_ICC__)
+#  include "port/arch/arm_cm3/IAR/cpu.h"
+# endif
+#endif
 
+#if defined(OPT_HAL_INTERRUPT)
+# define ES_HAL_ENABLE_INTERRUPT
+# if defined(__GNUC__)
+#  include "port/arch/arm_cm3/GCC/interrupt.h"
+# elif defined(__IAR_SYSTEMS_ICC__)
+#  include "port/arch/arm_cm3/IAR/interrupt.h"
+# endif
+#endif
+
+/*==================================================================================  DEFINES  ==*/
+/*-------------------------------------------------------------------------------------------*//**
+ * @name        Opisne konstante
+ * @brief       Ovde se nalaze konstante koje daju vise informacija o
+ *              mikroprocesoru i proizvodjacu.
+ * @{ *//*---------------------------------------------------------------------------------------*/
+#define ES_HAL_CPU_NAME                 "Cortex-M3"
+#define ES_HAL_CPU_SERIES               "ARMv7-M"
+#define ES_HAL_CPU_MANUF                "ARM"
+/** @} *//*--------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------*//**
+ * @brief       Definisanje PORT konstante - arhitektura
+ *//*--------------------------------------------------------------------------------------------*/
+#define PORT_ARCH_ARM_CM3
+
+/*==================================================================================  MACRO's  ==*/
+/*===============================================================================  DATA TYPES  ==*/
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of interrupt.h
+ * END of arm_cm3_hal.h
  *************************************************************************************************/
-#endif /* ARCH_INTERRUPT_H_ */
+#endif /* ARM_CM3_HAL_H_ */

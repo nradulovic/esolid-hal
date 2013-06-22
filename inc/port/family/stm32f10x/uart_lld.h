@@ -20,73 +20,79 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *************************************************************************************************/
+
+
+/*********************************************************************************************//**
  * @file
- * @author      Nenad Radulovic
- * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
+ * @author  	Nenad Radulovic
+ * @brief       Interfejs UART Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  intr_intf
+ * @addtogroup  stm32l1xx_md_uart_impl
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_INTERRUPT_H_
-#define ARCH_INTERRUPT_H_
+#ifndef UART_LLD_H_
+#define UART_LLD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#include "stm32l1xx_rcc.h"
+#include "stm32l1xx_gpio.h"
+#include "stm32l1xx_usart.h"
+
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
-
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
-
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
-
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
-
-#define ES_CRITICAL_DECL()													    \
-	uint32_t irqLock_
-
-#define ES_CRITICAL_ENTER(prio)						    					    \
-    do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
-    } while (0)
-
-#define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
-
-/** @} *//*--------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------  C++ extern begin  --*/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*===============================================================================  DATA TYPES  ==*/
+struct uartId;
+struct uartIntr;
+struct uartDef;
+
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Predefinisani prioriteti prekidnih rutina
+ * @brief       Upravljacka struktura
+ * @details     Ova struktura opisuje koji je identifikator drajvera, registri i
+ *              pinovi koji se koriste.
  *//*--------------------------------------------------------------------------------------------*/
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 1
+struct uartDrv {
+/**
+ * @brief       Pokazivac na identifikacionu strukturu
+ */
+    struct uartId       * drvId;
+
+/**
+ * @brief       Pokazivac na internu strukturu
+ */
+    struct uartIntr     * drvIntr;
+
+/**
+ * @brief       Pokazivac na definicionu strukturu
+ */
+    struct uartDef      * drvDef;
+
+/**
+ * @brief       Pokazivac na registre hardvera
+ */
+    USART_TypeDef       * regs;
+
+/**
+ * @brief
+ */
 };
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
+/*---------------------------------------------------------------------------  C++ extern end  --*/
+#ifdef __cplusplus
+}
+#endif
+
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 /** @endcond *//** @} *//*************************************************************************
- * END of interrupt.h
+ * END of uart_lld.h
  *************************************************************************************************/
-#endif /* ARCH_INTERRUPT_H_ */
+#endif /* UART_LLD_H_ */

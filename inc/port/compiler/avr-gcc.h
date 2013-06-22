@@ -1,22 +1,20 @@
 /******************************************************************************
- * This file is part of esolid-hal
- *
- * Template version: 1.1.18 (10.03.2013)
+ * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
  *
- * esolid-hal is free software; you can redistribute it and/or modify
+ * eSolid is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * esolid-hal is distributed in the hope that it will be useful,
+ * eSolid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with esolid-hal; if not, write to the Free Software
+ * along with eSolid; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  *
@@ -24,25 +22,32 @@
  * e-mail  :    blueskyniss@gmail.com
  *//***********************************************************************//**
  * @file
- * @author  	Nenad Radulović
- * @brief       Interfejs za IAR kompajler, port klasa: common.
- * @addtogroup  port_iar
+ * @author      Nenad Radulović
+ * @brief       Interfejs za AVR-GCC kompajler, port klasa: common.
+ * @addtogroup  port_avr_gcc
  *********************************************************************//** @{ */
 
-#ifndef IAR_COMMON_H_
-#define IAR_COMMON_H_
+#ifndef GCC_COMPILER_H_
+#define GCC_COMPILER_H_
 
 /*=========================================================  INCLUDE FILES  ==*/
+
+#include <avr/pgmspace.h>
+
 /*===============================================================  MACRO's  ==*/
 
-#define C_FUNC
+#if (__STDC_VERSION < 199901L) && (__GNUC__ >= 2) || defined(__DOXYGEN__)
+# define C_FUNC                         __FUNCTION__
+#else
+# define C_FUNC                         "Unknown"
+#endif
 #define C_FILE
 #define C_LINE
 #define C_EXT
-#define C_PACKED                        __packed
+#define C_PACKED
 #define C_ALIGNED(expr)
 #define C_COMPILE_BARRIER()
-#define C_NORETURN                      __noreturn
+#define C_NORETURN
 #define C_UNUSED_ARG(type,arg)
 #define C_UNUSED_VAR(type,name)
 #define C_USED_VAR(type,name)
@@ -57,13 +62,13 @@
 #define C_CONTAINER_OF(ptr, type, member)                                       \
         (type *)((uint8_t *)(ptr) - offsetof(type, member))
 
-#define C_WEAK_FUNC                     __weak
-#define C_ROM
+#define C_WEAK_FUNC
+#define C_ROM                           __ATTR_PROGMEM__
 #define C_ROM_VAR
 #define C_INTERRUPT_HANDLER(name)       name
 
 /*------------------------------------------------------  C++ extern begin  --*/
-#if defined(__cplusplus)
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -77,12 +82,12 @@ typedef enum boolType {
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 /*--------------------------------------------------------  C++ extern end  --*/
-#if defined(__cplusplus)
+#ifdef __cplusplus
 }
 #endif
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************
- * END of iar.h
+ * END of gcc.h
  ******************************************************************************/
-#endif /* IAR_COMMON_H_ */
+#endif /* GCC_COMPILER_H_ */

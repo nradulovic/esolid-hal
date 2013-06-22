@@ -22,71 +22,98 @@
  * e-mail  :    blueskyniss@gmail.com
  *//******************************************************************************************//**
  * @file
- * @author      Nenad Radulovic
- * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
+ * @author  	Nenad Radulovic
+ * @brief       Interfejs/konfiguracija GPIO Low Level Driver modula.
  * ------------------------------------------------------------------------------------------------
- * @addtogroup  intr_intf
+ * @addtogroup  stm32l1xx_md_gpio_impl
  ****************************************************************************************//** @{ */
 
 
-#ifndef ARCH_INTERRUPT_H_
-#define ARCH_INTERRUPT_H_
+#ifndef GPIO_LLD_H_
+#define GPIO_LLD_H_
 
 /*============================================================================  INCLUDE FILES  ==*/
+#include "stm32l1xx.h"
+
 /*==================================================================================  DEFINES  ==*/
 /*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
-
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
-
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
-
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
-
-#define ES_CRITICAL_DECL()													    \
-	uint32_t irqLock_
-
-#define ES_CRITICAL_ENTER(prio)						    					    \
+#if defined(OPT_OPTIMIZE_SPEED)
+# define ES_GPIO_FAST_SET(gpio, pins)                                           \
     do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
+        gpio->BSRRL = pins;                                                     \
     } while (0)
 
-#define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
+# define ES_GPIO_FAST_RESET(gpio, pins)                                         \
+    do {                                                                        \
+        gpio->BSRRH = pins;                                                     \
+    } while (0)
 
-/** @} *//*--------------------------------------------------------------------------------------*/
+#endif
 
 /*===============================================================================  DATA TYPES  ==*/
+struct gpioId;
+struct gpioIntr;
+struct gpioDef;
+
 /*-------------------------------------------------------------------------------------------*//**
- * @brief       Predefinisani prioriteti prekidnih rutina
+ * @brief       Upravljacka struktura
+ * @details     Ova struktura opisuje koji je identifikator drajvera, registri i
+ *              pinovi koji se koriste. U slucaju da se koristi optimizacija po
+ *              brzini, onda se u nju direktno dodavaju adrese registara za brzi
+ *              pristup. U tom slucaju moguce je koristi makroe.
  *//*--------------------------------------------------------------------------------------------*/
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 1
+struct gpioDrv {
+/**
+ * @brief       Pokazivac na identifikacionu strukturu
+ */
+    struct gpioId       * drvId;
+
+/*
+ * GPIO drajver nema potrebu da poseduje direktan pokazivac na internu strukturu.
+ * Internoj strukturi se pristupa preko ID strukture.
+ */
+#if 0
+/**
+ * @brief       Pokazivac na internu strukturu
+ */
+    struct gpioIntr     * drvIntr;
+#endif
+
+/*
+ * GPIO drajver nema potrebu da poseduje pokazivac na definicionu strukturu.
+ */
+#if 0
+/**
+ * @brief       Pokazivac na definicionu strukturu
+ */
+    struct gpioDef      * drvDef;
+#endif
+
+/**
+ * @brief       Pokazivac na registre hardvera
+ */
+    volatile GPIO_TypeDef * regs;
+
+/**
+ * @brief       Pinovi porta koji se koriste od strane ove upravljacke strukture.
+ */
+    uint16_t            pins;
 };
 
 /*=========================================================================  GLOBAL VARIABLES  ==*/
 /*======================================================================  FUNCTION PROTOTYPES  ==*/
 /*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
+#if defined(ES_ENABLE_GPIO)
+# if defined(OPT_HAL_GPIO_USE_F)
+#  error "HAL->GPIO: This port does not support PORT F."
+# endif
+# if defined(OPT_HAL_GPIO_USE_G)
+#  error "HAL->GPIO: This port does not support PORT G."
+# endif
+#endif
+
 /** @endcond *//** @} *//*************************************************************************
- * END of interrupt.h
+ * END of gpio_lld.h
  *************************************************************************************************/
-#endif /* ARCH_INTERRUPT_H_ */
+#endif /* GPIO_LLD_H_ */
