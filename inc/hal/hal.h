@@ -20,6 +20,17 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
+ * ----------------------------------------------------------------------------
+ *
+ * Project settings:
+ * - include paths:
+ *      1. ./esolid-hal/inc
+ * - source paths:
+ *      1. ./esolid-hal, exclude: doc/,src/port,startup/
+ *      2. ./esolid-hal/src/port/family/<family name>
+ *      3. ./esolid-hal/startup/<compiler>/<arch name>
+ * - references
+ *      1. CMSIS
  *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
