@@ -1,0 +1,124 @@
+Verzija 1.0a04
+- Početak rada na Debug modulu
+- Tagovanje verzije
+
+Verzija 1.0a03
+
+gpio_lld.c
+- refaktor makroa HAL_CRITICAL_x => ES_CRITICAL_x
+- TREBA VRATITI NA HAL_CRITICAL!!!
+
+gpio_pkg.h
+- sređivanje formata
+
+crc.h - kreiran
+- ubačene su funkcije za softversko izračunavanje CRC-a
+
+crc_pkg.h - kreiran
+- privatni interfejs
+
+variant_profile.h - kreiran
+- profil varijante
+
+gpio_lld.h
+- sređivanje formata
+
+crc.h - obrisan
+- sklonjena je Dekijeva implementacija
+
+cpu.h - obrisan
+- nepotreban
+
+linux_x86_x64/hal/compiler
+- refaktor makroa HAL_x => ES_x
+
+x86/GCC/compiler
+- refaktor makroa HAL_x => ES_x
+
+x86/interrupt.h
+- refaktor makroa HAL_x => ES_x
+
+x86/cpu.h
+- refaktor makroa HAL_x => ES_x
+
+arm_cm3/interrupt.h
+- sređivanje formata
+- refaktor makroa HAL_x => ES_x
+- pojednostavljeni su pojedini makroi, ostali su izbačeni
+
+arm_cm3/cpu.h
+- sređivanje formata
+- refaktor makroa HAL_x => ES_x
+- dodato je još atributa o procesoru
+
+arm_cm3/arch_profile.h - kreiran
+- profile arhitekture
+
+hal_cfg.h
+- sređivanje formata
+- komentarisana je opcija za prioritet
+- uklonjene su pogrešne provere u vezi sa UART-om
+
+hal_compiler.h
+- sređivanje formata
+
+hal_cpu.h
+- sređivanje formata
+- refaktor makroa HAL_x => ES_x
+- treba da se obriše smeđe vezano za Systick
+
+hal_crc.h - rekreiran
+- normalna implementacija CRC-a
+
+hal_gpio.h
+- dodato je FEATURE ispitivanje
+
+hal_interrupt.h
+- sređivanje formata
+- refaktor makroa HAL_x => ES_x
+- pojednostavljeni su pojedini makroi, ostali su izbačeni
+
+hal_support.h - obrisan
+- suvišan je
+
+hal_timer.h
+- sređivanje formata
+- dodato je FEATURE ispitivanje
+
+hal_uart.h
+- sređivanje formata
+- dodato je FEATURE ispitivanje
+
+hal.h
+- sređivanje formata
+- dodate su konstante za FEATURE i identifikaciju
+- dodati komentari
+
+Verzija 1.0a02
+
+Urađen je HAL za GPIO modul za port STM32L1xx. 
+
+inc/hal/hal.h
+- dodat je enumerator za status drajvera
+
+inc/hal/hal_compiler.h
+- dodat je C_INTERRUPT_HANDLER makro za deklaraciju prekidnih rutina
+- makro C_INLINE je preimenovan u C_INLINE_ALWAYS, a kreiran je nov makro C_INLINE
+    koji radi isto što i C_INLINE_ALWAYS samo što je kompajleru ostavljena mogućnost
+    da ne inline-uje funkciju.
+
+inc/port/common/GCC/compiler.h
+- videti inc/hal/hal_compiler.h
+
+inc/hal/hal_gpio.h
+- kreiran je potpuno nov interfejs
+
+inc/hal/hal_uart.h
+- kreiran je potpuno nov interfejs (UART hardveru se pristupa kao char ili block device)
+
+inc/hal/cfg/hal_cfg.h
+- vrsi se minimalna provera konfiguracionih opcija
+
+src/hal/uart_pkg.h
+- ovde se nalazi privatan interfejs uart.c modula i javan interfejs uart.c (PORT) modula
+
