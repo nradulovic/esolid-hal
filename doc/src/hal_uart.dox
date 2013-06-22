@@ -1,0 +1,9 @@
+/**************************************************************************//**
+@file
+@addtogroup     hal_intf
+*//** @{ *//**
+@defgroup       hal_uart_intf UART
+@brief          Universal asynchronous receiver/transmitter
+
+
+**//** @} *//******************************************************************/

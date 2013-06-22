@@ -1,0 +1,43 @@
+/**************************************************************************//**
+@file
+@addtogroup     hal_intf
+*//** @{ *//**
+@defgroup       hal_compiler C Compiler
+@brief          C Compiler 
+@section        hal_compiler_types Tipovi podataka
+@subsection     hal_compiler_basic_typed Osnovni tipovi podataka
+
+@code
+uint8_t
+uint16_t
+uint32_t
+int8_t
+int16_t
+int32_t
+@endcode
+
+Ove tipove garantuje C99 standard i definisani su u "stdint.h" za svaki port.
+Ukoliko port nema definisane ove tipove, HAL ih definise umesto platforme.
+
+@code
+int_fast8_t
+int_fast16_t
+int_fast32_t
+uint_fast8_t
+uint_fast16_t
+uint_fast32_t
+@endcode
+
+Ovi tipovi podataka se definisu za potrebe brze manipulacije podataka na stetu 
+veceg koriscenja memorijskog prostora.
+
+@section        hal_compiler_ext_types Atomizirani tipovi podataka
+
+@code
+atomic_T
+@endcode
+
+Za ove tipove postoji garancija da se promenljive ovog tipa pisu i citaju u 
+jednoj instrukciji. U zavisnosti od arhitekture koja se koristi velicina ovog 
+tipa se menja, ali je minimum velicina jedan bajt.
+**//** @} *//******************************************************************/
