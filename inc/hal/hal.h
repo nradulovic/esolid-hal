@@ -67,17 +67,11 @@
 /*======================================================  GLOBAL VARIABLES  ==*/
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
-#if !defined(ES_HAL_ENABLE_STARTUP)
 /**
  * @brief       Vrsi inicijalizaciju eSolid HAL sistema
- * @details     Poziva se samo kada se ne koristi podrazumevani HAL start-up kod.
- *              U slučaju kada se ne koristi HAL start-up kod korisnik mora da
- *              explicitno pozove ovu funkciju pre pozivanja bilo koje funkcije
- *              iz eSolid sistema.
  */
 void esHalInit(
     void);
-#endif
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************

@@ -64,13 +64,14 @@ void halInit(
 
 /*====================================  GLOBAL PUBLIC FUNCTION DEFINITIONS  ==*/
 
-#if !defined(ES_HAL_ENABLE_STARTUP)
+
 void esHalInit(
     void) {
 
+#if !defined(ES_HAL_ENABLE_STARTUP)
     halInit();
-}
 #endif
+}
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 /** @endcond *//** @} *//******************************************************

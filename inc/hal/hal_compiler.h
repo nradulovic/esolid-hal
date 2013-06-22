@@ -32,11 +32,7 @@
 
 /*=========================================================  INCLUDE FILES  ==*/
 #if defined(__GNUC__)
-# if defined(__AVR__)
-#  include "port/compiler/avr-gcc.h"
-# elif defined(__ARM_EABI__)
-#  include "port/compiler/gcc.h"
-# endif
+# include "port/compiler/gcc.h"
 #elif defined(__IAR_SYSTEMS_ICC__)
 # include "port/compiler/iar.h"
 #endif

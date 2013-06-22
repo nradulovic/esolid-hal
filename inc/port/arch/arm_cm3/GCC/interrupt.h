@@ -1,4 +1,4 @@
-/*************************************************************************************************
+/******************************************************************************
  * This file is part of eSolid
  *
  * Copyright (C) 2011, 2012 - Nenad Radulovic
@@ -20,73 +20,70 @@
  *
  * web site:    http://blueskynet.dyndns-server.com
  * e-mail  :    blueskyniss@gmail.com
- *//******************************************************************************************//**
+ *//***********************************************************************//**
  * @file
  * @author      Nenad Radulovic
  * @brief       Interfejs Interrupt modula za ARM Cortex-M3 arhitekturu.
- * ------------------------------------------------------------------------------------------------
- * @addtogroup  intr_intf
- ****************************************************************************************//** @{ */
-
+ * @addtogroup  port_arm_cm3
+ *********************************************************************//** @{ */
 
 #ifndef ARCH_INTERRUPT_H_
 #define ARCH_INTERRUPT_H_
 
-/*============================================================================  INCLUDE FILES  ==*/
-/*==================================================================================  DEFINES  ==*/
-/*==================================================================================  MACRO's  ==*/
-/*-------------------------------------------------------------------------------------------*//**
+/*=========================================================  INCLUDE FILES  ==*/
+/*===============================================================  DEFINES  ==*/
+/*===============================================================  MACRO's  ==*/
+
+/*------------------------------------------------------------------------*//**
  * @name        Implementacija za ARM Cortex-M3 arhitekturu
- * @brief       Preferiraju se asembler komande ili intrisic funkcije za
- *              implementaciju makroa.
- * @{ *//*---------------------------------------------------------------------------------------*/
-#define ES_INT_ENABLE()                                                         \
-    __enable_irq()
+ * @{ *//*--------------------------------------------------------------------*/
 
-#define ES_INT_DISABLE()                                                        \
-    __disable_irq()
+static C_INLINE_ALWAYS void esIntEnable(
+    void) {
 
-#define ES_INT_PRIO_MASK_SET(prio)                                              \
-    __set_BASEPRI(prio)
+    __asm volatile ("cpsie i");
+}
 
-#define ES_INT_PRIO_MASK_GET()                                                  \
-    __get_BASEPRI()
+static C_INLINE_ALWAYS void esIntDisable(
+    void) {
+
+    __asm volatile ("cpsid i");
+}
+
+static C_INLINE_ALWAYS void esIntPrioMaskSet(
+    uint32_t        prio) {
+
+    __asm volatile ("msr basepri, %0" : : "r" (prio) );
+}
+
+static C_INLINE_ALWAYS uint32_t esIntPrioMaskGet(
+    void) {
+
+    uint32_t prio;
+
+    __asm volatile ("mrs %0, basepri_max" : "=r" (prio) );
+
+    return(prio);
+}
 
 #define ES_CRITICAL_DECL()													    \
 	uint32_t irqLock_
 
 #define ES_CRITICAL_ENTER(prio)						    					    \
     do {                                                                        \
-        irqLock_ = __get_BASEPRI();                                             \
-        __set_BASEPRI(prio);                                                    \
+        irqLock_ = esIntPrioMaskGet();                                          \
+        esIntPrioMaskSet(prio);                                                 \
     } while (0)
 
 #define ES_CRITICAL_EXIT()													    \
-    __set_BASEPRI(irqLock_)
+    esIntPrioMaskSet(irqLock_)
 
-/** @} *//*--------------------------------------------------------------------------------------*/
-
-/*===============================================================================  DATA TYPES  ==*/
-/*-------------------------------------------------------------------------------------------*//**
- * @brief       Predefinisani prioriteti prekidnih rutina
- *//*--------------------------------------------------------------------------------------------*/
-enum esHandlerPrio {
-    ES_PRIO_IDLE = 0,
-    ES_PRIO_VERY_LOW = 255,
-    ES_PRIO_LOW = 254,
-    ES_PRIO_BELOW_NORMAL = 192,
-    ES_PRIO_NORMAL = 128,
-    ES_PRIO_ABOVE_NORMAL = 64,
-    ES_PRIO_HIGH = 32,
-    ES_PRIO_VERY_HIGH = 2,
-    ES_PRIO_REALTIME = 1
-};
-
-/*=========================================================================  GLOBAL VARIABLES  ==*/
-/*======================================================================  FUNCTION PROTOTYPES  ==*/
-/*===================================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
-
-/** @endcond *//** @} *//*************************************************************************
+/** @} *//*-------------------------------------------------------------------*/
+/*============================================================  DATA TYPES  ==*/
+/*======================================================  GLOBAL VARIABLES  ==*/
+/*===================================================  FUNCTION PROTOTYPES  ==*/
+/*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
+/** @endcond *//** @} *//******************************************************
  * END of interrupt.h
- *************************************************************************************************/
+ ******************************************************************************/
 #endif /* ARCH_INTERRUPT_H_ */

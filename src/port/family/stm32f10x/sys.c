@@ -348,7 +348,8 @@ void sysInit(
     void) {
 
     RCC->CIR = 0UL;                                                             /* Disable all interrupts                                   */
-    esSysSpeedSet(OPT_HAL_SYS_SPEED);
+    esSysSpeedSet(
+        OPT_HAL_SYS_SPEED);
 }
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/

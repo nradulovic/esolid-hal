@@ -75,18 +75,6 @@
 # include "port/arch/arm_cm3_profile.h"
 #endif
 
-/*============================================================================*
- *
- * Architecture: AVR ATmega
- *
- *============================================================================*/
-#if defined(ATMEGA32U2)
-# define                                PORT_FOUND_
-# include "port/variant/atmega32u2.h"
-# include "port/family/atmega.h"
-# include "port/arch/avr_profile.h"
-#endif
-
 /*===============================================================  DEFINES  ==*/
 /*===============================================================  MACRO's  ==*/
 /*============================================================  DATA TYPES  ==*/
@@ -95,6 +83,7 @@
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
 
 #if !defined(PORT_FOUND_)
+# define ES_HAL_MCU_VARIANT             "Unknown MCU series"
 # if defined(__GNUC__)
 #  warning "HAL Profiles: Cannot determine MCU variant. HAL is disabled."
 # else
