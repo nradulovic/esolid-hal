@@ -31,8 +31,11 @@
 #include "hal/hal.h"
 #include "stm32f10x_pkg.h"
 
-/*=========================================================  LOCAL DEFINES  ==*/
 /*=========================================================  LOCAL MACRO's  ==*/
+
+#define VECT_TAB_OFFSET                 0x0                                     /**< Vector Table base offset field. This value must be a
+                                                                                    multiple of 0x200.                                      */
+
 /*======================================================  LOCAL DATA TYPES  ==*/
 /*=============================================  LOCAL FUNCTION PROTOTYPES  ==*/
 
@@ -350,6 +353,12 @@ void sysInit(
     RCC->CIR = 0UL;                                                             /* Disable all interrupts                                   */
     esSysSpeedSet(
         OPT_HAL_SYS_SPEED);
+
+#ifdef VECT_TAB_SRAM
+    SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET;                                    /* Vector Table Relocation in Internal SRAM.                */
+#else
+    SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET;                                   /* Vector Table Relocation in Internal FLASH.               */
+#endif
 }
 
 /*================================*//** @cond *//*==  CONFIGURATION ERRORS  ==*/
