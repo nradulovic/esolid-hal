@@ -91,11 +91,6 @@ enum esUartError {
     ES_UART_ERR_PARITY
 };
 
-/**
- * @brief       Moguce greske koje UART drajver detektuje
- */
-typedef enum esUartError esUartError_T;
-
 /*===============================================================  MACRO's  ==*/
 /*------------------------------------------------------  C++ extern begin  --*/
 #ifdef __cplusplus
@@ -103,6 +98,11 @@ extern "C" {
 #endif
 
 /*============================================================  DATA TYPES  ==*/
+
+/**
+ * @brief       Moguce greske koje UART drajver detektuje
+ */
+typedef enum esUartError esUartError_T;
 
 /**@brief       Forward declaration of uart driver structure
  */
@@ -128,11 +128,20 @@ struct esUartDef {
     uint32_t            baudrate;
 
 /**
- * @brief       Broj bitova podataka
+ * @brief       Provera parnosti
  * @details     Moguce vrednosti:
  *              - ES_UART_DATA_7_BITS,
  *              - ES_UART_DATA_8_BITS,
  *              - ES_UART_DATA_9_BITS
+ */
+
+    enum esUartParity   parity;
+/**
+ * @brief       Broj bitova podataka
+ * @details     Moguce vrednosti:
+ *              - ES_UART_PARITY_NONE,
+ *              - ES_UART_PARITY_EVEN,
+ *              - ES_UART_PARITY_ODD
  */
     enum esUartDataBits dataBits;
 
@@ -163,7 +172,7 @@ struct esUartDef {
  *              Moguce vrednosti:
  *              - Zavisno od porta
  */
-    uint8_t             prio;
+	uint8_t             prio;
 
 /**
  * @brief       Funkcija za predaju
@@ -171,7 +180,7 @@ struct esUartDef {
  *              - kada je predat jedan karakter,
  *              - kada je bafer za slanje prazan.
  */
-    pUartHandler_T      pTxHandler;
+	pUartHandler_T      pTxHandler;
 
 /**
  * @brief       Funkcija za prijem
@@ -179,20 +188,36 @@ struct esUartDef {
  *              - kada je primljen jedan karakter,
  *              - kada je bafer za prijem pun.
  */
-    pUartHandler_T      pRxHandler;
+	pUartHandler_T      pRxHandler;
 
 /**
  * @brief       Funkcija za resavanje gresaka
  * @details     Ova funkcija se poziva ukoliko je detektovana neka od gresaka.
  */
-    pUartErrHandler_T   pErrorHandler;
+	pUartErrHandler_T   pErrorHandler;
+
 };
+
 
 /**@brief       Tip definicione strukture
  */
 typedef struct esUartDef esUartDef_T;
 
 /*======================================================  GLOBAL VARIABLES  ==*/
+
+/*------------------------------------------------------------------------*//**
+ * @name        Moguce opcije za UART modul
+ * @brief       Ove opcije se koriste za popunjavanje definicione strukture
+ *              @ref esUartDef.
+ * @{ *//*--------------------------------------------------------------------*/
+extern const PORT_C_ROM esUart_T esUartA;
+extern const PORT_C_ROM esUart_T esUartB;
+extern const PORT_C_ROM esUart_T esUartC;
+extern const PORT_C_ROM esUart_T esUartD;
+extern const PORT_C_ROM esUart_T esUartE;
+extern const PORT_C_ROM esUart_T esUartF;
+extern const PORT_C_ROM esUart_T esUartG;
+extern const PORT_C_ROM esUart_T esUartH;
 /*===================================================  FUNCTION PROTOTYPES  ==*/
 
 /**
@@ -215,10 +240,7 @@ void esUartDeInit(
 /**
  * @brief       Vraca status UART harverskog modula.
  */
-esDevStatus_T esUartStatus(
-    esUart_T *      uart);
-
-esDevStatus_T esUartStatus(
+esDevStatus_T esUartTxStatus(
     esUart_T *      uart);
 
 void esUartTxChar(

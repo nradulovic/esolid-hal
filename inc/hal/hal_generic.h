@@ -91,7 +91,7 @@ typedef enum esDevStatus {
 /**
  * @brief       Vrsi inicijalizaciju eSolid HAL sistema
  * @details     Poziva se samo kada se ne koristi podrazumevani HAL start-up kod.
- *              U slučaju kada se ne koristi HAL start-up kod korisnik mora da
+ *              U sluÄ�aju kada se ne koristi HAL start-up kod korisnik mora da
  *              explicitno pozove ovu funkciju pre pozivanja bilo koje funkcije
  *              iz eSolid sistema.
  */
@@ -99,6 +99,8 @@ void esHalInit(
     void);
 #endif
 
+
+extern void assertFailled();
 /*--------------------------------------------------------  C++ extern end  --*/
 #ifdef __cplusplus
 }

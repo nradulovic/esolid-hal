@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>14</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.Database</type>
+    <coordinates>
+      <x>1652</x>
+      <y>1064</y>
+      <w>518</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>HW Register 
+descriptor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>2016</x>
+      <y>672</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>esUartDef
+struct
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2016</x>
+      <y>686</y>
+      <w>112</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+read</panel_attributes>
+    <additional_attributes>70;98;70;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Node</type>
+    <coordinates>
+      <x>2002</x>
+      <y>784</y>
+      <w>154</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>center:uartInit()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>2016</x>
+      <y>812</y>
+      <w>112</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+write</panel_attributes>
+    <additional_attributes>70;98;70;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SimpleComponent</type>
+    <coordinates>
+      <x>1652</x>
+      <y>1092</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>UART1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SimpleComponent</type>
+    <coordinates>
+      <x>1820</x>
+      <y>1148</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>UART3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SimpleComponent</type>
+    <coordinates>
+      <x>1652</x>
+      <y>1148</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>UART2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SimpleComponent</type>
+    <coordinates>
+      <x>2002</x>
+      <y>1092</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>UART4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SimpleComponent</type>
+    <coordinates>
+      <x>2002</x>
+      <y>1148</y>
+      <w>154</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>UART5</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Component</type>
+    <coordinates>
+      <x>784</x>
+      <y>224</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes> 
+'hal_uart.h
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>854</x>
+      <y>294</y>
+      <w>280</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+include</panel_attributes>
+    <additional_attributes>42;42;252;210</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Component</type>
+    <coordinates>
+      <x>1008</x>
+      <y>504</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes> 
+'uart.c
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Component</type>
+    <coordinates>
+      <x>658</x>
+      <y>504</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes> 
+'uart.h
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>812</x>
+      <y>490</y>
+      <w>224</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+include</panel_attributes>
+    <additional_attributes>42;70;196;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Component</type>
+    <coordinates>
+      <x>448</x>
+      <y>280</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes> 
+'hal_generic.h
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Component</type>
+    <coordinates>
+      <x>448</x>
+      <y>70</y>
+      <w>196</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes> 
+'compiler.h
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>602</x>
+      <y>238</y>
+      <w>210</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+include</panel_attributes>
+    <additional_attributes>42;98;182;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>602</x>
+      <y>84</y>
+      <w>210</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&gt;&gt;-
+include</panel_attributes>
+    <additional_attributes>182;196;42;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>462</x>
+      <y>140</y>
+      <w>142</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+include</panel_attributes>
+    <additional_attributes>84;42;84;140</additional_attributes>
+  </element>
+</diagram>
