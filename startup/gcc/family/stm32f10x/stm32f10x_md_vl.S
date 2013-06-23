@@ -86,7 +86,10 @@ LoopFillZerobss:
     ldr     r3, = _ebss
     cmp     r2, r3
     bcc     FillZerobss
-    bl      __libc_init_array                                                   /* Call static constructors                                 */
+/*  Call static constructors. If you use c++ uncomment the following:
+ *  bl      __libc_init_array
+ */
+
     bl      uInitLate__                                                         /* late hw initialization                                   */
     bl      halInit
     bl      kernelInit
@@ -257,16 +260,16 @@ g_pfnVectors:
  * As they are weak aliases, any function with the same name will override
  * this definition.
  */
-    
+
     .weak       NMI_Handler
     .thumb_set  NMI_Handler,Default_Handler
-  
+
     .weak       HardFault_Handler
     .thumb_set  HardFault_Handler,Default_Handler
-  
+
     .weak       MemManage_Handler
     .thumb_set  MemManage_Handler,Default_Handler
-  
+
     .weak       BusFault_Handler
     .thumb_set  BusFault_Handler,Default_Handler
 
