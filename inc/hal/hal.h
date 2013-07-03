@@ -44,6 +44,31 @@
  * @brief       Interfejs Hardware Abstraction Layer (HAL) modula.
  * @addtogroup  hal_intf
  *********************************************************************//** @{ */
+/*
+ * Include paths:
+ * 		- esolid-hal/inc
+ *
+ * Source paths:
+ * 		- esolid-hal/src/port/family/stm32f10x
+ * 		- esolid-hal/startup/gcc/family/stm32f10x
+ *
+ * Dependencies:
+ * 		- CMSIS/trunk v3.0.1
+ *
+ * Exported unclude paths:
+ * 		- esolid-hal/inc
+ *
+ * Exported library:
+ * 		- esolid-hal
+ *
+ * Exported library paths:
+ * 		- <configuration_name>
+ * 		- /esolid-hal/linker-scripts/gcc/variant/STM32F100xBxx
+ *
+ * Compiler:
+ * 		- gcc version 4.7.2 (Sourcery CodeBench Lite 2012.09-63)
+ * 		- optimization flags: -01 -fomit-frame-pointer
+ */
 
 #ifndef HAL_H_
 #define HAL_H_
